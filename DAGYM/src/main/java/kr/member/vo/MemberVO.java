@@ -18,7 +18,7 @@ public class MemberVO {
 	private String mem_photo;
 	private Date mem_reg_date;
 	private Date mem_modify_date;
-	//
+	
 	//비밀번호 일치 여부 체크
 	public boolean isCheckedPassword(String userPasswd) {
 		//회원 등급(auth) : 0탈퇴회원,1정지회원,2일반회원,9관리자
