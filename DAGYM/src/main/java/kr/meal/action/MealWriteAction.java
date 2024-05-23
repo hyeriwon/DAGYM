@@ -12,10 +12,11 @@ public class MealWriteAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		Integer user_num = 99999;
+		String meal_date = request.getParameter("meal_date");
 		request.setCharacterEncoding("UTF-8");
 		MealVO meal = new MealVO();
 		meal.setTme_num(Integer.parseInt(request.getParameter("tme_num")));
-		meal.setMeal_date(request.getParameter("meal_date"));
+		meal.setMeal_date(meal_date);
 		meal.setMem_num(user_num);
 		meal.setMeal_time(Integer.parseInt(request.getParameter("meal_time")));
 		MealDAO dao = MealDAO.getInstance();
