@@ -43,8 +43,8 @@ public class MemberDAO {
 			pstmt2.setString(2, member.getMem_id());
 			pstmt2.executeUpdate();
 			sql = "INSERT INTO member_detail (mem_num,mem_name,mem_pw,mem_phone,"
-				+ "mem_email,mem_gender,mem_birth,mem_zipcode,mem_address1,mem_address2,"
-				+ "mem_reg_date,mem_modify_date) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+				+ "mem_email,mem_gender,mem_birth,mem_zipcode,mem_address1,mem_address2) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?,?)";
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.setInt(1, num);
 			pstmt3.setString(2, member.getMem_name());
@@ -56,8 +56,7 @@ public class MemberDAO {
 			pstmt3.setString(8, member.getMem_zipcode());
 			pstmt3.setString(9, member.getMem_address1());
 			pstmt3.setString(10, member.getMem_address2());
-			pstmt3.setDate(11, member.getMem_reg_date());
-			pstmt3.setDate(12, member.getMem_modify_date());
+			pstmt3.executeUpdate();
 			//commit
 			conn.commit();
 		}catch(Exception e) {
@@ -70,7 +69,35 @@ public class MemberDAO {
 		}
 	}
 	//ID 중복 체크 및 로그인 처리
-	
+	public MemberVO checkMember(String id)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberVO member = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM member LEFT OUTER JOIN member_detail "
+					+ "USING(mem_num) WHERE mem_id=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				member = new MemberVO();
+				member.setMem_num(rs.getInt("mem_num"));
+				member.setMem_id(rs.getString("mem_id"));
+				member.setMem_auth(rs.getInt("mem_auth"));
+				member.setMem_pw(rs.getString("mem_pw"));
+				member.setMem_photo(rs.getString("mem_photo"));
+				member.setMem_email(rs.getString("mem_email"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return member;
+	}
 	//회원상세 정보
 	public MemberVO getMember(int mem_num) throws Exception{
 		Connection conn = null;
@@ -124,7 +151,7 @@ public class MemberDAO {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			sql = "UPDATE member_detail SET mem_name=?,mem_phone=?,mem_email=?,mem_gender=?,mem_birth=? "
+			sql = "UPDATE member_detail SET mem_name=?,mem_phone=?,mem_email=?,mem_gender=?,mem_birth=?, "
 					+ "mem_zipcode=?, mem_address1=?, mem_address2=?, mem_photo=?, mem_modify_date=sysdate "
 					+ "WHERE mem_num=?";
 			//PreparedStatement 객체 생성
