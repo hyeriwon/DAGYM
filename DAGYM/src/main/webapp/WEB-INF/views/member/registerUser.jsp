@@ -5,13 +5,18 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입 완료</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
 <body>
-<div>
+<div class="page-main">
+<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<h2>회원가입 완료</h2>
-	<div>
-		<div>회원가입을 완료했습니다</div>
-		<button onclick="/main/main.do">홈으로</button>
+	<div class="result-display">
+		<div class="align-center">
+		회원가입을 완료했습니다<p>
+		<button onclick="location.href='${pageContext.request.contextPath}/main/main.do'">홈으로</button>
+		</div>
+		
 	</div>
 </div>
 </body>
