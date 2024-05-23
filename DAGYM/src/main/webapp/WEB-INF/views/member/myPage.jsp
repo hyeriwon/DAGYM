@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>My Page</title>
-</head>  
+</head>
 <body>
 <div>
 	<!-- 메인페이지 header -->	
