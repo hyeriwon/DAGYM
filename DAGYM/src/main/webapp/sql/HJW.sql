@@ -22,3 +22,4 @@ create table t_menu(
 
 );
   
+create
