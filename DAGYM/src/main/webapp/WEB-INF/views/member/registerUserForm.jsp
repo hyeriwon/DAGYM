@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원가입</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -19,7 +20,7 @@ $(function(){
 		}
 		//서버와 통신
 		$.ajax({
-			url:'checkDuplicatedId.do',
+			url:'CheckDuplicatedIdAction.do',
 			type:'post',
 			data:{id:$('#id').val()},
 			dataType:'json',
@@ -48,44 +49,42 @@ $(function(){
 </script>
 </head>
 <body>
-<div>
-	<div>
+<div class="page-main">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<div class="content-main">
 		<h2>회원가입</h2>
 		<form id="register_form" action="registerUser.do" method="post">
 			<ul>
 				<li>
-					<label for="id">아이디</label>
+					<label for="id">*아이디</label>
 					<input type="text" name="id" id="id" maxlength="12" autocomplete="off" class="input-check">
 					<input type="button" value="ID중복체크" id="id_check">
 					<span id="message_id"></span>
 					<div class="form-notice">영문 숫자 혼합(8자~12자)</div>
 				</li>
 				<li>
-					<label for="name">이름</label>
+					<label for="name">*이름</label>
 					<input type="text" name="name" id="name" maxlength="10" class="input-check">
 				</li>
 				<li>
-					<label for="password">비밀번호</label>
+					<label for="password">*비밀번호</label>
 					<input type="password" name="password" id="password" maxlength="12" class="input-check">
 				</li>
 				<li>
-					<label for="phone">전화번호</label>
+					<label for="phone">*전화번호</label>
 					<input type="text" name="phone" id="phone" maxlength="15"class="input-check">
 				</li>
 				<li>
-					<label for="email">이메일</label>
+					<label for="email">*이메일</label>
 					<input type="email" name="email" id="email" maxlength="50"class="input-check">
 					<input type="button" value="이메일 중복체크" id="email_check">
 					<span id="message_email"></span>
 					<div class="form-notice">* 이메일 중복 사용 불가</div>
 				</li>
 				<li>
-					<label for="gender">성별</label>
-					<input type="radio" id="male" name="gender" value="0">
-					<label for="gender">남성</label>
-					<input type="radio" id="female" name="gender" value="1">
-					<label for="gender">여성</label>
-					
+					<label for="gender">*성별</label>
+					남성<input type="radio" id="male" name="gender" value="0">
+					여성<input type="radio" id="female" name="gender" value="1">
 				</li>
 				<li>
 					<label for="birth">생일</label>
@@ -105,7 +104,7 @@ $(function(){
 					<input type="text" name="address2" id="address2" maxlength="30" class="input-noncheck">
 				</li>
 			</ul>
-			<div>
+			<div class="align-center">
 				<input type="submit" value="등록">
 				<input type="button" value="홈으로"
 					onclick="${pageContext.request.contextPath}/main/main.do">
