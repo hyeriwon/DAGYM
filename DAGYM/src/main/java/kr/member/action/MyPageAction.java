@@ -28,5 +28,4 @@ public class MyPageAction implements Action{
 		//JSP 경로반환
 		return "/WEB-INF/views/member/myPage.jsp";
 		}
-
 	}
