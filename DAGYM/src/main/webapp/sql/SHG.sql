@@ -17,5 +17,5 @@ create table payment(
  pay_enroll number(5) not null
  constraint payment_pk primary key (pay_num),
  constraint payment_fk foreign key (mem_num) references member (mem_num)
-);--
+);
 create sequence payment_seq;
