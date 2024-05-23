@@ -48,16 +48,16 @@ public class MemberDAO {
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.setInt(1, num);
 			pstmt3.setString(2, member.getMem_name());
-			pstmt.setString(3, member.getMem_pw());
-			pstmt.setString(4, member.getMem_phone());
-			pstmt.setString(5, member.getMem_email());
-			pstmt.setString(6, member.getMem_gender());
-			pstmt.setString(7, member.getMem_birth());
-			pstmt.setString(8, member.getMem_zipcode());
-			pstmt.setString(9, member.getMem_address1());
-			pstmt.setString(10, member.getMem_address2());
-			pstmt.setDate(11, member.getMem_reg_date());
-			pstmt.setDate(12, member.getMem_modify_date());
+			pstmt3.setString(3, member.getMem_pw());
+			pstmt3.setString(4, member.getMem_phone());
+			pstmt3.setString(5, member.getMem_email());
+			pstmt3.setInt(6, member.getMem_gender());
+			pstmt3.setString(7, member.getMem_birth());
+			pstmt3.setString(8, member.getMem_zipcode());
+			pstmt3.setString(9, member.getMem_address1());
+			pstmt3.setString(10, member.getMem_address2());
+			pstmt3.setDate(11, member.getMem_reg_date());
+			pstmt3.setDate(12, member.getMem_modify_date());
 			//commit
 			conn.commit();
 		}catch(Exception e) {
@@ -66,15 +66,88 @@ public class MemberDAO {
 		}finally {
 			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
-			DBUtil.executeClose(rs, pstmt3, conn);
+			DBUtil.executeClose(rs, pstmt, conn);
 		}
 	}
 	//ID 중복 체크 및 로그인 처리
 	
 	//회원상세 정보
-	
+	public MemberVO getMember(int mem_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberVO member = null;
+		String sql = null;
+		
+		try {
+			//커넥션 풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			sql = "SELECT * FROM member_detail JOIN member USING(mem_num) WHERE mem_num=?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, mem_num);
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				member = new MemberVO();
+				member.setMem_num(rs.getInt("mem_num"));
+				member.setMem_id(rs.getString("mem_id"));
+				member.setMem_auth(rs.getInt("mem_auth"));
+				member.setMem_name(rs.getString("mem_name"));				
+				member.setMem_phone(rs.getString("mem_phone"));
+				member.setMem_email(rs.getString("mem_email"));
+				member.setMem_gender(rs.getInt("mem_gender"));
+				member.setMem_birth(rs.getString("mem_birth"));
+				member.setMem_zipcode(rs.getString("mem_zipcode"));
+				member.setMem_address1(rs.getString("mem_address1"));
+				member.setMem_address2(rs.getString("mem_address2"));
+				member.setMem_photo(rs.getString("mem_photo"));
+				member.setMem_reg_date(rs.getDate("mem_reg_date"));
+				member.setMem_modify_date(rs.getDate("mem_modify_date"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return member;
+	}
 	//회원정보 수정
-	
+	public void updateMember(MemberVO member) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			//커넥션 풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			sql = "UPDATE member_detail SET mem_name=?,mem_phone=?,mem_email=?,mem_gender=?,mem_birth=? "
+					+ "mem_zipcode=?, mem_address1=?, mem_address2=?, mem_photo=?, mem_modify_date=sysdate "
+					+ "WHERE mem_num=?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setString(1, member.getMem_name());
+			pstmt.setString(2, member.getMem_phone());
+			pstmt.setString(3, member.getMem_email());
+			pstmt.setInt(4, member.getMem_gender());
+			pstmt.setString(5, member.getMem_birth());
+			pstmt.setString(6, member.getMem_zipcode());
+			pstmt.setString(7, member.getMem_address1());
+			pstmt.setString(8, member.getMem_address2());
+			pstmt.setString(9, member.getMem_photo());
+			pstmt.setDate(10, member.getMem_modify_date());
+			//SQL문 실행
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//비밀번호 수정
 	
 	//프로필 사진 수정
