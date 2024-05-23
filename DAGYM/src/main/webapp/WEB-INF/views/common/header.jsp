@@ -45,6 +45,9 @@
 		<li>
 			<a href="${pageContext.request.contextPath}/member/loginForm.do">로그인</a>
 		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/attend/list.do">출석체크</a>
+		</li>
 		</c:if>
 	</ul>
 </div>
