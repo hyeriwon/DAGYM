@@ -1,1 +1,1 @@
-CREATE TABLE 테이블
+CREATE TABLE 테이블zz
