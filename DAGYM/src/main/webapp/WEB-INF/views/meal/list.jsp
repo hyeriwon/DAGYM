@@ -8,12 +8,24 @@
 <title>게시판 목록</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css' rel='stylesheet' />
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
       document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          dateClick: function(info) {
+              var title = prompt('Enter event title:');
+              if (title) {
+                  calendar.addEvent({
+                      title: title,	
+                      start: info.dateStr,
+                      allDay: true
+                  });
+              }
+          }
+         
         });
         calendar.render();
       });
