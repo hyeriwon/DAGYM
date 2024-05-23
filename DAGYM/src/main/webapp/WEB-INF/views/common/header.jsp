@@ -12,6 +12,9 @@
 		<li>
 			<a href="${pageContext.request.contextPath}/meal/list.do">음식등록</a>
 		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/schedule/list.do">스케줄등록</a>
+		</li>
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<li>
 			<a href="${pageContext.request.contextPath}/member/adminList.do">회원관리</a>
