@@ -37,10 +37,7 @@ window.onload=function(){
 		<h2>음식등록</h2>
 		<form id="write_form" action = "mealWrite.do" method="post">
 		<ul>
-			<li>
-			<label for="meal_date">식사일</label>
-			<input type="date" name="meal_date" id= "meal_date" >
-			</li>
+			
 			<li>
 			<label for="tme_num">메뉴</label>
 			<input type="number" name="tme_num" id="tme_num">
