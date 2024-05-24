@@ -1,31 +1,44 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>게시판 목록</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<title>음식 목록</title>
+<link rel="stylesheet"
+    href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
 
-	document.addEventListener('DOMContentLoaded', function() {
-    	var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-        	initialView: 'dayGridMonth'
-        });
-        calendar.render();
-    });
-	
+  var calendar = new FullCalendar.Calendar(calendarEl, {
+    selectable: true,
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth'
+    },
+    dateClick: function(info) {
+    	 var selectedDate = info.dateStr;
+         window.location.href = '${pageContext.request.contextPath}/meal/mealWriteForm.do?meal_date='+selectedDate;
+       }
+  });
+  calendar.render();
+});
 </script>
 </head>
 <body>
 <div class="page-main">
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <div class="content-main">
+    <div>
+    
+    <input type="button" value="" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'">
+    </div>
     <div id="calendar"></div>
-    <input type="button" id="registerMealButton" value="음식기록 등록">
     </div>
 </div>
 </body>
