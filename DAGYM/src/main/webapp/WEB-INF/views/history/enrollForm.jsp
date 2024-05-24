@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
-
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('his_calendar');
 
@@ -20,12 +19,11 @@ document.addEventListener('DOMContentLoaded', function() {
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
     },
     dateClick: function(info) {
-      alert('clicked ' + info.dateStr);
-    },
-    select: function(info) {
-      alert('selected ' + info.startStr + ' to ' + info.endStr);
+        var dateStr = info.dateStr; //클릭한 날짜 정보
+        // 수강신청 폼으로 리다이렉션
+        window.location.href = 'enrollForm.do?date=' + dateStr;
     }
-  });
+ });
 
   calendar.render();
 });
