@@ -24,14 +24,24 @@
       selectable: true,
       selectMirror: true,
       select: function(arg) {
-        var title = prompt('출석 체크:');
-        if (title) {
-          calendar.addEvent({
-            title: title,
-            start: arg.start,
-            end: arg.end,
-            allDay: arg.allDay
-          })
+//        var title = prompt('출석 체크:');
+//        if (title) {
+//          calendar.addEvent({
+//            title: title,
+//            start: arg.start,
+//            end: arg.end,
+//            allDay: arg.allDay
+//          })
+//        }
+
+//        if (title && confirm('출석을 확인하시겠습니까?')) {
+//            // 선택한 날짜를 writeForm.jsp로 리다이렉트합니다.
+//            location.href = 'writeForm.do?date=' + arg.start.toISOString();
+//        }
+
+        if (confirm('출석하시겠습니까?')) {
+            // 선택한 날짜를 writeForm.jsp로 리다이렉트합니다.
+            location.href = 'writeForm.do?date=' + arg.start.toISOString();
         }
         calendar.unselect()
       },
@@ -86,8 +96,7 @@
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
-			<input type="button" value="출석작성" onclick="location.href='writeForm.do'">
-			
+
 			<br>
 			<c:if test="${count == 0}">
 				<div class="result-display">
