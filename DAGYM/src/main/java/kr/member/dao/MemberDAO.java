@@ -98,6 +98,27 @@ public class MemberDAO {
 		}
 		return member;
 	}
+	//이메일 중복체크
+	public MemberVO checkEmail(String email)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberVO member = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM member_detail WHERE mem_email=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, email);
+			rs = pstmt.executeQuery();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return member;
+	}
+	
 	//회원상세 정보
 	public MemberVO getMember(int mem_num) throws Exception{
 		Connection conn = null;
