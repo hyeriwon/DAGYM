@@ -22,7 +22,7 @@
 		</c:if>
 		<c:if test="${!empty user_num}">
 		<li>
-			<a href="${pageContext.request.contextPath}/history/enrollForm.do">PT신청</a>
+			<a href="${pageContext.request.contextPath}/history/historyList.do">PT신청</a>
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath}/member/myPage.do">MY페이지</a>

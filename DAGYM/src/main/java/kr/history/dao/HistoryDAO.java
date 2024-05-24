@@ -16,6 +16,9 @@ public class HistoryDAO {
 	}
 	private HistoryDAO () {}
 
+	//스케줄목록
+	
+	
 	//수강신청
 	public void insertHistory(HistoryVO history, PaymentVO payment)throws Exception{
 		Connection conn = null;
