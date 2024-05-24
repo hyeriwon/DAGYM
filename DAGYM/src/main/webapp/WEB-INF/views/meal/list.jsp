@@ -34,11 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="page-main">
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <div class="content-main">
-    <div>
-    
-    <input type="button" value="" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'">
-    </div>
     <div id="calendar"></div>
+    </div>
+     <div>
+    <input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'">
     </div>
 </div>
 </body>
