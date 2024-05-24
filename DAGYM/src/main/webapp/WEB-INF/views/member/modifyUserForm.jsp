@@ -37,7 +37,7 @@ $(function(){
 			return false;
 		}
 		//새 비밀번호 자리수 체크
-		if(!/^[0-9][a-z][A-Z]{8,12}$/.test($('#newPw').val())){
+		if($('#newPw').val() != '' && !/^[0-9][a-z][A-Z]{8,12}$/.test($('#newPw').val())){
 			alert('비밀번호는 숫자와 영문을 혼용하여 8~12자리로 작성해주세요.');
 			$('#newPw').val('').focus();
 			$('#newCpw').val('');
@@ -50,6 +50,7 @@ $(function(){
 			return false;
 		}
 	});
+	
 	//새 비밀번호와 새 비밀번호 확인 일치 여부
 	$('#newCpw').keyup(function(){
 		if($('#newPw').val() == $('#newCpw').val()){
@@ -57,12 +58,16 @@ $(function(){
 		}
 	});
 	
+	//새 비밀번호 확인까지 한 후 다시 새 비밀번호를 수정하려고 하면 새 비밀번호 확인을 초기화
+	$('#newPw').keyup(function(){
+		$('#newCpw').val('');
+		$('#check-msg').text('');
+	});
+	
 	//동적으로 이메일 중복체크 버튼 생성
 	$('#email').keyup(function(){
 		$('#email_check').show();
-		/* if($('#email').val() == ${member.mem_email}){
-			$('#email_check').hide();
-		} */
+		$('#email_reset').show();
 	});
 	//이메일 중복 체크
 	$('#email_check').click(function(){
@@ -90,8 +95,20 @@ $(function(){
 			}
 		});
 	});
-	//이메일 입력창에 데이터 입력시 중복 체크 정보 초기화
-	$('#email').
+	
+	//이메일 중복 체크 확인 후 입력창에 데이터 입력시 중복 체크 정보 초기화
+	$('#email').keydown(function(){
+		emailCheck = 0;
+		$('#email_msg').text('');
+	});
+	//이메일 초기화
+	$('#email_reset').click(function(){
+		emailCheck = 1;
+		$('#email_msg').text('');
+		$('#email').val('${member.mem_email}');
+		$('#email_check').hide();
+		$('#email_reset').hide();
+	});
 });
 </script> 
 </head>
@@ -138,6 +155,7 @@ $(function(){
 					<label for="email">이메일</label>
 					<input type="email" name="mem_email" id="email" value="${member.mem_email}" maxlength="50" class="input-check">
 					<input type="button" value="중복체크" id="email_check" style="display:none;">
+					<input type="button" value="초기화" id="email_reset" style="display:none;">
 					<span id="email_msg"></span>
 				</li>
 				<li>

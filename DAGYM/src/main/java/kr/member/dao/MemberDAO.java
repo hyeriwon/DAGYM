@@ -157,7 +157,7 @@ public class MemberDAO {
 				member.setMem_address2(rs.getString("mem_address2"));
 				member.setMem_photo(rs.getString("mem_photo"));
 				member.setMem_reg_date(rs.getDate("mem_reg_date"));
-				member.setMem_modify_date(rs.getDate("mem_modify_date"));
+				member.setMem_num(rs.getInt("mem_num"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -191,7 +191,7 @@ public class MemberDAO {
 			pstmt.setString(7, member.getMem_address1());
 			pstmt.setString(8, member.getMem_address2());
 			pstmt.setString(9, member.getMem_photo());
-			pstmt.setDate(10, member.getMem_modify_date());
+			pstmt.setInt(10, member.getMem_num());
 			//SQL문 실행
 			pstmt.executeUpdate();
 		}catch(Exception e) {
