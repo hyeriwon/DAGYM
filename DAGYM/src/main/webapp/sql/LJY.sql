@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 CREATE TABLE schedule(
 	sch_num number NOT NULL, -- 스케줄번호
 	mem_num number NOT NULL, -- 회원번호(트레이너)

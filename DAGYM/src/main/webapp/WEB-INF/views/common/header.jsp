@@ -15,9 +15,11 @@
 		<li>
 			<a href="${pageContext.request.contextPath}/attend/list.do">출석체크</a>
 		</li>
+		<c:if test="${!empty user_num && user_auth == 8}">
 		<li>
 			<a href="${pageContext.request.contextPath}/schedule/list.do">스케줄등록</a>
 		</li>
+		</c:if>
 		<c:if test="${!empty user_num && user_auth == 9}">
 		<li>
 			<a href="${pageContext.request.contextPath}/member/adminList.do">회원관리</a>
