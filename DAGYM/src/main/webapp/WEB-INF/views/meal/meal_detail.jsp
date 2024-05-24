@@ -49,9 +49,6 @@ window.onload=function(){
 		
 		
 		<div class= "list-space align-right">
-			<input type="button" value="글쓰기" onclick="location.href='writeForm.do'"
-			<c:if test="${empty user_num}"> disabled="disabled"</c:if>
-			>	
 		<input type="button" value="목록" onclick="location.href='list.do'">
 		<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 		</div>
@@ -64,14 +61,35 @@ window.onload=function(){
 			<table>
 				<tr>
 					<th>식사일자</th>
+					<th>식사분류</th>
 					<th>메뉴이름</th>
 					<th>칼로리</th>
+					<th>삭제</th>
 				</tr>
 				<c:forEach var = "meal" items="${meal}">
 					<tr>
-					<td><a href="detail.do?meal_num=${meal.meal_num}">${meal.meal_date}</a></td>
-					<td>${meal.tme_name }</td>
-					<td>${meal.tme_kcal }</td>
+					<td><a href="update.do?meal_num=${meal.meal_num}">${meal.meal_date}</a></td>
+					<c:choose>
+						<c:when test="${meal.meal_time}==0">
+						<td>아침</td>
+						</c:when>
+						<c:when test="${meal.meal_time}==1">
+						<td>점심</td>
+						</c:when>
+						<c:when test="${meal.meal_time}==2">
+						<td>저녁</td>
+						</c:when>
+						<c:otherwise>
+						<td>간식</td>
+						</c:otherwise>
+					</c:choose>
+					<td>${meal.tme_name}</td>
+					<td>${meal.tme_kcal}</td>
+					<td>
+					<div class="align-center">
+					<input type="button" value="삭제" onclick="location.href='delete.do'">
+					</div>
+					</td>
 					</tr>
 				</c:forEach>
 			
