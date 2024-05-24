@@ -1,24 +1,21 @@
-package kr.schedule.dao;
+package kr.history.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import kr.history.vo.HistoryVO;
-import kr.member.dao.MemberDAO;
 import kr.payment.vo.PaymentVO;
 import kr.util.DBUtil;
 
-public class ScheduleDAO {
+public class HistoryDAO {
 	//싱글턴 패턴
-	private static ScheduleDAO instance = new ScheduleDAO();
-	
-	public static ScheduleDAO getInstance() {
+	private static HistoryDAO instance = new HistoryDAO();
+
+	public static HistoryDAO getInstance() {
 		return instance;
 	}
-	private ScheduleDAO () {}
-	
-	
-	
+	private HistoryDAO () {}
+
 	//수강신청
 	public void insertHistory(HistoryVO history, PaymentVO payment)throws Exception{
 		Connection conn = null;
@@ -30,7 +27,7 @@ public class ScheduleDAO {
 			conn = DBUtil.getConnection();
 			//오토커밋 해제
 			conn.setAutoCommit(false);
-			
+
 			//수강신청시 history 테이블에 데이터 등록
 			sql = "INSERT INTO history (his_num,mem_num,sch_num,tra_num,his_status,his_part) VALUES (zboard_seq.nextval,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -45,7 +42,7 @@ public class ScheduleDAO {
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, payment.getMem_num());
 			pstmt2.executeUpdate();
-			
+
 			//예외 발생 없이 정상적으로 SQL문 실행
 			conn.commit();
 		}catch(Exception e) {
