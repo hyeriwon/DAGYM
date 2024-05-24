@@ -111,6 +111,10 @@ public class MemberDAO {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, email);
 			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				member = new MemberVO();
+				member.setMem_email(rs.getString("mem_email"));
+			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {

@@ -54,7 +54,7 @@ $(function(){
 	//이메일 중복체크
 	let emailChecked = 0;//0:중복,1:미중복
 	$('#email_check').click(function(){
-		if('#email'.value.trim()==''){
+		if($('#email').val().trim()==''){
 			alert('이메일을 입력하세요');
 			$('#email').val('').focus();
 			return;
@@ -87,7 +87,7 @@ $(function(){
 	//이메일 중복 안내 메시지 초기화 및 아이디 중복값 초기화
 	$('#register_form #email').keydown(function(){
 		emailChecked = 0;
-		$('#message_id').text('');
+		$('#message_email').text('');
 	});
 	
 	//회원 정보 등록 유효성 체크
@@ -108,6 +108,21 @@ $(function(){
 			}
 			if(items[i].id == 'id' && idChecked == 0){
 				alert('아이디 중복 체크 필수');
+				return false;
+			}
+			if(items[i].id == 'passwd' && !/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/.test($('#passwd').val())){
+				alert('비밀번호는 영문, 숫자 혼합하여 8~12자 사이로 입력하세요');
+				$('#passwd').val('').focus();
+				return false;
+			}
+			if(items[i].id == 'email' && emailChecked == 0){
+				alert('이메일 중복 체크 필수');
+				$('#email').focus();
+				return false;
+			}
+			if(items[i].id == 'phone' && !/^\d{3}-\d{4}-\d{4}$/.test($('#phone').val())){
+				alert('전화번호는 000-0000-0000 형식으로 입력');
+				$('#phone').val('').focus();
 				return false;
 			}
 		}
@@ -140,6 +155,7 @@ $(function(){
 			<li>
 				<label for="passwd">*비밀번호</label>
 				<input type="password" name="passwd" id="passwd" maxlength="12" class="input-check">
+				<div class = "form-notice">* 영문 숫자 혼합(8자~12자)</div>
 			</li>
 			<li>
 				<label for="phone">*전화번호</label>
@@ -147,7 +163,7 @@ $(function(){
 			</li>
 			<li>
 				<label for="email">*이메일</label>
-				<input type="text" name="email" id="email" maxlength="50" class="input-check">
+				<input type="email" name="email" id="email" maxlength="50" class="input-check">
 				<input type="button" value="이메일 중복체크" id="email_check">
 				<span id="message_email"></span>
 				<div class="form-notice">* 이메일 중복사용 불가</div>
