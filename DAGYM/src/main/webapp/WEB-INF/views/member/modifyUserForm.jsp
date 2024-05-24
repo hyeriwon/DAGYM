@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	let emailCheck = 1;
 	//유효성 체크
 	$('#modify_form').submit(function(){
 		//새 비밀번호, 생년월일, 성별, 프로필 사진 제외 유효성 체크
@@ -22,28 +23,75 @@ $(function(){
 				items[i].focus();
 				return false;
 			}
+			//이메일 중복 체크 여부 확인
+			if(items[i].id == 'email' && emailCheck == 0){
+				alert('이메일 중복 체크 필수!');
+				return false;
+			}
 		}
-		//새 비밀번호와 새 비밀번호 확인 일치 여부
+		//새 비밀번호와 새 비밀번호 확인 일치 여부(폼 전송시)
 		if($('#newPw').val() != $('#newCpw').val()){
 			alert('새 비밀번호와 새 비밀번호 확인이 불일치합니다.');
 			$('#newPw').val('').focus();
 			$('#newCpw').val('');
 			return false;
 		}
-		//비밀번호 자리수 체크
+		//새 비밀번호 자리수 체크
 		if(!/^[0-9][a-z][A-Z]{8,12}$/.test($('#newPw').val())){
 			alert('비밀번호는 숫자와 영문을 혼용하여 8~12자리로 작성해주세요.');
 			$('#newPw').val('').focus();
 			$('#newCpw').val('');
 			return false;
-		}	 
+		}
+		//전화번호 자리수 체크
+		if(!/^\d{3}-\d{4}-\d{4}$/.test($('#phone').val())){
+			alert('전화번호는 000-0000-0000 형식으로 입력해주세요.');
+			$('#phone').val('').focus();
+			return false;
+		}
 	});
-	
+	//새 비밀번호와 새 비밀번호 확인 일치 여부
 	$('#newCpw').keyup(function(){
 		if($('#newPw').val() == $('#newCpw').val()){
 			$('#check-msg').text('새 비밀번호와 새 비밀번호 확인이 일치합니다.').css('color','blue');
 		}
 	});
+	
+	//동적으로 이메일 중복체크 버튼 생성
+	$('#email').keyup(function(){
+		$('#email_check').show();
+		/* if($('#email').val() == ${member.mem_email}){
+			$('#email_check').hide();
+		} */
+	});
+	//이메일 중복 체크
+	$('#email_check').click(function(){
+		$.ajax({
+			url:'checkDuplicatedEmail.do',
+			type:'post',
+			data:{email:$('#email').val()},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'emailNotFound'){
+					emailCheck = 1;
+					$('#email_msg').text('사용가능한 이메일 주소입니다.').css('color','blue');
+				}else if(param.result == 'emailDuplicated'){
+					emailCheck = 0;
+					alert('중복된 이메일입니다.');
+					$('#email').val('').focus();
+				}else{
+					emailCheck = 0;
+					alert('이메일 중복 체크 오류 발생');
+				}
+			},
+			error:function(){
+				emailCheck = 0;
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	//이메일 입력창에 데이터 입력시 중복 체크 정보 초기화
+	$('#email').
 });
 </script> 
 </head>
@@ -89,7 +137,8 @@ $(function(){
 				<li>
 					<label for="email">이메일</label>
 					<input type="email" name="mem_email" id="email" value="${member.mem_email}" maxlength="50" class="input-check">
-					<input type="button" value="이메일 중복체크" onclick="location.href=''">
+					<input type="button" value="중복체크" id="email_check" style="display:none;">
+					<span id="email_msg"></span>
 				</li>
 				<li>
 					<label>성별</label>
