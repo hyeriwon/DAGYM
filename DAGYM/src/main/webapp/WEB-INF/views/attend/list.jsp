@@ -19,7 +19,7 @@
         center: 'title',
         right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
-      initialDate: '2023-01-12',
+      initialDate: '2024-05-24',
       navLinks: true, // can click day/week names to navigate views
       selectable: true,
       selectMirror: true,
@@ -44,58 +44,22 @@
       dayMaxEvents: true, // allow "more" link when too many events
       events: [
         {
-          title: 'All Day Event',
-          start: '2023-01-01'
+          title: '출석체크1',
+          start: '2024-05-24'
         },
         {
-          title: 'Long Event',
-          start: '2023-01-07',
-          end: '2023-01-10'
-        },
-        {
-          groupId: 999,
-          title: 'Repeating Event',
-          start: '2023-01-09T16:00:00'
+          title: '출석체크2',
+          start: '2024-05-25',
         },
         {
           groupId: 999,
           title: 'Repeating Event',
-          start: '2023-01-16T16:00:00'
+          start: '2024-05-09T16:00:00'
         },
         {
           title: 'Conference',
-          start: '2023-01-11',
-          end: '2023-01-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2023-01-12T10:30:00',
-          end: '2023-01-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2023-01-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2023-01-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2023-01-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: '2023-01-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: '2023-01-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: '2023-01-28'
+          start: '2024-05-13',
+          end: '2024-05-16'
         }
       ]
     });
@@ -122,7 +86,34 @@
 	<div class="page-main">
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
-			<input type="button" value="출석" onclick="location.href='writeAttendForm.do'">
+			<input type="button" value="출석작성" onclick="location.href='writeForm.do'">
+			
+			<br>
+			<c:if test="${count == 0}">
+				<div class="result-display">
+					표시할 게시물이 없습니다.
+				</div>
+			</c:if>
+			<c:if test="${count > 0}">
+				<!-- 목록 출력 시작 -->
+				<table>
+					<tr>
+						<th>출석번호</th>
+						<th>출석일자</th>
+						<th>출석삭제</th>
+					</tr>
+					<c:forEach var="attend" items="${list}">
+					<tr>
+						<td>${attend.att_num}</td>
+						<td>${attend.att_date}</td>
+						<td><input type="button" value="삭제" onclick=""></td>
+					</tr>
+					</c:forEach>
+				</table>
+				<!-- 목록 출력 끝 -->
+			</c:if>	
+			<br>
+			
 			<div id="calendar"></div>
 		</div>
 	</div>
