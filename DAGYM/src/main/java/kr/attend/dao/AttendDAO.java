@@ -22,7 +22,7 @@ public class AttendDAO {
 	}
 	
 	//출석 등록
-    public void insert(AttendVO attendVO) throws Exception {
+    public void insert(int mem_num) throws Exception {
     	
     	Connection conn = null;
         PreparedStatement pstmt = null;
@@ -39,7 +39,7 @@ public class AttendDAO {
             //PreparedStatement 객체 생성
             pstmt = conn.prepareStatement(sql);
             //?에 데이터 바인딩
-            pstmt.setInt(1, attendVO.getMem_num());
+            pstmt.setInt(1, mem_num);
 
 			//SQL문 실행
 			pstmt.executeUpdate();
@@ -89,7 +89,7 @@ public class AttendDAO {
 	}
 	
 	//출석 목록
-	public List<AttendVO> getList(int startRow, int endRow) throws Exception{
+	public List<AttendVO> getList(int mem_num, int startRow, int endRow) throws Exception{
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -103,14 +103,15 @@ public class AttendDAO {
 			
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum "
-				+ "FROM (SELECT * FROM attend ORDER BY att_num DESC)a) "
+				+ "FROM (SELECT * FROM attend WHERE mem_num = ? ORDER BY att_num DESC)a) "
 				+ "WHERE rnum >= ? AND rnum <= ?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			pstmt.setInt(1, mem_num);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			
 			//SQL문 실행
 			rs = pstmt.executeQuery();

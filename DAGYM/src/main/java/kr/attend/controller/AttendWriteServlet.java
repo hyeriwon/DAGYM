@@ -21,7 +21,7 @@ public class AttendWriteServlet extends HttpServlet {
         attendVO.setMem_num(mem_num);
 
         try {
-            AttendDAO.getInstance().insert(attendVO);
+            AttendDAO.getInstance().insert(mem_num);
             response.getWriter().write("success");
         } catch (Exception e) {
             e.printStackTrace();
