@@ -22,7 +22,7 @@ public class AttendDAO {
 	}
 	
 	//출석 등록
-    public void insertAttend(AttendVO attendVO) throws Exception {
+    public void insert(AttendVO attendVO) throws Exception {
     	
     	Connection conn = null;
         PreparedStatement pstmt = null;
@@ -52,8 +52,8 @@ public class AttendDAO {
 		}
     }
     
-	//총 출석의 개수
-    public int getAttendCount() throws Exception{
+	//출석의 총 개수
+	public int getCount() throws Exception{
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -103,7 +103,7 @@ public class AttendDAO {
 			
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum "
-				+ "FROM (SELECT * FROM attend ORDER BY num DESC)a) "
+				+ "FROM (SELECT * FROM attend ORDER BY att_num DESC)a) "
 				+ "WHERE rnum >= ? AND rnum <= ?";
 			
 			//PreparedStatement 객체 생성
@@ -117,6 +117,7 @@ public class AttendDAO {
 			list = new ArrayList<AttendVO>();
 			while(rs.next()) {
 				AttendVO attendVO = new AttendVO();
+				attendVO.setAtt_num(rs.getInt("att_num"));
 				attendVO.setAtt_date(rs.getDate("att_date"));
 				//자바빈을 ArrayList에 저장
 				list.add(attendVO);
