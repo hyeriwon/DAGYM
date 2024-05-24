@@ -16,33 +16,33 @@ $(function(){
 		if(!/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/.test($('#id').val())){
 			alert('아이디는 영문, 숫자 혼합하여 8~12자 사이로 입력하세요');
 			$('#id').val('').focus();
+			return;
 		}
-		else{
-			//서버와 통신
-			$.ajax({
-				url:'checkDuplicatedId.do',
-				type:'post',
-				data:{id:$('#id').val()},
-				dataType:'json',
-				success:function(param){
-					if(param.result == 'idNotFound'){
-						idChecked = 1;
-						$('#message_id').css('color','black').text('사용 가능한 아이디입니다');
-					}else if(param.result == 'idDuplicated'){
-						idChecked = 0;
-						$('#message_id').css('color','red').text('이미 사용중인 아이디입니다');
-						$('#id').val('').focus();
-					}else{
-						idChecked = 0;
-						alert('아이디 중복 체크 오류 발생');
-					}
-				},
-				error:function(){
+		//서버와 통신
+		$.ajax({
+			url:'checkDuplicatedId.do',
+			type:'post',
+			data:{id:$('#id').val()},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'idNotFound'){
+					idChecked = 1;
+					$('#message_id').css('color','black').text('사용 가능한 아이디입니다');
+				}else if(param.result == 'idDuplicated'){
 					idChecked = 0;
-					alert('네트워크 오류 발생');
+					$('#message_id').css('color','red').text('이미 사용중인 아이디입니다');
+					$('#id').val('').focus();
+				}else{
+					idChecked = 0;
+					alert('아이디 중복 체크 오류 발생');
 				}
-			}); 
-		}
+			},
+			error:function(){
+				idChecked = 0;
+				alert('네트워크 오류 발생');
+			}
+		}); 
+		
 	});//end of id_click
 	
 	//아이디 중복 안내 메시지 초기화 및 아이디 중복값 초기화
@@ -50,6 +50,45 @@ $(function(){
 		idChecked = 0;
 		$('#message_id').text('');
 	});//end of keydown
+	
+	//이메일 중복체크
+	let emailChecked = 0;//0:중복,1:미중복
+	$('#email_check').click(function(){
+		if($('#email').val().trim()==''){
+			alert('이메일을 입력하세요');
+			$('#email').val('').focus();
+			return;
+		}
+		$.ajax({
+			url:'checkDuplicatedEmail.do',
+			type:'post',
+			data:{email:$('#email').val()},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'emailNotFound'){
+					emailChecked = 1;
+					$('#message_email').css('color','black').text('사용 가능한 이메일입니다');
+				}else if(param.result == 'emailDuplicated'){
+					emailChecked = 0;
+					$('#message_email').css('color','red').text('이미 사용중인 이메일입니다');
+					$('#email').val('').focus();
+				}else{
+					emailChecked = 0;
+					alert('이메일 중복 체크 오류 발생');
+				}
+			},
+			error:function(){
+				emailChecked = 0;
+				alert('네트워크 오류 발생');
+			}
+		});
+	});//end of email_click
+	
+	//이메일 중복 안내 메시지 초기화 및 아이디 중복값 초기화
+	$('#register_form #email').keydown(function(){
+		emailChecked = 0;
+		$('#message_email').text('');
+	});
 	
 	//회원 정보 등록 유효성 체크
 	$('#register_form').submit(function(){
@@ -67,10 +106,29 @@ $(function(){
 				$('#id').val('').focus();
 				return false;
 			}
-			if(items[i].id == 'id' && isChecked == 0){
+			if(items[i].id == 'id' && idChecked == 0){
 				alert('아이디 중복 체크 필수');
 				return false;
 			}
+			if(items[i].id == 'passwd' && !/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/.test($('#passwd').val())){
+				alert('비밀번호는 영문, 숫자 혼합하여 8~12자 사이로 입력하세요');
+				$('#passwd').val('').focus();
+				return false;
+			}
+			if(items[i].id == 'email' && emailChecked == 0){
+				alert('이메일 중복 체크 필수');
+				$('#email').focus();
+				return false;
+			}
+			if(items[i].id == 'phone' && !/^\d{3}-\d{4}-\d{4}$/.test($('#phone').val())){
+				alert('전화번호는 000-0000-0000 형식으로 입력');
+				$('#phone').val('').focus();
+				return false;
+			}
+		}
+		if(!$('input[name="gender"]:checked').val()){
+			alert('성별을 선택하세요');
+			return false;
 		}
 	});
 });//end of function
@@ -97,16 +155,17 @@ $(function(){
 			<li>
 				<label for="passwd">*비밀번호</label>
 				<input type="password" name="passwd" id="passwd" maxlength="12" class="input-check">
+				<div class = "form-notice">* 영문 숫자 혼합(8자~12자)</div>
 			</li>
 			<li>
 				<label for="phone">*전화번호</label>
-				<input type="text" name="phone" id="phone" maxlength="15" class="input-check">
+				<input type="text" name="phone" id="phone" placeholder="010-0000-0000 형식으로 입력" maxlength="13" class="input-check">
 			</li>
 			<li>
 				<label for="email">*이메일</label>
-				<input type="text" name="email" id="email" maxlength="50" class="input-check">
+				<input type="email" name="email" id="email" maxlength="50" class="input-check">
 				<input type="button" value="이메일 중복체크" id="email_check">
-				<span id="message_id"></span>
+				<span id="message_email"></span>
 				<div class="form-notice">* 이메일 중복사용 불가</div>
 				
 			</li>

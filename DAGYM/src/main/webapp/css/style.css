@@ -104,14 +104,13 @@ ul {
 input{
 	margin-top:4px;
 }
-input[type="text"],input[type="password"],
-                                     input[type="email"]{
+input[type="text"],input[type="password"]{
 	width:310px;	
 }
 #register_form input[id="id"]{
 	width:223px;
 }
-input[id="zipcode"]{
+input[id="zipcode"],input[type="email"]{
 	width:205px;
 }
 input[type="number"]{
