@@ -16,11 +16,12 @@ public class EnrollFormAction implements Action{
 			return "redirect:/member/loginForm.do";
 		}
 		
-		String date = request.getParameter("date");
+		String sch_date = request.getParameter("sch_date");
 		String tra_num = request.getParameter("mem_num");
 		
+		
 		//날짜와 트레이너 번호를 request에 저장하여 JSP에 전달
-		request.setAttribute("date", date);
+		request.setAttribute("sch_date", sch_date);
 		request.setAttribute("tra_num", tra_num);
 		
 		//로그인 된 경우

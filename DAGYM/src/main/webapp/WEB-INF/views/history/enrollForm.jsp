@@ -7,6 +7,10 @@
 <title>PT 신청</title>
 </head>
 <body>
-
+<div class="page-main">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+	<div class="content-main">
+	</div>
+</div>
 </body>
 </html>
