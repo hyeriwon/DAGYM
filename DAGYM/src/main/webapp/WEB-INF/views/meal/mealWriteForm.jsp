@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +27,12 @@ window.onload=function(){
 			return false;
 		}
 	}
+	const queryString = window.location.search;
+	const urlParams = new URLSearchParams(queryString);
+	const mealDate = urlParams.get('meal_date');
+	if (mealDate) {
+		document.getElementById('meal_date').value = mealDate;
+	}
 };
 
 </script>
@@ -36,17 +43,18 @@ window.onload=function(){
 	<div class="content-main">
 		<h2>음식등록</h2>
 		<form id="write_form" action = "mealWrite.do" method="post">
+		<input type="hidden"  id="meal_date" name="meal_date" value="meal_date" >
 		<ul>
-			
 			<li>
-			<label for="tme_num">메뉴</label>
-			<input type="number" name="tme_num" id="tme_num">
-			</li>
+                    <label for="menu_name">메뉴 검색</label>
+                    <input type="number" name="tme_num" id="tme_num">
+                    <input type="button"  value= "검색" onclick="location.href='searchMenuAndSetTmeNum.do'">
+            </li>
 			<li>식사분류
-			<input type="radio" name="meal_time" value="0">아침
-			<input type="radio" name="meal_time" value="1">점심
-			<input type="radio" name="meal_time" value="2">저녁
-			<input type="radio" name="meal_time" value="3">간식
+			<input type="radio" name="meal_time" value="0" id="meal_time0">아침
+			<input type="radio" name="meal_time" value="1" id="meal_time1">점심
+			<input type="radio" name="meal_time" value="2" id="meal_time2">저녁
+			<input type="radio" name="meal_time" value="3" id="meal_time3">간식
 			</li>
 			
 		</ul>

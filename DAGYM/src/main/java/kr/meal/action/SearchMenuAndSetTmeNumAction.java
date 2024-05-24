@@ -2,9 +2,11 @@ package kr.meal.action;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.meal.dao.MealDAO;
+import kr.meal.vo.MealVO;
 
 public class SearchMenuAndSetTmeNumAction implements Action{
 
@@ -14,8 +16,9 @@ public class SearchMenuAndSetTmeNumAction implements Action{
 		MealDAO dao = MealDAO.getInstance();
 		int tme_num = dao.searchMenuAndSetTmeNum(tme_name);
 		request.setAttribute("tme_num", tme_num);
+		String meal_date= request.getParameter("meal_date");
 		
-		return "/WEB-INF/views/meal/mealWriteForm.jsp";	
+		return "mealWriteForm.do?meal_date="+meal_date;	
 		}
 
 }

@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 
-public class EnrollFormAction implements Action{
+public class HistoryListAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -16,8 +16,7 @@ public class EnrollFormAction implements Action{
 			return "redirect:/member/loginForm.do";
 		}
 		//로그인 된 경우
-		
-		return "/WEB-INF/views/history/enrollForm.jsp";
+		return "/WEB-INF/views/history/historyList.jsp";
 	}
 
 }

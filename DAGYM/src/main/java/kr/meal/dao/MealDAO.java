@@ -43,7 +43,7 @@ public class MealDAO {
 	
 	//음식글 삭제
 	//음식글 등록 상세정보 
-	public MealVO getMeal(int mem_num) throws Exception{
+	public MealVO getMeal(int meal_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -51,9 +51,9 @@ public class MealDAO {
 		String sql = null;
 		try {
 			conn=DBUtil.getConnection();
-			sql = "SELECT * FROM meal JOIN t_menu USING(tme_num) WHERE mem_num = ? ORDER BY meal_date DESC, meal_time DESC";
+			sql = "SELECT * FROM meal LEFT OUTER JOIN t_menu USING(tme_num) WHERE meal_num = ? ORDER BY meal_date DESC, meal_time DESC";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, mem_num);
+			pstmt.setInt(1, meal_num);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				item = new MealVO();
@@ -73,8 +73,39 @@ public class MealDAO {
 		return item;
 	}
 	//음식글 총 갯수, 검색 갯수
+	public int getMealCount(String keyfield, String keyword,int mem_num)throws Exception{
+		Connection conn= null;
+		PreparedStatement pstmt=null;
+		ResultSet rs =null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		try {
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql +=" AND tme_name LIKE '%' || ? ||'%'";
+				else if(keyfield.equals("2")) sub_sql +=" AND meal_date LIKE '%' || ? ||'%'";
+			}
+			sql= "SELECT COUNT(*)FROM meal JOIN t_menu USING(tme_num) WHERE mem_num =? " +sub_sql;
+			pstmt =conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(2,keyword);
+			}
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return count;
+	}
 	//음식 글 목록, 검색 글 목록
-	public List<MealVO> getListMeal(int start,int end, String keyfield, String keyword, String meal_date ,int meal_time)throws Exception{
+	public List<MealVO> getListMeal(int start,int end, String keyfield, String keyword, int mem_num )throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs =null;
@@ -91,10 +122,10 @@ public class MealDAO {
 			}
 			//SQL문 작성
 			sql ="SELECT * FROM (SELECT a.*,rownum rnum FROM "
-					+ "(SELECT * FROM meal JOIN t_menu USING(tme_num) WHERE meal_time = ? " + sub_sql
-					+ " ORDER BY meal_date DESC, meal_type DESC)a) WHERE rnum >=? AND rnum <=?";
+					+ "(SELECT * FROM meal JOIN t_menu USING(tme_num) WHERE mem_num = ? " + sub_sql
+					+ " ORDER BY meal_date DESC, meal_time DESC)a) WHERE rnum >=? AND rnum <=?";
 			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(++cnt,meal_time);
+			pstmt.setInt(++cnt,mem_num);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt,keyword);
 			}
