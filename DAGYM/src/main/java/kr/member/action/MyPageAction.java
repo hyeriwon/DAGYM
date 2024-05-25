@@ -24,7 +24,7 @@ public class MyPageAction implements Action{
 		MemberVO member = dao.getMember(mem_num);
 
 		request.setAttribute("member", member);
-		
+        
 		//JSP 경로반환
 		return "/WEB-INF/views/member/myPage.jsp";
 		}

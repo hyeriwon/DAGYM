@@ -146,6 +146,7 @@ public class MemberDAO {
 				member = new MemberVO();
 				member.setMem_num(rs.getInt("mem_num"));
 				member.setMem_id(rs.getString("mem_id"));
+				member.setMem_pw(rs.getString("mem_pw"));
 				member.setMem_auth(rs.getInt("mem_auth"));
 				member.setMem_name(rs.getString("mem_name"));				
 				member.setMem_phone(rs.getString("mem_phone"));
@@ -172,30 +173,41 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		String sql = null;
 		String sub_sql = "";
+		int cnt = 0;
 		
 		try {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			
+			//photo, password 변경 여부 확인
+			if(member.getMem_photo()!=null  && !member.getMem_photo().isEmpty()) {
+				sub_sql += "mem_photo=?,";
+			}
+			if(member.getMem_pw()!=null && !member.getMem_pw().isEmpty()) {
+				sub_sql += "mem_pw=?,";
+			}
 			//SQL문 작성
-			//mem_password=?, mem_photo=?, 
-			//
-			sql = "UPDATE member_detail SET mem_name=?,mem_phone=?,mem_email=?,mem_gender=?,mem_birth=?, "
-					+ "mem_zipcode=?, mem_address1=?, mem_address2=?, mem_modify_date=sysdate "
-					+ "WHERE mem_num=?";
+			sql = "UPDATE member_detail SET mem_name=?,"+sub_sql+"mem_phone=?,mem_email=?,"
+					+ "mem_gender=?,mem_birth=?,mem_zipcode=?, mem_address1=?, "
+					+ "mem_address2=?, mem_modify_date=sysdate WHERE mem_num=?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
-			pstmt.setString(1, member.getMem_name());
-			pstmt.setString(2, member.getMem_phone());
-			pstmt.setString(3, member.getMem_email());
-			pstmt.setInt(4, member.getMem_gender());
-			pstmt.setString(5, member.getMem_birth());
-			pstmt.setString(6, member.getMem_zipcode());
-			pstmt.setString(7, member.getMem_address1());
-			pstmt.setString(8, member.getMem_address2());
-			pstmt.setString(9, member.getMem_photo());
-			pstmt.setInt(10, member.getMem_num());
+			pstmt.setString(++cnt, member.getMem_name());
+			if(member.getMem_photo()!=null  && !member.getMem_photo().isEmpty()) {
+				pstmt.setString(++cnt, member.getMem_photo());
+			}
+			if(member.getMem_pw()!=null && !member.getMem_pw().isEmpty()) {
+				pstmt.setString(++cnt, member.getMem_pw());
+			}
+			pstmt.setString(++cnt, member.getMem_phone());
+			pstmt.setString(++cnt, member.getMem_email());
+			pstmt.setInt(++cnt, member.getMem_gender());
+			pstmt.setString(++cnt, member.getMem_birth());
+			pstmt.setString(++cnt, member.getMem_zipcode());
+			pstmt.setString(++cnt, member.getMem_address1());
+			pstmt.setString(++cnt, member.getMem_address2());
+			pstmt.setInt(++cnt, member.getMem_num());
 			//SQL문 실행
 			pstmt.executeUpdate();
 		}catch(Exception e) {

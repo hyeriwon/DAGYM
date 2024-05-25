@@ -37,16 +37,17 @@ $(function(){
 			return false;
 		}
 		//새 비밀번호 자리수 체크
-		if($('#newPw').val() != '' && !/^[0-9][a-z][A-Z]{8,12}$/.test($('#newPw').val())){
+		if($('#newPw').val() != '' && !/^(?=.*[0-9])(?=.*[a-zA-Z]).{8,12}$/.test($('#newPw').val())){
 			alert('비밀번호는 숫자와 영문을 혼용하여 8~12자리로 작성해주세요.');
 			$('#newPw').val('').focus();
 			$('#newCpw').val('');
+			$('#check-msg').text('');
 			return false;
 		}
 		//전화번호 자리수 체크
 		if(!/^\d{3}-\d{4}-\d{4}$/.test($('#phone').val())){
 			alert('전화번호는 000-0000-0000 형식으로 입력해주세요.');
-			$('#phone').val('').focus();
+			$('#phone').val('${member.mem_phone}').focus();
 			return false;
 		}
 	});
@@ -69,7 +70,9 @@ $(function(){
 	$('#newCpw').keyup(function(){
 		if($('#newPw').val() == $('#newCpw').val()){
 			$('#check-msg').text('새 비밀번호와 새 비밀번호 확인이 일치합니다.').css('color','blue');
-		}
+		}else{
+			$('#check-msg').text('');
+		}		
 	});
 	
 	//새 비밀번호 확인까지 한 후 다시 새 비밀번호를 수정하려고 하면 새 비밀번호 확인을 초기화

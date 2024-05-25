@@ -16,7 +16,7 @@ public class ModifyUserFormAction implements Action{
 		Integer mem_num = (Integer)session.getAttribute("user_num");
 		
 		if(mem_num == null) {
-			return "redirect:member/loginForm.do";
+			return "redirect:/member/loginForm.do";
 		}
 		
 		MemberDAO dao = MemberDAO.getInstance();
