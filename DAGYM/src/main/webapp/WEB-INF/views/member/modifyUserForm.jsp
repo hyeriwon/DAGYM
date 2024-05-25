@@ -50,6 +50,20 @@ $(function(){
 			return false;
 		}
 	});
+	//프로필 사진 미리보기
+	let photo_path = $('.my-photo').attr('src');
+	$('#photo').change(function(){
+		let photo = this.files[0];
+		//선택된 사진이 없을 때 마지막으로 수정된 이미지로 되돌리기
+		if(!photo){
+			$('.my-photo').attr('src',photo_path);
+		}
+		const reader = new FileReader();
+		reader.readAsDataURL(photo);
+		reader.onload = function(){
+			$('.my-photo').attr('src',reader.result);
+		};
+	});
 	
 	//새 비밀번호와 새 비밀번호 확인 일치 여부
 	$('#newCpw').keyup(function(){
@@ -126,12 +140,12 @@ $(function(){
 				</li>
 				<li>
 					<label for="photo">프로필 사진</label>
-					<input type="file" name="mem_photo" id="photo" value="${member.mem_photo}" accept="image/gif,image/png,image/jpeg"><br>
+					<input type="file" name="mem_photo" id="photo" accept="image/gif,image/png,image/jpeg"><br>
 					<c:if test="${empty member.mem_photo}">
-						<img src="${pageContext.request.contextPath}/images/face.png">
+						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
 					</c:if>
 					<c:if test="${!empty member.mem_photo}">
-						<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}">
+						<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="200" height="200" class="my-photo">
 					</c:if>				
 				</li>
 				<li>
