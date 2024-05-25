@@ -166,18 +166,22 @@ public class MemberDAO {
 		}
 		return member;
 	}
-	//회원정보 수정
+	//회원정보 수정(미완성)
 	public void updateMember(MemberVO member) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		String sub_sql = "";
 		
 		try {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
+			
 			//SQL문 작성
+			//mem_password=?, mem_photo=?, 
+			//
 			sql = "UPDATE member_detail SET mem_name=?,mem_phone=?,mem_email=?,mem_gender=?,mem_birth=?, "
-					+ "mem_zipcode=?, mem_address1=?, mem_address2=?, mem_photo=?, mem_modify_date=sysdate "
+					+ "mem_zipcode=?, mem_address1=?, mem_address2=?, mem_modify_date=sysdate "
 					+ "WHERE mem_num=?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
@@ -200,10 +204,8 @@ public class MemberDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	//비밀번호 수정
-	
-	//프로필 사진 수정
-	
+	//비밀번호 수정,프로필 사진 수정 따로 안 함(?)
+
 	//회원 탈퇴(회원정보 삭제)
 	
 	/*-------------------관리자------------------*/

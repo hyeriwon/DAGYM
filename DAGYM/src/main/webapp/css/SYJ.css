@@ -1,0 +1,11 @@
+@charset "UTF-8";
+ul{
+	padding:0 100px;
+}
+ul li{
+	clear:both;
+}
+ul li label{
+	width:130px;
+	float:left; /*태그를 왼쪽으로 정렬*/
+}

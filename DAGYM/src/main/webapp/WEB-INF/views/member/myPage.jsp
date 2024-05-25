@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>My Page</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SYJ.css" type="text/css">
 </head>
 <body>
 <div class="page-main">
@@ -31,11 +32,11 @@
 					<label>프로필</label>
 					<c:if test="${empty member.mem_photo}">
 						<img src="${pageContext.request.contextPath}/images/face.png"
-							width="50" height="50">
+							width="50" height="50" class="my-photo">
 					</c:if>
 					<c:if test="${!empty member.mem_photo}">
 						<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}"
-							width="50" height="50">
+							width="50" height="50" class="my-photo">
 					</c:if>
 				</li>
 				<li>
@@ -44,10 +45,10 @@
 				<li>
 					<label>이메일</label>${member.mem_email}
 				</li>
-				<c:if test="${member.mem_gender == 0}">
+				<c:if test="${member.mem_gender == 1}">
 					<li><label>성별</label>여성</li>
 				</c:if>
-				<c:if test="${member.mem_gender == 1}">
+				<c:if test="${member.mem_gender == 0}">
 					<li><label>성별</label>남성</li>
 				</c:if>
 				<li>
