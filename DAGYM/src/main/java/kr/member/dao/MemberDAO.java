@@ -158,6 +158,7 @@ public class MemberDAO {
 				member.setMem_address2(rs.getString("mem_address2"));
 				member.setMem_photo(rs.getString("mem_photo"));
 				member.setMem_reg_date(rs.getDate("mem_reg_date"));
+				member.setMem_modify_date(rs.getDate("mem_modify_date"));
 				member.setMem_num(rs.getInt("mem_num"));
 			}
 		}catch(Exception e) {
@@ -167,7 +168,7 @@ public class MemberDAO {
 		}
 		return member;
 	}
-	//회원정보 수정(미완성)
+	//회원정보 수정
 	public void updateMember(MemberVO member) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -216,9 +217,37 @@ public class MemberDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	//비밀번호 수정,프로필 사진 수정 따로 안 함(?)
 
 	//회원 탈퇴(회원정보 삭제)
+	public void deleteMember(int mem_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			sql = "UPDATE member SET mem_auth=0 WHERE mem_num=?";
+			pstmt1 = conn.prepareStatement(sql);
+			pstmt1.setInt(1, mem_num);
+			pstmt1.executeUpdate();
+			
+			sql = "DELETE FROM member_detail WHERE mem_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, mem_num);
+			pstmt2.executeUpdate();
+			
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt1, conn);
+		}
+	}
 	
 	/*-------------------관리자------------------*/
 	//전체 내용 개수, 검색 내용 개수

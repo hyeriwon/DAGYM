@@ -63,11 +63,12 @@
 				<li>
 					<label>가입일</label>${member.mem_reg_date}
 				</li>
-				<c:if test="${member.mem_modify_date != null}">
+				<c:if test="${!empty member.mem_modify_date}">
 					<li><label>수정일</label>${member.mem_modify_date}</li>
 				</c:if>				
 			</ul>
 			<hr size="1" width="80%" noshade="noshade">
+			
 		</div>	
 	</div>
 </div>
