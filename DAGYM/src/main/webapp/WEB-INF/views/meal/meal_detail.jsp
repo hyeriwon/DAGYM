@@ -28,13 +28,12 @@ window.onload=function(){
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-		<h2>식사 목록</h2>
-		<form id = "search_form" action = "list.do" method="get">
+		<h2>식사 기록</h2>
+		<form id = "search_form" action = "	" method="get">
 		<ul class="search">
 		<li>
 		<select name = "keyfield">
 			<option value="1"<c:if test="${param.keyfield ==1}">selected</c:if>>음식이름</option>
-			<option value="2"<c:if test="${param.keyfield ==2}">selected</c:if>>식사일자</option>
 		</select>
 		</li>
 		<li>
@@ -68,15 +67,15 @@ window.onload=function(){
 				</tr>
 				<c:forEach var = "meal" items="${meal}">
 					<tr>
-					<td><a href="update.do?meal_num=${meal.meal_num}">${meal.meal_date}</a></td>
+					<td><a href="listDateMeal.do?meal_date=${meal.meal_date}">${meal.meal_date}</a></td>
 					<c:choose>
-						<c:when test="${meal.meal_time}==0">
+						<c:when test="${meal.meal_time ==0}">
 						<td>아침</td>
 						</c:when>
-						<c:when test="${meal.meal_time}==1">
+						<c:when test="${meal.meal_time ==1}">
 						<td>점심</td>
 						</c:when>
-						<c:when test="${meal.meal_time}==2">
+						<c:when test="${meal.meal_time ==2}">
 						<td>저녁</td>
 						</c:when>
 						<c:otherwise>
@@ -87,7 +86,7 @@ window.onload=function(){
 					<td>${meal.tme_kcal}</td>
 					<td>
 					<div class="align-center">
-					<input type="button" value="삭제" onclick="location.href='delete.do'">
+					<input type="button" value="삭제" onclick="location.href='delete.do?meal_num=${meal.meal_num}'">
 					</div>
 					</td>
 					</tr>

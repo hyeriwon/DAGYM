@@ -18,11 +18,14 @@ public class MealWriteAction implements Action{
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		
 		MealVO meal = new MealVO();
-		meal.setTme_num(Integer.parseInt(request.getParameter("tme_num")));
 		meal.setMeal_date(request.getParameter("meal_date"));
 		meal.setMem_num(user_num);
 		meal.setMeal_time(Integer.parseInt(request.getParameter("meal_time")));
 		MealDAO dao = MealDAO.getInstance();
+		int tme_num = dao.searchMenuAndSetTmeNum(request.getParameter("menu_name"));
+		System.out.println(tme_num);
+		meal.setTme_num(tme_num);
+		System.out.println(meal.getTme_num());
 		dao.insertMeal(meal);
 		
 		

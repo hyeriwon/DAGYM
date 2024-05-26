@@ -6,7 +6,7 @@ create table meal (
  meal_date varchar2(30) not null, -- 식사일자
  meal_time number(1) not null,  -- 식사 분류(아침:0, 점심:1, 저녁:2,간식:3)
  constraint meal_pk primary key(meal_num),
- constraint meal_fk1 foreign key(tem_num) references t_menu(tme_num),
+ constraint meal_fk1 foreign key(tme_num) references t_menu(tme_num),
  constraint meal_fk2 foreign key(mem_num) references member(mem_num)
  );
  create sequence meal_seq;

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.meal.vo.MealVO;
+import kr.tmenu.vo.TmenuVO;
 import kr.util.DBUtil;
 
 public class MealDAO {
@@ -42,6 +43,28 @@ public class MealDAO {
 	}
 	
 	//음식글 삭제
+	public void deleteMeal(int meal_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			//커넥션풀로부터 커넥션을 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			sql = "DELETE FROM meal WHERE meal_num=?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, meal_num);
+			//SQL문 실행
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
 	//음식글 등록 상세정보 
 	public MealVO getMeal(int meal_num) throws Exception{
 		Connection conn = null;
@@ -72,7 +95,7 @@ public class MealDAO {
 		}
 		return item;
 	}
-	//음식글 총 갯수, 검색 갯수
+	// 회원별 음식글 총 갯수, 검색 갯수
 	public int getMealCount(String keyfield, String keyword,int mem_num)throws Exception{
 		Connection conn= null;
 		PreparedStatement pstmt=null;
@@ -151,46 +174,128 @@ public class MealDAO {
 		}
 		return list;
 	}
+
 	
-	
-	
-	//같은날짜 같은 식사 음식 계산
-	//오늘의 메뉴 검색처리
-	public int searchMenuAndSetTmeNum(String tme_name)throws Exception{
+	//오늘의 메뉴 검색하기
+	public List<TmenuVO> searchListTmenu(String keyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
+		ResultSet rs =null;
+		List<TmenuVO> list = null;
 		String sql = null;
-		int tme_num = -1;
 		try {
-			conn=DBUtil.getConnection();
-			sql="SELECT tme_num FROM t_menu WHERE tme_name = ?";
+			//커넥션 풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			sql ="SELECT * FROM t_menu WHERE tme_name LIKE '%' || ? || '%'";
 			pstmt =conn.prepareStatement(sql);
-			pstmt.setString(1,tme_name);
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				tme_num = rs.getInt("tme_num");
+			pstmt.setString(1,keyword);
+			rs=pstmt.executeQuery();
+			list = new ArrayList<TmenuVO>();
+			while(rs.next()) {
+				TmenuVO tmenu = new TmenuVO();
+				tmenu.setTme_num(rs.getInt("tme_num"));
+				tmenu.setTme_name(rs.getString("tme_name"));
+				tmenu.setTme_kcal(rs.getInt("tme_kcal"));
+				list.add(tmenu);
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
-		return tme_num;
+		return list;
 	}
 	
-	//칼로리 계산
-	public void a()throws Exception{
+	
+	
+	//같은날짜 같은 식사 음식 계산
+	public List<MealVO> listDateMeal(int mem_num,String meal_date)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		List<MealVO> list = null;
 		String sql = null;
 		try {
-			conn=DBUtil.getConnection();
+			//커넥션 풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			  sql = "SELECT * FROM meal JOIN t_menu USING(tme_num) WHERE mem_num =? AND meal_date = ?";
+			pstmt =conn.prepareStatement(sql);
+			System.out.println("mem-num :"+mem_num);
+			pstmt.setInt(1, mem_num);
+			pstmt.setString(2,meal_date);
+			rs=pstmt.executeQuery();
+			list = new ArrayList<MealVO>();
+			while(rs.next()) {
+				MealVO meal = new MealVO();
+				meal.setTme_num(rs.getInt("tme_num"));
+				meal.setTme_name(rs.getString("tme_name"));
+				meal.setTme_kcal(rs.getInt("tme_kcal"));
+				list.add(meal);
+				
+			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
-			DBUtil.executeClose(null, pstmt, conn);
+			DBUtil.executeClose(rs, pstmt, conn);
 		}
+		return list;
+	}
+	
+	//오늘의 메뉴 검색처리
+	public int searchMenuAndSetTmeNum(String tme_name) throws Exception {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String sql = null;
+	    int tme_num = -1;
+	    
+	    try {
+	        conn = DBUtil.getConnection();
+	        sql = "SELECT tme_num FROM t_menu WHERE tme_name = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, tme_name);
+	        rs = pstmt.executeQuery();
+	        System.out.println(tme_name);
+	        if (rs.next()) {
+	            tme_num = rs.getInt("tme_num");
+	        }
+	    } catch (Exception e) {
+	        // 예외 발생 시 로그를 남기고 예외를 다시 던집니다.
+	        System.err.println("Error occurred while searching for tme_num: " + e.getMessage());
+	        throw new Exception(e);
+	    } finally {
+	        // 자원 해제를 수행합니다.
+	        DBUtil.executeClose(rs, pstmt, conn);
+	    }
+	    
+	    return tme_num;
+	}
+
+	
+	//칼로리 계산
+	public int calKcal(String meal_date)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int totalKcal = 0;
+		try {
+			conn=DBUtil.getConnection();
+			sql="SELECT SUM(tme_kcal) AS totalKcal FROM meal JOIN t_menu USING(tme_num) WHERE meal_date= ? GROUP BY meal_date";
+			pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, meal_date);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+            	totalKcal =rs.getInt("totalKcal");
+            }
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return totalKcal;
 	}
 	
 }
