@@ -3,6 +3,8 @@ package kr.member.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.member.vo.MemberVO;
 import kr.util.DBUtil;
@@ -274,7 +276,40 @@ public class MemberDAO {
 		return count;
 	}
 	//목록, 검색 목록
-	
+	public List<MemberVO> getListMemberByAdmin(int start, int end, String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MemberVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) " 
+					+ sub_sql + " ORDER BY mem_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<MemberVO>();
+			while(rs.next()) {
+				MemberVO member = new MemberVO();
+				member.setMem_num(rs.getInt("mem_num"));
+				member.setMem_id(rs.getString("mem_id"));
+				member.setMem_name(rs.getString("mem_name"));
+				member.setMem_phone(rs.getString("mem_phone"));
+				member.setMem_auth(rs.getInt("mem_auth"));
+				member.setMem_reg_date(rs.getDate("mem_reg_date"));
+				
+				list.add(member);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
 	//회원등급 수정
 	
 }
