@@ -175,7 +175,7 @@ $(function(){
 				여자<input type="radio" id="female" name="gender" value="1" class="input-check">
 			</li>
 			<li>
-				<label for="birth">생년월일</label>
+				<label for="birth">*생년월일</label>
 				<input type="date" name="birth" id="birth" maxlength="30" class="input-noncheck">
 			</li>
 			<li>

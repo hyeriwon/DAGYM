@@ -262,13 +262,13 @@ public class MemberDAO {
 		int count = 0;
 		try {
 			conn = DBUtil.getConnection();
-			if(keyword!=null && "".equals(keyword)) {
-				if(keyword.equals("1")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%";
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyword.equals("1")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
 				else if(keyword.equals("2")) sub_sql += "WHERE mem_auth LIKE '%' || ? || '%'";
 			}
 			sql = "SELECT COUNT(*) FROM member LEFT OUTER JOIN member_detail USING(mem_num) " + sub_sql;//상의하기, 탈퇴 회원도 조회하는 것이 나은지
 			pstmt = conn.prepareStatement(sql);
-			if(keyword!=null && "".equals(keyword)) {
+			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(1, keyword);
 			}
 			rs = pstmt.executeQuery();
@@ -293,7 +293,7 @@ public class MemberDAO {
 		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
-			if(keyword!=null && "".equals(keyword)) {
+			if(keyword!=null && !"".equals(keyword)) {
 				if(keyword.equals("1")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%";
 				else if(keyword.equals("2")) sub_sql += "WHERE mem_auth LIKE '%' || ? || '%'";
 			}
