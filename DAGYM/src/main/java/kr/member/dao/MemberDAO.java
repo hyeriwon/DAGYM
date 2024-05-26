@@ -300,7 +300,7 @@ public class MemberDAO {
 				member.setMem_phone(rs.getString("mem_phone"));
 				member.setMem_auth(rs.getInt("mem_auth"));
 				member.setMem_reg_date(rs.getDate("mem_reg_date"));
-				
+				member.setMem_birth(rs.getString("mem_birth"));
 				list.add(member);
 			}
 		}catch(Exception e) {
