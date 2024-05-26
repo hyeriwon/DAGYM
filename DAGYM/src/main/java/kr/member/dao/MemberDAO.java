@@ -251,7 +251,28 @@ public class MemberDAO {
 	
 	/*-------------------관리자------------------*/
 	//전체 내용 개수, 검색 내용 개수
-	
+	public int getMemberCountByAdmin(String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";//검색
+		int count = 0;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT COUNT(*) FROM member";//상의하기, 탈퇴 회원도 조회하는 것이 나은지
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return count;
+	}
 	//목록, 검색 목록
 	
 	//회원등급 수정
