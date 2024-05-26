@@ -262,8 +262,15 @@ public class MemberDAO {
 		int count = 0;
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT COUNT(*) FROM member";//상의하기, 탈퇴 회원도 조회하는 것이 나은지
+			if(keyword!=null && "".equals(keyword)) {
+				if(keyword.equals("1")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%";
+				else if(keyword.equals("2")) sub_sql += "WHERE mem_auth LIKE '%' || ? || '%'";
+			}
+			sql = "SELECT COUNT(*) FROM member LEFT OUTER JOIN member_detail USING(mem_num) " + sub_sql;//상의하기, 탈퇴 회원도 조회하는 것이 나은지
 			pstmt = conn.prepareStatement(sql);
+			if(keyword!=null && "".equals(keyword)) {
+				pstmt.setString(1, keyword);
+			}
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -283,13 +290,21 @@ public class MemberDAO {
 		List<MemberVO> list = null;
 		String sql = null;
 		String sub_sql = "";
+		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
+			if(keyword!=null && "".equals(keyword)) {
+				if(keyword.equals("1")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%";
+				else if(keyword.equals("2")) sub_sql += "WHERE mem_auth LIKE '%' || ? || '%'";
+			}
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) " 
 					+ sub_sql + " ORDER BY mem_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
+			if(keyword!=null && "".equals(keyword)) {
+				pstmt.setString(++cnt, keyword);
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
 			rs = pstmt.executeQuery();
 			list = new ArrayList<MemberVO>();
 			while(rs.next()) {
