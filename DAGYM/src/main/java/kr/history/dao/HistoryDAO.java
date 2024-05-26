@@ -57,4 +57,7 @@ public class HistoryDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
+	
+	//수강신청내역
+	
 }

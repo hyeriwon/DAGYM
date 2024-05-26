@@ -12,19 +12,45 @@
     <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
     <div class="content-main">
         <h2>수강신청</h2>
-        <form action="enrollProcess.do" method="post">
-            <!-- 수강 신청 폼 요소들 -->
-            <!-- 예: 수강할 스케줄 선택, 수강 기간 선택, 추가 정보 입력 등 -->
-            <label for="schedule">수강할 스케줄 선택:</label>
-            <select id="schedule" name="schedule">
-                <!-- 여기에 스케줄 옵션을 동적으로 생성하거나 서버로부터 받아온 스케줄 목록을 표시할 수 있습니다. -->
-                <option value="1">스케줄 1</option>
-                <option value="2">스케줄 2</option>
-                <!-- 추가적인 스케줄 옵션들... -->
-            </select>
-            <!-- 추가적인 수강 신청 폼 요소들 추가 -->
-            <!-- 예: 수강 기간, 수강자 정보 입력 등 -->
-            <input type="submit" value="수강 신청">
+        <form action="enroll.do" method="post">
+        <ul>
+			<li>
+           	<label for="sch_num">수강 날짜 : </label>
+			<input type="text" name="sch_num" id="sch_num" value="${mapAjax.schdule.sch_date}" readonly>
+			</li>
+			<li>
+			<label for="tra_num">트레이너 번호 : </label>
+			<input type="text" name="tra_num" id="tra_num" value="${mapAjax.schedule.mem_num}" readonly>
+			</li>
+			<li>
+			<label for="his_part">운동 부위 : </label>
+			<select name="his_part">
+				<option>어깨</option>
+				<option>가슴</option>
+				<option>등</option>
+				<option>하체</option>
+			</select>
+			</li>
+			<li>
+			<label for="mem_num">회원번호 : </label>
+            <input type="text" name="mem_num" value="${sessionScope.usernum}">
+			</li>
+			<%-- 남은 회원권 계산하는 메서드 만들기 --%>
+			<%-- 
+			<li>
+			<label for="">남은 회원권 : </label>
+            <input type="text" name="" value="${}" readonly> 
+			</li>
+			--%>
+			<li>
+			<label for="sch_date">시간 선택 : </label>
+			<input type="radio" name="sch_date" > <!-- value에 시간 -->
+			</li>
+			</ul>
+			<div>
+			<input type="submit" value="수강 신청">
+			<input type="button" value="취소" onclick="location.href='historyList.do'">
+			</div> 
         </form>
     </div>
 </div>
