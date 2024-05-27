@@ -44,9 +44,10 @@ public class ListAction implements Action {
 		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());
 		
-        //이번 달 출석 횟수 계산
+        //이번달 출석일수 계산
         String month = new java.text.SimpleDateFormat("yyyy-MM").format(new java.util.Date());
         int attendCount = dao.getMonthlyAttendCount(user_num, month);
+        request.setAttribute("month", month);
         request.setAttribute("attendCount", attendCount);
         
 		//JSP 경로 반환

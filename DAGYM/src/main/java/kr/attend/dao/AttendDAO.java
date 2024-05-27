@@ -173,7 +173,7 @@ public class AttendDAO {
         return isExist;
     }
     
-    //이번 달 출석 횟수
+    //이번달 출석일수
     public int getMonthlyAttendCount(int mem_num, String month) throws Exception {
     	
         Connection conn = null;
