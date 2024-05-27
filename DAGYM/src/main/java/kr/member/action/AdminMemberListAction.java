@@ -15,6 +15,7 @@ public class AdminMemberListAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 		
 		//로그인체크
