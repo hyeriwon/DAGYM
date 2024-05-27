@@ -6,6 +6,9 @@
 		<li>
 			<a href="${pageContext.request.contextPath}/tmenu/tmenuWriteForm.do">오늘의 메뉴 등록</a>
 		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/tmenu/tmenuList.do">오늘의 메뉴 목록</a>
+		</li>
 		
 		<c:if test="${!empty user_num && user_auth == 8}"><!-- 강사 -->
 		<li>

@@ -103,6 +103,7 @@ public class MealDAO {
 		String sql = null;
 		String sub_sql = "";
 		int count = 0;
+		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
 			if(keyword!=null && !"".equals(keyword)) {
@@ -111,9 +112,9 @@ public class MealDAO {
 			}
 			sql= "SELECT COUNT(*)FROM meal JOIN t_menu USING(tme_num) WHERE mem_num =? " +sub_sql;
 			pstmt =conn.prepareStatement(sql);
-			pstmt.setInt(1, mem_num);
+			pstmt.setInt(++cnt, mem_num);
 			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(2,keyword);
+				pstmt.setString(++cnt,keyword);
 			}
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -142,7 +143,6 @@ public class MealDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += "AND tme_name LIKE '%'||?||'%'";
-				else if(keyfield.equals("2")) sub_sql +=" AND meal_date LIKE '%' || ? ||'%'";
 			}
 			//SQL문 작성
 			sql ="SELECT * FROM (SELECT a.*,rownum rnum FROM "

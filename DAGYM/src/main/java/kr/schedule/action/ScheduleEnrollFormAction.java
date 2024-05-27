@@ -13,12 +13,16 @@ public class ScheduleEnrollFormAction implements Action{
 		
 		HttpSession session = request.getSession();
 		
-		Integer mem_num = (Integer)session.getAttribute("mem_num");
-		if(mem_num == null) { // 로그인이 되지 않은 경우
-			return "redirect:/member/loginForm.do";
-			
-		}
-		return "/WEB-INF/views/board/scheduleEnrollForm.jsp";
+		Integer user_num = (Integer) session.getAttribute("user_num"); 
+		  if (user_num == null) { // 로그인이 되지 않은 경우 
+			  return "redirect:/member/loginForm.do";
+		  }
+		  
+		     // 전달받은 날짜를 request에 설정
+	        String sch_date = request.getParameter("sch_date");
+	        request.setAttribute("sch_date", sch_date);
+		  
+		return "/WEB-INF/views/schedule/scheduleEnrollForm.jsp";
 	}
 
 }
