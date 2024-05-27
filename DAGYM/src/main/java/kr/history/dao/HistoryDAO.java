@@ -35,7 +35,7 @@ public class HistoryDAO {
 			conn.setAutoCommit(false);
 
 			//수강신청시 history 테이블에 데이터 등록
-			sql = "INSERT INTO history (his_num,mem_num,sch_num,tra_num,his_status,his_part) VALUES (history_seq.nextval,?,?,?,?,?)";
+			sql = "INSERT INTO history (his_num,mem_num,sch_num,tra_num,his_status,his_part) VALUES (history_seq.nextval,?,?,?,?,?)";//WHERE절로 넘겨야 
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, history.getMem_num());
 			pstmt.setInt(2, history.getSch_num());
@@ -114,8 +114,7 @@ public class HistoryDAO {
 			 sql = "SELECT * FROM (SELECT h.*, md.mem_name AS mem_name, rownum rnum FROM " +
 		              "(SELECT h.*, m.mem_num AS mem_num FROM history h " +
 		              "JOIN member m ON h.mem_num = m.mem_num " +
-		              "JOIN member_detail md ON m.mem_num = md.mem_num " +
-		              "WHERE 1=1 " + sub_sql + " ORDER BY h.his_num DESC) h) " +
+		              "JOIN member_detail md ON m.mem_num = md.mem_num "  + sub_sql + " ORDER BY h.his_num DESC) h) " +
 		              "WHERE rnum >= ? AND rnum <= ?";
 			 
 			 pstmt = conn.prepareStatement(sql);
