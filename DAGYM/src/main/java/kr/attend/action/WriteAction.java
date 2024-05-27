@@ -24,20 +24,21 @@ public class WriteAction implements Action{
 		//전송된 데이터 인코딩 타입 지정
 		request.setCharacterEncoding("utf-8");
 		
-	    // 오늘 날짜를 문자열로 얻기
+	    //오늘 날짜를 문자열로 얻기
         String date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
         
         AttendDAO dao = AttendDAO.getInstance();
-
-        // 오늘 날짜에 이미 출석했는지 확인
+        
+        //오늘 날짜에 이미 출석했는지 확인
         boolean isExist = dao.isAttendExist(user_num, date);
         
         if (isExist) {
-            // 이미 출석한 경우 처리
+            //이미 출석한 경우 처리
             return "/WEB-INF/views/attend/error.jsp";
         } else {
-            // 출석 등록
-            dao.insert(user_num);
+            //출석 등록
+            dao.insert(user_num);           
+
             return "/WEB-INF/views/attend/write.jsp";
         }
 	}

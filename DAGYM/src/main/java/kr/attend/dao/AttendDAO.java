@@ -135,7 +135,7 @@ public class AttendDAO {
 		return count;
 	}
 	
-	//출석 여부 확인 메서드 추가
+	//출석 여부 확인
     public boolean isAttendExist(int mem_num, String date) throws Exception {
     	
         Connection conn = null;
@@ -171,6 +171,44 @@ public class AttendDAO {
             DBUtil.executeClose(rs, pstmt, conn);
         }
         return isExist;
+    }
+    
+    //이번 달 출석 횟수
+    public int getMonthlyAttendCount(int mem_num, String month) throws Exception {
+    	
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = null;
+        int count = 0;
+        
+        try {
+            //커넥션풀로부터 커넥션을 할당
+            conn = DBUtil.getConnection();
+            
+            //SQL문 작성
+            sql = "SELECT COUNT(*) FROM attend WHERE mem_num = ? AND TO_CHAR(att_date, 'YYYY-MM') = ?";
+            
+            //PreparedStatement 객체 생성
+            pstmt = conn.prepareStatement(sql);
+            //?에 데이터 바인딩
+            pstmt.setInt(1, mem_num);
+            pstmt.setString(2, month);
+            
+            //SQL문 실행
+            rs = pstmt.executeQuery();
+            
+            if (rs.next()) {
+                count = rs.getInt(1); //1 = COUNT(*)의 컬럼인덱스
+            }
+            
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            //자원 정리
+            DBUtil.executeClose(rs, pstmt, conn);
+        }
+        return count;
     }
     
 	//출석 삭제
