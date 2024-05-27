@@ -28,7 +28,10 @@
 			<a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석확인</a>
 		</li>		
 		<li>
-			<a href="${pageContext.request.contextPath}/member/adminList.do">회원관리</a>
+			<a href="${pageContext.request.contextPath}/member/adminMemberList.do">회원관리</a>
+		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/member/adminTrainerList.do">강사관리</a>
 		</li>		
 		</c:if>
 		

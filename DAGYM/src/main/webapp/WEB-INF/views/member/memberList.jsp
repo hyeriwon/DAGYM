@@ -22,6 +22,7 @@ window.onload=function(){
 	};
 };
 </script>
+
 </head>
 <body>
 <div class="page-main">
@@ -29,7 +30,7 @@ window.onload=function(){
 	<div class="content-main">
 		<h2>회원목록(관리자)</h2>
 		<%-- 검색 --%>
-		<form id="search_form" action="adminList.do" method="get">
+		<form id="search_form" action="adminMemberList.do" method="get">
 			<ul class="search">
 				<li>
 					<select name="keyfield">
@@ -47,7 +48,7 @@ window.onload=function(){
 		</form>
 		<%-- 목록 --%>
 		<div class="list-span align-right">
-			<input type="button" value="목록" onclick="location.href='adminList.do'">
+			<input type="button" value="목록" onclick="location.href='adminMemberList.do'">
 		</div>
 		<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 		<c:if test="${count == 0}">
@@ -63,6 +64,7 @@ window.onload=function(){
 				<th>이름</th>
 				<th>전화번호</th>
 				<th>생년월일</th>
+				<th>담당트레이너</th>
 				<th>가입일</th>
 				<th>등급</th>
 			</tr>
@@ -72,6 +74,7 @@ window.onload=function(){
 				<td>${member.mem_name}</td>
 				<td>${member.mem_phone}</td>
 				<td>${member.mem_birth}</td>
+				<td><%-- 담당트레이너 데이터 --%></td>
 				<td>${member.mem_reg_date}</td>
 				<td>
 					<c:if test="${member.mem_auth == 0}">탈퇴</c:if>

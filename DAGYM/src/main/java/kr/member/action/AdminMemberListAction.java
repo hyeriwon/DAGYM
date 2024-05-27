@@ -21,7 +21,7 @@ public class AdminMemberListAction implements Action{
 		//로그인체크
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num == null) {
-			return "redirect:/member/logginForm.do";
+			return "redirect:/member/loginForm.do";
 		}
 		
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
@@ -40,7 +40,7 @@ public class AdminMemberListAction implements Action{
 		int count = dao.getMemberCountByAdmin(keyfield, keyword);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"adminList.do");
+		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"adminMemberList.do");
 		
 		List<MemberVO> list = null;
 		if(count > 0) {
