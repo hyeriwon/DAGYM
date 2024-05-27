@@ -1,15 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
 <body>
-<div class= "content-main">
-		</div>
+<div class="page-main">
+<div class="result-display">
 			<table>
 				<tr>
 					<th>식사분류</th>
@@ -41,6 +44,9 @@
 				<td>${totalKcal}</td>
 				</tr>
 			</table>
+			<p>
 			<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'">
+</div>
+</div>
 </body>
 </html>

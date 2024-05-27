@@ -25,4 +25,4 @@ create table t_menu(
 
 );
   
-create sequence t_menu_seq;
+create sequence tmenu_seq;

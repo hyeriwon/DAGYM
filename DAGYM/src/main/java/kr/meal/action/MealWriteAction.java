@@ -16,6 +16,9 @@ public class MealWriteAction implements Action{
 
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");
+		if(user_num == null) {
+			return "redirect:/member/loginForm.do";
+		}
 		
 		MealVO meal = new MealVO();
 		meal.setMeal_date(request.getParameter("meal_date"));

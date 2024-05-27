@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
   var calendar = new FullCalendar.Calendar(calendarEl, {
     selectable: true,
+    height: 'auto',
+    width:'auto',
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
@@ -33,12 +35,16 @@ document.addEventListener('DOMContentLoaded', function() {
 <body>
 <div class="page-main">
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
+    <p>
+    <jsp:include page="/WEB-INF/views/common/usercontrolHeader.jsp"/>
     <div class="content-main">
+    <div class="align-right">
+    <input type="button" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'">
+    <div><p></div>
+    </div>
     <div id="calendar"></div>
     </div>
-     <div>
-    <input type="button" value="목록" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'">
-    </div>
+     
 </div>
 </body>
 </html>
