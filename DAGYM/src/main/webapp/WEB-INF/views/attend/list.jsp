@@ -61,7 +61,22 @@
 	     	}
 	    		<c:if test="${!attend_last}">,</c:if>
 	        </c:forEach>
-		]
+		],
+		eventDidMount: function(info) {
+			// 이벤트 타이틀 숨기기
+			var titleElement = info.el.querySelector('.fc-event-title');
+			if (titleElement) {
+				titleElement.style.display = 'none';
+			}
+			// 이벤트를 동그라미로 표시
+			info.el.style.backgroundColor = 'transparent';
+			info.el.style.border = 'none';
+			info.el.innerHTML = '<div class="event-circle"></div>';
+			// 동그라미를 가운데로 정렬
+			info.el.style.display = 'flex';
+			info.el.style.alignItems = 'center';
+			info.el.style.justifyContent = 'center';
+		}
 	    });
 	
 	    calendar.render();
@@ -82,6 +97,18 @@
 	.fc-scroller::-webkit-scrollbar {
 	    display: none;
 	}
+	.fc-scroller {
+	    -ms-overflow-style: none;  /* IE and Edge */
+	    scrollbar-width: none;  /* Firefox */
+	}
+	/* 이벤트 동그라미 스타일 */
+	.event-circle {
+	    width: 25px;
+	    height: 25px;
+	    background-color: #3788d8; /* 이벤트 색상 */
+	    border-radius: 50%;
+	    margin: 0 auto;
+	}
 
 </style>
 </head>
@@ -92,6 +119,8 @@
 		<div class="content-main">
 			<br>
 			<div id="calendar"></div>
+			<br>
+			<h3>이번달 출석일수 : </h3>
 			<br>
 		</div>
 	</div>
