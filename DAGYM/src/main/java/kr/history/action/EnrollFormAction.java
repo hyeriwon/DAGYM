@@ -1,7 +1,5 @@
 package kr.history.action;
 
-import java.util.HashMap;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,18 +24,23 @@ public class EnrollFormAction implements Action{
 		request.setCharacterEncoding("utf-8");
 		int sch_num = Integer.parseInt(request.getParameter("sch_num"));
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
-		ScheduleDAO schedule = ScheduleDAO.getInstance();
-		PaymentDAO payment = PaymentDAO.getInstance();
-		MemberDAO member = MemberDAO.getInstance();
+		ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
+		PaymentDAO paymentDAO = PaymentDAO.getInstance();
+		//MemberDAO memberDAO = MemberDAO.getInstance();
+		
+		//ScheduleVO schedule = ScheduleDAO.getSchedule(sch_num);
+		//PaymentVO payment = paymentDAO.getPayment(mem_num);
+		
 		//if(mem_num==)
-
+		
+		/*
 		if (schedule != null) { // 스케줄이 존재하면
 			request.setAttribute("schedule", schedule);
 			request.setAttribute("payment", payment);
 		} else { // 스케줄이 없으면
 			request.setAttribute("result", "scheduleNotFound");
 		}
-
+		*/
 		return "/WEB-INF/views/history/enrollForm.jsp";
 	}
 

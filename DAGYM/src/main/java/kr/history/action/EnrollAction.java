@@ -29,6 +29,8 @@ public class EnrollAction implements Action{
 		history.setTra_num(Integer.parseInt(request.getParameter("tra_num")));
 		history.setHis_status(Integer.parseInt(request.getParameter("his_status")));
 		history.setHis_part(request.getParameter("his_part"));
+		history.setMem_name(request.getParameter("mem_name"));
+		history.setSch_date(request.getParameter("sch_date"));
 		
 		PaymentVO payment = new PaymentVO();
 		payment.setMem_num(Integer.parseInt(request.getParameter("mem_num")));
@@ -38,7 +40,7 @@ public class EnrollAction implements Action{
 		
 		request.setAttribute("result_title", "수강신청 완료");
 		request.setAttribute("result_msg", "수강 신청이 완료되었습니다.");
-		request.setAttribute("notice_url", request.getContextPath() + "");//수강신청내역페이지로 이동
+		request.setAttribute("notice_url", request.getContextPath() + "/history/enrollList.do");//수강신청내역페이지로 이동
 		
 		
 		return "/WEB-INF/views/common/result_view.jsp";

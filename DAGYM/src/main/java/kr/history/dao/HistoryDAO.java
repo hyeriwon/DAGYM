@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import kr.history.vo.HistoryVO;
 import kr.payment.vo.PaymentVO;
 import kr.util.DBUtil;
@@ -19,9 +21,7 @@ public class HistoryDAO {
 	}
 	private HistoryDAO () {}
 
-	//스케줄목록
-	
-	
+	/*-----회원-----*/
 	//수강신청
 	public void insertHistory(HistoryVO history, PaymentVO payment)throws Exception{
 		Connection conn = null;
@@ -35,7 +35,7 @@ public class HistoryDAO {
 			conn.setAutoCommit(false);
 
 			//수강신청시 history 테이블에 데이터 등록
-			sql = "INSERT INTO history (his_num,mem_num,sch_num,tra_num,his_status,his_part) VALUES (zboard_seq.nextval,?,?,?,?,?)";
+			sql = "INSERT INTO history (his_num,mem_num,sch_num,tra_num,his_status,his_part) VALUES (history_seq.nextval,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, history.getMem_num());
 			pstmt.setInt(2, history.getSch_num());
@@ -43,8 +43,8 @@ public class HistoryDAO {
 			pstmt.setInt(4, history.getHis_status());
 			pstmt.setString(5, history.getHis_part());
 			pstmt.executeUpdate();
-			//수강신청시 PT 등록횟수 차감
-			sql = "UPDATE payment SET pay_enroll = payment - 1 WHERE mem_num=? AND pay_enroll > 0";
+			//수강신청시 PT 등록횟수 차감			//pay_enroll 수정 필요		
+			sql = "UPDATE payment SET pay_enroll = pay_enroll - 1 WHERE mem_num=? AND pay_enroll > 0";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, payment.getMem_num());
 			pstmt2.executeUpdate();
@@ -110,6 +110,7 @@ public class HistoryDAO {
 				if(keyfield.equals("1")) sub_sql += "WHERE mem_name LIKE '%' || ? || '%'";
 				else if(keyfield.equals("2")) sub_sql += "WHERE his_part LIKE '%' || ? || '%'";
 			}
+			//SQL문 수정 필요! (OUTERJOIN 필요)
 			 sql = "SELECT * FROM (SELECT h.*, md.mem_name AS mem_name, rownum rnum FROM " +
 		              "(SELECT h.*, m.mem_num AS mem_num FROM history h " +
 		              "JOIN member m ON h.mem_num = m.mem_num " +
@@ -145,7 +146,75 @@ public class HistoryDAO {
 		}
 		return list;
 	}
-	
-	//수강내역 상세
-	
+	/*-----강사-----*/
+	//수강 내역 전체 개수, 검색 개수(강사)
+	public int getHistoryCountByAdmin(String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT COUNT(*) FROM history";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return count;
+	}
+	//수강내역(강사)
+	public List<HistoryVO> getListHistoryByAdmin(int user_num,int start,int end,String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<HistoryVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		try {
+			conn = DBUtil.getConnection();
+			
+			//SQL문 수정 필요
+			sql = "SELECT h.his_num, s.sch_date, h.his_part, md.mem_name, md.mem_phone, p.pay_enroll, h.his_status " +
+                    "FROM history h " +
+                    "JOIN member_detail md ON h.mem_num = md.mem_num " +
+                    "JOIN payment p ON h.mem_num = p.mem_num " +
+                    "JOIN schedule s ON h.sch_num = s.sch_num " +
+                    "WHERE h.tra_num = ? AND rnum >= ? AND rnum <= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, user_num);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rs = pstmt.executeQuery();
+			list = new ArrayList<HistoryVO>();
+			while(rs.next()) {
+				HistoryVO history = new HistoryVO();
+				history.setHis_num(rs.getInt("his_num"));
+				history.setSch_date(rs.getString("sch_date"));
+				history.setHis_part(rs.getString("his_part"));
+				history.setMem_name(rs.getString("mem_name"));
+				history.setMem_phone(rs.getString("mem_phone"));
+				//등록횟수 저장필요
+				history.setHis_status(rs.getInt("his_status"));
+				
+				list.add(history);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return list;
+	}
 }

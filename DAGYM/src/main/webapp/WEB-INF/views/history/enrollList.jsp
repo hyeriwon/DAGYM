@@ -57,14 +57,16 @@ window.onload=function(){
 			<table>
 				<tr>
 					<th>수강신청번호</th>
-					<th>스케줄번호</th>
+					<th>진행날짜</th>
+					<th>운동부위</th>
 					<th>담당트레이너이름</th>
 					<th>수강상태</th>
 				</tr>
 				<c:forEach var="history" items="${list}">
 					<tr>
 						<td>${history.his_num}</td>
-						<td><a ></a>${history.sch_num}</td><%-- 수강신청상세정보 링크걸기 --%>
+						<td>${history.sch_date}</td>
+						<td>${history.his_part}</td>
 						<td>${history.mem_name}</td>
 						<td>${history.his_status}</td>
 					</tr>

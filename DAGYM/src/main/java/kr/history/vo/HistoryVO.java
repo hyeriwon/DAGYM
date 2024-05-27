@@ -9,7 +9,14 @@ public class HistoryVO {
 	private String his_part;
 	private String mem_name;
 	private String sch_date;
+	private String mem_phone;
 	
+	public String getMem_phone() {
+		return mem_phone;
+	}
+	public void setMem_phone(String mem_phone) {
+		this.mem_phone = mem_phone;
+	}
 	public String getSch_date() {
 		return sch_date;
 	}
