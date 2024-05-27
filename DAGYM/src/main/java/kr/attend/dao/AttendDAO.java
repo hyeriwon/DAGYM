@@ -17,7 +17,7 @@ public class AttendDAO {
 	public static AttendDAO getInstance() {
 		return instance;
 	}
-	private AttendDAO() {
+	public AttendDAO() {
 		
 	}
 	
@@ -119,6 +119,7 @@ public class AttendDAO {
 			while(rs.next()) {
 				AttendVO attendVO = new AttendVO();
 				attendVO.setAtt_num(rs.getInt("att_num"));
+				attendVO.setMem_num(rs.getInt("mem_num"));
 				attendVO.setAtt_date(rs.getDate("att_date"));
 				//자바빈을 ArrayList에 저장
 				list.add(attendVO);
