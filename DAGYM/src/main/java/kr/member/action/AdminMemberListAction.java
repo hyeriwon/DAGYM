@@ -20,7 +20,7 @@ public class AdminMemberListAction implements Action{
 		//로그인체크
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num == null) {
-			return "redirect:/member/logginForm.do";
+			return "redirect:/member/loginForm.do";
 		}
 		
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
