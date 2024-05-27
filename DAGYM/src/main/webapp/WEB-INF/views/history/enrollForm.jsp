@@ -13,14 +13,17 @@
     <div class="content-main">
         <h2>수강신청</h2>
         <form action="enroll.do" method="post">
+         <input type="hidden" name="sch_num" value="${schedule.sch_num}" id="sch_num">
+        <input type="hidden" name="mem_num" value="${sessionScope.user_num}">
+        <input type="hidden" name="tra_num" value="${schedule.mem_num}">
         <ul>
 			<li>
-           	<label for="sch_num">수강 날짜 : </label>
-			<input type="text" name="sch_num" id="sch_num" value="${mapAjax.schdule.sch_date}" readonly>
+           	<label for="sch_date">수강 날짜 : </label>
+			<input type="text" name="sch_date" id="sch_date" value="${schedule.sch_date}" readonly>
 			</li>
 			<li>
-			<label for="tra_num">트레이너 번호 : </label>
-			<input type="text" name="tra_num" id="tra_num" value="${mapAjax.schedule.mem_num}" readonly>
+			<label for="tra_name">트레이너 이름 : </label>
+			<%-- <input type="text" name="tra_name" id="tra_name" value="${}"> --%>
 			</li>
 			<li>
 			<label for="his_part">운동 부위 : </label>
@@ -31,10 +34,6 @@
 				<option>하체</option>
 			</select>
 			</li>
-			<li>
-			<label for="mem_num">회원번호 : </label>
-            <input type="text" name="mem_num" value="${sessionScope.usernum}">
-			</li>
 			<%-- 남은 회원권 계산하는 메서드 만들기 --%>
 			<%-- 
 			<li>
@@ -43,8 +42,8 @@
 			</li>
 			--%>
 			<li>
-			<label for="sch_date">시간 선택 : </label>
-			<input type="radio" name="sch_date" > <!-- value에 시간 -->
+			<label for="sch_time">시간 선택 : </label>
+			<input type="radio" name="sch_time" value="time1"> <!-- value에 시간 -->
 			</li>
 			</ul>
 			<div>

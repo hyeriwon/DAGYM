@@ -5,7 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
+import kr.history.dao.HistoryDAO;
 import kr.history.vo.HistoryVO;
+import kr.payment.vo.PaymentVO;
 
 public class EnrollAction implements Action{
 
@@ -22,10 +24,24 @@ public class EnrollAction implements Action{
 		request.setCharacterEncoding("utf-8");
 		//자바빈(VO)를 생성한 후 전송된 데이터를 저장
 		HistoryVO history = new HistoryVO();
-		history.setMem_num(user_num);
-
-
-		return null;
+		history.setMem_num(Integer.parseInt(request.getParameter("mem_num")));
+		history.setSch_num(Integer.parseInt(request.getParameter("sch_num")));
+		history.setTra_num(Integer.parseInt(request.getParameter("tra_num")));
+		history.setHis_status(Integer.parseInt(request.getParameter("his_status")));
+		history.setHis_part(request.getParameter("his_part"));
+		
+		PaymentVO payment = new PaymentVO();
+		payment.setMem_num(Integer.parseInt(request.getParameter("mem_num")));
+		
+		HistoryDAO dao = HistoryDAO.getInstance();
+		dao.insertHistory(history,payment);
+		
+		request.setAttribute("result_title", "수강신청 완료");
+		request.setAttribute("result_msg", "수강 신청이 완료되었습니다.");
+		request.setAttribute("notice_url", request.getContextPath() + "");//수강신청내역페이지로 이동
+		
+		
+		return "/WEB-INF/views/common/result_view.jsp";
 	}
 
 }

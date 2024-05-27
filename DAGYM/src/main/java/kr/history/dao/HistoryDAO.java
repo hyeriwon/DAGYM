@@ -2,6 +2,9 @@ package kr.history.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import kr.history.vo.HistoryVO;
 import kr.payment.vo.PaymentVO;
@@ -58,6 +61,91 @@ public class HistoryDAO {
 		}
 	}
 	
-	//수강신청내역
+	//수강신청내역 총 개수, 검색 개수
+	public int getHistoryCount(String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		try {
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE mem_name LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE his_part LIKE '%' || ? || '%'";
+			}
+			//SQL문 작성
+			sql = "SELECT COUNT(*) FROM history h " +
+				      "JOIN member m USING (mem_num) " +
+				      "JOIN member_detail md USING (mem_num) " + sub_sql;
+			pstmt = conn.prepareStatement(sql);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(1, keyword);
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return count;
+	}
+	
+	//수강내역 목록, 검색 목록
+	public List<HistoryVO> getListHistory(int start,int end,String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<HistoryVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		try {
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE mem_name LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE his_part LIKE '%' || ? || '%'";
+			}
+			 sql = "SELECT * FROM (SELECT h.*, md.mem_name AS mem_name, rownum rnum FROM " +
+		              "(SELECT h.*, m.mem_num AS mem_num FROM history h " +
+		              "JOIN member m ON h.mem_num = m.mem_num " +
+		              "JOIN member_detail md ON m.mem_num = md.mem_num " +
+		              "WHERE 1=1 " + sub_sql + " ORDER BY h.his_num DESC) h) " +
+		              "WHERE rnum >= ? AND rnum <= ?";
+			 
+			 pstmt = conn.prepareStatement(sql);
+			 if(keyword!=null && !"".equals(keyword)) {
+				 pstmt.setString(++cnt, keyword);
+			 }
+			 pstmt.setInt(++cnt, start);
+			 pstmt.setInt(++cnt, end);
+			 
+			 rs = pstmt.executeQuery();
+			 list = new ArrayList<HistoryVO>();
+			 while(rs.next()) {
+				 HistoryVO history = new HistoryVO();
+				 history.setHis_num(rs.getInt("his_num"));
+				 history.setMem_num(rs.getInt("mem_num"));
+				 history.setSch_num(rs.getInt("sch_num"));
+				 history.setTra_num(rs.getInt("tra_num"));
+				 history.setHis_status(rs.getInt("his_status"));
+				 history.setHis_part(rs.getString("his_part"));
+				 history.setMem_name(rs.getString("mem_name"));
+				 
+				 list.add(history);
+			 }
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	//수강내역 상세
 	
 }
