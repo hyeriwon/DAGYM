@@ -43,6 +43,36 @@ public class TmenuDAO {
 		}
 	}
 	//오늘의 메뉴 수정
+	public void modifyTmenu(TmenuVO tmenu)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		String sub_sql="";
+		int cnt = 0;
+		try {
+			conn= DBUtil.getConnection();
+			if(tmenu.getTme_photo()!=null && !"".equals(tmenu.getTme_photo())) {
+				sub_sql+=",tme_photo=?";
+			}
+			sql="UPDATE t_menu SET tme_name = ?, tme_content = ?, tme_kcal = ?, tme_protein = ?, tme_crabs = ?, tme_lipid = ?"+sub_sql+", tme_type = ? WHERE tme_num = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(++cnt, tmenu.getTme_name());
+			pstmt.setString(++cnt, tmenu.getTme_content());
+			pstmt.setInt(++cnt, tmenu.getTme_kcal());
+			pstmt.setInt(++cnt, tmenu.getTme_protein());
+			pstmt.setInt(++cnt, tmenu.getTme_crabs());
+			pstmt.setInt(++cnt, tmenu.getTme_lipid());
+			if(tmenu.getTme_photo()!=null && !"".equals(tmenu.getTme_photo())) {
+				pstmt.setString(++cnt, tmenu.getTme_photo());
+			}
+			pstmt.setInt(++cnt, tmenu.getTme_type());
+			pstmt.setInt(++cnt, tmenu.getTme_num());
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//오늘의 메뉴 갯수 구하기
 	public int getCountTmenu(String keyfield, String keyword) throws Exception{
 		Connection conn= null;
