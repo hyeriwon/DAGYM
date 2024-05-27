@@ -16,7 +16,7 @@
 		
 		<c:if test="${!empty user_num && user_auth == 8}"><!-- 강사 -->
 		<li>
-			<a href="${pageContext.request.contextPath}/attend/list.do">출석확인</a>
+			<a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석확인</a>
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath}/schedule/list.do">스케줄등록</a>
@@ -25,7 +25,7 @@
 		
 		<c:if test="${!empty user_num && user_auth == 9}"><!-- 관리자 -->
 		<li>
-			<a href="${pageContext.request.contextPath}/attend/list.do">출석확인</a>
+			<a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석확인</a>
 		</li>		
 		<li>
 			<a href="${pageContext.request.contextPath}/member/adminList.do">회원관리</a>

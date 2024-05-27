@@ -23,12 +23,35 @@
 	    		},
 			initialDate: new Date().toISOString().slice(0, 10), // 오늘 날짜로 설정
 			navLinks: true, //can click day/week names to navigate views
-			selectable: false,
+			selectable: true,
 			selectMirror: true,
-			eventClick: function(arg) {
-				alert('관리자는 출석을 취소할 수 없습니다.');
+			select: function(arg) {
+				//오늘 날짜	
+				var today = new Date();
+		        var selectedDate = arg.start;
+		
+		     	//정확한 날짜 비교를 위해 시간을 00:00:00으로 설정
+		        today.setHours(0, 0, 0, 0);
+		        selectedDate.setHours(0, 0, 0, 0);
+		
+		        if (selectedDate.getTime() === today.getTime()) {
+		        		if (confirm('출석하시겠습니까?')) {
+		                //(출석등록) 선택한 날짜를 write.do로 리다이렉트
+		                location.href = 'write.do?date=' + arg.start.toISOString();
+	                }
+				} else {//오늘 날짜만 선택 가능
+		            alert('오늘 날짜만 선택할 수 있습니다.');
+				}
+		        calendar.unselect()
 			},
-			editable: false,
+			eventClick: function(arg) {
+		    		if (confirm('출석을 취소하시겠습니까?')) {
+		    			//(출석삭제) events의 title에서 att_num 가져와서 delete.do로 리다이렉트
+		    			var att_num = arg.event.title;
+		    			location.href = 'delete.do?att_num=' + att_num;
+		        }
+			},
+			editable: true,
 			dayMaxEvents: true, //allow "more" link when too many events
 			events: [
 				//(출석목록) DB에서 list형식으로 가져오기
@@ -96,7 +119,13 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
 			<h2 style="text-align: left;">출석체크</h2>
-			<h3 style="text-align: right;">${month}월 출석일수 : ${attendCount}일</h3>
+			<!-- 2024-05 -> 05만 추출 -->
+			<%
+				String month = (String)request.getAttribute("month");
+				String[] parts = month.split("-");
+				String monthString = parts[1];
+			%>
+			<h3 style="text-align: right;"><%=monthString%>월 출석일수 : ${attendCount}일</h3>
 			<div id="calendar"></div>
 			<br>
 		</div>
