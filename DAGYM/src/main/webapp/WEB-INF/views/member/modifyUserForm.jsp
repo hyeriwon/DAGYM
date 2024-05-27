@@ -135,7 +135,12 @@ $(function(){
 	<div class="content-main">
 		<h2>회원정보 수정</h2>
 		<form id="modify_form" action="modifyUser.do" method="post" enctype="multipart/form-data">
+			<h4>현재 비밀번호를 입력해야 수정가능합니다.</h4>
 			<ul>
+				<li>
+					<label for="nowPw" style="color:red;">*현재 비밀번호</label>
+					<input type="password" maxlength="12" name="mem_nowPw" id="nowPw" class="input-check">
+				</li>
 				<li>
 					<label for="name">이름</label>
 					<input type="text" name="mem_name" id="name" class="input-check"
@@ -150,10 +155,6 @@ $(function(){
 					<c:if test="${!empty member.mem_photo}">
 						<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="200" height="200" class="my-photo">
 					</c:if>				
-				</li>
-				<li>
-					<label for="nowPw">현재 비밀번호</label>
-					<input type="password" maxlength="12" name="mem_nowPw" id="nowPw" class="input-check">
 				</li>
 				<li>
 					<label>새 비밀번호</label>
@@ -186,16 +187,16 @@ $(function(){
 				</li>
 				<li>
 					<label for="zipcode">우편번호</label>
-					<input type="text" name="mem_zipcode" id="zipcode" value="${member.mem_zipcode}" maxlength="5" autocomplete="off" class="input-check">
+					<input type="text" name="mem_zipcode" id="zipcode" value="${member.mem_zipcode}" maxlength="5" autocomplete="off">
 					<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
 				</li>
 				<li>
 					<label for="address1">주소</label>
-					<input type="text" name="mem_address1" id="address1" class="input-check" value="${member.mem_address1}" maxlength="30">
+					<input type="text" name="mem_address1" id="address1" value="${member.mem_address1}" maxlength="30">
 				</li>
 				<li>
 					<label for="address2">상세 주소</label>
-					<input type="text" name="mem_address2" id="address2" class="input-check" value="${member.mem_address2}" maxlength="30">
+					<input type="text" name="mem_address2" id="address2" value="${member.mem_address2}" maxlength="30">
 				</li>
 			</ul>
 			<div class="align-center">

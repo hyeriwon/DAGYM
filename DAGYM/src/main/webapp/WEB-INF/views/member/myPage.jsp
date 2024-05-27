@@ -68,7 +68,9 @@
 				</c:if>				
 			</ul>
 			<hr size="1" width="80%" noshade="noshade">
-			
+			<div class="align-right">
+				<input type="button" value="탈퇴하기" onclick="location.href='deleteUserForm.do'">
+			</div>
 		</div>	
 	</div>
 </div>
