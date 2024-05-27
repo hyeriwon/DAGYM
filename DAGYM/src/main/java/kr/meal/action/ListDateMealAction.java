@@ -18,6 +18,11 @@ public class ListDateMealAction implements Action {
 		
 		HttpSession session = request.getSession();
 		Integer mem_num = (Integer)session.getAttribute("user_num");
+		Integer user_auth = (Integer) session.getAttribute("user_auth");
+		  if(mem_num == null) { return "redirect:/member/loginForm.do"; } 
+		  if(user_auth== 9) { 
+			  mem_num=34;
+		  }
 		String meal_date = request.getParameter("meal_date");
 		MealDAO dao = MealDAO.getInstance();
 		List<MealVO> mealList = dao.listDateMeal(mem_num,meal_date);

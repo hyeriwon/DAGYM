@@ -258,7 +258,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		String sub_sql = null;
+		String sub_sql = "";
 		int count = 0;
 		try {
 			conn = DBUtil.getConnection();
@@ -267,6 +267,7 @@ public class MemberDAO {
 				else if(keyfield.equals("2")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
 			}
 			sql = "SELECT COUNT(*) FROM member LEFT OUTER JOIN member_detail USING(mem_num) " + sub_sql;
+			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(1, keyword);
 			}
@@ -289,7 +290,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		List<MemberVO> list = null;
 		String sql = null;
-		String sub_sql = null;
+		String sub_sql = "";
 		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
@@ -297,7 +298,7 @@ public class MemberDAO {
 				if(keyfield.equals("1")) sub_sql += "WHERE mem_name LIKE '%' || ? || '%'";
 				else if(keyfield.equals("2")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
 			}
-			sql = "SELECT FROM (SELECT a.*,rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) " 
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) " 
 					+ sub_sql + " ORDER BY mem_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {

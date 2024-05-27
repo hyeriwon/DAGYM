@@ -142,6 +142,7 @@ public class MealDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += "AND tme_name LIKE '%'||?||'%'";
+				else if(keyfield.equals("2")) sub_sql +=" AND meal_date LIKE '%' || ? ||'%'";
 			}
 			//SQL문 작성
 			sql ="SELECT * FROM (SELECT a.*,rownum rnum FROM "
@@ -229,6 +230,7 @@ public class MealDAO {
 			list = new ArrayList<MealVO>();
 			while(rs.next()) {
 				MealVO meal = new MealVO();
+				meal.setMeal_date(meal_date);
 				meal.setTme_num(rs.getInt("tme_num"));
 				meal.setTme_name(rs.getString("tme_name"));
 				meal.setTme_kcal(rs.getInt("tme_kcal"));

@@ -1,60 +1,57 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="UTF-8"%>
+    pageEncoding="EUC-KR"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>íšŒì›ëª©ë¡</title>
+<meta charset="EUC-KR">
+<title>È¸¿ø¸ñ·Ï</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-		<h2>íšŒì›ëª©ë¡(ê´€ë¦¬ìž)</h2>
-		<%-- ê²€ìƒ‰ --%>
+		<h2>È¸¿ø¸ñ·Ï(°ü¸®ÀÚ)</h2>
+		<%-- °Ë»ö --%>
 		<form id="search_form" action="adminList.do" method="get">
 			<ul class="search">
 				<li>
 					<select name="keyfield">
-						<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>ì´ë¦„</option>
-						<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>ì•„ì´ë””</option>
+						<option value="1"><c:if test="${param.keyfield==1}">selected</c:if>¾ÆÀÌµð</option>
+						<option value="2"><c:if test="${param.keyfield==2}">selected</c:if>µî±Þ</option>
 					</select>
 				</li>
 				<li>
 					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
 				</li>
 				<li>
-					<input type="submit" value="ê²€ìƒ‰">
+					<input type="submit" value="°Ë»ö">
 				</li>
 			</ul>
 		</form>
-		<%-- ëª©ë¡ --%>
+		<%-- ¸ñ·Ï --%>
 		<div class="list-span align-right">
-			<input type="button" value="ëª©ë¡" onclick="location.href='adminList.do'">
+			<input type="button" value="¸ñ·Ï" onclick="location.href='adminList.do'">
 		</div>
 		<hr size="1" width="100%" noshade="noshade">
 		<c:if test="${count == 0}">
 			<div class="result-display">
-				í‘œì‹œí•  íšŒì›ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤
+				Ç¥½ÃÇÒ È¸¿øÁ¤º¸°¡ ¾ø½À´Ï´Ù
 			</div>
 		</c:if>
 		<c:if test="${count > 0 }">
 		<table>
 			<tr>
-				<th>ì•„ì´ë””</th>
-				<th>ì´ë¦„</th>
-				<th>ì „í™”ë²ˆí˜¸</th>
-				<th>ìƒë…„ì›”ì¼</th>
-				<th>ê°€ìž…ì¼</th>
-				<th>ë“±ê¸‰</th>
+				<th>¾ÆÀÌµð</th>
+				<th>ÀÌ¸§</th>
+				<th>ÀüÈ­¹øÈ£</th>
+				<th>»ý³â¿ùÀÏ</th>
+				<th>°¡ÀÔÀÏ</th>
+				<th>µî±Þ</th>
 			</tr>
 			<c:forEach var="member" items="${list}">
-			<c:if test="${member.mem_auth <= 2}">
+			<%-- auth°ª 2ÀÌÇÏ Á¶°ÇÃ¼Å© ÇÊ¿ä --%>
 			<tr>
 				<td><a href="adminUserForm.do?mem_num=${member.mem_num}">${member.mem_id}</a></td>
 				<td>${member.mem_name}</td>
@@ -62,12 +59,12 @@
 				<td>${member.mem_birth}</td>
 				<td>${member.mem_reg_date}</td>
 				<td>
-					<c:if test="${member.mem_auth == 0}">íƒˆí‡´</c:if>
-					<c:if test="${member.mem_auth == 1}">ì •ì§€</c:if>
-					<c:if test="${member.mem_auth == 2}">ì¼ë°˜</c:if>
+					<c:if test="${member.mem_auth == 0}">Å»Åð</c:if>
+					<c:if test="${member.mem_auth == 1}">Á¤Áö</c:if>
+					<c:if test="${member.mem_auth == 2}">ÀÏ¹Ý</c:if>
 				</td>
 			</tr>
-			</c:if>
+			<%-- end of if --%>
 			</c:forEach>
 		</table>
 		<hr size="1" width="%" noshade="noshade">
