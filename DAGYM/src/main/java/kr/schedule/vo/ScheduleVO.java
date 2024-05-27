@@ -5,6 +5,7 @@ public class ScheduleVO {
 	private int mem_num;
 	private String sch_date;
 	private int sch_status;
+	private int sch_time;
 	
 	public int getSch_num() {
 		return sch_num;
@@ -30,6 +31,13 @@ public class ScheduleVO {
 	public void setSch_status(int sch_status) {
 		this.sch_status = sch_status;
 	}
+	public int getSch_time() {
+		return sch_time;
+	}
+	public void setSch_time(int sch_time) {
+		this.sch_time = sch_time;
+	}
+	
 	
 	
 }
