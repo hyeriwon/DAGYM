@@ -17,7 +17,7 @@ public class ScheduleEnrollAction implements Action {
         HttpSession session = request.getSession();
         Integer userNum = (Integer) session.getAttribute("user_num");
         String memId = (String) session.getAttribute("user_id");
-        Integer schNum = (Integer) session.getAttribute("sch_num");
+        // Integer schNum = (Integer) session.getAttribute("sch_num");
         
         if (userNum == null) {
             return "redirect:/member/loginForm.do";
@@ -45,7 +45,7 @@ public class ScheduleEnrollAction implements Action {
                         if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
                             hasDuplicate = true;
                         } else {
-                            schedules.add(createSchedule(userNum, memId, schDate, hour, schNum));
+                            schedules.add(createSchedule(userNum, memId, schDate, hour));
                         }
                     }
                 } else if (period.equals("afternoon")) {
@@ -53,7 +53,7 @@ public class ScheduleEnrollAction implements Action {
                         if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
                             hasDuplicate = true;
                         } else {
-                            schedules.add(createSchedule(userNum, memId, schDate, hour, schNum));
+                            schedules.add(createSchedule(userNum, memId, schDate, hour));
                         }
                     }
                 }
@@ -66,7 +66,7 @@ public class ScheduleEnrollAction implements Action {
                 if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
                     hasDuplicate = true;
                 } else {
-                    schedules.add(createSchedule(userNum, memId, schDate, hour, schNum));
+                    schedules.add(createSchedule(userNum, memId, schDate, hour));
                 }
             }
         }
@@ -87,14 +87,13 @@ public class ScheduleEnrollAction implements Action {
         return "/WEB-INF/views/schedule/scheduleEnrollForm.jsp";
     }
 
-    private ScheduleVO createSchedule(int userNum, String memId, String schDate, int hour, int schNum) {
+    private ScheduleVO createSchedule(int userNum, String memId, String schDate, int hour) {
         ScheduleVO schedule = new ScheduleVO();
         schedule.setMem_num(userNum);
         schedule.setMem_id(memId); 
         schedule.setSch_date(schDate);
         schedule.setSch_time(hour);
         schedule.setSch_status(0);
-        schedule.setSch_num(schNum);
         
         return schedule;
     }
