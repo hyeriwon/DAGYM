@@ -13,7 +13,7 @@
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>[${member.mem_id}]의 회원정보(관리자 전용)</h2>
-		<form action="adminUser.do" method="post" id="detail_form">
+		<form action="adminTrainer.do" method="post" id="detail_form">
 			<input type="hidden" name="mem_num" value="${member.mem_num}">
 			<ul>
 				<li>
