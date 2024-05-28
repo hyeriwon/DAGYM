@@ -40,7 +40,7 @@ public class AdminTrainerListAction implements Action{
 		int count = dao.getMemberCountByAdmin(keyfield, keyword);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"trainerList.do");
+		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"adminTrainerList.do");
 		
 		List<MemberVO> list = null;
 		if(count > 0) {

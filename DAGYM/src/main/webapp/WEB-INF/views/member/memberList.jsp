@@ -70,7 +70,12 @@ window.onload=function(){
 			</tr>
 			<c:forEach var="member" items="${list}">
 			<tr>
-				<td><a href="adminUserForm.do?mem_num=${member.mem_num}">${member.mem_id}</a></td>
+				<td>
+				<c:if test="${member.mem_auth > 0}">
+				<a href="adminUserForm.do?mem_num=${member.mem_num}">${member.mem_id}</a>
+				</c:if>
+				<c:if test="${member.mem_auth == 0}">${member.mem_id}</c:if>
+				</td>
 				<td>${member.mem_name}</td>
 				<td>${member.mem_phone}</td>
 				<td>${member.mem_birth}</td>

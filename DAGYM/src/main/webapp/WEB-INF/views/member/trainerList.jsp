@@ -68,15 +68,19 @@ window.onload=function(){
 			</tr>
 			<c:forEach var="member" items="${list}">
 			<tr>
-				<td><a href="adminTrainerForm.do?mem_num=${member.mem_num}">${member.mem_id}</a></td>
+				<td>
+				<c:if test="${member.mem_auth > 0}">
+				<a href="adminTrainerForm.do?mem_num=${member.mem_num}">${member.mem_id}</a>
+				</c:if>
+				<c:if test="${member.mem_auth == 0}">${member.mem_id}</c:if>
+				</td>
 				<td>${member.mem_name}</td>
 				<td>${member.mem_phone}</td>
 				<td>${member.mem_birth}</td>
 				<td>${member.mem_reg_date}</td>
 				<td>
-					<c:if test="${member.mem_auth == 0}">탈퇴</c:if>
-					<c:if test="${member.mem_auth == 1}">정지</c:if>
-					<c:if test="${member.mem_auth == 2}">일반</c:if>
+					<c:if test="${member.mem_auth == 8}">강사</c:if>
+					<c:if test="${member.mem_auth == 9}">관리자</c:if>
 				</td>
 			</tr>
 			</c:forEach>
