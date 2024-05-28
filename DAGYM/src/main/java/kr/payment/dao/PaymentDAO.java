@@ -23,15 +23,14 @@ public class PaymentDAO {
 		String sql = null;
 		try {
 			conn = DBUtil.getConnection();
-			sql = "INSERT INTO qa_board (qab_num,mem_num,qab_type,qab_title,qab_content,qab_ip,qab_remove,qab_ref) VALUES(qa_seq.nextval,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO qaboard (qab_num,mem_num,qab_type,qab_title,qab_content,qab_ip,qab_remove,qab_ref) VALUES(qaboard_seq.nextval,?,4,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, qaboard.getMem_num());
 			pstmt.setString(2, qaboard.getQab_title());
-			pstmt.setInt(3, qaboard.getQab_type());
-			pstmt.setString(4, qaboard.getQab_content());
-			pstmt.setString(5, qaboard.getQab_ip());
-			pstmt.setInt(6, qaboard.getQab_remove());
-			pstmt.setInt(7, qaboard.getQab_ref());
+			pstmt.setString(3, qaboard.getQab_content());
+			pstmt.setString(4, qaboard.getQab_ip());
+			pstmt.setInt(5, qaboard.getQab_remove());
+			pstmt.setInt(6, qaboard.getQab_ref());
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);

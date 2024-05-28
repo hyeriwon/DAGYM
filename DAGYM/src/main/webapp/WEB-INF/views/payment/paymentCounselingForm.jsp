@@ -44,7 +44,6 @@ window.onload=function(){
 				<li>
 					<label for="qab_type">문의종류</label>
 					<span>회원권 상담 신청</span>
-					<input type="hidden" name="qab_type" id="qab_type" value="4">
 				</li>
 				<li>
 					<label for="qab_content">내용</label>

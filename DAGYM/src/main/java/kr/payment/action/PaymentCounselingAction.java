@@ -21,12 +21,10 @@ public class PaymentCounselingAction implements Action{
 		//전송된 데이터 인코딩 타입 지정
 		request.setCharacterEncoding("utf-8");
 		//자바빈(VO)를 생성한 후 전송된 데이터를 저장
-		
 		QABoardVO qaboard = new QABoardVO();
-		qaboard.setQab_title(request.getParameter("title"));
-		qaboard.setQab_content(request.getParameter("content"));
+		qaboard.setQab_title(request.getParameter("qab_title"));
+		qaboard.setQab_content(request.getParameter("qab_content"));
 		qaboard.setQab_ip(request.getRemoteAddr());
-		
 		qaboard.setMem_num(user_num);
 		
 		PaymentDAO dao = PaymentDAO.getInstance();
@@ -36,7 +34,8 @@ public class PaymentCounselingAction implements Action{
 		request.setAttribute("notice_msg", "상담신청 완료");
 		request.setAttribute("notice_url", request.getContextPath()+"/payment/paymentInfo.do");
 		
-		return null;
+		return "/WEB-INF/views/common/alert_view.jsp";
 	}
+	
 
 }

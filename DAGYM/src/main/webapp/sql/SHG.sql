@@ -33,7 +33,7 @@ create table qaboard(
  qab_modify_date date,
  qab_ip varchar2(40) not null,
  qab_remove number(1) default 0 not null,
- qab_ref number(10) not null,
+ qab_ref number(10) default 0 not null,
  constraint qaboard_pk primary key (qab_num),
  constraint qaboard_fk foreign key (mem_num) references member (mem_num)
 );
