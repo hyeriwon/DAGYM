@@ -9,7 +9,9 @@
 </div>
 <div id="main_nav">
 	<ul>
-	
+		<li>
+			<a href="${pageContext.request.contextPath}/payment/paymentInfo.do">회원권안내</a>
+		</li>
 		<li>
 			<a href="${pageContext.request.contextPath}/meal/list.do">음식등록</a>
 		</li>
