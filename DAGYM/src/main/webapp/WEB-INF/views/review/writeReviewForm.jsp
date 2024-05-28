@@ -32,7 +32,7 @@
 					<label>트레이너</label>${history.mem_name}
 					<input type="hidden" name="tra_num" value="${history.tra_num}">
 				</li>
-				<li><!-- 별점 css,js 작성 안 함 -->
+				<li><!-- 별점 css,js 작성 안 함 --> 
 					<div class="star-rating">
 						<input type="radio" name="rev_grade" value="5" id="star5"><label for="star5">☆</label>
 						<input type="radio" name="rev_grade" value="4" id="star4"><label for="star4">☆</label>
