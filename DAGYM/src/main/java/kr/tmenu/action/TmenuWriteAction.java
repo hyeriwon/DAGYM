@@ -33,7 +33,7 @@ public class TmenuWriteAction implements Action{
 		
 		
 		request.setAttribute("notice_msg", "메뉴 등록 완료");
-		 request.setAttribute("notice_url", request.getContextPath()+"/tmeal/tmenuList.do");
+		 request.setAttribute("notice_url", request.getContextPath()+"/tmenu/tmenuList.do");
 		return "/WEB-INF/views/common/alert_view.jsp";
 	}
 

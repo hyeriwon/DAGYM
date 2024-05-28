@@ -88,6 +88,7 @@ function selectMenu(tme_name) {
 			<h2>음식등록</h2>
 			<form id="write_form" action="mealWrite.do" method="post">
 				<input type="hidden" id="meal_date" name="meal_date" value="meal_date">
+				<h3>${param.meal_date}</h3>
 				<ul>
 					<li><label for="menu_name">메뉴 검색</label>
 					<input type="text" name="menu_name" id="menu_name" value="${menu_name}" readonly>
@@ -100,7 +101,7 @@ function selectMenu(tme_name) {
 					</li>
 				</ul>
 				<div class="align-center">
-					<input type="submit" value="등록"> <input type="button" value="목록" onclick="location.href='mealDetail.do'">
+					<input type="submit" value="등록"> <input type="button" value="취소" onclick="location.href='list.do'">
 				</div>
 			</form>
 			<div id="modal" class="dialog">

@@ -30,6 +30,7 @@ public class MealDetailAction implements Action {
 		if(user_auth == 9) {
 			mem_num = Integer.parseInt(request.getParameter("client_num"));
 		}
+		
 		MealDAO dao = MealDAO.getInstance();
 		int count = dao.getMealCount(keyfield,
 		 keyword,mem_num); PagingUtil page = new

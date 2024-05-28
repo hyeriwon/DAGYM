@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 function searchByMemNum() {
 	  var client_num = document.getElementById('client_num').value;
-	  window.location.href = '${pageContext.request.contextPath}/meal/mealDetail.do?client_num=' + client_num;
+	  window.location.href = '${pageContext.request.contextPath}/meal/mealDetail.do?client_num='+client_num;
 	}
 </script>
 </head>
@@ -48,15 +48,39 @@ function searchByMemNum() {
     </div>
     <div class="align-right">
     <c:if test="${user_auth !=9}">
-    <input type="button" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
+    <input type="button" value="목록보기" id ="search_client"onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
     </c:if>
     <c:if test="${user_auth ==9 }">
-     <input type="number" value="client_num" id="client_num">
+    <label for="client_num"></label>
+     <input type="text"  id="client_num" value="회원번호검색" 
+     onfocus="if(this.value=='회원번호검색') this.value='';" onblur="if(this.value=='') this.value='회원번호검색';">
      <input type="submit" value="검색" onclick="searchByMemNum()"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
     </c:if>
     <div><p></div>
     </div>
+    <c:if test="${user_auth !=9}">
     <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
+    </c:if>
+    <c:if test="${user_auth ==9}">
+    <table>
+			<tr>
+				<th>회원번호</th>
+				<th>아이디</th>
+				<th>이름</th>
+				<th>담당트레이너</th>
+				<th>가입일</th>
+			</tr>
+			<c:forEach var="member" items="${list}">
+			<tr>
+				<td>${member.mem_num}</td>
+				<td>${member.mem_id}</td>
+				<td>${member.mem_name}</td>
+				<td><%-- 담당트레이너 데이터 --%></td>
+				<td>${member.mem_reg_date}</td>
+			</tr>
+			</c:forEach>
+		</table>
+    </c:if>
     </div>
      
 </div>

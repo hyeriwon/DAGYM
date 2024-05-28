@@ -16,13 +16,15 @@
 window.onload=function(){
 	const myForm = document.getElementById('write_form');
 	myForm.onsubmit=function(){
-		const title = document.getElementById('title');
-		if(title.value.trim()==''){
-			alert('제목을 입력하세요');
-			title.value = '';
-			title.focus();
-			return false;
-		}
+		const items = document.querySelectorAll('.input-check');
+		for (let i = 0; i < items.length; i++) {
+			if (items[i].value.trim() == '') {
+				const label = document.querySelector('label[for="'+ items[i].id + '"]');
+					alert(label.textContent + '항목은 필수 입력');
+					items[i].value = '';
+					items[i].focus();
+					return false;
+					}
 		const content = document.getElementById('content');
 		if(content.value.trim()==''){
 			alert('내용을 입력하세요');
@@ -44,37 +46,38 @@ window.onload=function(){
 				<ul>
 					<li>
 					<label for="menu_name">메뉴 이름</label>
-					<input type="text" name="menu_name" id="menu_name">
+					<input type="text" name="menu_name" id="menu_name" class="input-check">
 					</li>
 					<li>
 					<label for="filename">메뉴 사진</label>
-					<input type="file" name="filename" id="filename" accept="image/gif,image/png,image/jpeg">
+					<input type="file" name="filename" id="filename"  class="input-check"accept="image/gif,image/png,image/jpeg">
 					</li>
 					<li>
 					<label for="menu_kcal">칼로리</label>
-					<input type="number" name="menu_kcal" id="menu_kcal">
+					<input type="number" name="menu_kcal" id="menu_kcal" class="input-check">
 					</li>
 					<li>
 					<label for="menu_crabs">탄수화물</label>
-					<input type="number" name="menu_crabs" id="menu_crabs">
+					<input type="number" name="menu_crabs" id="menu_crabs" class="input-check">
 					</li>
 					<li>
 					<label for="menu_protein">단백질</label>
-					<input type="number" name="menu_protein" id="menu_protein">
+					<input type="number" name="menu_protein" id="menu_protein" class="input-check">
 					</li>
 					<li>
 					<label for="menu_lipid">지방</label>
-					<input type="number" name="menu_lipid" id="menu_lipid">
+					<input type="number" name="menu_lipid" id="menu_lipid" class="input-check">
 					</li>
 					<li>식사분류 
 					<input type="radio" name="tme_type" value="0" id="tme_type0">아침 
 					<input type="radio" name="tme_type" value="1" id="tme_type1">점심 
 					<input type="radio" name="tme_type" value="2" id="tme_type2">저녁 
 					<input type="radio" name="tme_type" value="3" id="tme_type3">간식
+					<input type="radio" name="tme_type" value="4" id="tme_type4">검색용메뉴
 					</li>
 					<li>
 					<label for="menu_content">메뉴 설명</label>
-					<textarea rows="5" cols="40" name="menu_content" id="menu_content"></textarea>
+					<textarea rows="5" cols="40" name="menu_content"  class="input-check" id="menu_content"></textarea>
 					</li>
 				</ul>
 				<div class="align-center">

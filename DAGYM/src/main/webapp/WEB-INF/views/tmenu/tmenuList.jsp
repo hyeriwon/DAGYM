@@ -80,8 +80,11 @@ window.onload=function(){
 						<c:when test="${tmenu.tme_type ==2}">
 						<td>저녁</td>
 						</c:when>
-						<c:otherwise>
+						<c:when test="${tmenu.tme_type ==3}">
 						<td>간식</td>
+						</c:when>
+						<c:otherwise>
+						<td>검색용 메뉴</td>
 						</c:otherwise>
 					</c:choose>
 					</tr>

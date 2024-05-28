@@ -67,6 +67,7 @@ public class TmenuDAO {
 			}
 			pstmt.setInt(++cnt, tmenu.getTme_type());
 			pstmt.setInt(++cnt, tmenu.getTme_num());
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
@@ -119,7 +120,7 @@ public class TmenuDAO {
 				if(keyfield.equals("1")) sub_sql += " WHERE tme_name LIKE '%'||?||'%'";
 			}
 			sql="SELECT * FROM (SELECT a.*,rownum rnum FROM "
-					+ "(SELECT * FROM t_menu "+ sub_sql +")a) WHERE rnum >=? AND rnum <=?";
+					+ "(SELECT * FROM t_menu "+ sub_sql +")a) WHERE rnum >=? AND rnum <=? ORDER BY tme_name ASC";
 			pstmt=conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt,keyword);

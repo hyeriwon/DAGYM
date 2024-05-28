@@ -23,7 +23,7 @@ window.onload=function(){
 			title.focus();
 			return false;
 		}
-		const content = document.getElementById('content');
+		const content = document.getElementById('menu_content');
 		if(content.value.trim()==''){
 			alert('내용을 입력하세요');
 			content.value = '';
@@ -75,6 +75,7 @@ window.onload=function(){
 					<input type="radio" name="tme_type" value="1" id="tme_type1"<c:if test="${tmenu.tme_type == 1}">checked</c:if>>점심 
 					<input type="radio" name="tme_type" value="2" id="tme_type2"<c:if test="${tmenu.tme_type == 2}">checked</c:if>>저녁 
 					<input type="radio" name="tme_type" value="3" id="tme_type3"<c:if test="${tmenu.tme_type == 3}">checked</c:if>>간식
+					<input type="radio" name="tme_type" value="4" id="tme_type4"<c:if test="${tmenu.tme_type == 4}">checked</c:if>>검색용메뉴
 					</li>
 					<li>
 					<label for="menu_content">메뉴 설명</label>

@@ -188,7 +188,7 @@ public class MealDAO {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			sql ="SELECT * FROM t_menu WHERE tme_name LIKE '%' || ? || '%'";
+			sql ="SELECT * FROM t_menu WHERE tme_name LIKE '%' || ? || '%' ORDER BY tme_name ASC";
 			pstmt =conn.prepareStatement(sql);
 			pstmt.setString(1,keyword);
 			rs=pstmt.executeQuery();
@@ -255,7 +255,7 @@ public class MealDAO {
 	    
 	    try {
 	        conn = DBUtil.getConnection();
-	        sql = "SELECT tme_num FROM t_menu WHERE tme_name = ?";
+	        sql = "SELECT tme_num FROM t_menu WHERE tme_name = ? ";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, tme_name);
 	        rs = pstmt.executeQuery();
