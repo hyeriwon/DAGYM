@@ -7,7 +7,7 @@ public class HistoryVO {
 	private int tra_num;
 	private int his_status;
 	private String his_part;
-	private String mem_name;
+	private String tra_name;
 	private String sch_date;
 	private String mem_phone;
 	
@@ -23,11 +23,11 @@ public class HistoryVO {
 	public void setSch_date(String sch_date) {
 		this.sch_date = sch_date;
 	}
-	public String getMem_name() {
-		return mem_name;
+	public String getTra_name() {
+		return tra_name;
 	}
-	public void setMem_name(String mem_name) {
-		this.mem_name = mem_name;
+	public void setTra_name(String tra_name) {
+		this.tra_name = tra_name;
 	}
 	public int getHis_num() {
 		return his_num;

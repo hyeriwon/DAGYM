@@ -134,7 +134,7 @@ public class HistoryDAO {
 				 history.setTra_num(rs.getInt("tra_num"));
 				 history.setHis_status(rs.getInt("his_status"));
 				 history.setHis_part(rs.getString("his_part"));
-				 history.setMem_name(rs.getString("mem_name"));
+				 //history.setTra_name(rs.getString("mem_name"));
 				 
 				 list.add(history);
 			 }
@@ -201,7 +201,7 @@ public class HistoryDAO {
 				history.setHis_num(rs.getInt("his_num"));
 				history.setSch_date(rs.getString("sch_date"));
 				history.setHis_part(rs.getString("his_part"));
-				history.setMem_name(rs.getString("mem_name"));
+				history.setTra_name(rs.getString("mem_name"));
 				history.setMem_phone(rs.getString("mem_phone"));
 				//등록횟수 저장필요
 				history.setHis_status(rs.getInt("his_status"));
@@ -215,5 +215,41 @@ public class HistoryDAO {
 		}
 		
 		return list;
+	}
+	/*---수강내역 상세---  -> 건드리지 마시오.*/
+	public HistoryVO getHistory(int sch_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		HistoryVO history = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT h.*,sc.sch_date,sc.sch_time,md.mem_name"
+					+ "FROM history h"
+					+ "JOIN schedule sc ON h.sch_num = sc.sch_num"
+					+ "JOIN member_detail md ON h.tra_num = md.mem_num"
+					+ "WHERE h.sch_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sch_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				history = new HistoryVO();
+				//history.setHis_num(rs.getInt("sch_mem")); -> 테이블에서 his_num 삭제시 제거됨
+				history.setMem_num(rs.getInt("mem_num"));
+				history.setSch_num(sch_num);
+				history.setTra_num(rs.getInt("tra_num"));
+				history.setHis_status(rs.getInt("his_status"));
+				history.setHis_part(rs.getString("his_part"));
+				history.setSch_date(rs.getString("sch_date")+" "+rs.getString("sch_time"));
+				history.setTra_name(rs.getString("mem_name"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return history;
 	}
 }

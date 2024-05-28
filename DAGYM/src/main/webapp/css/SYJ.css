@@ -9,3 +9,6 @@ ul li label{
 	width:130px;
 	float:left; /*태그를 왼쪽으로 정렬*/
 }
+.star-rating[type="radio"]{
+	display:none;
+}
