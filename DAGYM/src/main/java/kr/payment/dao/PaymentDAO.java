@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import kr.payment.dao.PaymentDAO;
+import kr.qaboard.vo.QABoardVO;
 import kr.util.DBUtil;
 
 public class PaymentDAO {
@@ -14,8 +15,8 @@ public class PaymentDAO {
 		return instance;
 	}
 	private PaymentDAO () {}
-	/*
-	public void membershipCounseling(QA_boardVO qaboard)throws Exception{
+	
+	public void membershipCounseling(QABoardVO qaboard)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
@@ -37,5 +38,5 @@ public class PaymentDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	*/
+	
 }
