@@ -40,7 +40,7 @@ public class PaymentMemberListAction implements Action{
 		int count = dao.getMemberCountByAdmin(keyfield, keyword);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"adminMemberList.do");
+		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"paymentMemberList.do");
 		
 		List<MemberVO> list = null;
 		if(count > 0) {

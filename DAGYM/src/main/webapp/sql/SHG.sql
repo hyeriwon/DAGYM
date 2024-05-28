@@ -17,6 +17,7 @@ create table payment(
  mem_num number not null,
  pay_fee number(8) not null,
  pay_enroll number(5) not null,
+ pay_reg_date date default sysdate not null,
  constraint payment_pk primary key (pay_num),
  constraint payment_fk foreign key (mem_num) references member (mem_num)
 );

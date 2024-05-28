@@ -1,10 +1,14 @@
 package kr.payment.vo;
 
+import java.sql.Date;
+
 public class PaymentVO {
 	private int pay_num;
 	private int mem_num;
 	private int pay_fee;
 	private int pay_enroll;
+	private Date pay_reg_date;
+	
 	private String mem_name;
 	
 	public int getPay_num() {
@@ -31,12 +35,17 @@ public class PaymentVO {
 	public void setPay_enroll(int pay_enroll) {
 		this.pay_enroll = pay_enroll;
 	}
+	public Date getPay_reg_date() {
+		return pay_reg_date;
+	}
+	public void setPay_reg_date(Date pay_reg_date) {
+		this.pay_reg_date = pay_reg_date;
+	}
 	public String getMem_name() {
 		return mem_name;
 	}
 	public void setMem_name(String mem_name) {
 		this.mem_name = mem_name;
 	}
-	
 
 }

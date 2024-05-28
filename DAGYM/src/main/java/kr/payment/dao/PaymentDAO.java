@@ -27,15 +27,20 @@ public class PaymentDAO {
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
+			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
+			//SQL문 작성
 			sql = "INSERT INTO qaboard (qab_num,mem_num,qab_type,qab_title,qab_content,qab_ip,qab_remove,qab_ref) VALUES(qaboard_seq.nextval,?,4,?,?,?,?,?)";
+			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
 			pstmt.setInt(1, qaboard.getMem_num());
 			pstmt.setString(2, qaboard.getQab_title());
 			pstmt.setString(3, qaboard.getQab_content());
 			pstmt.setString(4, qaboard.getQab_ip());
 			pstmt.setInt(5, qaboard.getQab_remove());
 			pstmt.setInt(6, qaboard.getQab_ref());
+			//SQL문 실행
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -53,16 +58,21 @@ public class PaymentDAO {
 		String sub_sql = "";
 		int count = 0;
 		try {
+			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
+			//검색처리
 			if(keyword!=null && !"".equals(keyword)) {
 				if(keyfield.equals("1")) sub_sql += "WHERE mem_name LIKE '%' || ? || '%'";
 				else if(keyfield.equals("2")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
 			}
+			//SQL문 작성
 			sql = "SELECT COUNT(*) FROM member LEFT OUTER JOIN member_detail USING(mem_num) " + sub_sql;
+			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(1, keyword);
 			}
+			//SQL문 실행
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -85,19 +95,25 @@ public class PaymentDAO {
 		String sub_sql = "";
 		int cnt = 0;
 		try {
+			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
+			//검색처리
 			if(keyword!=null && !"".equals(keyword)) {
 				if(keyfield.equals("1")) sub_sql += "AND mem_name LIKE '%' || ? || '%'";
 				else if(keyfield.equals("2")) sub_sql += "AND mem_id LIKE '%' || ? || '%'";
 			}
+			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) WHERE mem_auth !=8 AND mem_auth!=9 " 
 					+ sub_sql + " ORDER BY mem_auth DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, keyword);
 			}
+			//?에 데이터 바인딩
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);
+			//SQL문 실행
 			rs = pstmt.executeQuery();
 			list = new ArrayList<MemberVO>();
 			while(rs.next()) {
@@ -123,16 +139,17 @@ public class PaymentDAO {
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
+			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
-			
+			//SQL문 작성
 			sql = "INSERT INTO payment (pay_num,pay_fee,pay_enroll) VALUES (payment_seq.nextval,?,?) WHERE mem_num=?";
-			
+			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
-			
+			//?에 데이터 바인딩
 			pstmt.setInt(1, payment.getPay_fee());
 			pstmt.setInt(2, payment.getPay_enroll());
 			pstmt.setInt(3, payment.getMem_num());
-			
+			//SQL문 실행
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -142,15 +159,37 @@ public class PaymentDAO {
 	}
 
 	//회원별 회원권 결제내역 총 개수, 검색 개수
-	public int getPaymentMember(String keyfield, String keyword)throws Exception{
+	public int getPayMemCount(int mem_num,String keyfield,String keyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
+		String sub_sql = "";
 		int count = 0;
 		try {
+			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
-			sql = "SELECT COUNT(*) FROM payment WHERE mem_num=?";
+			
+			if(keyword!=null && !"".equals(keyword)) {
+				//검색처리
+				if(keyfield.equals("1")) sub_sql += "AND pay_num LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "AND pay_reg_Date LIKE '%' || ? || '%'";
+			}
+			
+			//SQL문 작성
+			sql = "SELECT COUNT(*) FROM payment WHERE mem_num=? " + sub_sql;
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, mem_num);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(2, keyword);
+			}
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
@@ -158,6 +197,59 @@ public class PaymentDAO {
 		}
 		
 		return count;
+	}
+	
+	//회원상세(회원권 결제내역)
+	public List<PaymentVO>getPayMemList(int mem_num,int start,int end,String keyfield,String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<PaymentVO>list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		try {
+			//커넥션 풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			
+			if(keyword!=null && !"".equals(keyword)) {
+				//검색처리
+				if(keyfield.equals("1")) sub_sql += "WHERE pay_num LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE pay_reg_Date LIKE '%' || ? || '%'";
+			}
+			//SQL문 작성
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
+					+ "(SELECT * FROM payment JOIN member_detail USING(mem_num) " + sub_sql + " ORDER BY pay_num DESC)a) "
+					+ "WHERE mem_num=? AND rnum >= ? AND rnum <= ?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, keyword);
+			}
+			pstmt.setInt(++cnt, mem_num);
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			list = new ArrayList<PaymentVO>();
+			while(rs.next()) {
+				PaymentVO payment = new PaymentVO();
+				payment.setMem_num(rs.getInt("mem_num"));
+				payment.setPay_num(rs.getInt("pay_num"));
+				payment.setPay_fee(rs.getInt("pay_fee"));
+				payment.setPay_enroll(rs.getInt("pay_enroll"));
+				payment.setPay_reg_date(rs.getDate("pay_reg_date"));
+				payment.setMem_name(rs.getString("mem_name"));
+				
+				list.add(payment);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
 	}
 	
 	/*

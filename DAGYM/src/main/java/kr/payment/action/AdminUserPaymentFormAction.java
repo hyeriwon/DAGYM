@@ -1,5 +1,7 @@
 package kr.payment.action;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -7,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import kr.controller.Action;
 import kr.payment.dao.PaymentDAO;
 import kr.payment.vo.PaymentVO;
+import kr.util.PagingUtil;
 
 public class AdminUserPaymentFormAction implements Action{
 
@@ -24,14 +27,30 @@ public class AdminUserPaymentFormAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
-		//전송된 데이터 반환
-		//int mem_num = Integer.parseInt(request.getParameter("mem_num"));
-		PaymentDAO dao = PaymentDAO.getInstance();
-		//PaymentVO member = dao.getPaymentMember(mem_num);
+		String pageNum = request.getParameter("pageNum");
+		if(pageNum == null) pageNum = "1";
 		
-		//request.setAttribute("member", member);
+		String keyfield = request.getParameter("keyfield");
+		String keyword = request.getParameter("keyword");
+		
+		//전송된 데이터 반환
+		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
+		PaymentDAO dao = PaymentDAO.getInstance();
+		int count = dao.getPayMemCount(mem_num,keyfield,keyword);
+		//페이지 처리
+		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,20,10,"adminUserPaymentForm.do");
+		
+		List<PaymentVO> list = null;
+		if(count > 0) {
+			list = dao.getPayMemList(mem_num,page.getStartRow(),page.getEndRow(),keyfield,keyword);
+		}
+		
+		request.setAttribute("count", count);
+		request.setAttribute("list", list);
+		request.setAttribute("page", page.getPage());
+		
 		//JSP 경로 반환
-		return "/WEB-INF/views/payment/detailpaymentUserForm.jsp";
+		return "/WEB-INF/views/payment/detailPaymentUserForm.jsp";
 	}
 
 }
