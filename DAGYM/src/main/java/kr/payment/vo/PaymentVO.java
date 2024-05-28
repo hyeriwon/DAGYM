@@ -38,5 +38,5 @@ public class PaymentVO {
 		this.mem_name = mem_name;
 	}
 	
-	
+	//
 }

@@ -140,7 +140,7 @@ public class PaymentDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	
+	////
 	//회원별 회원권 결제내역 총 개수, 검색 개수
 	public int getPaymentMember(String keyfield, String keyword)throws Exception{
 		Connection conn = null;
