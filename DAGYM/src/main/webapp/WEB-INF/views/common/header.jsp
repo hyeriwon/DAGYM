@@ -56,6 +56,9 @@
 		<li>
 			<a href="${pageContext.request.contextPath}/history/historyList.do">PT신청</a>
 		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/member/userQuestionList.do">1:1문의</a>
+		</li>
 		</c:if>
 		
 		<c:if test="${!empty user_num}"><!-- 로그인 후 -->
