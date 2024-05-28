@@ -53,7 +53,7 @@ public class AttendDAO {
     }
 
 	//출석 목록
-	public List<AttendVO> getList(int mem_num, int startRow, int endRow) throws Exception{
+	public List<AttendVO> getList(int mem_num) throws Exception{
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -66,16 +66,12 @@ public class AttendDAO {
 			conn = DBUtil.getConnection();
 			
 			//SQL문 작성
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum "
-				+ "FROM (SELECT * FROM attend WHERE mem_num = ? ORDER BY att_num DESC)a) "
-				+ "WHERE rnum >= ? AND rnum <= ?";
+			sql = "SELECT * FROM attend WHERE mem_num = ? ORDER BY att_num DESC";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
 			pstmt.setInt(1, mem_num);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
 			
 			//SQL문 실행
 			rs = pstmt.executeQuery();
@@ -97,42 +93,6 @@ public class AttendDAO {
 		}
 		
 		return list;
-	}
-	
-	//출석의 총 개수
-	public int getCount() throws Exception{
-		
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = null;
-		int count = 0;
-		
-		try {
-			//커넥션풀로부터 커넥션을 할당
-			conn = DBUtil.getConnection();
-			
-			//SQL문 작성
-			sql = "SELECT COUNT(*) FROM attend";
-			
-			//PreparedStatement 객체 생성
-			pstmt = conn.prepareStatement(sql);
-			
-			//SQL문 실행
-			rs = pstmt.executeQuery();
-			
-			while(rs.next()) {
-				count = rs.getInt(1);//1 = COUNT(*)의 컬럼인덱스
-			}
-			
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			//자원 정리
-			DBUtil.executeClose(rs, pstmt, conn);
-		}
-		
-		return count;
 	}
 	
 	//출석 여부 확인
