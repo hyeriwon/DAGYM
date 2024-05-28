@@ -40,6 +40,9 @@
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath}/member/adminTrainerList.do">강사관리</a>
+		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/payment/paymentMemberList.do">회원권등록</a>
 		</li>		
 		</c:if>
 		
