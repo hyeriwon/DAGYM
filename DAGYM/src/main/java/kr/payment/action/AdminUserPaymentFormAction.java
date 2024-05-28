@@ -33,5 +33,5 @@ public class AdminUserPaymentFormAction implements Action{
 		//JSP 경로 반환
 		return "/WEB-INF/views/payment/detailpaymentUserForm.jsp";
 	}
-//
+
 }

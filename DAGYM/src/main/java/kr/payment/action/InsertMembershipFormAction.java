@@ -25,5 +25,5 @@ public class InsertMembershipFormAction implements Action{
 		//관리자로 로그인한 경우
 		return "/WEB-INF/views/payment/insertMembershipForm.jsp";
 	}
-//
+
 }

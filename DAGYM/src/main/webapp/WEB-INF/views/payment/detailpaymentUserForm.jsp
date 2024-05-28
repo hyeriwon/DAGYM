@@ -17,7 +17,7 @@
 			<input type="hidden" name="mem_num" value="${member.mem_num}">
 			<ul>
 				<li>
-					<label>이름</label>${member.mem_name}<%-- --%>
+					<label>이름</label>${member.mem_name}
 				</li>
 				<li>
 					<label>보유한 회원권</label><%-- 계산해서 넣기 --%>

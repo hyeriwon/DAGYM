@@ -53,5 +53,4 @@ public class PaymentMemberListAction implements Action{
 		
 		return "/WEB-INF/views/payment/paymentMemberList.jsp";
 	}
-//
 }

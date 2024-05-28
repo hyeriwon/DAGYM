@@ -14,7 +14,7 @@
 		<h2>회원권 안내</h2>
 		<div class="align-center">
 			<img src="${pageContext.request.contextPath}/upload/membership.jsp">
-			<p><%-- --%>
+			<p>
 			<input type="button" value="상담신청" onclick="location.href='${pageContext.request.contextPath}/payment/paymentCounselingForm.do'">
 			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 		</div>

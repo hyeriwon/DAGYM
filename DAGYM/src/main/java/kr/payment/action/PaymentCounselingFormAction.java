@@ -18,5 +18,4 @@ public class PaymentCounselingFormAction implements Action{
 		//로그인 된 경우
 		return "/WEB-INF/views/payment/paymentCounselingForm.jsp";
 	}
-//
 }

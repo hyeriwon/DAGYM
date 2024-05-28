@@ -45,7 +45,7 @@ window.onload=function(){
 					<label for="qab_type">문의종류</label>
 					<span>회원권 상담 신청</span>
 				</li>
-				<li><%-- --%>
+				<li>
 					<label for="qab_content">내용</label>
 					<textarea rows="5" cols="40" name="qab_content" id="qab_content"></textarea>
 				</li>

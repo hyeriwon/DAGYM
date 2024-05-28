@@ -63,7 +63,7 @@ window.onload=function(){
 				<th>아이디</th>
 				<th>이름</th>
 				<th>전화번호</th>
-			</tr><%-- --%>
+			</tr>
 			<c:forEach var="member" items="${list}">
 			<tr>
 				<td>
