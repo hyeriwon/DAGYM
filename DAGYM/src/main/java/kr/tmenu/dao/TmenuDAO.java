@@ -183,7 +183,34 @@ public class TmenuDAO {
 		return item;
 	}
 	//오늘의 메뉴 삭제
-	//파일삭제
+	public void deleteTmenu(int tme_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		try {
+			conn=DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			sql="DELETE FROM meal WHERE tme_num =?";
+			pstmt2=conn.prepareStatement(sql);
+			pstmt2.setInt(1, tme_num);
+			pstmt2.executeUpdate();
+			
+			
+			sql="DELETE FROM t_menu WHERE tme_num =?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, tme_num);
+			pstmt.executeUpdate();
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
 	//메뉴 타입별 분류하기
 }
 

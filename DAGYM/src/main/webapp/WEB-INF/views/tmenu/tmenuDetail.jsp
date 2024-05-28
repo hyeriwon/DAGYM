@@ -37,7 +37,7 @@ ${tmenu.tme_content}
 <div class="align-right">
 <div>
 	 	<input type="button" value="수정" onclick="location.href='tmenuModifyForm.do?tme_num=${tmenu.tme_num}'">
-	 	<input type="button" value="삭제" onclick="location.href='tmenuDeleteForm.do?tme_num=${tmenu.tme_num}'">
+	 	<input type="button" value="삭제" onclick="location.href='tmenuDelete.do?tme_num=${tmenu.tme_num}'">
 	 	<input type="button" value="목록" onclick="location.href='tmenuList.do'">
 	</div>
 </div>
