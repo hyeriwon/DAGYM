@@ -9,5 +9,6 @@ CREATE TABLE schedule(
 );
 create sequence schedule_seq;
 
-ALTER TABLE schedule
-ADD sch_time NUMBER NOT NULL;
+ALTER TABLE schedule ADD sch_time NUMBER NOT NULL;
+
+ALTER TABLE schedule ADD mem_id varchar2(12) NOT NULL;

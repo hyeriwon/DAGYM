@@ -16,7 +16,7 @@ public class ScheduleDAO {
     public static ScheduleDAO getInstance() {
         return instance;
     }
-    public ScheduleDAO() {}
+    private ScheduleDAO() {}
 
     // 스케줄 등록
     public void insertSchedule(ScheduleVO schedule) throws Exception {
@@ -27,16 +27,18 @@ public class ScheduleDAO {
         try {
             conn = DBUtil.getConnection();
 
-            sql = "INSERT INTO schedule (sch_num, mem_num, sch_date, sch_time, sch_status) VALUES (schedule_seq.nextval, ?, ?, ?, ?)";
+            sql = "INSERT INTO schedule (sch_num, mem_num, mem_id, sch_date, sch_time, sch_status) VALUES (schedule_seq.nextval, ?, ?, ?, ?, ?)";
 
             // PreparedStatement 생성
             pstmt = conn.prepareStatement(sql);
 
             // ?에 데이터 바인딩
             pstmt.setInt(1, schedule.getMem_num());
-            pstmt.setString(2, schedule.getSch_date());
-            pstmt.setInt(3, schedule.getSch_time());
-            pstmt.setInt(4, schedule.getSch_status());
+            pstmt.setString(2, schedule.getMem_id()); // mem_id 추가
+            pstmt.setString(3, schedule.getSch_date());
+            pstmt.setInt(4, schedule.getSch_time());
+            pstmt.setInt(5, schedule.getSch_status());
+     
 
             // SQL문 실행
             pstmt.executeUpdate();
@@ -49,7 +51,7 @@ public class ScheduleDAO {
     }
 
     // 스케줄 중복 체크
-    public boolean isDuplicateSchedule(String sch_date, int sch_time) throws Exception {
+    public boolean isDuplicateSchedule(int mem_num, String sch_date, int sch_time) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -82,8 +84,9 @@ public class ScheduleDAO {
 
         return isDuplicate;
     }
+
     
-    
+    // 스케줄 일괄 불러오기
     public List<ScheduleVO> getAllSchedules() throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -92,7 +95,7 @@ public class ScheduleDAO {
 
         try {
             conn = DBUtil.getConnection();
-            String sql = "SELECT * FROM schedule"; // 적절한 SQL 쿼리로 변경해야 함
+            String sql = "SELECT * FROM schedule ORDER BY sch_date ASC, sch_time ASC"; // 적절한 SQL 쿼리로 변경해야 함
 
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
@@ -102,9 +105,11 @@ public class ScheduleDAO {
                 // 스케줄 객체에 필요한 데이터를 설정
                 schedule.setSch_num(rs.getInt("sch_num"));
                 schedule.setMem_num(rs.getInt("mem_num"));
+                schedule.setMem_id(rs.getString("mem_id"));
                 schedule.setSch_date(rs.getString("sch_date"));
                 schedule.setSch_time(rs.getInt("sch_time"));
                 schedule.setSch_status(rs.getInt("sch_status"));
+                
                 schedules.add(schedule);
             }
         } catch (Exception e) {
@@ -115,4 +120,33 @@ public class ScheduleDAO {
 
         return schedules;
     }
+    
+    // 스케줄 삭제
+    public boolean deleteSchedule(int schNum, int userNum) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean success = false;
+
+        try {
+            conn = DBUtil.getConnection();
+
+            String sql = "DELETE FROM schedule WHERE sch_num = ? AND mem_num = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, schNum);
+            pstmt.setInt(2, userNum);
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                success = true;
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            DBUtil.executeClose(null, pstmt, conn);
+        }
+
+        return success;
+    }
+
+
 }

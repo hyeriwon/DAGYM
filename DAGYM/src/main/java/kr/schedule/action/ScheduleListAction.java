@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
+import kr.meal.dao.MealDAO;
 import kr.schedule.dao.ScheduleDAO;
 import kr.schedule.vo.ScheduleVO;
 
@@ -18,13 +19,12 @@ public class ScheduleListAction implements Action {
         Integer user_num = (Integer) session.getAttribute("user_num");
 
         if (user_num == null) { // 로그인이 되지 않은 경우 
-            System.out.println("User not logged in. Redirecting to login form.");
             return "redirect:/member/loginForm.do";
         }
 
         // ScheduleDAO를 사용하여 스케줄 데이터를 가져옴
-        ScheduleDAO scheduleDAO = new ScheduleDAO();
-        List<ScheduleVO> schedules = scheduleDAO.getAllSchedules();
+        ScheduleDAO dao = ScheduleDAO.getInstance();
+        List<ScheduleVO> schedules = dao.getAllSchedules();
 
         // request에 스케줄 데이터를 저장
         request.setAttribute("schedules", schedules);

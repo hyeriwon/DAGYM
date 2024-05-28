@@ -16,38 +16,57 @@ public class ScheduleEnrollAction implements Action {
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();
         Integer userNum = (Integer) session.getAttribute("user_num");
+        String memId = (String) session.getAttribute("user_id");
+        Integer schNum = (Integer) session.getAttribute("sch_num");
+        
         if (userNum == null) {
             return "redirect:/member/loginForm.do";
         }
 
         String schDate = request.getParameter("sch_date");
         String[] timePeriods = request.getParameterValues("time_period");
+        String[] hourlyTimePeriods = request.getParameterValues("hourly_time_period");
 
-        if (schDate == null || schDate.isEmpty() || timePeriods == null || timePeriods.length == 0) {
+        if (schDate == null || schDate.isEmpty() || 
+            (timePeriods == null || timePeriods.length == 0) &&
+            (hourlyTimePeriods == null || hourlyTimePeriods.length == 0)) {
             request.setAttribute("error", "잘못된 입력입니다.");
-            return "/WEB-INF/views/schedule/ScheduleEnrollForm.jsp";
+            return "/WEB-INF/views/schedule/scheduleEnrollForm.jsp";
         }
 
         List<ScheduleVO> schedules = new ArrayList<>();
         ScheduleDAO scheduleDAO = ScheduleDAO.getInstance();
         boolean hasDuplicate = false;
 
-        for (String period : timePeriods) {
-            if (period.equals("morning")) {
-                for (int hour = 9; hour <= 11; hour++) {
-                    if (scheduleDAO.isDuplicateSchedule(schDate, hour)) {
-                        hasDuplicate = true;
-                    } else {
-                        schedules.add(createSchedule(userNum, schDate, hour));
+        if (timePeriods != null) {
+            for (String period : timePeriods) {
+                if (period.equals("morning")) {
+                    for (int hour = 9; hour <= 11; hour++) {
+                        if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
+                            hasDuplicate = true;
+                        } else {
+                            schedules.add(createSchedule(userNum, memId, schDate, hour, schNum));
+                        }
+                    }
+                } else if (period.equals("afternoon")) {
+                    for (int hour = 13; hour <= 20; hour++) {
+                        if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
+                            hasDuplicate = true;
+                        } else {
+                            schedules.add(createSchedule(userNum, memId, schDate, hour, schNum));
+                        }
                     }
                 }
-            } else if (period.equals("afternoon")) {
-                for (int hour = 13; hour <= 20; hour++) {
-                    if (scheduleDAO.isDuplicateSchedule(schDate, hour)) {
-                        hasDuplicate = true;
-                    } else {
-                        schedules.add(createSchedule(userNum, schDate, hour));
-                    }
+            }
+        }
+
+        if (hourlyTimePeriods != null) {
+            for (String period : hourlyTimePeriods) {
+                int hour = Integer.parseInt(period);
+                if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
+                    hasDuplicate = true;
+                } else {
+                    schedules.add(createSchedule(userNum, memId, schDate, hour, schNum));
                 }
             }
         }
@@ -68,12 +87,15 @@ public class ScheduleEnrollAction implements Action {
         return "/WEB-INF/views/schedule/scheduleEnrollForm.jsp";
     }
 
-    private ScheduleVO createSchedule(int userNum, String schDate, int hour) {
+    private ScheduleVO createSchedule(int userNum, String memId, String schDate, int hour, int schNum) {
         ScheduleVO schedule = new ScheduleVO();
         schedule.setMem_num(userNum);
+        schedule.setMem_id(memId); 
         schedule.setSch_date(schDate);
         schedule.setSch_time(hour);
-        schedule.setSch_status(0); // 스케줄 상태 초기화 (예: 신청 가능)
+        schedule.setSch_status(0);
+        schedule.setSch_num(schNum);
+        
         return schedule;
     }
 }
