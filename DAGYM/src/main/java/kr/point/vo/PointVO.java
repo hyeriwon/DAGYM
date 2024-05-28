@@ -6,7 +6,7 @@ public class PointVO {
 	
 	private int poi_num;		//포인트번호
 	private int mem_num;		//회원번호
-	private int poi_type;		//적립종류
+	private String poi_type;	//포인트종류
 	private int poi_in;			//적립포인트
 	private Date poi_in_date;	//적립일자
 	private int poi_out;		//사용포인트
@@ -24,10 +24,10 @@ public class PointVO {
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
 	}
-	public int getPoi_type() {
+	public String getPoi_type() {
 		return poi_type;
 	}
-	public void setPoi_type(int poi_type) {
+	public void setPoi_type(String poi_type) {
 		this.poi_type = poi_type;
 	}
 	public int getPoi_in() {

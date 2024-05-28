@@ -13,7 +13,7 @@ CREATE SEQUENCE attend_seq;
 CREATE TABLE point (
 	poi_num NUMBER NOT NULL,
 	mem_num NUMBER NOT NULL,
-	poi_type NUMBER(2) NOT NULL,
+	poi_type VARCHAR2(50) NOT NULL,
 	poi_in NUMBER(10),
 	poi_in_date DATE,
 	poi_out NUMBER(10),
