@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.payment.dao.PaymentDAO;
+import kr.qaboard.vo.QABoardVO;
 
 public class PaymentCounselingAction implements Action{
 
@@ -20,17 +21,17 @@ public class PaymentCounselingAction implements Action{
 		//전송된 데이터 인코딩 타입 지정
 		request.setCharacterEncoding("utf-8");
 		//자바빈(VO)를 생성한 후 전송된 데이터를 저장
-		/*
-		QA_boardVO qaboard = new QA_boardVO();
-		qaboard.setTitle(request.getParameter("title"));
-		qaboard.setContent(request.getParameter("content"));
-		qaboard.setIp(request.getRemoteAddr());
+		
+		QABoardVO qaboard = new QABoardVO();
+		qaboard.setQab_title(request.getParameter("title"));
+		qaboard.setQab_content(request.getParameter("content"));
+		qaboard.setQab_ip(request.getRemoteAddr());
 		
 		qaboard.setMem_num(user_num);
 		
 		PaymentDAO dao = PaymentDAO.getInstance();
 		dao.membershipCounseling(qaboard);
-		*/
+		
 		
 		request.setAttribute("notice_msg", "상담신청 완료");
 		request.setAttribute("notice_url", request.getContextPath()+"/payment/paymentInfo.do");

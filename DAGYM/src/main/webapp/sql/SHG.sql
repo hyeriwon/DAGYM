@@ -21,3 +21,20 @@ create table payment(
  constraint payment_fk foreign key (mem_num) references member (mem_num)
 );
 create sequence payment_seq;
+
+create table qaboard(
+ qab_num number not null,
+ mem_num number not null,
+ qab_type number(1) not null,
+ qab_title varchar2(150),
+ qab_content clob not null,
+ qab_filename varchar2(400),
+ qab_reg_date date default sysdate not null,
+ qab_modify_date date,
+ qab_ip varchar2(40) not null,
+ qab_remove number(1) default 0 not null,
+ qab_ref number(10) not null,
+ constraint qaboard_pk primary key (qab_num),
+ constraint qaboard_fk foreign key (mem_num) references member (mem_num)
+);
+create sequence qaboard_seq;

@@ -9,7 +9,6 @@ public class QABoardVO {
 	private String qab_title;
 	private String qab_content;
 	private String qab_filename;
-	private int qab_hit;
 	private Date qab_reg_date;
 	private Date qab_modify_date;
 	private String qab_ip;
@@ -66,14 +65,6 @@ public class QABoardVO {
 		this.qab_filename = qab_filename;
 	}
 
-	public int getQab_hit() {
-		return qab_hit;
-	}
-
-	public void setQab_hit(int qab_hit) {
-		this.qab_hit = qab_hit;
-	}
-
 	public Date getQab_reg_date() {
 		return qab_reg_date;
 	}
@@ -121,5 +112,6 @@ public class QABoardVO {
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
 	}
+
 	
 }

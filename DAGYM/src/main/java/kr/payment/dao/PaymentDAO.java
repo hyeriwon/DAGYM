@@ -16,18 +16,19 @@ public class PaymentDAO {
 	}
 	private PaymentDAO () {}
 	
+	//회원권상담신청
 	public void membershipCounseling(QABoardVO qaboard)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			conn = DBUtil.getConnection();
-			sql = "INSERT INTO qa_board (qab_num,mem_num,qab_type,qab_title,qab_content,qab_hit,qab_ip,qab_remove,qab_ref) VALUES(qa_seq.nextval,?,1,?,?,?,?,?,?)";
+			sql = "INSERT INTO qa_board (qab_num,mem_num,qab_type,qab_title,qab_content,qab_ip,qab_remove,qab_ref) VALUES(qa_seq.nextval,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, qaboard.getMem_num());
 			pstmt.setString(2, qaboard.getQab_title());
-			pstmt.setString(3, qaboard.getQab_content());
-			pstmt.setInt(4, qaboard.getQab_hit());
+			pstmt.setInt(3, qaboard.getQab_type());
+			pstmt.setString(4, qaboard.getQab_content());
 			pstmt.setString(5, qaboard.getQab_ip());
 			pstmt.setInt(6, qaboard.getQab_remove());
 			pstmt.setInt(7, qaboard.getQab_ref());
@@ -38,5 +39,4 @@ public class PaymentDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	
 }
