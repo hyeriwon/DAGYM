@@ -17,7 +17,9 @@ public class MealWriteAction implements Action{
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num == null) {
-			return "redirect:/member/loginForm.do";
+			request.setAttribute("notice_msg", "로그인을 해야합니다.");
+			request.setAttribute("notice_url", request.getContextPath()+"/member/loginForm.do");
+			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 		
 		MealVO meal = new MealVO();
@@ -33,7 +35,7 @@ public class MealWriteAction implements Action{
 		
 		
 		request.setAttribute("notice_msg", "음식 등록 완료");
-		 request.setAttribute("notice_url", request.getContextPath()+"/meal/list.do");
+		 request.setAttribute("notice_url", request.getContextPath()+"/meal/mealDetail.do");
 		return "/WEB-INF/views/common/alert_view.jsp";
 	}
 

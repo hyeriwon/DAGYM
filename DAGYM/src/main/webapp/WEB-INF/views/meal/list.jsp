@@ -31,6 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   calendar.render(); // 캘린더를 렌더링합니다.
 });
+function searchByMemNum() {
+	  var client_num = document.getElementById('client_num').value;
+	  window.location.href = '${pageContext.request.contextPath}/meal/mealDetail.do?client_num=' + client_num;
+	}
 </script>
 </head>
 <body>
@@ -39,8 +43,17 @@ document.addEventListener('DOMContentLoaded', function() {
     <p>
     <jsp:include page="/WEB-INF/views/common/usercontrolHeader.jsp"/><!-- 사용자 제어 헤더 JSP 파일을 포함합니다. -->
     <div class="content-main">
+    <div class="align-left">
+    
+    </div>
     <div class="align-right">
+    <c:if test="${user_auth !=9}">
     <input type="button" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
+    </c:if>
+    <c:if test="${user_auth ==9 }">
+     <input type="number" value="client_num" id="client_num">
+     <input type="submit" value="검색" onclick="searchByMemNum()"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
+    </c:if>
     <div><p></div>
     </div>
     <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->

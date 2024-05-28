@@ -17,7 +17,7 @@ public class TmenuWriteAction implements Action{
 		HttpSession session = request.getSession();
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
 		if(user_auth!=9) {
-			return "redirect:/member/loginForm.do";
+			return "/WEB-INF/views/common/notice.jsp";
 		}
 		TmenuVO tmenu = new TmenuVO();
 		tmenu.setTme_name(request.getParameter("menu_name"));

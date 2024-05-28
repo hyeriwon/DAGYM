@@ -71,10 +71,10 @@ window.onload=function(){
 					<input type="number" name="menu_lipid" id="menu_lipid" value="${tmenu.tme_lipid}">
 					</li>
 					<li>식사분류 
-					<input type="radio" name="tme_type" value="0" id="tme_type0">아침 
-					<input type="radio" name="tme_type" value="1" id="tme_type1">점심 
-					<input type="radio" name="tme_type" value="2" id="tme_type2">저녁 
-					<input type="radio" name="tme_type" value="3" id="tme_type3">간식
+					<input type="radio" name="tme_type" value="0" id="tme_type0"<c:if test="${tmenu.tme_type == 0}">checked</c:if>>아침 
+					<input type="radio" name="tme_type" value="1" id="tme_type1"<c:if test="${tmenu.tme_type == 1}">checked</c:if>>점심 
+					<input type="radio" name="tme_type" value="2" id="tme_type2"<c:if test="${tmenu.tme_type == 2}">checked</c:if>>저녁 
+					<input type="radio" name="tme_type" value="3" id="tme_type3"<c:if test="${tmenu.tme_type == 3}">checked</c:if>>간식
 					</li>
 					<li>
 					<label for="menu_content">메뉴 설명</label>
