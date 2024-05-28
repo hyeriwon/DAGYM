@@ -34,11 +34,11 @@
 				</li>
 				<li><!-- 별점 css,js 작성 안 함 --> 
 					<div class="star-rating">
-						<input type="radio" name="rev_grade" value="5" id="star5"><label for="star5">☆</label>
-						<input type="radio" name="rev_grade" value="4" id="star4"><label for="star4">☆</label>
-						<input type="radio" name="rev_grade" value="3" id="star3"><label for="star3">☆</label>
-						<input type="radio" name="rev_grade" value="2" id="star2"><label for="star2">☆</label>
-						<input type="radio" name="rev_grade" value="1" id="star1"><label for="star1">☆</label>					
+						<input type="radio" name="rev_grade" value="5" id="star5"><label for="star5">★</label>
+						<input type="radio" name="rev_grade" value="4" id="star4"><label for="star4">★</label>
+						<input type="radio" name="rev_grade" value="3" id="star3"><label for="star3">★</label>
+						<input type="radio" name="rev_grade" value="2" id="star2"><label for="star2">★</label>
+						<input type="radio" name="rev_grade" value="1" id="star1"><label for="star1">★</label>					
 						<div id="grade"></div>
 					</div>	
 				</li>

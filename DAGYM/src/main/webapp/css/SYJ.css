@@ -9,6 +9,24 @@ ul li label{
 	width:130px;
 	float:left; /*태그를 왼쪽으로 정렬*/
 }
+
+/*수강후기 별점 부여*/
+.star-rating {
+    direction: rtl; /* 태그를 오른쪽으로 정렬 */
+    display: inline-block;
+}
 .star-rating[type="radio"]{
 	display:none;
 }
+.star-rating label{
+	font-size:1em;
+	color: #ddd;
+	cursor: pointer;
+}
+.star-rating[type="radio"]:checked ~ label{
+	color:#ff5500;
+}
+.star-rating[type="radio"]:hover ~ label{
+	color:#ff5500;
+}
+
