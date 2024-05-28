@@ -16,7 +16,7 @@
 				<li>
 					<label>회원명</label>
 					<select>
-					
+					<%-- --%>
 					</select>
 				</li>
 			</ul>

@@ -5,8 +5,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
+import kr.payment.dao.PaymentDAO;
+import kr.payment.vo.PaymentVO;
 
-public class InsertMembershipFormAction implements Action{
+public class AdminUserPaymentFormAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -22,8 +24,14 @@ public class InsertMembershipFormAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
-		//관리자로 로그인한 경우
-		return "/WEB-INF/views/payment/insertMembershipForm.jsp";
+		//전송된 데이터 반환
+		//int mem_num = Integer.parseInt(request.getParameter("mem_num"));
+		PaymentDAO dao = PaymentDAO.getInstance();
+		//PaymentVO member = dao.getPaymentMember(mem_num);
+		
+		//request.setAttribute("member", member);
+		//JSP 경로 반환
+		return "/WEB-INF/views/payment/detailpaymentUserForm.jsp";
 	}
 //
 }

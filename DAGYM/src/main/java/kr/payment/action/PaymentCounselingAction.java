@@ -36,6 +36,6 @@ public class PaymentCounselingAction implements Action{
 		
 		return "/WEB-INF/views/common/alert_view.jsp";
 	}
-	
+	//
 
 }

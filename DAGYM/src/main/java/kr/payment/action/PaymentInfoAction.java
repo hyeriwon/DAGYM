@@ -12,5 +12,5 @@ public class PaymentInfoAction implements Action{
 		
 		return "/WEB-INF/views/payment/paymentInfo.jsp";
 	}
-
+//
 }

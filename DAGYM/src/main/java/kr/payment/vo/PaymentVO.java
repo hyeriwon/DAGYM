@@ -5,6 +5,7 @@ public class PaymentVO {
 	private int mem_num;
 	private int pay_fee;
 	private int pay_enroll;
+	private String mem_name;
 	
 	public int getPay_num() {
 		return pay_num;
@@ -30,4 +31,12 @@ public class PaymentVO {
 	public void setPay_enroll(int pay_enroll) {
 		this.pay_enroll = pay_enroll;
 	}
+	public String getMem_name() {
+		return mem_name;
+	}
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+	
+	//
 }
