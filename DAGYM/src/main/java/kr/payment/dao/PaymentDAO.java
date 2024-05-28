@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import kr.payment.dao.PaymentDAO;
+import kr.payment.vo.PaymentVO;
 import kr.qaboard.vo.QABoardVO;
 import kr.util.DBUtil;
 
@@ -38,4 +39,34 @@ public class PaymentDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
+	
+	//회원권 등록(관리자)
+	public void insertMembership(PaymentVO payment)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			
+			sql = "INSERT INTO payment (pay_num,pay_fee,pay_enroll) VALUES (payment_seq.nextval,?,?) WHERE mem_num=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, payment.getPay_fee());
+			pstmt.setInt(2, payment.getPay_enroll());
+			pstmt.setInt(3, payment.getMem_num());
+			
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
+	//회원권 결제내역
+	
+	
+	//회원권 등록 횟수 계산
+	
 }
