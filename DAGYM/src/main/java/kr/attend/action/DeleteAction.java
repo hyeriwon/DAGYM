@@ -28,7 +28,9 @@ public class DeleteAction implements Action{
 		AttendDAO dao = AttendDAO.getInstance();
 		dao.delete(att_num);
 		
-		//JSP 경로 반환
-		return "/WEB-INF/views/attend/delete.jsp";
+		request.setAttribute("notice_msg", "출석이 취소되었습니다.");
+		request.setAttribute("notice_url", request.getContextPath() + "/attend/list.do");
+		
+        return "/WEB-INF/views/common/alert_view.jsp";
 	}
 }

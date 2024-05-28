@@ -34,12 +34,19 @@ public class WriteAction implements Action{
         
         if (isExist) {
             //이미 출석한 경우 처리
-            return "/WEB-INF/views/attend/error.jsp";
+        	
+    		request.setAttribute("notice_msg", "오늘 이미 출석하셨습니다.");
+    		request.setAttribute("notice_url", request.getContextPath() + "/attend/list.do");
+    		
+            return "/WEB-INF/views/common/alert_view.jsp";
         } else {
             //출석 등록
             dao.insert(user_num);           
 
-            return "/WEB-INF/views/attend/write.jsp";
+    		request.setAttribute("notice_msg", "출석이 완료되었습니다.");
+    		request.setAttribute("notice_url", request.getContextPath() + "/attend/list.do");
+    		
+            return "/WEB-INF/views/common/alert_view.jsp";
         }
 	}
 }
