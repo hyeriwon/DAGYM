@@ -25,6 +25,11 @@
 			navLinks: true, //can click day/week names to navigate views
 			selectable: true,
 			selectMirror: true,
+			selectAllow: function(selectInfo) {//오늘 날짜만 선택 가능
+				var today = new Date();
+				today.setHours(0, 0, 0, 0);
+				return selectInfo.start.getTime() === today.getTime();
+			},
 			select: function(arg) {
 				//오늘 날짜	
 				var today = new Date();
@@ -35,20 +40,31 @@
 		        selectedDate.setHours(0, 0, 0, 0);
 		
 		        if (selectedDate.getTime() === today.getTime()) {
-		        		if (confirm('출석하시겠습니까?')) {
-		                //(출석등록) 선택한 날짜를 write.do로 리다이렉트
+		        	if (confirm('출석하시겠습니까?')) {
+		            	//(출석등록) 선택한 날짜를 write.do로 리다이렉트
 		                location.href = 'write.do?date=' + arg.start.toISOString();
 	                }
-				} else {//오늘 날짜만 선택 가능
-		            alert('오늘 날짜만 선택할 수 있습니다.');
 				}
 		        calendar.unselect()
 			},
 			eventClick: function(arg) {
-		    		if (confirm('출석을 취소하시겠습니까?')) {
-		    			//(출석삭제) events의 title에서 att_num 가져와서 delete.do로 리다이렉트
-		    			var att_num = arg.event.title;
-		    			location.href = 'delete.do?att_num=' + att_num;
+				//오늘 날짜
+				var today = new Date();
+				var eventDate = arg.event.start;
+				
+				//정확한 날짜 비교를 위해 시간을 00:00:00으로 설정
+				today.setHours(0, 0, 0, 0);
+				eventDate.setHours(0, 0, 0, 0);
+				
+				if (eventDate.getTime() !== today.getTime()) {
+					// 클릭 이벤트 무시
+					return false;
+				}
+				
+		    	if (confirm('출석을 취소하시겠습니까?')) {
+		    		//(출석삭제) events의 title에서 att_num 가져와서 delete.do로 리다이렉트
+		    		var att_num = arg.event.title;
+		    		location.href = 'delete.do?att_num=' + att_num;
 		        }
 			},
 			editable: true,
