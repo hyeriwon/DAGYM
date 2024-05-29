@@ -19,7 +19,7 @@ public class UserWriteFormAction implements Action{
 		}
 		
 		//로그인이 된 경우
-		return "WEB-INF/views/qaboard/writeForm.jsp";
+		return "/WEB-INF/views/qaboard/userWriteForm.jsp";
 	}
 
 }
