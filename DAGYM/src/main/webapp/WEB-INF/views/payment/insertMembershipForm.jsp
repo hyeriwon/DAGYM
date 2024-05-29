@@ -16,8 +16,8 @@
 		<form id="write_form" action="insertMembership.do" method="post">
 			<ul>
 				<li>
-					<label>회원명</label>
-					<input type="text" value="" readonly>
+					<label>회원명</label>${mem_name}
+					
 					<p>
 					[]님 현재 보유한 회원권 : 
 				</li>

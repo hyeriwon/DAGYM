@@ -23,11 +23,13 @@ public class InsertMembershipFormAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
-		//int mem_num = Integer.parseInt(request.getParameter("mem_num"));
-		//PaymentDAO dao = PaymentDAO.getInstance();
-		//int remain = dao.remainpayment(mem_num);
+		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
+		PaymentDAO dao = PaymentDAO.getInstance();
+		int remain = dao.remainpayment(mem_num);
+		String mem_name = dao.getMemberName(mem_num);
 		
-		//request.setAttribute("remain", remain);
+		request.setAttribute("mem_name", mem_name);
+		request.setAttribute("remain", remain);
 		
 		//관리자로 로그인한 경우
 		return "/WEB-INF/views/payment/insertMembershipForm.jsp";

@@ -133,30 +133,7 @@ public class PaymentDAO {
 		return list;
 	}
 	
-	//회원권 등록(관리자)
-	public void insertMembership(PaymentVO payment)throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		try {
-			//커넥션 풀로부터 커넥션 할당
-			conn = DBUtil.getConnection();
-			//SQL문 작성
-			sql = "INSERT INTO payment (pay_num,pay_fee,pay_enroll) VALUES (payment_seq.nextval,?,?) WHERE mem_num=?";
-			//PreparedStatement 객체 생성
-			pstmt = conn.prepareStatement(sql);
-			//?에 데이터 바인딩
-			pstmt.setInt(1, payment.getPay_fee());
-			pstmt.setInt(2, payment.getPay_enroll());
-			pstmt.setInt(3, payment.getMem_num());
-			//SQL문 실행
-			pstmt.executeUpdate();
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			DBUtil.executeClose(null, pstmt, conn);
-		}
-	}
+	
 
 	//회원별 회원권 결제내역 총 개수
 	public int getPayMemCount(int mem_num)throws Exception{
@@ -201,7 +178,7 @@ public class PaymentDAO {
 			
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
-					+ "(SELECT * FROM payment JOIN member_detail USING(mem_num) ORDER BY pay_num DESC)a) "
+					+ "(SELECT * FROM payment RIGHT OUTER JOIN member_detail USING(mem_num) ORDER BY pay_num DESC)a) "
 					+ "WHERE mem_num=? AND rnum >= ? AND rnum <= ?";
 			
 			//PreparedStatement 객체 생성
@@ -240,7 +217,7 @@ public class PaymentDAO {
 	    String mem_name = null;
 	    try {
 	        conn = DBUtil.getConnection();
-	        String sql = "SELECT mem_name FROM member WHERE mem_num=?";
+	        String sql = "SELECT mem_name FROM member_detail WHERE mem_num=?";
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setInt(1, mem_num);
 	        rs = pstmt.executeQuery();
@@ -284,6 +261,31 @@ public class PaymentDAO {
 		}
 		return remain;
 	}
+	
+	//회원권 등록(관리자)
+		public void insertMembership(PaymentVO payment)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션 풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				sql = "INSERT INTO payment (pay_num,pay_fee,pay_enroll) VALUES (payment_seq.nextval,?,?) WHERE mem_num=?";
+				//PreparedStatement 객체 생성
+				pstmt = conn.prepareStatement(sql);
+				//?에 데이터 바인딩
+				pstmt.setInt(1, payment.getPay_fee());
+				pstmt.setInt(2, payment.getPay_enroll());
+				pstmt.setInt(3, payment.getMem_num());
+				//SQL문 실행
+				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
 	
 	/*
 	//회원상세(회원권 결제내역)
