@@ -15,10 +15,10 @@
 	
 		<h2>[${mem_name}]님의 회원권 정보(관리자 전용)</h2>
 		
-			<input type="hidden" name="mem_num" value="${member.mem_num}">
+			<input type="hidden" name="mem_num" value="${mem_num}">
 			<ul>
 				<li>
-					<label>보유한 회원권</label>${remain}
+					<label>보유한 회원권 : </label>${remain}
 				</li>
 				<li>
 					<P>
@@ -52,7 +52,7 @@
 			<div class="align-center">
 				<!-- 관리자가 아닌 경우에만 수정 버튼 -->
 				<c:if test="${member.mem_auth!=9}">
-					<input type="button" value="회원권등록" onclick="location.href='insertMembershipForm.do?mem_num=${member.mem_num}'">
+					<input type="button" value="회원권등록" onclick="location.href='insertMembershipForm.do?mem_num=${mem_num}'">
 				</c:if>
 				<input type="button" value="목록" onclick="location.href='paymentMemberList.do'">
 			</div>

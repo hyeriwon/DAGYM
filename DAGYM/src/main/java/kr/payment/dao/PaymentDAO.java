@@ -271,7 +271,7 @@ public class PaymentDAO {
 				//커넥션 풀로부터 커넥션 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "INSERT INTO payment (pay_num,pay_fee,pay_enroll) VALUES (payment_seq.nextval,?,?) WHERE mem_num=?";
+				sql = "INSERT INTO payment (pay_num, pay_fee, pay_enroll, mem_num) VALUES (payment_seq.nextval, ?, ?, ?)";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
@@ -286,44 +286,5 @@ public class PaymentDAO {
 				DBUtil.executeClose(null, pstmt, conn);
 			}
 		}
-	
-	/*
-	//회원상세(회원권 결제내역)
-	public PaymentVO getPaymentMember(int mem_num) throws Exception{
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		PaymentVO member = null;
-		String sql = null;
-		
-		try {
-			//커넥션 풀로부터 커넥션 할당
-			conn = DBUtil.getConnection();
-			//SQL문 작성
-			sql = "SELECT * FROM payment JOIN member_detail USING(mem_num) WHERE mem_num=?";
-			//PreparedStatement 객체 생성
-			pstmt = conn.prepareStatement(sql);
-			//?에 데이터 바인딩
-			pstmt.setInt(1, mem_num);
-			//SQL문 실행
-			rs = pstmt.executeQuery();
-			if(rs.next()) {
-				member = new PaymentVO();
-				member.setMem_num(rs.getInt("mem_num"));
-				member.setPay_num(rs.getInt("pay_num"));
-				member.setPay_fee(rs.getInt("pay_fee"));
-				member.setPay_enroll(rs.getInt("pay_enroll"));
-				member.setMem_name(rs.getString("mem_name"));
-			}
-		}catch(Exception e) {
-			throw new Exception(e);
-		}finally {
-			DBUtil.executeClose(rs, pstmt, conn);
-		}
-		return member;
-	}
-	*/
-	
-	//회원권 등록 횟수 계산
 	
 }

@@ -28,6 +28,7 @@ public class InsertMembershipFormAction implements Action{
 		int remain = dao.remainpayment(mem_num);
 		String mem_name = dao.getMemberName(mem_num);
 		
+		request.setAttribute("mem_num", mem_num);
 		request.setAttribute("mem_name", mem_name);
 		request.setAttribute("remain", remain);
 		

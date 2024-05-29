@@ -49,12 +49,12 @@ public class AdminUserPaymentFormAction implements Action{
 			
 		}
 		
-		
 		request.setAttribute("mem_name", mem_name);
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());
 		request.setAttribute("remain", remain);
+		request.setAttribute("mem_num", mem_num);
 		
 		//JSP 경로 반환
 		return "/WEB-INF/views/payment/detailPaymentUserForm.jsp";
