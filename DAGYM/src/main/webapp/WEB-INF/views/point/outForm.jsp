@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>포인트 차감</title>
+<title>포인트 사용</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script type="text/javascript">
 
@@ -14,14 +14,14 @@
         myForm.onsubmit=function(){
             const poi_type = document.getElementById('poi_type');
             if(poi_type.value.trim()==''){
-                alert('포인트 차감 종류를 입력하세요');
+                alert('포인트 사용 종류를 입력하세요');
                 poi_type.value = '';
                 poi_type.focus();
                 return false;
             }
             const poi_out = document.getElementById('poi_out');
             if(poi_out.value.trim()==''){
-                alert('차감할 포인트를 입력하세요');
+                alert('사용할 포인트를 입력하세요');
                 poi_out.value = '';
                 poi_out.focus();
                 return false;
@@ -72,13 +72,13 @@
     <div class="page-main">
         <jsp:include page="/WEB-INF/views/common/header.jsp"/>
         <div class="content-main">
-            <h2>포인트 차감</h2>
+            <h2>포인트 사용</h2>
             <form id="out_form" action="out.do" method="post" enctype="multipart/form-data">
                 <!-- hidden 필드로 회원 ID를 전달 -->
                 <input type="hidden" name="mem_num" value="${param.mem_num}">
                 <ul>
                     <li>
-                        <label for="poi_type">종류</label>
+                        <label for="poi_type">사용 종류</label>
                         <select name="poi_type" id="poi_type">
                             <option value="">--- 선택 ---</option>
                             <option value="안마기 사용">안마기 사용</option>
@@ -89,7 +89,7 @@
                         </select>
                     </li>
                     <li>
-                        <label for="poi_out">포인트</label>
+                        <label for="poi_out">사용 포인트</label>
                         <input type="text" name="poi_out" id="poi_out" maxlength="30">
                     </li>          
                 </ul>

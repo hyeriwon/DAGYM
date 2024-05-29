@@ -48,11 +48,12 @@
 			<c:if test="${count > 0}">
 			<h3>전체 누적 : ${totalPointsIn}p</h3>
 			<h3>사용 가능 : <span class="point-in">${totalPointsInOut}p</span></h3>
-			<input type="button" value="포인트 차감" onclick="location.href='outForm.do?mem_num=${mem_num}'">
+			<input type="button" value="포인트 사용" onclick="location.href='outForm.do?mem_num=${mem_num}'">
 			<table>
 				<tr>
 					<th>날짜</th>
 					<th>포인트 종류</th>
+					<th>포인트</th>
 				</tr>
 				<c:set var="previousDate" value=""/>
 				<c:forEach var="point" items="${list}">

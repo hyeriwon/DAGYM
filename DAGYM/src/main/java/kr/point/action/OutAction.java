@@ -43,7 +43,7 @@ public class OutAction implements Action{
         
         dao.insertOut(mem_num, poi_type, poi_out);
 
-		request.setAttribute("notice_msg", "포인트 차감이 완료되었습니다.");
+		request.setAttribute("notice_msg", "포인트 사용이 완료되었습니다.");
 		request.setAttribute("notice_url", request.getContextPath() + "/point/adminList.do?mem_num=" + mem_num);
 		
 		//JSP 경로 반환
