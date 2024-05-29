@@ -19,6 +19,8 @@ public class WriteReviewFormAction implements Action{
 		if(mem_num==null) {
 			return "redirect:/member/loginForm.do";
 		}
+		
+		//로그인한 사람과 수강한 사람의 일치 여부 확인?
 				
 		//수강 완료 여부 확인하기 -> 수강후기 작성 버튼을 <a>태그에 작성하여 get방식으로 sch_num 넘겨주기		
 		int sch_num = Integer.parseInt(request.getParameter("sch_num"));

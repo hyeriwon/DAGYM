@@ -21,7 +21,6 @@ public class AdminUserPaymentFormAction implements Action{
 			return "redirect:/member/loginForm.do";
 		}
 		
-		//로그인도 되어 있어야 하고 관리자만 들어올 수 있게 해야 한다.
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
 		if(user_auth != 9) {//관리자로 로그인하지 않은 경우
 			return "/WEB-INF/views/common/notice.jsp";

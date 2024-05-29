@@ -15,7 +15,7 @@ ul li label{
     direction: rtl; /* 태그를 오른쪽으로 정렬 */
     display: inline-block;
 }
-.star-rating[type="radio"]{
+.star-rating input[type="radio"]{
 	display:none;
 }
 .star-rating label{
@@ -23,10 +23,10 @@ ul li label{
 	color: #ddd;
 	cursor: pointer;
 }
-.star-rating[type="radio"]:checked ~ label{
+.star-rating input[type="radio"]:checked ~ label{
 	color:#ff5500;
 }
-.star-rating[type="radio"]:hover ~ label{
+.star-rating input[type="radio"]:hover ~ label{
 	color:#ff5500;
 }
 
