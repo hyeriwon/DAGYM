@@ -39,3 +39,17 @@ create table qaboard(
  constraint qaboard_fk foreign key (mem_num) references member (mem_num)
 );
 create sequence qaboard_seq;
+
+create table nboard(
+ nbo_num number not null,
+ mem_num number not null,
+ nbo_title varchar2(50) not null,
+ nbo_content clob not null,
+ nbo_filename varchar2(400),
+ nbo_hit number default 0 not null,
+ nbo_reg_date date default sysdate not null,
+ nbo_modify_date date,
+ constraint nboard_pk primary key (nbo_num),
+ constraint nboard_fk foreign key (mem_num) references member (mem_num)
+);
+create sequence nboard_seq;

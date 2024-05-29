@@ -31,7 +31,10 @@ $(function() {
         }
 
         $('#pay_enroll').val(payEnroll);
-        $('#pay_fee').val(payFee);
+        $('#pay_fee').val(addCommasToNumber(payFee));
+    }
+    function addCommasToNumber(number) {
+        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 });
 </script>
@@ -51,7 +54,8 @@ $(function() {
 				<li>
 					<label>회원권 종류</label>
 					<select id="pay_type" name="pay_type">
-							<option value="10회권" selected>10회권</option>
+							<option value="선택">--선택--</option>
+							<option value="10회권">10회권</option>
 							<option value="20회권">20회권</option>
 							<option value="30회권">30회권</option>
 					</select>
