@@ -57,7 +57,7 @@
 			<a href="${pageContext.request.contextPath}/history/historyList.do">PT신청</a>
 		</li>
 		<li>
-			<a href="${pageContext.request.contextPath}/member/userQuestionList.do">1:1문의</a>
+			<a href="${pageContext.request.contextPath}/qaboard/userQuestionList.do">1:1문의</a>
 		</li>
 		</c:if>
 		
