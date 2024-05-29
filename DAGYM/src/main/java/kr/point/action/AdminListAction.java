@@ -53,15 +53,16 @@ public class AdminListAction implements Action {
 		}
 		
 		//포인트 전체누적 계산
-        int totalPointsIn = dao.getTotalPointsIn(user_num);
+        int totalPointsIn = dao.getTotalPointsIn(mem_num);
 		//포인트 사용가능 계산
-        int totalPointsInOut = dao.getTotalPointsInOut(user_num);
+        int totalPointsInOut = dao.getTotalPointsInOut(mem_num);
         
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());
 		request.setAttribute("totalPointsIn", totalPointsIn);
 		request.setAttribute("totalPointsInOut", totalPointsInOut);
+		request.setAttribute("mem_num", mem_num);//(주의) 버튼 누를 때 필요
 		
 		//JSP 경로 반환
 		return "/WEB-INF/views/point/adminList.jsp";

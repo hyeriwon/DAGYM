@@ -21,13 +21,12 @@ public class OutFormAction implements Action{
         }
 
         //요청으로부터 mem_num 파라미터를 받음
-        String memNumStr = request.getParameter("mem_num");
-        if (memNumStr == null || memNumStr.isEmpty()) {
+        String mem_num = request.getParameter("mem_num");
+        if (mem_num == null || mem_num.isEmpty()) {
             //mem_num이 없으면 오류 처리
             return "redirect:/point/outForm.do";
         }
         
-        String mem_num = request.getParameter("mem_num");
         request.setAttribute("mem_num", mem_num);
 	
 		//JSP 경로 반환
