@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
-import kr.meal.dao.MealDAO;
 import kr.schedule.dao.ScheduleDAO;
 import kr.schedule.vo.ScheduleVO;
 

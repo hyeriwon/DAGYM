@@ -12,7 +12,7 @@
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
-	<form id="search_form" action="adminHistoryList.do" method="get">
+	<form id="search_form" action="list.do" method="get">
 	<ul class="search">
 				<li>
 					<select name="keyfield">

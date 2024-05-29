@@ -54,7 +54,7 @@
 			<a href="${pageContext.request.contextPath}/point/list.do">포인트</a>
 		</li>
 		<li>
-			<a href="${pageContext.request.contextPath}/history/historyList.do">PT신청</a>
+			<a href="${pageContext.request.contextPath}/history/list.do">PT신청</a>
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath}/qaboard/userQuestionList.do">1:1문의</a>

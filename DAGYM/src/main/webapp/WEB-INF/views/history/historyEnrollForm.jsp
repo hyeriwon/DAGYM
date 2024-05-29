@@ -48,7 +48,7 @@
 			</ul>
 			<div>
 			<input type="submit" value="수강 신청">
-			<input type="button" value="취소" onclick="location.href='historyList.do'">
+			<input type="button" value="취소" onclick="location.href='list.do'">
 			</div> 
         </form>
     </div>
