@@ -16,6 +16,30 @@ public class ReviewVO {
 	private Date rev_modify_date;
 	private int rev_hit;
 	private int rev_like;
+	
+	private String mem_name;
+	private String sch_date;
+	private String tra_name;
+	
+	public String getMem_name() {
+		return mem_name;
+	}
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
+	}
+	public String getSch_date() {
+		return sch_date;
+	}
+	public void setSch_date(String sch_date) {
+		this.sch_date = sch_date;
+	}
+	public String getTra_name() {
+		return tra_name;
+	}
+	public void setTra_name(String tra_name) {
+		this.tra_name = tra_name;
+	}
+	
 	public int getRev_num() {
 		return rev_num;
 	}
