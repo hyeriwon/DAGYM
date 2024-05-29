@@ -17,7 +17,6 @@ public class ScheduleEnrollAction implements Action {
         HttpSession session = request.getSession();
         Integer userNum = (Integer) session.getAttribute("user_num");
         String memId = (String) session.getAttribute("user_id");
-        // Integer schNum = (Integer) session.getAttribute("sch_num");
         
         if (userNum == null) {
             return "redirect:/member/loginForm.do";
@@ -42,16 +41,18 @@ public class ScheduleEnrollAction implements Action {
             for (String period : timePeriods) {
                 if (period.equals("morning")) {
                     for (int hour = 9; hour <= 11; hour++) {
-                        if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
+                        if (scheduleDAO.isDuplicateSchedule(schDate, hour)) {
                             hasDuplicate = true;
+                            request.setAttribute("message", "스케줄이 성공적으로 등록되었지만, 일부 시간대는 이미 등록된 시간입니다.");
                         } else {
                             schedules.add(createSchedule(userNum, memId, schDate, hour));
                         }
                     }
                 } else if (period.equals("afternoon")) {
                     for (int hour = 13; hour <= 20; hour++) {
-                        if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
+                        if (scheduleDAO.isDuplicateSchedule(schDate, hour)) {
                             hasDuplicate = true;
+                            request.setAttribute("message", "스케줄이 성공적으로 등록되었지만, 일부 시간대는 이미 등록된 시간입니다.");
                         } else {
                             schedules.add(createSchedule(userNum, memId, schDate, hour));
                         }
@@ -63,8 +64,9 @@ public class ScheduleEnrollAction implements Action {
         if (hourlyTimePeriods != null) {
             for (String period : hourlyTimePeriods) {
                 int hour = Integer.parseInt(period);
-                if (scheduleDAO.isDuplicateSchedule(userNum, schDate, hour)) {
+                if (scheduleDAO.isDuplicateSchedule(schDate, hour)) {
                     hasDuplicate = true;
+                    request.setAttribute("error", "이미 등록된 시간입니다.");
                 } else {
                     schedules.add(createSchedule(userNum, memId, schDate, hour));
                 }
@@ -75,9 +77,7 @@ public class ScheduleEnrollAction implements Action {
             for (ScheduleVO schedule : schedules) {
                 scheduleDAO.insertSchedule(schedule);
             }
-            if (hasDuplicate) {
-                request.setAttribute("message", "스케줄이 성공적으로 등록되었지만, 일부 시간대는 이미 등록된 상태입니다.");
-            } else {
+            if (!hasDuplicate) {
                 request.setAttribute("message", "스케줄이 성공적으로 등록되었습니다.");
             }
         } catch (Exception e) {

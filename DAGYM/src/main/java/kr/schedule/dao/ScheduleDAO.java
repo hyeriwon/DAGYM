@@ -51,7 +51,7 @@ public class ScheduleDAO {
     }
 
     // 스케줄 중복 체크
-    public boolean isDuplicateSchedule(int mem_num, String sch_date, int sch_time) throws Exception {
+    public boolean isDuplicateSchedule(String sch_date, int sch_time) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
