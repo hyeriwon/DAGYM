@@ -113,11 +113,12 @@ public class ReviewDAO {
 			}
 			//SQL문 작성 -> 좋아요 순?
 			sql = "SELECT * FROM "
-					+ "(SELECT re.*, md1.mem_name, md2.mem_name AS tra_name, rownum rnum "
+					+ "(SELECT re.*, md1.mem_name, md2.mem_name AS tra_name, sc.sch_date, sc.sch_time, rownum rnum "
 					+ "FROM review re "
 					+ "JOIN member_detail md1 ON re.mem_num = md1.mem_num "
 					+ "JOIN history his ON his.sch_num = re.sch_num "
-					+ "JOIN member_detail md2 ON his.tra_num = md2.mem_num "+ sub_sql 
+					+ "JOIN member_detail md2 ON his.tra_num = md2.mem_num "
+					+ "JOIN schedule sc ON sc.sch_num = his.sch_num" + sub_sql 
 					+ " ORDER BY rev_num DESC) "
 					+ "WHERE rnum >= ? AND rnum <= ?";
 			//PreparedStatement 객체 생성
@@ -140,6 +141,7 @@ public class ReviewDAO {
 				review.setMem_name(rs.getString("mem_name"));
 				review.setRev_grade(rs.getInt("rev_grade"));
 				review.setRev_hit(rs.getInt("rev_hit"));
+				review.setSch_date(rs.getString("sch_date")+" "+rs.getString("sch_time"));
 				
 				list.add(review);
 			}
