@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>음식등록</title>
+<title>식사등록</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <link rel="stylesheet"
@@ -16,20 +16,12 @@
 window.onload=function(){
 	const myForm = document.getElementById('write_form');
 	myForm.onsubmit=function(){
-		const title = document.getElementById('title');
+		const title = document.getElementById('menu_name');
 		if(title.value.trim()==''){
-			alert('제목을 입력하세요');
-			title.value = '';
-			title.focus();
+			alert('메뉴를 입력하세요');
 			return false;
 		}
-		const content = document.getElementById('content');
-		if(content.value.trim()==''){
-			alert('내용을 입력하세요');
-			content.value = '';
-			content.focus();
-			return false;
-		}
+	
 	}
 	const queryString = window.location.search;
 	const urlParams = new URLSearchParams(queryString);
@@ -59,7 +51,7 @@ window.onload=function(){
 			data: {tmenu_name:$('#tmenu_name').val()}, // 데이터를 객체로 전달
 			dataType:'json',
 			success:function(param){
-				let tableContent ='<tr><th>메뉴</th><th>칼로리</th><th></th></tr>';
+				let tableContent ='<tr><th>메뉴</th><th>칼로리</th>선택<th></th></tr>';
 				$(param.tmenuList).each(function(index,item){
 					tableContent += '<tr><td>'+item.tme_name+'</td>';
 					tableContent +='<td>'+item.tme_kcal+'</td><td><button type="button" onclick="selectMenu(\''+item.tme_name+'\')">선택</button></td></tr>';
@@ -78,6 +70,15 @@ function selectMenu(tme_name) {
 	$('#menu_name').val(tme_name);
 	$('#modal').hide();
 }
+const radioButtons = document.querySelectorAll('input[type="radio"]');
+
+//각 라디오 버튼에 대해 이벤트 리스너를 추가합니다.
+radioButtons.forEach(radioButton => {
+ radioButton.addEventListener('click', function() {
+     // 해당 라디오 버튼이 클릭되었을 때의 동작을 여기에 추가합니다.
+     console.log('라디오 버튼이 클릭되었습니다.');
+ });
+});
 </script>
 </head>
 <body>
@@ -85,16 +86,19 @@ function selectMenu(tme_name) {
 		<jsp:include page="/WEB-INF/views/common/header.jsp" />
 
 		<div class="content-main">
-			<h2>음식등록</h2>
+			<h2>식사등록</h2>
 			<form id="write_form" action="mealWrite.do" method="post">
 				<input type="hidden" id="meal_date" name="meal_date" value="meal_date">
 				<h3>${param.meal_date}</h3>
 				<ul>
 					<li><label for="menu_name">메뉴 검색</label>
-					<input type="text" name="menu_name" id="menu_name" value="${menu_name}" readonly>
+					
+					<input type="text" name="menu_name" id="menu_name" value="${menu_name}"  readonly>
 					<input type="button" id="modal-btn" value="검색">
 					</li>
-					<li>식사분류 <input type="radio" name="meal_time" value="0" id="meal_time0">아침 
+					
+					<li>식사분류
+					<input type="radio" name="meal_time" value="0" id="meal_time0" checked>아침 
 					<input type="radio" name="meal_time" value="1" id="meal_time1">점심 
 					<input type="radio" name="meal_time" value="2" id="meal_time2">저녁 
 					<input type="radio" name="meal_time" value="3" id="meal_time3">간식
@@ -113,16 +117,14 @@ function selectMenu(tme_name) {
 						</div>
 						<div class="ct">
 							<div align="right">
-								<label>
-									<input type="text" size="16" name="tmenu_name" id="tmenu_name">
+									<input type="text" size="16" name="tmenu_name" id="tmenu_name" >
 									<input type="button" id="search_btn" value="검색">
-								</label>
 							</div>
 							<table id="table_menu">
 								<tr>
 									<th>메뉴</th>
 									<th>칼로리</th>
-									<th></th>
+									<th>선택</th>
 								</tr>
 							</table>
 						</div>

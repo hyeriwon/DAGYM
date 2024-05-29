@@ -6,6 +6,8 @@
 <meta charset="UTF-8">
 <title>글 상세정보</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
 </head>
 <body>
 <div class="page-main">
@@ -14,27 +16,24 @@
 <h2>${tmenu.tme_name}</h2>
 </div>
 <div style="overflow: auto;">
-<div class="align-left" style="width:400px; float: left;">
-<img  src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="400px">
+<div class="align-left" style="width:600px; float: left;">
+<img  src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="600px">
 </div >
-<div class="align-right" style="width:400px; float: right;">
+<div class="align-right" style="width:300px; float: right;">
+<h2>음식정보</h2>
 <ul>
-	<li>칼로리 : ${tmenu.tme_kcal}</li>
-	<li>탄수화물 : ${tmenu.tme_crabs}</li>
-	<li>단백질 : ${tmenu.tme_protein}</li>
-	<li>지방: ${tmenu.tme_lipid}</li>
+	<li>칼로리 : ${tmenu.tme_kcal} Kcal</li>
+	<li>탄수화물 : ${tmenu.tme_crabs} g</li>
+	<li>단백질 : ${tmenu.tme_protein} g</li>
+	<li>지방: ${tmenu.tme_lipid} g</li>
 </ul>
 </div>
-</div>
-<hr size="1" noshade="noshade" width="100%">
-<p>
+<div class="align-right content-text" style="width:300px; float: right;">
 ${tmenu.tme_content}
-
-
-</p>
-
-<hr size="1" noshade="noshade" width="100%">
+</div>
+<div id="output" ></div>
 <div class="align-right">
+
 <div>
 	 	<input type="button" value="수정" onclick="location.href='tmenuModifyForm.do?tme_num=${tmenu.tme_num}'">
 	 	<input type="button" value="삭제" onclick="location.href='tmenuDelete.do?tme_num=${tmenu.tme_num}'">
@@ -43,6 +42,6 @@ ${tmenu.tme_content}
 </div>
 </div>
 </div>
-
+</div>
 </body>
 </html>

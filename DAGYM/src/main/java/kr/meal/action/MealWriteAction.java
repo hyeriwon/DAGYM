@@ -21,21 +21,18 @@ public class MealWriteAction implements Action{
 			request.setAttribute("notice_url", request.getContextPath()+"/member/loginForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
-		
 		MealVO meal = new MealVO();
 		meal.setMeal_date(request.getParameter("meal_date"));
 		meal.setMem_num(user_num);
 		meal.setMeal_time(Integer.parseInt(request.getParameter("meal_time")));
 		MealDAO dao = MealDAO.getInstance();
 		int tme_num = dao.searchMenuAndSetTmeNum(request.getParameter("menu_name"));
-		System.out.println(tme_num);
 		meal.setTme_num(tme_num);
-		System.out.println(meal.getTme_num());
 		dao.insertMeal(meal);
-		
+	
 		
 		request.setAttribute("notice_msg", "음식 등록 완료");
-		 request.setAttribute("notice_url", request.getContextPath()+"/meal/mealDetail.do");
+		request.setAttribute("notice_url", request.getContextPath()+"/meal/mealDetail.do");
 		return "/WEB-INF/views/common/alert_view.jsp";
 	}
 

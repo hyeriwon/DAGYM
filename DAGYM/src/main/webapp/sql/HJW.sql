@@ -20,9 +20,22 @@ create table t_menu(
  tme_crabs number not null,		--메뉴 탄수화물
  tme_lipid number not null,		--메뉴 지방
  tme_photo varchar2(400) not null,	--메뉴 사진
- tme_type number not null			--메뉴 식사 분류(아침:0,점심1,저녁:2,간식:3)
+ tme_type number not null,			--메뉴 식사 분류(아침:0,점심1,저녁:2,간식:3)
  constraint t_menu_pk primary key(tme_num)
 
 );
   
 create sequence tmenu_seq;
+
+create table inbody(
+ inb_num number not null,
+ mem_num number not null,
+ inb_hei number not null,
+ inb_wei number not null,
+ ins_mus number not null,
+ inb_date date default sysdate not null,
+ inb_photo varchar2(400),
+ constraint inb_num_pk primary key(inb_num),
+ constraint mem_num_fk foreign key(mem_num)
+);
+ create sequence inbody_seq;

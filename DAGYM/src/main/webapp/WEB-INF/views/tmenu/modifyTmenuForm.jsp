@@ -14,14 +14,17 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 window.onload=function(){
-	const myForm = document.getElementById('modify_form');
+	const myForm = document.getElementById('write_form');
 	myForm.onsubmit=function(){
-		const title = document.getElementById('title');
-		if(title.value.trim()==''){
-			alert('제목을 입력하세요');
-			title.value = '';
-			title.focus();
-			return false;
+		const items = document.querySelectorAll('.input-check');
+		for (let i = 0; i < items.length; i++) {
+			if (items[i].value.trim() == '') {
+				const label = document.querySelector('label[for="'+ items[i].id + '"]');
+					alert(label.textContent + '항목은 필수 입력');
+					items[i].value = '';
+					items[i].focus();
+					return false;
+					}
 		}
 		const content = document.getElementById('menu_content');
 		if(content.value.trim()==''){
@@ -55,19 +58,19 @@ window.onload=function(){
 					</div>
 					</li>
 					<li>
-					<label for="menu_kcal">칼로리</label>
+					<label for="menu_kcal">칼로리(Kcal)</label>
 					<input type="number" name="menu_kcal" id="menu_kcal" value="${tmenu.tme_kcal}">
 					</li>
 					<li>
-					<label for="menu_crabs">탄수화물</label>
+					<label for="menu_crabs">탄수화물(g)</label>
 					<input type="number" name="menu_crabs" id="menu_crabs" value="${tmenu.tme_crabs}">
 					</li>
 					<li>
-					<label for="menu_protein">단백질</label>
+					<label for="menu_protein">단백질(g)</label>
 					<input type="number" name="menu_protein" id="menu_protein" value="${tmenu.tme_protein}">
 					</li>
 					<li>
-					<label for="menu_lipid">지방</label>
+					<label for="menu_lipid">지방(g)</label>
 					<input type="number" name="menu_lipid" id="menu_lipid" value="${tmenu.tme_lipid}">
 					</li>
 					<li>식사분류 

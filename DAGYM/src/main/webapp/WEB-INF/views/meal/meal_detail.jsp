@@ -8,6 +8,8 @@
 <title>식사 목록</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet"
+href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
 <script type="text/javascript">
 window.onload=function(){
 	const myform= document.getElementById('search_form');
@@ -49,7 +51,12 @@ window.onload=function(){
 		
 		
 		<div class= "list-space align-right">
-		<input type="button" value="목록" onclick="location.href='list.do'">
+		<c:if test="${ user_auth!=9}">
+		<input type="button" value="등록" onclick="location.href='list.do'">
+		</c:if>
+		<c:if test="${ user_auth==9}">
+		<input type="button" value="검색" onclick="location.href='list.do'">
+		</c:if>
 		<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 		</div>
 		<c:if test="${count==0 }">

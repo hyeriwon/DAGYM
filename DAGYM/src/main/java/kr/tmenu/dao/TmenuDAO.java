@@ -118,6 +118,7 @@ public class TmenuDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += " WHERE tme_name LIKE '%'||?||'%'";
+				//if(keyfield.equals("2")) sub_sql += " WHERE tme_type = ? ";
 			}
 			sql="SELECT * FROM (SELECT a.*,rownum rnum FROM "
 					+ "(SELECT * FROM t_menu "+ sub_sql +")a) WHERE rnum >=? AND rnum <=? ORDER BY tme_name ASC";
@@ -212,5 +213,58 @@ public class TmenuDAO {
 	}
 	
 	//메뉴 타입별 분류하기
+	public List<TmenuVO> searchTmenuByTmetype(int tme_type)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		List<TmenuVO> list = null;
+		String sql = null;
+		try {
+			conn=DBUtil.getConnection();
+			sql="SELECT * FROM t_menu WHERE tme_type= ? ORDER BY tme_name ASC";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1,tme_type);
+			rs=pstmt.executeQuery();
+			list = new ArrayList<TmenuVO>();
+			while(rs.next()) {
+				TmenuVO item = new TmenuVO();
+				item.setTme_content(rs.getString("tme_content"));
+				item.setTme_num(rs.getInt("tme_num"));
+				item.setTme_crabs(rs.getInt("tme_crabs"));
+				item.setTme_kcal(rs.getInt("tme_kcal"));
+				item.setTme_lipid(rs.getInt("tme_lipid"));
+				item.setTme_name(rs.getString("tme_name"));
+				item.setTme_photo(rs.getString("tme_photo"));
+				item.setTme_protein(rs.getInt("tme_protein"));
+				item.setTme_type(tme_type);
+				list.add(item);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	//사진파일 수정미리보기
+	public void updateMyPhoto(String tme_photo, int tme_num) throws Exception{
+		Connection conn =null;
+		PreparedStatement pstmt=null;
+		String sql = null;
+		try {
+			conn=DBUtil.getConnection();
+			sql = "UPDATE t_menu set tme_photo=? WHERE tme_num = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,tme_photo);
+			pstmt.setInt(2, tme_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
+	
 }
 

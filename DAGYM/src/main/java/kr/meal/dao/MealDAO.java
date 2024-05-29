@@ -143,10 +143,11 @@ public class MealDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += "AND tme_name LIKE '%'||?||'%'";
+				if(keyfield.equals("2")) sub_sql += "AND meal_date LIKE '%'||?||'%'";
 			}
 			//SQL문 작성
 			sql ="SELECT * FROM (SELECT a.*,rownum rnum FROM "
-					+ "(SELECT * FROM meal JOIN t_menu USING(tme_num) WHERE mem_num = ? " + sub_sql
+					+ "(SELECT * FROM meal JOIN t_menu USING (tme_num) WHERE mem_num = ? " + sub_sql
 					+ " ORDER BY meal_date DESC, meal_time DESC)a) WHERE rnum >=? AND rnum <=?";
 			pstmt =conn.prepareStatement(sql);
 			pstmt.setInt(++cnt,mem_num);
@@ -221,7 +222,7 @@ public class MealDAO {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			  sql = "SELECT * FROM meal JOIN t_menu USING(tme_num) WHERE mem_num =? AND meal_date = ?";
+			  sql = "SELECT * FROM meal JOIN t_menu USING(tme_num) WHERE mem_num =? AND meal_date = ? ORDER BY meal_time DESC";
 			pstmt =conn.prepareStatement(sql);
 			System.out.println("mem-num :"+mem_num);
 			pstmt.setInt(1, mem_num);
@@ -234,6 +235,7 @@ public class MealDAO {
 				meal.setTme_num(rs.getInt("tme_num"));
 				meal.setTme_name(rs.getString("tme_name"));
 				meal.setTme_kcal(rs.getInt("tme_kcal"));
+				meal.setMeal_time(rs.getInt("meal_time"));
 				list.add(meal);
 				
 			}
@@ -259,7 +261,6 @@ public class MealDAO {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, tme_name);
 	        rs = pstmt.executeQuery();
-	        System.out.println(tme_name);
 	        if (rs.next()) {
 	            tme_num = rs.getInt("tme_num");
 	        }

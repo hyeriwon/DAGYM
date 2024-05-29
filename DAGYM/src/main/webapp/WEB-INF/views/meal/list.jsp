@@ -6,9 +6,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>음식 목록</title>
+<title>식사 기록</title>
 <link rel="stylesheet"
     href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+    <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
 // DOMContentLoaded 이벤트 리스너를 추가하여 DOM이 완전히 로드된 후에 실행됩니다.
@@ -32,7 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
   calendar.render(); // 캘린더를 렌더링합니다.
 });
 function searchByMemNum() {
-	  var client_num = document.getElementById('client_num').value;
+	  var client_num = document.getElementById('client_num').value.trim();
+	  if(client_num == '회원번호입력' || client_num ==''){
+		  alert('회원번호를 입력하세요');
+		  return;
+	  }
 	  window.location.href = '${pageContext.request.contextPath}/meal/mealDetail.do?client_num='+client_num;
 	}
 </script>
@@ -41,8 +47,11 @@ function searchByMemNum() {
 <div class="page-main">
     <jsp:include page="/WEB-INF/views/common/header.jsp"/><!-- 헤더 JSP 파일을 포함합니다. -->
     <p>
+    <c:if test="${user_auth ==9}">
     <jsp:include page="/WEB-INF/views/common/usercontrolHeader.jsp"/><!-- 사용자 제어 헤더 JSP 파일을 포함합니다. -->
+    </c:if>
     <div class="content-main">
+    <h2 style="text-align: left;"> 식사등록</h2>
     <div class="align-left">
     
     </div>
@@ -52,8 +61,8 @@ function searchByMemNum() {
     </c:if>
     <c:if test="${user_auth ==9 }">
     <label for="client_num"></label>
-     <input type="text"  id="client_num" value="회원번호검색" 
-     onfocus="if(this.value=='회원번호검색') this.value='';" onblur="if(this.value=='') this.value='회원번호검색';">
+     <input type="search"  id="client_num" value="회원번호입력" autocomplete="off"
+     onfocus="if(this.value=='회원번호입력') this.value='';" onblur="if(this.value=='') this.value='회원번호입력';">
      <input type="submit" value="검색" onclick="searchByMemNum()"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
     </c:if>
     <div><p></div>
@@ -67,7 +76,6 @@ function searchByMemNum() {
 				<th>회원번호</th>
 				<th>아이디</th>
 				<th>이름</th>
-				<th>담당트레이너</th>
 				<th>가입일</th>
 			</tr>
 			<c:forEach var="member" items="${list}">
@@ -75,7 +83,6 @@ function searchByMemNum() {
 				<td>${member.mem_num}</td>
 				<td>${member.mem_id}</td>
 				<td>${member.mem_name}</td>
-				<td><%-- 담당트레이너 데이터 --%></td>
 				<td>${member.mem_reg_date}</td>
 			</tr>
 			</c:forEach>

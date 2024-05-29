@@ -15,6 +15,11 @@ public class TmenuDeleteAction implements Action {
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
+		Integer user_num = (Integer)session.getAttribute("user_num");
+		if(user_num == null) {
+			return "redirect:/member/loginForm.do";
+		}
+		
 		if(user_auth != 9) {
 			return "/WEB-INF/views/common/notice.jsp";
 		}

@@ -7,14 +7,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${meal_date}일의 기록</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
 </head>
 <body>
 <div class="page-main">
 
-<div class="result-display">
+<div class="result-display2">
 
 			<table>
 			<caption>${meal_date}일의 칼로리</caption>
@@ -26,13 +28,13 @@
 				<c:forEach var = "meal" items="${meal}">
 					<tr>
 					<c:choose>
-						<c:when test="${meal.meal_time ==0}">
+						<c:when test="${meal.meal_time == 0}">
 						<td>아침</td>
 						</c:when>
-						<c:when test="${meal.meal_time ==1}">
+						<c:when test="${meal.meal_time == 1}">
 						<td>점심</td>
 						</c:when>
-						<c:when test="${meal.meal_time ==2}">
+						<c:when test="${meal.meal_time == 2}">
 						<td>저녁</td>
 						</c:when>
 						<c:otherwise>
@@ -40,12 +42,12 @@
 						</c:otherwise>
 					</c:choose>
 					<td>${meal.tme_name}</td>
-					<td>${meal.tme_kcal}</td>
+					<td>${meal.tme_kcal}Kcal</td>
 					</tr>
 				</c:forEach>
 				<tr>
 				<td colspan="2" class="align-right">총칼로리</td>
-				<td class="align-center">${totalKcal}</td>
+				<td class="align-center">${totalKcal}Kcal</td>
 				</tr>
 				
 			</table>
