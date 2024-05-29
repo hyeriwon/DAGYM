@@ -174,7 +174,9 @@ public class PointDAO {
         try {
             conn = DBUtil.getConnection();
 
-            sql = "SELECT SUM(poi_in) - SUM(poi_out) AS total_inout FROM point WHERE mem_num = ?";
+            //COALESCE 쓰는 이유 : SUM값이 NULL일 경우 전체 NULL이 됨
+            sql = "SELECT COALESCE(SUM(poi_in), 0) - COALESCE(SUM(poi_out), 0) AS total_inout "
+            	+ "FROM point WHERE mem_num = ?";
 
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, mem_num);
