@@ -11,7 +11,7 @@ import kr.payment.vo.PaymentVO;
 import kr.schedule.dao.ScheduleDAO;
 import kr.schedule.vo.ScheduleVO;
 
-public class EnrollFormAction implements Action{
+public class HistoryEnrollFormAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

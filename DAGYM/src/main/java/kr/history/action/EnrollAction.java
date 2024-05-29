@@ -29,7 +29,7 @@ public class EnrollAction implements Action{
 		history.setTra_num(Integer.parseInt(request.getParameter("tra_num")));
 		history.setHis_status(Integer.parseInt(request.getParameter("his_status")));
 		history.setHis_part(request.getParameter("his_part"));
-		history.setTra_name(request.getParameter("tra_name"));
+		history.setTra_id(request.getParameter("tra_id"));
 		history.setSch_date(request.getParameter("sch_date"));
 		
 		PaymentVO payment = new PaymentVO();

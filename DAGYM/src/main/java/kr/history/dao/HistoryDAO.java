@@ -201,7 +201,7 @@ public class HistoryDAO {
 				history.setHis_num(rs.getInt("his_num"));
 				history.setSch_date(rs.getString("sch_date"));
 				history.setHis_part(rs.getString("his_part"));
-				history.setTra_name(rs.getString("mem_name"));
+				history.setTra_id(rs.getString("mem_id"));
 				history.setMem_phone(rs.getString("mem_phone"));
 				//등록횟수 저장필요
 				history.setHis_status(rs.getInt("his_status"));
@@ -243,7 +243,7 @@ public class HistoryDAO {
 				history.setHis_status(rs.getInt("his_status"));
 				history.setHis_part(rs.getString("his_part"));
 				history.setSch_date(rs.getString("sch_date")+" "+rs.getString("sch_time"));
-				history.setTra_name(rs.getString("mem_name"));
+				history.setTra_id(rs.getString("tra_id"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);

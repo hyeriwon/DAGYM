@@ -10,7 +10,7 @@ import kr.history.dao.HistoryDAO;
 import kr.history.vo.HistoryVO;
 import kr.util.PagingUtil;
 
-public class EnrollListAction implements Action{
+public class HistoryEnrollAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
