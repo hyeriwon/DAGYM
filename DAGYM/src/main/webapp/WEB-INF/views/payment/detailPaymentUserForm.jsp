@@ -14,38 +14,21 @@
 	<div class="content-main">
 	
 		<h2>[${member.mem_id}]의 회원권 정보(관리자 전용)</h2>
-		<!-- <form action="adminPayment.do" method="post" id="detail_form"> -->
+		<form method="post" id="detail_form">
 			<input type="hidden" name="mem_num" value="${member.mem_num}">
-			<%-- 
 			<ul>
 				<li>
-					<label>이름</label>${member.mem_name}
+					<label>이름</label>${mem_name}
 				</li>
 				<li>
-					<label>보유한 회원권</label>
+					<label>보유한 회원권</label>${remain}
 				</li>
+				
 				<li>
+					<P>
 					<label>결제내역</label>
 				</li>
 			</ul>
-			--%>
-			
-		<form id="search_form" action="adminUserPaymentForm.do" method="get">
-			<ul class="search">
-				<li>
-					<select name="keyfield">
-						<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>결제번호</option>
-						<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>결제일</option>
-					</select>
-				</li>
-				<li>
-					<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
-				</li>
-				<li>
-					<input type="submit" value="검색">
-				</li>
-			</ul>
-			</form>
 			<c:if test="${count == 0}">
 				<div class="result-display">
 					표시할 회원권 결제내역이 없습니다.
@@ -77,7 +60,7 @@
 				</c:if>
 				<input type="button" value="목록" onclick="location.href='paymentMemberList.do'">
 			</div>
-		<!-- </form> -->
+		</form>
 	</div>
 </div>
 </body>

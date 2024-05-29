@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
+import kr.payment.dao.PaymentDAO;
 
 public class InsertMembershipFormAction implements Action{
 
@@ -21,6 +22,12 @@ public class InsertMembershipFormAction implements Action{
 		if(user_auth != 9) {//관리자로 로그인하지 않은 경우
 			return "/WEB-INF/views/common/notice.jsp";
 		}
+		
+		//int mem_num = Integer.parseInt(request.getParameter("mem_num"));
+		//PaymentDAO dao = PaymentDAO.getInstance();
+		//int remain = dao.remainpayment(mem_num);
+		
+		//request.setAttribute("remain", remain);
 		
 		//관리자로 로그인한 경우
 		return "/WEB-INF/views/payment/insertMembershipForm.jsp";

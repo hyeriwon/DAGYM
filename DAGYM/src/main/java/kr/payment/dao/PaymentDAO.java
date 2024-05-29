@@ -158,33 +158,22 @@ public class PaymentDAO {
 		}
 	}
 
-	//회원별 회원권 결제내역 총 개수, 검색 개수
-	public int getPayMemCount(int mem_num,String keyfield,String keyword)throws Exception{
+	//회원별 회원권 결제내역 총 개수
+	public int getPayMemCount(int mem_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		String sub_sql = "";
 		int count = 0;
 		try {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
-			
-			if(keyword!=null && !"".equals(keyword)) {
-				//검색처리
-				if(keyfield.equals("1")) sub_sql += "AND pay_num LIKE '%' || ? || '%'";
-				else if(keyfield.equals("2")) sub_sql += "AND pay_reg_Date LIKE '%' || ? || '%'";
-			}
-			
 			//SQL문 작성
-			sql = "SELECT COUNT(*) FROM payment WHERE mem_num=? " + sub_sql;
+			sql = "SELECT COUNT(*) FROM payment WHERE mem_num=? ";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
 			pstmt.setInt(1, mem_num);
-			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(2, keyword);
-			}
 			//SQL문 실행
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -200,36 +189,27 @@ public class PaymentDAO {
 	}
 	
 	//회원상세(회원권 결제내역)
-	public List<PaymentVO>getPayMemList(int mem_num,int start,int end,String keyfield,String keyword)throws Exception{
+	public List<PaymentVO>getPayMemList(int mem_num,int start,int end)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<PaymentVO>list = null;
 		String sql = null;
-		String sub_sql = "";
-		int cnt = 0;
 		try {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			
-			if(keyword!=null && !"".equals(keyword)) {
-				//검색처리
-				if(keyfield.equals("1")) sub_sql += "WHERE pay_num LIKE '%' || ? || '%'";
-				else if(keyfield.equals("2")) sub_sql += "WHERE pay_reg_Date LIKE '%' || ? || '%'";
-			}
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
-					+ "(SELECT * FROM payment JOIN member_detail USING(mem_num) " + sub_sql + " ORDER BY pay_num DESC)a) "
+					+ "(SELECT * FROM payment JOIN member_detail USING(mem_num) ORDER BY pay_num DESC)a) "
 					+ "WHERE mem_num=? AND rnum >= ? AND rnum <= ?";
+			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
-			
-			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(++cnt, keyword);
-			}
-			pstmt.setInt(++cnt, mem_num);
-			pstmt.setInt(++cnt, start);
-			pstmt.setInt(++cnt, end);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, mem_num);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
 			//SQL문 실행
 			rs = pstmt.executeQuery();
 			list = new ArrayList<PaymentVO>();
@@ -250,6 +230,59 @@ public class PaymentDAO {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return list;
+	}
+	
+	//회원 이름
+	public String getMemberName(int mem_num) throws Exception {
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    String mem_name = null;
+	    try {
+	        conn = DBUtil.getConnection();
+	        String sql = "SELECT mem_name FROM member WHERE mem_num=?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, mem_num);
+	        rs = pstmt.executeQuery();
+	        if (rs.next()) {
+	            mem_name = rs.getString("mem_name");
+	        }
+	    } catch (Exception e) {
+	        throw new Exception(e);
+	    } finally {
+	        DBUtil.executeClose(rs, pstmt, conn);
+	    }
+	    return mem_name;
+	}
+	
+	//보유한 회원권 계산
+	public int remainpayment(int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		ResultSet rs = null;
+		int remain = 0;
+		try {
+			//커넥션 풀로부터 커넥션 할당
+			conn = DBUtil.getConnection();
+			//SQL문 작성
+			//sql = "SELECT (COALESCE(SUM(p.pay_enroll),0) - COALESCE(COUNT(h.mem_num),0)) FROM payment p LEFT JOIN history h ON p.mem_num = h.mem_num WHERE p.mem_num=? GROUP BY p.mem_num";
+			sql = "SELECT (COALESCE(SUM(p.pay_enroll), 0) - COALESCE((SELECT COUNT(*) FROM history h WHERE h.mem_num = p.mem_num), 0)) AS result FROM payment p WHERE p.mem_num = ? GROUP BY p.mem_num";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			pstmt.setInt(1, mem_num);
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				remain = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return remain;
 	}
 	
 	/*
