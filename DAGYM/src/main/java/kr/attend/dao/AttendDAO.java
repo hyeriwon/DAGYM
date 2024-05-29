@@ -26,28 +26,37 @@ public class AttendDAO {
     	
     	Connection conn = null;
         PreparedStatement pstmt = null;
+        PreparedStatement pstmt2 = null;
         String sql = null;
         
     	try {
         	//커넥션풀로부터 커넥션을 할당
             conn = DBUtil.getConnection();
+            //오토커밋 해제
+			conn.setAutoCommit(false);
             
-            //SQL문 작성
+            //SQL문 작성 (출석 등록)
             sql = "INSERT INTO attend (att_num, mem_num) "
                 + "VALUES (attend_seq.nextval, ?)";
-            
-            //PreparedStatement 객체 생성
             pstmt = conn.prepareStatement(sql);
-            //?에 데이터 바인딩
             pstmt.setInt(1, mem_num);
-
-			//SQL문 실행
 			pstmt.executeUpdate();
 			
+            //SQL문 작성 (포인트 +10p)
+            sql = "INSERT INTO point (poi_num, mem_num, poi_type, poi_in, poi_in_date) "
+                + "VALUES (point_seq.nextval, ?, '출석체크', 10, sysdate)";
+            pstmt2 = conn.prepareStatement(sql);
+            pstmt2.setInt(1, mem_num);
+			pstmt2.executeUpdate();
+		
+			conn.commit();
+			
 		}catch(Exception e) {
+			conn.rollback();
 			throw new Exception(e);
 		}finally {
 			//자원 정리
+			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
     }
@@ -173,30 +182,40 @@ public class AttendDAO {
     
 	//출석 삭제
 	public void delete(int att_num) throws Exception {
-		
+								//int mem_num
 		Connection conn = null;
-		PreparedStatement pstmt = null;
+        PreparedStatement pstmt = null;
+        //PreparedStatement pstmt2 = null;
 		String sql = null;
 		
 		try {
 			//커넥션풀로부터 커넥션을 할당
 			conn = DBUtil.getConnection();
+            //오토커밋 해제
+			//conn.setAutoCommit(false);
 			
 			//SQL문 작성
 			sql = "DELETE FROM attend WHERE att_num=?";
-			
-			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
-			//?에 데이터 바인딩
 			pstmt.setInt(1, att_num);
-			
-			//SQL문 실행
 			pstmt.executeUpdate();
 			
+            //SQL문 작성 (포인트 -10p)
+			//sql = "DELETE FROM point WHERE mem_num=? AND poi_type='출석체크' "
+			//	+ "AND poi_in_date=(SELECT att_date FROM attend WHERE att_num=?)";
+            //pstmt2 = conn.prepareStatement(sql);
+            //pstmt.setInt(1, mem_num);
+            //pstmt.setInt(2, att_num);
+			//pstmt2.executeUpdate();
+		
+			//conn.commit();
+			
 		}catch(Exception e) {
+			//conn.rollback();
 			throw new Exception(e);
 		}finally {
 			//자원 정리
+			//DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
