@@ -70,15 +70,7 @@ function selectMenu(tme_name) {
 	$('#menu_name').val(tme_name);
 	$('#modal').hide();
 }
-const radioButtons = document.querySelectorAll('input[type="radio"]');
 
-//각 라디오 버튼에 대해 이벤트 리스너를 추가합니다.
-radioButtons.forEach(radioButton => {
- radioButton.addEventListener('click', function() {
-     // 해당 라디오 버튼이 클릭되었을 때의 동작을 여기에 추가합니다.
-     console.log('라디오 버튼이 클릭되었습니다.');
- });
-});
 </script>
 </head>
 <body>

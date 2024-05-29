@@ -36,6 +36,6 @@ create table inbody(
  inb_date date default sysdate not null,
  inb_photo varchar2(400),
  constraint inb_num_pk primary key(inb_num),
- constraint mem_num_fk foreign key(mem_num)
+ constraint mem_num_fk foreign key(mem_num) references member(mem_num)
 );
  create sequence inbody_seq;
