@@ -42,7 +42,6 @@ public class UserQuestionListAction implements Action{
 			list = qaboardDAO.getInquiryList(user_num, page.getStartRow(), page.getEndRow(), keyfield, keyword);
 		}
 		
-		request.setAttribute("user_num", user_num);
 		request.setAttribute("count", count);
         request.setAttribute("list", list);
         request.setAttribute("page", page.getPage());

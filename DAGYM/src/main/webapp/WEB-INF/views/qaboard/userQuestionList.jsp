@@ -67,7 +67,7 @@
 						<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
 						<c:if test="${qaboard.qab_type==5}">기타</c:if>
 					</td>
-					<td><a href="<%--문의상세 링크--%>">${qaboard.qab_title}</a></td>
+					<td><a href="userDetail.do?qab_num=${qaboard.qab_num}">${qaboard.qab_title}</a></td>
 					<td>${qaboard.qab_reg_date}</td>
 					<td>
 						<c:if test="${qaboard.qab_ref == 0}">미답변</c:if>

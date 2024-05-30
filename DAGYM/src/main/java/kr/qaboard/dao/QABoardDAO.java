@@ -73,7 +73,7 @@ public class QABoardDAO {
 				//제목만 검색하도록하고 나머지는 필터설정?
 			}
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard JOIN member USING(mem_num) WHERE mem_num=? " 
-					+ sub_sql + " ORDER BY mem_auth DESC)a) WHERE rnum >= ? AND rnum <= ?";
+					+ sub_sql + " ORDER BY qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, keyword);
@@ -91,6 +91,7 @@ public class QABoardDAO {
 				qaboard.setQab_reg_date(rs.getDate("qab_reg_date"));
 				qaboard.setQab_ref(rs.getInt("qab_ref"));
 				qaboard.setQab_type(rs.getInt("qab_type"));
+				qaboard.setQab_num(rs.getInt("qab_num"));
 				list.add(qaboard);
 			}
 		}catch(Exception e) {
@@ -100,7 +101,7 @@ public class QABoardDAO {
 		}
 		return list;
 	}
-	//질문 등록
+	//문의굴 등록
 	public void insertInquiryBoard(QABoardVO qaboard)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -123,11 +124,55 @@ public class QABoardDAO {
 		}
 	}
 	//글 상세
-	
+	public QABoardVO getUserBoard(int qab_num, int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QABoardVO qaboard = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM qaboard WHERE qab_num=? AND mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qab_num);
+			pstmt.setInt(2, mem_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				qaboard = new QABoardVO();
+				qaboard.setMem_num(rs.getInt("mem_num"));
+				qaboard.setQab_type(rs.getInt("qab_type"));
+				qaboard.setQab_title(rs.getString("qab_title"));
+				qaboard.setQab_content(rs.getString("qab_content"));
+				qaboard.setQab_filename(rs.getString("qab_filename"));
+				qaboard.setQab_reg_date(rs.getDate("qab_reg_date"));
+				qaboard.setQab_modify_date(rs.getDate("qab_modify_date"));
+				qaboard.setQab_num(rs.getInt("qab_num"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return qaboard;
+	}
 	//파일 삭제
-	
+	public void deleteFile(int qaboard_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE qaboard SET filename='' WHERE qaboard_num=?";
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	//글 수정
-	
+	public void updateUserBoard(QABoardVO qaboard)throws Exception{
+		
+	}
 	//글 삭제
 	
 	/*--------------------관리자--------------------*/
