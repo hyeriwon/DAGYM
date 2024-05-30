@@ -29,6 +29,7 @@ window.onload=function(){
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/header_memberdetail.jsp"/>
 	<div class="content-main">
 		<h2><c:if test="${user_auth ==9}">(관리자 전용)${param.client_num}님의</c:if> 식사 기록</h2>
 		<form id = "search_form" action = "mealDetail.do" method="get">

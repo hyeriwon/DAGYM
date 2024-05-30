@@ -12,6 +12,7 @@
 <body>
 <div class="page-main">
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>	
+	<jsp:include page="/WEB-INF/views/common/header_memberdetail.jsp"/>
 	<div class="content-main">
 		<!-- 회원 상세페이지 header -->
 		<div>
