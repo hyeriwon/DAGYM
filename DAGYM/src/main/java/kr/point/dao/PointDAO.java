@@ -21,40 +21,29 @@ public class PointDAO {
 		
 	}
 
-	//포인트 등록 (자동) (AttendDAO +10P)(회원권? 후기? ..)
+	//포인트 등록 
+	//(AttendDAO +10p) (PaymentDAO +500p) (ReviewDAO +200P)
 	
-	//총 포인트의 개수, 검색 개수
-	public int getPointCount(String keyfield, String keyword) throws Exception{
+	//총 포인트의 개수
+	public int getPointCount(int mem_num) throws Exception{
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		String sub_sql = "";
 		int count = 0;
 		
 		try {
 			//커넥션풀로부터 커넥션을 할당
 			conn = DBUtil.getConnection();
 			
-			if(keyword != null && "".equals(keyword)) {
-				//검색처리
-				if(keyfield.equals("1"))
-					sub_sql += "WHERE title LIKE '%' || ? || '%'";
-				else if (keyfield.equals("2"))
-					sub_sql += "WHERE id LIKE '%' || ? || '%'";
-				else if (keyfield.equals("3"))
-					sub_sql += "WHERE content LIKE '%' || ? || '%'";
-			}
-			
 			//SQL문 작성
-			sql = "SELECT COUNT(*) FROM point JOIN member USING(mem_num) " + sub_sql;
+			sql = "SELECT COUNT(*) FROM point WHERE mem_num = ?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
-			if(keyword != null && "".equals(keyword)) {
-				pstmt.setString(1, keyword);
-			}
+	        //?에 데이터 바인딩
+	        pstmt.setInt(1, mem_num);
 			
 			//SQL문 실행
 			rs = pstmt.executeQuery();
@@ -73,15 +62,14 @@ public class PointDAO {
 		return count;
 	}
 
-	//포인트 목록, 검색 포인트 목록
-	public List<PointVO> getListPoint(int mem_num, int start, int end, String keyfield, String keyword) throws Exception{
+	//포인트 목록
+	public List<PointVO> getListPoint(int mem_num, int start, int end) throws Exception{
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<PointVO> list = null;
 		String sql = null;
-		String sub_sql = "";
 		int cnt = 0;
 		
 		try {
@@ -90,14 +78,12 @@ public class PointDAO {
 			
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum "
-				+ "FROM (SELECT * FROM point JOIN member USING(mem_num) " + sub_sql
-				+ " WHERE mem_num = ? ORDER BY poi_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
+				+ "FROM (SELECT * FROM point JOIN member USING(mem_num) "
+				+ "WHERE mem_num = ? ORDER BY poi_num DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
-			if(keyword != null && "".equals(keyword)) {
-				pstmt.setString(++cnt, keyword);
-			}
+
 			//?에 데이터 바인딩
 			pstmt.setInt(++cnt, mem_num);
 			pstmt.setInt(++cnt, start);
