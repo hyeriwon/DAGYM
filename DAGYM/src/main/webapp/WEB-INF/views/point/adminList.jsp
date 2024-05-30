@@ -23,23 +23,7 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
 			<h2>포인트</h2>
-			<form id="search_form" action="list.do" method="get">
-<%-- 				<ul class="search">
-					<li>
-						<select name="keyfield">
-							<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>제목</option>
-							<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>작성자</option>
-							<option value="3" <c:if test="${param.keyfield == 3}">selected</c:if>>내용</option>
-						</select>
-					</li>
-					<li>
-						<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
-					</li>
-					<li>
-						<input type="submit" value="검색">
-					</li>
-				</ul> --%>
-			</form>
+			<br>
 			<c:if test="${count == 0}">
 			<div class="result-display">
 				표시할 게시물이 없습니다.
@@ -52,7 +36,7 @@
 			<table>
 				<tr>
 					<th>날짜</th>
-					<th>포인트 종류</th>
+					<th>적립 종류</th>
 					<th>포인트</th>
 				</tr>
 				<c:set var="previousDate" value=""/>

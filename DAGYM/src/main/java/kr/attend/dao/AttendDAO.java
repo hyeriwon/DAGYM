@@ -44,7 +44,7 @@ public class AttendDAO {
 			
             //SQL문 작성 (포인트 +10p)
             sql = "INSERT INTO point (poi_num, mem_num, poi_type, poi_in, poi_in_date) "
-                + "VALUES (point_seq.nextval, ?, '출석체크', 10, sysdate)";
+                + "VALUES (point_seq.nextval, ?, '출석 체크', 10, sysdate)";
             pstmt2 = conn.prepareStatement(sql);
             pstmt2.setInt(1, mem_num);
 			pstmt2.executeUpdate();
@@ -181,41 +181,41 @@ public class AttendDAO {
     }
     
 	//출석 삭제
-	public void delete(int att_num) throws Exception {
-								//int mem_num
+	public void delete(int att_num, int mem_num) throws Exception {
+		
 		Connection conn = null;
         PreparedStatement pstmt = null;
-        //PreparedStatement pstmt2 = null;
+        PreparedStatement pstmt2 = null;
 		String sql = null;
 		
 		try {
 			//커넥션풀로부터 커넥션을 할당
 			conn = DBUtil.getConnection();
             //오토커밋 해제
-			//conn.setAutoCommit(false);
+			conn.setAutoCommit(false);
 			
-			//SQL문 작성
-			sql = "DELETE FROM attend WHERE att_num=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, att_num);
+            //1. 포인트 회수 (먼저 실행해야 att_num을 받아올 수 있다)
+			sql = "DELETE FROM point WHERE mem_num=? AND poi_type='출석 체크' "
+				+ "AND poi_in_date=(SELECT att_date FROM attend WHERE att_num=?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, mem_num);
+            pstmt.setInt(2, att_num);
 			pstmt.executeUpdate();
 			
-            //SQL문 작성 (포인트 -10p)
-			//sql = "DELETE FROM point WHERE mem_num=? AND poi_type='출석체크' "
-			//	+ "AND poi_in_date=(SELECT att_date FROM attend WHERE att_num=?)";
-            //pstmt2 = conn.prepareStatement(sql);
-            //pstmt.setInt(1, mem_num);
-            //pstmt.setInt(2, att_num);
-			//pstmt2.executeUpdate();
+			//2. 출석체크 삭제
+			sql = "DELETE FROM attend WHERE att_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, att_num);
+			pstmt2.executeUpdate();
 		
-			//conn.commit();
+			conn.commit();
 			
 		}catch(Exception e) {
-			//conn.rollback();
+			conn.rollback();
 			throw new Exception(e);
 		}finally {
 			//자원 정리
-			//DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}

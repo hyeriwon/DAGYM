@@ -37,19 +37,16 @@ public class AdminListAction implements Action {
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null)
 			pageNum = "1";
-		
-		String keyfield = request.getParameter("keyfield");
-		String keyword = request.getParameter("keyword");
-		
+
 		PointDAO dao= PointDAO.getInstance();
-		int count = dao.getPointCount(keyfield, keyword);
+		int count = dao.getPointCount();
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,20,10,"list.do");
+		PagingUtil page = new PagingUtil(Integer.parseInt(pageNum),count,7,10,"list.do");
 		 
 		List<PointVO> list = null;
 		if(count > 0) {
-			list = dao.getListPoint(mem_num, page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			list = dao.getListPoint(mem_num, page.getStartRow(), page.getEndRow());
 		}
 		
 		//포인트 전체누적 계산

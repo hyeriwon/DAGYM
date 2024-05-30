@@ -26,7 +26,7 @@ public class DeleteAction implements Action{
 		int att_num = Integer.parseInt(request.getParameter("att_num"));
 		
 		AttendDAO dao = AttendDAO.getInstance();
-		dao.delete(att_num);
+		dao.delete(att_num, user_num);
 		
 		request.setAttribute("notice_msg", "출석이 취소되었습니다.");
 		request.setAttribute("notice_url", request.getContextPath() + "/attend/list.do");
