@@ -23,6 +23,13 @@ window.onload = function(){
 				return false;
 			}
 		}
+		
+		//별점 유효성 체크
+		const radio = document.querySelectorAll('input[type="radio"]:checked');
+		if(radio.length<1){
+			alert('별점을 선택하세요!');
+			return false;
+		}
 	};
 	const gradeInput = document.querySelectorAll('.star-rating input');
 	const gradeScore = document.getElementById('grade');
@@ -57,7 +64,7 @@ window.onload = function(){
 				</li>
 				<li>
 					<label for="star">별점</label> 
-					<div class="star-rating" class="input-check" id="star">
+					<div class="star-rating" id="star">
 						<input type="radio" name="rev_grade" value="5" id="star5"><label for="star5">★</label>
 						<input type="radio" name="rev_grade" value="4" id="star4"><label for="star4">★</label>
 						<input type="radio" name="rev_grade" value="3" id="star3"><label for="star3">★</label>
