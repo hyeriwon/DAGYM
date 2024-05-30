@@ -44,6 +44,7 @@
 		<c:if test="${count>0 }">
 			<table>
 				<tr>
+					<th>측정번호</th>
 					<th>측정일자</th>
 					<th>키</th>
 					<th>몸무게</th>
@@ -52,7 +53,8 @@
 				</tr>
 				<c:forEach var = "inbody" items="${list}">
 					<tr>
-					<td><a href="inbodyDetail.do?inbody_date=${inbody.inb_date}&client_num=${param.client_num}">${inbody.inb_date}</a></td>
+					<td><a href="inbodyDetail.do?inb_num=${inbody.inb_num}&client_num=${param.client_num}">${inbody.inb_num}</a></td>
+					<td>${inbody.inb_date}</td>
 					<td>${inbody.inb_hei }</td>
 					<td>${inbody.inb_wei}</td>
 					<td>${inbody.inb_mus}</td>
@@ -74,5 +76,5 @@
 	</div>
 </div>
 
-</body>
+</body>	
 </html>
