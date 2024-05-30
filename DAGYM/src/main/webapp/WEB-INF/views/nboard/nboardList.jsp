@@ -69,7 +69,7 @@ window.onload=function(){
 				<c:forEach var="nboard" items="${list}">
 					<tr>
 						<td>${nboard.nbo_num}</td>
-						<td><a href="detail.do?nbo_num=${nboard.nbo_num}">${nboard.nbo_title}</a></td>
+						<td><a href="nboardDetail.do?nbo_num=${nboard.nbo_num}">${nboard.nbo_title}</a></td>
 						<td>관리자</td>
 						<td>${nboard.nbo_reg_date}</td>
 						<td>${nboard.nbo_hit}</td>
