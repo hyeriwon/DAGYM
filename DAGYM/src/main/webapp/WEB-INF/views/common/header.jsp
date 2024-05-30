@@ -18,7 +18,9 @@
 		<li>
 			<a href="${pageContext.request.contextPath}/meal/list.do">음식등록</a>
 		</li>
-		
+		<li>
+			<a href="${pageContext.request.contextPath}/review/listReview.do">수강후기</a>
+		</li>
 		<c:if test="${!empty user_num && user_auth == 8}"><!-- 강사 -->
 		<li>
 			<a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석확인</a>
