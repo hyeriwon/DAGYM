@@ -21,14 +21,14 @@ window.onload=function(){
 			alert('메뉴를 입력하세요');
 			return false;
 		}
+		const radio = document.querySelectorAll('input[type="radio"]:checked');
+		if(radio.length<1){
+			alert('결제수단을 선택하세요!');
+			return false;
+		}
 	
 	}
-	const queryString = window.location.search;
-	const urlParams = new URLSearchParams(queryString);
-	const mealDate = urlParams.get('meal_date');
-	if (mealDate) {
-		document.getElementById('meal_date').value = mealDate;
-	}
+	
 	const modal = document.querySelector("#modal");
 	const btn = document.querySelector("#modal-btn");
 	const close = document.querySelector(".close");
@@ -80,7 +80,7 @@ function selectMenu(tme_name) {
 		<div class="content-main">
 			<h2>식사등록</h2>
 			<form id="write_form" action="mealWrite.do" method="post">
-				<input type="hidden" id="meal_date" name="meal_date" value="meal_date">
+				<input type="hidden" id="meal_date" name="meal_date" value="${param.meal_date}">
 				<h3>${param.meal_date}</h3>
 				<ul>
 					<li><label for="menu_name">메뉴 검색</label>
@@ -90,7 +90,7 @@ function selectMenu(tme_name) {
 					</li>
 					
 					<li>식사분류
-					<input type="radio" name="meal_time" value="0" id="meal_time0" checked>아침 
+					<input type="radio" name="meal_time" value="0" id="meal_time0">아침 
 					<input type="radio" name="meal_time" value="1" id="meal_time1">점심 
 					<input type="radio" name="meal_time" value="2" id="meal_time2">저녁 
 					<input type="radio" name="meal_time" value="3" id="meal_time3">간식

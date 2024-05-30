@@ -6,7 +6,7 @@ public class InbodyVO {
 	private int inb_hei;
 	private int inb_wei;
 	private int inb_mus;
-	private int inb_date;
+	private String inb_date;
 	private String inb_photo;
 	
 	public int getInb_num() {
@@ -39,10 +39,10 @@ public class InbodyVO {
 	public void setInb_mus(int inb_mus) {
 		this.inb_mus = inb_mus;
 	}
-	public int getInb_date() {
+	public String getInb_date() {
 		return inb_date;
 	}
-	public void setInb_date(int inb_date) {
+	public void setInb_date(String inb_date) {
 		this.inb_date = inb_date;
 	}
 	public String getInb_photo() {

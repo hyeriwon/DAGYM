@@ -80,7 +80,7 @@ window.onload=function(){
 					</li>
 					<li>
 					<label for="menu_content">메뉴 설명</label>
-					<textarea rows="5" cols="40" name="menu_content"   id="menu_content"></textarea>
+					<textarea rows="5" cols="40" name="menu_content" id="menu_content" maxlength="1300"></textarea>
 					</li>
 				</ul>
 				<div class="align-center">

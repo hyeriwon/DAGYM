@@ -32,8 +32,8 @@ create table inbody(
  mem_num number not null,
  inb_hei number not null,
  inb_wei number not null,
- ins_mus number not null,
- inb_date date default sysdate not null,
+ inb_mus number not null,
+ inb_date varchar2(30) not null,
  inb_photo varchar2(400),
  constraint inb_num_pk primary key(inb_num),
  constraint mem_num_fk foreign key(mem_num) references member(mem_num)

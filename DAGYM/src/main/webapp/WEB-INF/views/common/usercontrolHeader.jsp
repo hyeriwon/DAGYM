@@ -24,13 +24,13 @@
 			<a href="${pageContext.request.contextPath}/attend/list.do">출석확인</a>
 		</li>		
 		<li>
-			<a href="${pageContext.request.contextPath}/inbody/inbodyList.do">인바디</a>
+			<a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a>
 		</li>		
 		</c:if>
 		
 		<c:if test="${!empty user_num && user_auth != 8 && user_auth != 9}"><!-- 회원 -->
 		<li>
-			<a href="${pageContext.request.contextPath}/inbody/inbodyList.do">인바디 등록</a>
+			<a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디 등록</a>
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath}/history/historyList.do">PT신청</a>

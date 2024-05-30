@@ -40,7 +40,8 @@ public class MealDetailAction implements Action {
 		  dao.getListMeal(page.getStartRow(),page.getEndRow(), keyfield, keyword,
 		  mem_num);
 		  
-		  request.setAttribute("meal",mealList); request.setAttribute("count", count);
+		  request.setAttribute("meal",mealList); 
+		  request.setAttribute("count", count);
 		  request.setAttribute("page", page.getPage());
 		  return "/WEB-INF/views/meal/meal_detail.jsp";
 		 

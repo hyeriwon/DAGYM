@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import kr.controller.Action;
 
-public class InbodyWriteFormAction implements Action{
+public class InbodyMainAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return "/WEB-INF/views/inbody/inbodyWriteForm.jsp";
+		return "/WEB-INF/views/inbody/inbodyMain.jsp";
 	}
 
 }
