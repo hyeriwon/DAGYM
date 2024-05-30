@@ -35,7 +35,7 @@ public class ListAction implements Action {
 		int count = dao.getPointCount(keyfield, keyword);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,20,10,"list.do");
+		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,7,10,"list.do");
 		 
 		List<PointVO> list = null;
 		if(count > 0) {
