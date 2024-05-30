@@ -42,7 +42,7 @@ public class InbodyDAO {
 	}
 	//인바디 삭제
 	//인바디 상세
-	public InbodyVO getInbody(int inb_num, int mem_num)throws Exception	{
+	public InbodyVO getInbody(String inb_date, int mem_num)throws Exception	{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -51,17 +51,17 @@ public class InbodyDAO {
 		
 		try {
 			conn= DBUtil.getConnection();
-			sql = "SELECT * FROM inbody WHERE mem_num = ? AND inb_num = ?";
+			sql = "SELECT * FROM inbody WHERE mem_num = ? AND inb_date = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
-			pstmt.setInt(2, inb_num);
+			pstmt.setString(2, inb_date);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				inbody = new InbodyVO();
 				inbody.setMem_num(mem_num);
-				inbody.setInb_num(inb_num);
-				inbody.setInb_date(rs.getString("inb_date"));
+				inbody.setInb_num(rs.getInt("inb_num"));
+				inbody.setInb_date(inb_date);
 				inbody.setInb_mus(rs.getInt("inb_mus"));
 				inbody.setInb_hei(rs.getInt("inb_hei"));
 				inbody.setInb_wei(rs.getInt("inb_wei"));

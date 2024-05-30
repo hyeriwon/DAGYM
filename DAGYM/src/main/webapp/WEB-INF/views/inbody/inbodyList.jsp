@@ -53,7 +53,7 @@
 				</tr>
 				<c:forEach var = "inbody" items="${list}">
 					<tr>
-					<td><a href="inbodyDetail.do?inb_num=${inbody.inb_num}&client_num=${param.client_num}">${inbody.inb_num}</a></td>
+					<td><a href="inbodyDetail.do?inb_date=${inbody.inb_date}&client_num=${param.client_num}">${inbody.inb_num}</a></td>
 					<td>${inbody.inb_date}</td>
 					<td>${inbody.inb_hei }</td>
 					<td>${inbody.inb_wei}</td>
