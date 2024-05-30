@@ -48,6 +48,9 @@
 		</li>
 		<li>
 			<a href="${pageContext.request.contextPath}/payment/paymentMemberList.do">회원권등록</a>
+		</li>
+		<li>
+			<a href="${pageContext.request.contextPath}/qaboard/adminAnswerList.do">문의내역</a>
 		</li>		
 		</c:if>
 		
