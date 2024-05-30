@@ -39,7 +39,11 @@ public class WriteReviewFormAction implements Action{
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 		
+		MemberDAO memDAO = MemberDAO.getInstance();
+		MemberVO trainer = memDAO.getMember(history.getTra_num());
+		
 		request.setAttribute("history", history);
+		request.setAttribute("trainer", trainer);
 		
 		return "/WEB-INF/views/review/writeReviewForm.jsp";
 	

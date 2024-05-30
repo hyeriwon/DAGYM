@@ -12,7 +12,7 @@ import kr.util.StringUtil;
 
 public class ReviewDAO {
 	//싱글톤 패턴 작성
-	private static ReviewDAO instance;
+	private static ReviewDAO instance = new ReviewDAO();
 	
 	public static ReviewDAO getInstance() {
 		return instance;
@@ -107,7 +107,7 @@ public class ReviewDAO {
 			conn = DBUtil.getConnection();
 			//sub_sql문 작성
 			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE tra_name LIKE '%'|| ? ||'%'";	    //트레이너
+				if(keyfield.equals("1")) sub_sql += "WHERE md2.mem_name LIKE '%'|| ? ||'%'";	    //트레이너
 				else if(keyfield.equals("2")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";   //제목
 				else if(keyfield.equals("3")) sub_sql += "WHERE rev_content LIKE '%'|| ? ||'%'";//내용
 			}
@@ -118,14 +118,14 @@ public class ReviewDAO {
 					+ "JOIN member_detail md1 ON re.mem_num = md1.mem_num "
 					+ "JOIN history his ON his.sch_num = re.sch_num "
 					+ "JOIN member_detail md2 ON his.tra_num = md2.mem_num "
-					+ "JOIN schedule sc ON sc.sch_num = his.sch_num" + sub_sql 
+					+ "JOIN schedule sc ON sc.sch_num = his.sch_num " + sub_sql 
 					+ " ORDER BY rev_num DESC) "
 					+ "WHERE rnum >= ? AND rnum <= ?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
 			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(++cnt, keyfield);
+				pstmt.setString(++cnt, keyword);
 			}
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);
@@ -152,11 +152,61 @@ public class ReviewDAO {
 		}
 		return list;
 	}
-	//수강후기 수정
-	//수강후기 삭제	
+	
 	//수강후기 상세
+	public ReviewVO getReview(int rev_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ReviewVO review = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM review WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rev_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				review = new ReviewVO();
+				review.setRev_title(rs.getString("rev_title"));
+				review.setMem_num(rs.getInt("mem_num"));
+				review.setSch_num(rs.getInt("sch_num"));
+				review.setRev_grade(rs.getInt("rev_grade"));
+				review.setRev_content(rs.getString("rev_content"));
+				review.setRev_filename1(rs.getString("rev_filename1"));
+				review.setRev_filename2(rs.getString("rev_filename2"));
+				review.setRev_hit(rs.getInt("rev_hit"));
+				review.setRev_like(rs.getInt("rev_like"));
+				review.setRev_reg_date(rs.getDate("rev_reg_date"));
+				review.setRev_modify_date(rs.getDate("rev_modify_date"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return review;
+	}
+	
+	//수강후기 수정
+	public void updateReview(int rev_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE review SET  WHERE rev_num=?";
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//수강후기 삭제	
+	
 	
 	/*       강사&관리자     */
-	//수강후기 목록(이름 전체) ?
 	//수강후기 삭제(게시보류)
 }
