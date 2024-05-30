@@ -39,11 +39,14 @@ public class AdminListAction implements Action {
 			pageNum = "1";
 
 		PointDAO dao= PointDAO.getInstance();
-		int count = dao.getPointCount();
+		int count = dao.getPointCount(mem_num);;
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(Integer.parseInt(pageNum),count,7,10,"list.do");
-		 
+		//PagingUtil page = new PagingUtil(Integer.parseInt(pageNum),count,7,10,"list.do");
+        // 페이지 처리
+        String addKey = "mem_num=" + mem_num;
+        PagingUtil page = new PagingUtil(null, null, Integer.parseInt(pageNum), count, 7, 10, "adminList.do", addKey);
+
 		List<PointVO> list = null;
 		if(count > 0) {
 			list = dao.getListPoint(mem_num, page.getStartRow(), page.getEndRow());

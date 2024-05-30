@@ -22,11 +22,10 @@ public class PointDAO {
 	}
 
 	//포인트 등록 
-	//(AttendDAO +10P)
-	//(회원권? 후기? ..)
+	//(AttendDAO +10p) (PaymentDAO +500p) (ReviewDAO +200P)
 	
 	//총 포인트의 개수
-	public int getPointCount() throws Exception{
+	public int getPointCount(int mem_num) throws Exception{
 		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -39,10 +38,12 @@ public class PointDAO {
 			conn = DBUtil.getConnection();
 			
 			//SQL문 작성
-			sql = "SELECT COUNT(*) FROM point JOIN member USING(mem_num)";
+			sql = "SELECT COUNT(*) FROM point WHERE mem_num = ?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
+	        //?에 데이터 바인딩
+	        pstmt.setInt(1, mem_num);
 			
 			//SQL문 실행
 			rs = pstmt.executeQuery();

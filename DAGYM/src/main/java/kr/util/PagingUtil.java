@@ -30,7 +30,8 @@ public class PagingUtil {
 		
 		String sub_url = "";
 		if(keyword != null) sub_url = "&keyfield="+keyfield+"&keyword="+keyword;
-		if(addKey != null) sub_url += addKey;
+		//if(addKey != null) sub_url += addKey; //원본
+		if (addKey != null) sub_url += "&" + addKey; //수정한 부분
 		
 		// 전체 페이지 수
 		int totalPage = (int) Math.ceil((double) count / rowCount);

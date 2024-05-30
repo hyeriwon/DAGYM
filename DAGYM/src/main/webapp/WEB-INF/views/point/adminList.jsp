@@ -30,8 +30,8 @@
 			</div>
 			</c:if>
 			<c:if test="${count > 0}">
-			<h3>전체 누적 : ${totalPointsIn}p</h3>
-			<h3>사용 가능 : <span class="point-in">${totalPointsInOut}p</span></h3>
+			<h3>전체 누적 : <fmt:formatNumber value="${totalPointsIn}" type="number" groupingUsed="true"/>p</h3>
+			<h3>사용 가능 : <span class="point-in"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h3>
 			<input type="button" value="포인트 사용" onclick="location.href='outForm.do?mem_num=${mem_num}'">
 			<table>
 				<tr>
@@ -63,14 +63,15 @@
 					<td>${point.poi_type}</td>
 					<!-- 적립포인트, 사용포인트 -> 포인트 -->
 					<!-- + 파란색, - 빨간색  -->
+					<!-- 숫자 쉼표 표시 -->
 					<td>
 						<c:choose>
-							<c:when test="${point.poi_in > 0}">
-								<span class="point-in">+${point.poi_in}</span>
-							</c:when>
-							<c:otherwise>
-								<span class="point-out">-${point.poi_out}</span>
-							</c:otherwise>
+						    <c:when test="${point.poi_in > 0}">
+						        <span class="point-in">+<fmt:formatNumber value="${point.poi_in}" type="number" groupingUsed="true"/></span>
+						    </c:when>
+						    <c:otherwise>
+						        <span class="point-out">-<fmt:formatNumber value="${point.poi_out}" type="number" groupingUsed="true"/></span>
+						    </c:otherwise>
 						</c:choose>
 					</td>
 				</tr>

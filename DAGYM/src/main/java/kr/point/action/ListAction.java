@@ -29,7 +29,7 @@ public class ListAction implements Action {
 			pageNum = "1";
 
 		PointDAO dao= PointDAO.getInstance();
-		int count = dao.getPointCount();
+		int count = dao.getPointCount(user_num);
 		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(Integer.parseInt(pageNum),count,7,10,"list.do");
