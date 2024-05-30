@@ -111,7 +111,7 @@ public class HistoryDAO {
 	
 	
 	
-	
+	/* =====================추후 수정 예정(LJY)====================== */
 	/*-----회원-----*/
 	//수강신청
 	public void insertHistory(HistoryVO history, PaymentVO payment)throws Exception{
@@ -334,8 +334,8 @@ public class HistoryDAO {
 				history.setHis_status(rs.getInt("his_status"));
 				history.setHis_part(rs.getString("his_part"));
 				history.setSch_date(rs.getString("sch_date")+" "+rs.getString("sch_time"));
-				history.setTra_id(rs.getString("tra_id"));
 			}
+			
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {

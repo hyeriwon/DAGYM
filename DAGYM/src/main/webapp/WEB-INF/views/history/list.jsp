@@ -40,7 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     allDay: true,
                     extendedProps: {
                         mem_id: '${schedule.mem_id}',
-                        sch_num: '${schedule.sch_num}'
+                        sch_num: '${schedule.sch_num}',
+                        sch_time:'${schedule.sch_time}'
                     }
                 },
             </c:forEach>
@@ -76,9 +77,14 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         eventClick: function(info) {
+        	var sch_time = parseInt(info.event.extendedProps.sch_time);
+            var tra_name = info.event.extendedProps.mem_id;
             // 이벤트 클릭하여 PT 신청 폼으로 이동
             var url = '${pageContext.request.contextPath}/history/historyEnrollForm.do?his_date=' + info.event.startStr;
+            url += '&sch_time=' + sch_time;
+            url += '&tra_name=' + tra_name;
             window.location.href = url;
+            
         }
     });
 
@@ -95,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div id="his_calendar"></div>
 
         <input type="hidden" value="" name="date" id="date" maxlength="30">
+        
     </div>
 </div>
 </body>

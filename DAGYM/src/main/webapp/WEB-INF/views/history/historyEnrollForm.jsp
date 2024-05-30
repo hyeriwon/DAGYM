@@ -1,61 +1,62 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>PT예약</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
+
+
 <body>
-	<div class="page-main">
-		<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-		<div class="content-main">
-			<div class="align-center">
-				<h2>PT예약</h2>
-				<form action="${pageContext.request.contextPath}/history/historyEnroll.do"	method="post">
-					<input type="hidden" name="his_date" value="${his_date}">
-					<h2>선택한 날짜: ${his_date}</h2>					
-					
-							
-				</form>
-			</div>
+    <div class="page-main">
+        <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+        <div class="content-main">
+            <div class="align-center">
+                <h2>PT예약</h2>
+                <form action="${pageContext.request.contextPath}/history/historyEnroll.do" method="post">
+                    <input type="hidden" name="his_date" value="${his_date}">
+                    <h2>선택한 날짜: ${his_date}</h2>
+                </form>
+            </div>
 
-
-				<form action="${pageContext.request.contextPath}/history/historyEnroll.do"	method="post">
-					<input type="hidden" name="his_time" value="${his_time}">
-					<ul>
-						<li>
-							<label for="sch_date">선택한 시간 : </label> 
-							<input type="text" name="his_time" id="his_time" value="${his_time}" readonly>
-						</li>
-						<li>
-							<label for="tra_name">트레이너 : </label>
-							 <input	type="text" name="tra_name" id="tra_name" value="${schedule.tra_id}">
-						 </li>
-						<li>
-						<label for="his_part">운동 부위(희망) : </label> 
-							<select	name="his_part">
-									<option>어깨</option>
-									<option>가슴</option>
-									<option>등</option>
-									<option>하체</option>
-									<option>유산소</option>
-							</select>
-						</li>
+            <form action="${pageContext.request.contextPath}/history/historyEnroll.do" method="post">
+                <ul>  
+                    <li><input type="hidden" name="sch_num" value="${param.sch_num}">
 						
+                    <li>
+                    
+                    <label for="tra_name">선택한 시간</label>
+                    
+                        	<input type="text" name="sch_time" id="sch_time" value="${param.sch_time}" readonly>
+                    <label for="tra_name">트레이너 : </label>
+                       		<input type="text" name="tra_name" id="tra_name" value="${param.tra_name}" readonly>
+                        
+                         
+                    </li>
+                    <li>
+                        <label for="his_part">운동 부위(희망) : </label>
+                        <select name="his_part">
+                            <option>어깨</option>
+                            <option>가슴</option>
+                            <option>등</option>
+                            <option>하체</option>
+                            <option>유산소</option>
+                        </select>
+                    </li>
+                    <li>
+                        <label for="">잔여 PT : </label>
+                        <input type="text" name="" value="" readonly>
+                    </li>
+                </ul>
 
-						<li><label for="">잔여 PT : </label> 
-						<input type="text" name="" value="" readonly></li>
-						</ul>
-
-					<div class="align-center">
-						<input type="submit" value="수강 신청"> <input type="button"
-							value="취소" onclick="location.href='list.do'">
-					</div>
-				</form>
-			</div>
-	</div>
+                <div class="align-center">
+                    <input type="submit" value="수강 신청">
+                    <input type="button" value="취소" onclick="location.href='list.do'">
+                </div>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
