@@ -169,6 +169,7 @@ public class ReviewDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				review = new ReviewVO();
+				review.setRev_num(rs.getInt("rev_num"));
 				review.setRev_title(rs.getString("rev_title"));
 				review.setMem_num(rs.getInt("mem_num"));
 				review.setSch_num(rs.getInt("sch_num"));

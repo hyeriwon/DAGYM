@@ -5,6 +5,22 @@
 <head>
 <meta charset="UTF-8">
 <title>수강후기 수정</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SYJ.css" type="text/css">
+<script type="text/javascript">
+window.onload = function(){
+	const star = document.querySelectorAll('.star-rating input[type="radio"]');
+	star.onload = function(){
+		for(let i=0;i<star.length;i++){
+			if(star[i].value <= ${review.rev_grade}){
+				star[i].checked;
+			}
+		}
+	};
+	
+	
+};
+</script>
 </head>
 <body>
 <div class="page-main">
@@ -19,7 +35,7 @@
 				</li>
 				<li>
 					<label for="reg_date">진행 날짜</label>${history.sch_date}
-					<input type="hidden" name="sch_num" value="${history.sch_num}">
+					<input type="hidden" name="sch_num" value="${review.sch_num}">
 				</li>
 				<li>
 					<label>트레이너</label>${trainer.mem_name}
@@ -34,7 +50,7 @@
 						<input type="radio" name="rev_grade" value="2" id="star2"><label for="star2">★</label>
 						<input type="radio" name="rev_grade" value="1" id="star1"><label for="star1">★</label>					
 					</div>
-					<span id="grade"></span>	
+					<span id="grade">${review.rev_grade}점 선택</span>	
 				</li>
 				<li>
 					<label for="filename1">파일(Before)</label>
