@@ -12,7 +12,22 @@
 
 	document.addEventListener('DOMContentLoaded', function() {
 	    var calendarEl = document.getElementById('calendar');
+	    var monthHeader = document.getElementById('monthHeader');
 	
+	    function updateMonthHeader(date) {
+	        var year = date.getFullYear();
+	        var month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
+	        //monthHeader.innerText = month + '월 출석일수 : ${attendCount}일';
+	        monthHeader.innerText = '전체 출석일수 : ${attendCount}일';
+	    }
+
+	    function updateCalendarTitle(date) {
+	        var year = date.getFullYear();
+	        var month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
+	        var formattedTitle = year + '년 ' + month + '월';
+	        document.querySelector('.fc-toolbar-title').innerText = formattedTitle;
+	    }
+	    
 		var calendar = new FullCalendar.Calendar(calendarEl, {
 	    		headerToolbar: {
 		        //left: 'prev,next today',
@@ -93,10 +108,18 @@
 				info.el.style.display = 'flex';
 				info.el.style.alignItems = 'center';
 				info.el.style.justifyContent = 'center';
-			}
+			},
+			<!-- 월 추출 -->
+	        datesSet: function(info) {
+	            var viewStart = info.view.currentStart;
+	            updateMonthHeader(viewStart);
+	            updateCalendarTitle(viewStart);
+	        }
 	    });
 	    
 	    calendar.render();
+	    updateMonthHeader(new Date());
+	    updateCalendarTitle(new Date());
 	});
 
 </script>
@@ -135,13 +158,7 @@
 		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 		<div class="content-main">
 			<h2 style="text-align: left;">출석체크</h2>
-			<!-- 2024-05 -> 05만 추출 -->
-			<%
-				String month = (String)request.getAttribute("month");
-				String[] parts = month.split("-");
-				String monthString = parts[1];
-			%>
-			<h3 style="text-align: right;"><%=monthString%>월 출석일수 : ${attendCount}일</h3>
+            <h3 id="monthHeader" style="text-align: right;"></h3>
 			<div id="calendar"></div>
 			<br>
 		</div>
