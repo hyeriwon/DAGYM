@@ -71,17 +71,30 @@ window.onload=function(){
 						<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" width="150">
 						<input type="button" value="파일 삭제" id="file_del">
 						</div>
+						<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 						<script type="text/javascript">
 						$(function(){
 							$('#file_del').click(function(){
 								let choice = confirm('삭제하시겠습니까?');
 								if(choice){
 									$.ajax({
-										url:'userDeleteFile.do'
+										url:'userDeleteFile.do',
+										type:'post',
 										data:{qab_num:${qaboard.qab_num}},
 										dataType:'json',
 										success:function(param){
-											
+											if(param.result == 'logout'){
+												alert('로그인 후 사용하세요');
+											}else if(param.result == 'success'){
+												$('#file_detail').hide();
+											}else if(param.result == 'wrongAccess'){
+												alert('잘못된 접속입니다.');
+											}else{
+												alert('파일 삭제 오류 발생');
+											}
+										},
+										error:function(){
+											alert('네트워크 오류 발생');
 										}
 									});
 								}

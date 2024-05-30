@@ -23,19 +23,24 @@ public class UserDeleteFileAction implements Action{
 		//로그인 확인
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num==null) {
-			return "redirect:/member/loginForm.do";
+			mapAjax.put("result", "logout");
+		}else {//로그인이 된 경우
+			request.setCharacterEncoding("utf-8");
+			int qab_num = Integer.parseInt(request.getParameter("qab_num"));
+			
+			QABoardDAO dao = QABoardDAO.getInstance();
+			QABoardVO qaboard = dao.getUserBoard(qab_num,user_num);
+			
+			//로그인한 회원번호와 작성자 회원번호 일치 여부 체크
+			if(user_num!=qaboard.getMem_num()) {
+				mapAjax.put("result", "wrongAccess");
+			}else {
+				dao.deleteFile(qab_num);
+				FileUtil.removeFile(request, qaboard.getQab_filename());
+				
+				mapAjax.put("result", "success");
+			}
 		}
-		//로그인이 된 경우
-		request.setCharacterEncoding("utf-8");
-		int qab_num = Integer.parseInt(request.getParameter("qab_num"));
-		
-		QABoardDAO dao = QABoardDAO.getInstance();
-		QABoardVO qaboard = dao.getUserBoard(qab_num,user_num);
-		
-		dao.deleteFile(qab_num);
-		FileUtil.removeFile(request, qaboard.getQab_filename());
-		
-		mapAjax.put("result", "success");
 		
 		ObjectMapper mapper = new ObjectMapper();
 		String ajaxData = mapper.writeValueAsString(mapAjax);
