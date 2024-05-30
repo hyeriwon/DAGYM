@@ -59,6 +59,13 @@ public class InbodyDAO {
 			
 			if(rs.next()) {
 				inbody = new InbodyVO();
+				inbody.setInb_hei(rs.getInt("inb_hei"));
+				inbody.setInb_date(rs.getString("inb_date"));
+				inbody.setInb_mus(rs.getInt("inb_mus"));
+				inbody.setInb_num(rs.getInt("inb_num"));
+				inbody.setInb_photo(rs.getString("inb_photo"));
+				inbody.setInb_wei(rs.getInt("inb_wei"));
+				
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
