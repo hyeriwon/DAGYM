@@ -11,6 +11,7 @@ public class HistoryVO {
 	// 추가로 가져올 정보
 	private String tra_id;
 	private String sch_date;
+	private int sch_time;
 	private String mem_phone;
 	
 	public String getMem_phone() {
@@ -67,5 +68,12 @@ public class HistoryVO {
 	public void setHis_part(String his_part) {
 		this.his_part = his_part;
 	}
+	public int getSch_time() {
+		return sch_time;
+	}
+	public void setSch_time(int sch_time) {
+		this.sch_time = sch_time;
+	}
+	
 	
 }

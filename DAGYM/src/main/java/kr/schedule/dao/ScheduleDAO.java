@@ -148,5 +148,36 @@ public class ScheduleDAO {
         return success;
     }
 
+    
+    // 스케줄 조회(PT 신청 연동)
+    public ScheduleVO getSchedule(int sch_num) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ScheduleVO schedule = null;
+        String sql = "SELECT sch_num, sch_date, sch_time, mem_num, tra_id FROM schedule WHERE sch_num = ?";
+
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, sch_num);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                schedule = new ScheduleVO();
+                schedule.setSch_num(rs.getInt("sch_num"));
+                schedule.setSch_date(rs.getString("sch_date"));
+                schedule.setSch_time(rs.getInt("sch_time"));
+                schedule.setMem_num(rs.getInt("mem_num"));
+                schedule.setTra_id(rs.getString("tra_id"));
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            DBUtil.executeClose(rs, pstmt, conn);
+        }
+
+        return schedule;
+    }
 
 }

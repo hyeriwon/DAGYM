@@ -32,29 +32,38 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'dayGridMonth'
         },
         initialView: 'dayGridMonth',
-        /* events: [
+        events: [
             <c:forEach var="schedule" items="${schedules}">
-                <c:set var="formattedTime">
-                    <fmt:formatNumber value="${schedule.sch_time}" pattern="00"/>
-                </c:set>
                 {
-                    title: '${formattedTime}시 (${schedule.mem_id})',
-                    start: '${schedule.sch_date}', // schDate는 데이터베이스에서 가져온 날짜 필드의 이름입니다.
+                    title: '${schedule.sch_time}시 (${schedule.mem_id})',
+                    start: '${schedule.sch_date}',
                     allDay: true,
                     extendedProps: {
-                        mem_id: '${schedule.mem_id}', // mem_id를 extendedProps에 저장
-                        sch_num: '${schedule.sch_num}' // sch_num을 extendedProps에 저장
+                        mem_id: '${schedule.mem_id}',
+                        sch_num: '${schedule.sch_num}'
                     }
                 },
             </c:forEach>
-        ], */
+        ],
         eventDidMount: function(info) {
-            // 등록한 사람의 ID와 현재 사용자의 ID가 다르면 배경색을 빨간색으로 설정
+            /* // 등록한 사람의 ID와 현재 사용자의 ID가 다르면 배경색을 빨간색으로 설정
             if (info.event.extendedProps.mem_id !== currentUserId) {
                 info.el.style.backgroundColor = 'red';
-            }
+            } */
             // 테두리 없애기
             info.el.style.border = 'none';
+            
+        	// 마우스를 올리면 포인터로 변경
+            info.el.style.cursor = 'pointer';
+        },
+        eventMouseEnter: function(info) {
+            // 이벤트가 커지는 효과를 위해 크기를 증가시킵니다.
+            info.el.style.transform = 'scale(1.1)';
+            info.el.style.transition = 'transform 0.2s';
+        },
+        eventMouseLeave: function(info) {
+            // 마우스가 이벤트에서 벗어나면 다시 원래 크기로 돌아갑니다.
+            info.el.style.transform = 'scale(1)';
         },
         dateClick: function(info) {
             var today = new Date();
@@ -64,21 +73,12 @@ document.addEventListener('DOMContentLoaded', function() {
             if (clickedDate <= today.setDate(today.getDate() - 1)) {
                 alert('오늘 이후로 PT 신청할 수 있습니다.');
                 window.location.reload();
-            } else {
-                var dateStr = info.dateStr;
-                var url = '${pageContext.request.contextPath}/history/historyEnrollForm.do?his_date=' + dateStr;
-                window.location.href = url;
             }
         },
         eventClick: function(info) {
-            // 현재 사용자가 등록한 일정만 클릭 가능
-            if (info.event.extendedProps.mem_id === currentUserId) {
-                if (confirm('PT 신청하시겠습니까?')) {
-                	var url = '${pageContext.request.contextPath}/history/historyEnrollForm.do?his_date=' + dateStr;
-                    window.location.href = url;
-
-                }
-            }
+            // 이벤트 클릭하여 PT 신청 폼으로 이동
+            var url = '${pageContext.request.contextPath}/history/historyEnrollForm.do?his_date=' + info.event.startStr;
+            window.location.href = url;
         }
     });
 

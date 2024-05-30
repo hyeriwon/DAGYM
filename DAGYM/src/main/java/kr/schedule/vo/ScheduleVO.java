@@ -8,6 +8,10 @@ public class ScheduleVO {
 	private int sch_time;
 	private String mem_id;
 	
+	// 필요한 추가 정보
+    private String tra_id;
+
+	
 	public int getSch_num() {
 		return sch_num;
 	}
@@ -43,6 +47,12 @@ public class ScheduleVO {
 	}
 	public void setMem_id(String mem_id) {
 		this.mem_id = mem_id;
+	}
+	public String getTra_id() {
+		return tra_id;
+	}
+	public void setTra_id(String tra_id) {
+		this.tra_id = tra_id;
 	}
 	
 	

@@ -22,7 +22,7 @@
     <div class="page-main">
         <jsp:include page="/WEB-INF/views/common/header.jsp" />
         <div class="align-center">
-            <h2 align="center">스케줄 등록</h2>
+            <h2>스케줄 등록</h2>
 
             <form action="${pageContext.request.contextPath}/schedule/scheduleEnroll.do" method="post">
                 <input type="hidden" name="sch_date" value="${sch_date}">

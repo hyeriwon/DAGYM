@@ -55,6 +55,19 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             // 테두리 없애기
             info.el.style.border = 'none';
+            
+            
+         	// 마우스를 올리면 포인터로 변경
+            info.el.style.cursor = 'pointer';
+        },
+        eventMouseEnter: function(info) {
+            // 이벤트가 커지는 효과를 위해 크기를 증가시킵니다.
+            info.el.style.transform = 'scale(1.1)';
+            info.el.style.transition = 'transform 0.2s';
+        },
+        eventMouseLeave: function(info) {
+            // 마우스가 이벤트에서 벗어나면 다시 원래 크기로 돌아갑니다.
+            info.el.style.transform = 'scale(1)';
         },
         dateClick: function(info) {
             var today = new Date();

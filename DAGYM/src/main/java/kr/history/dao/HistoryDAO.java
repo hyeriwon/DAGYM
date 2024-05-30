@@ -6,10 +6,9 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import kr.history.vo.HistoryVO;
 import kr.payment.vo.PaymentVO;
+import kr.schedule.vo.ScheduleVO;
 import kr.util.DBUtil;
 
 public class HistoryDAO {
@@ -21,6 +20,98 @@ public class HistoryDAO {
 	}
 	private HistoryDAO () {}
 
+	
+    
+    public ScheduleVO getSchedule(int sch_num) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        ScheduleVO schedule = null;
+        String sql = null;
+
+        try {
+            conn = DBUtil.getConnection();
+            sql = "SELECT sch_num, sch_date, sch_time, mem_num FROM schedule WHERE sch_num = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, sch_num);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                schedule = new ScheduleVO();
+                schedule.setSch_num(rs.getInt("sch_num"));
+                schedule.setSch_date(rs.getString("sch_date"));
+                schedule.setSch_time(rs.getInt("sch_time"));
+                schedule.setMem_num(rs.getInt("mem_num"));
+                // schedule.setTra_id(rs.getString("tra_id"));
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            DBUtil.executeClose(rs, pstmt, conn);
+        }
+
+        return schedule;
+    }
+    
+ // 스케줄 조회 메서드
+    public List<ScheduleVO> getScheduleList() throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        List<ScheduleVO> list = null;
+        String sql = null;
+
+        try {
+            conn = DBUtil.getConnection();
+            sql = "SELECT sch_num, sch_date, sch_time, mem_id FROM schedule";
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            list = new ArrayList<ScheduleVO>();
+            while (rs.next()) {
+                ScheduleVO schedule = new ScheduleVO();
+                schedule.setSch_num(rs.getInt("sch_num"));
+                schedule.setSch_date(rs.getString("sch_date"));
+                schedule.setSch_time(rs.getInt("sch_time"));
+                schedule.setMem_id(rs.getString("mem_id"));
+                list.add(schedule);
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            DBUtil.executeClose(rs, pstmt, conn);
+        }
+
+        return list;
+    }
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/*-----회원-----*/
 	//수강신청
 	public void insertHistory(HistoryVO history, PaymentVO payment)throws Exception{
@@ -134,7 +225,7 @@ public class HistoryDAO {
 				 history.setTra_num(rs.getInt("tra_num"));
 				 history.setHis_status(rs.getInt("his_status"));
 				 history.setHis_part(rs.getString("his_part"));
-				 //history.setTra_name(rs.getString("mem_name"));
+				 history.setTra_id(rs.getString("tra_id"));
 				 
 				 list.add(history);
 			 }
@@ -226,10 +317,10 @@ public class HistoryDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT h.*,sc.sch_date,sc.sch_time,md.mem_name"
-					+ "FROM history h"
-					+ "JOIN schedule sc ON h.sch_num = sc.sch_num"
-					+ "JOIN member_detail md ON h.tra_num = md.mem_num"
+			sql = "SELECT h.*,sc.sch_date,sc.sch_time,md.mem_name "
+					+ "FROM history h "
+					+ "JOIN schedule sc ON h.sch_num = sc.sch_num "
+					+ "JOIN member_detail md ON h.tra_num = md.mem_num "
 					+ "WHERE h.sch_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, sch_num);
