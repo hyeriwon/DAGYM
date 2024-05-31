@@ -1,39 +1,45 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PT예약</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<title>PT 예약</title>
+<link rel="stylesheet"
+    href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 </head>
-
-
 <body>
     <div class="page-main">
-        <jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/views/common/header.jsp" />
         <div class="content-main">
             <div class="align-center">
-                <h2>PT예약</h2>
-                <form action="${pageContext.request.contextPath}/history/historyEnroll.do" method="post">
-                    <input type="hidden" name="his_date" value="${his_date}">
-                    <h2>선택한 날짜: ${his_date}</h2>
-                </form>
+                <h2>PT 예약</h2>
             </div>
-
             <form action="${pageContext.request.contextPath}/history/historyEnroll.do" method="post">
-                <ul>  
-                    <li><input type="hidden" name="sch_num" value="${param.sch_num}">
-						
+                <input type="text" name="sch_num" value="${param.sch_num}">
+                <input type="text" name="tra_num" value="${param.tra_num}">
+                <input type="hidden" name="his_date" value="${his_date}">
+                <div class="align-center">
+                    <h2>선택한 날짜: ${his_date}</h2>
+                </div>
+                <ul>
                     <li>
-                    
-                    <label for="tra_name">선택한 시간</label>
-                    
-                        	<input type="text" name="sch_time" id="sch_time" value="${param.sch_time}" readonly>
-                    <label for="tra_name">트레이너 : </label>
-                       		<input type="text" name="tra_name" id="tra_name" value="${param.tra_name}" readonly>
-                        
-                         
+                        <label for="tra_name">선택한 시간</label>
+                        <c:set var="sch_time" value="${param.sch_time}" />
+                        <c:choose>
+                            <c:when test="${sch_time < 12}">
+                                <input type="text" name="sch_time_display" id="sch_time" value="오전 ${sch_time}시" readonly>
+                            </c:when>
+                            <c:otherwise>
+                                <c:set var="pm_time" value="${sch_time - 12}" />
+                                <input type="text" name="sch_time_display" id="sch_time" value="오후 ${pm_time == 0 ? 12 : pm_time}시" readonly>
+                            </c:otherwise>
+                        </c:choose>
+                        <input type="hidden" name="sch_time" value="${sch_time}"> <!-- 실제로 사용할 sch_time -->
+                        <label for="tra_name">트레이너 : </label>
+                        <input type="text" name="tra_name" id="tra_name" value="${param.tra_name}" readonly>
                     </li>
                     <li>
                         <label for="his_part">운동 부위(희망) : </label>
@@ -46,11 +52,10 @@
                         </select>
                     </li>
                     <li>
-                        <label for="">잔여 PT : </label>
-                        <input type="text" name="" value="" readonly>
+                        <label for="remainingPT">잔여 PT : </label>
+                        <input type="text" name="remainingPT" value="${remainingPT}" readonly>
                     </li>
                 </ul>
-
                 <div class="align-center">
                     <input type="submit" value="수강 신청">
                     <input type="button" value="취소" onclick="location.href='list.do'">

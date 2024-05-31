@@ -5,8 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
-import kr.history.dao.HistoryDAO;
-import kr.schedule.vo.ScheduleVO;
+import kr.payment.dao.PaymentDAO;
 
 public class HistoryEnrollFormAction implements Action {
 
@@ -22,16 +21,18 @@ public class HistoryEnrollFormAction implements Action {
 
         // 전달받은 날짜를 request에 설정
         String his_date = request.getParameter("his_date");
+		Integer tra_num = (Integer) session.getAttribute("mem_num"); 
+		
         request.setAttribute("his_date", his_date);
+        request.setAttribute("tra_num", tra_num);
         
-        // 전달받은 스케줄 번호를 사용하여 스케줄 정보를 조회
-        String sch_numStr = request.getParameter("sch_num");
-        if (sch_numStr != null) {
-            int sch_num = Integer.parseInt(sch_numStr);
-            HistoryDAO dao = HistoryDAO.getInstance();
-            ScheduleVO schedule = dao.getSchedule(sch_num);
-            request.setAttribute("schedule", schedule);
-        }
+	
+		 
+
+        // 로그인한 사용자의 잔여 PT 횟수 조회
+        PaymentDAO paymentDAO = PaymentDAO.getInstance();
+        int remainingPT = paymentDAO.remainpayment(user_num);
+        request.setAttribute("remainingPT", remainingPT);
         
         return "/WEB-INF/views/history/historyEnrollForm.jsp";
     }

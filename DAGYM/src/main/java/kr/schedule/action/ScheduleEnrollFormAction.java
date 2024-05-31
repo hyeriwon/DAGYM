@@ -20,7 +20,10 @@ public class ScheduleEnrollFormAction implements Action{
 		  
 		     // 전달받은 날짜를 request에 설정
 	        String sch_date = request.getParameter("sch_date");
+		
+
 	        request.setAttribute("sch_date", sch_date);
+
 		  
 		return "/WEB-INF/views/schedule/scheduleEnrollForm.jsp";
 	}

@@ -22,7 +22,7 @@ public class HistoryListAction implements Action {
         }
         
         
-     // HistoryDAO를 사용하여 스케줄 데이터를 가져옴
+        // HistoryDAO를 사용하여 스케줄 데이터를 가져옴
         HistoryDAO dao = HistoryDAO.getInstance();
         List<ScheduleVO> schedules = dao.getScheduleList();
 
