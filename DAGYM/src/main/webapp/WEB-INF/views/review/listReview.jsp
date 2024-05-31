@@ -56,7 +56,7 @@ window.onload = function(){
 					<th>제목</th>
 					<th>트레이너</th>
 					<th>수업일시</th>
-					<th>회원명</th>
+					<th>회원ID</th>
 					<th>별점</th>
 					<th>등록일</th>
 					<th>조회수</th>
@@ -66,7 +66,17 @@ window.onload = function(){
 						<td><a href="detailReview.do?rev_num=${review.rev_num}">${review.rev_title}</a></td>
 						<td>${review.tra_name}</td>
 						<td>${review.sch_date}시</td>
-						<td>${fn:substring(review.mem_name, 0, 1)}**</td>
+						<td>
+							<c:if test="${review.mem_num != user_num}">
+								<c:set var="len" value="${fn:length(review.mem_id)}"/>
+								<c:set var="maskedId" value="${fn:substring(review.mem_id, 0, 4)}"/>
+								<c:set var="maskedId" value="${maskedId}${fn:substring('********', 0, len-4)}"/>
+								${maskedId}
+							</c:if>
+							<c:if test="${review.mem_num == user_num}">
+								${member.mem_id}
+							</c:if>
+						</td>
 						<td>
 							<c:forEach var="i" begin="1" end="5">
 								<c:if test="${i <= review.rev_grade}">

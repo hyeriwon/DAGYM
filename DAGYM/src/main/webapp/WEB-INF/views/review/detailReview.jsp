@@ -17,19 +17,14 @@
 			<h2>${review.rev_title}</h2>
 			<ul>
 				<li>
-					<c:if test="${empty member.mem_photo}">
-						<img src="${pageContext.request.contextPath}/images/face.png"
-							width="20" height="20" class="my-photo">
-					</c:if>
-					<c:if test="${!empty member.mem_photo}">
-						<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}"
-							width="20" height="20" class="my-photo">
-					</c:if>
 					<c:if test="${mem_num != member.mem_num}">
-						${fn:substring(member.mem_name, 0, 1)}**
+						<c:set var="len" value="${fn:length(member.mem_id)}"/>
+						<c:set var="maskedId" value="${fn:substring(member.mem_id, 0, 4)}"/>
+						<c:set var="maskedId" value="${maskedId}${fn:substring('********', 0, len-4)}"/>
+						${maskedId} 님 
 					</c:if>
 					<c:if test="${mem_num == member.mem_num}">
-						${member.mem_name}
+						${member.mem_id} 님
 					</c:if>
 				</li>
 				<li>
@@ -49,10 +44,12 @@
 				</li>
 				<li>
 					<c:if test="${!empty review.rev_filename1}">
-						<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}">
+						<label for="before">before 사진</label><br>
+						<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" id="before" width="200" height="200">
 					</c:if>
 					<c:if test="${!empty review.rev_filename2}">
-						<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}">
+						<label>after 사진</label><br>
+						<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" width="200" height="200">
 					</c:if>
 				</li>
 				<li>

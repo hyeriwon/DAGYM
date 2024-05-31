@@ -16,13 +16,15 @@ public class DeleteReviewAction implements Action{
 		Map<String,String> mapAjax = new HashMap<>();
 		
 		HttpSession session = request.getSession();
-		Integer mem_num = (Integer) session.getAttribute("user_num");
+		Integer user_num = (Integer) session.getAttribute("user_num");
 		
-		if(mem_num==null) {
+		if(user_num==null) {
 			mapAjax.put("result", "logout");
 		}else {
 			request.setCharacterEncoding("utf-8");
 			
+			int rev_num = Integer.parseInt(request.getParameter("rev_num"));
+			//db_review의 mem_num 값과 비교하기
 			
 		}
 		

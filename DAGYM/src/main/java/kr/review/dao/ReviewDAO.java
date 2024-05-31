@@ -107,17 +107,17 @@ public class ReviewDAO {
 			conn = DBUtil.getConnection();
 			//sub_sql문 작성
 			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE md2.mem_name LIKE '%'|| ? ||'%'";	    //트레이너
+				if(keyfield.equals("1")) sub_sql += "WHERE md.mem_name LIKE '%'|| ? ||'%'";	    //트레이너
 				else if(keyfield.equals("2")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";   //제목
 				else if(keyfield.equals("3")) sub_sql += "WHERE rev_content LIKE '%'|| ? ||'%'";//내용
 			}
 			//SQL문 작성 -> 좋아요 순?
 			sql = "SELECT * FROM "
-					+ "(SELECT re.*, md1.mem_name, md2.mem_name AS tra_name, sc.sch_date, sc.sch_time, rownum rnum "
+					+ "(SELECT re.*, mb.mem_id, md.mem_name AS tra_name, sc.sch_date, sc.sch_time, rownum rnum "
 					+ "FROM review re "
-					+ "JOIN member_detail md1 ON re.mem_num = md1.mem_num "
+					+ "JOIN member mb ON re.mem_num = mb.mem_num "
 					+ "JOIN history his ON his.sch_num = re.sch_num "
-					+ "JOIN member_detail md2 ON his.tra_num = md2.mem_num "
+					+ "JOIN member_detail md ON his.tra_num = md.mem_num "
 					+ "JOIN schedule sc ON sc.sch_num = his.sch_num " + sub_sql 
 					+ " ORDER BY rev_num DESC) "
 					+ "WHERE rnum >= ? AND rnum <= ?";
@@ -138,7 +138,7 @@ public class ReviewDAO {
 				review.setRev_reg_date(rs.getDate("rev_reg_date"));
 				review.setRev_title(StringUtil.useNoHTML(rs.getString("rev_title")));
 				review.setTra_name(rs.getString("tra_name"));
-				review.setMem_name(rs.getString("mem_name"));
+				review.setMem_id(rs.getString("mem_id"));
 				review.setRev_grade(rs.getInt("rev_grade"));
 				review.setRev_hit(rs.getInt("rev_hit"));
 				review.setSch_date(rs.getString("sch_date")+" "+rs.getString("sch_time"));
@@ -198,7 +198,7 @@ public class ReviewDAO {
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "UPDATE review SET rev_title=?,rev_grade=?,rev_filename1=? "
+			sql = "UPDATE review SET rev_title=?,rev_grade=?,rev_filename1=?, "
 					+ "rev_filename2=?, rev_content=? WHERE rev_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, review.getRev_title());

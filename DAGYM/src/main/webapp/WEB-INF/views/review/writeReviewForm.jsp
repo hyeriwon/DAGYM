@@ -48,6 +48,7 @@ window.onload = function(){
 	<h2>수강후기 작성</h2>
 	<div class="content-main">
 		<form id="writeForm" action="writeReview.do" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="mem_num" value="${history.mem_num}">
 			<ul>
 				<li>
 					<label for="title">후기 제목</label>

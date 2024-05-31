@@ -43,8 +43,8 @@ public class UpdateReviewAction implements Action{
 		review.setRev_num(rev_num);
 		review.setRev_title(request.getParameter("rev_title"));
 		review.setRev_grade(Integer.parseInt(request.getParameter("rev_grade")));
-		review.setRev_filename1(FileUtil.createFile(request, "filename1"));
-		review.setRev_filename2(FileUtil.createFile(request, "filename2"));
+		review.setRev_filename1(FileUtil.createFile(request, "rev_filename1"));
+		review.setRev_filename2(FileUtil.createFile(request, "rev_filename2"));
 		review.setRev_content(request.getParameter("rev_content"));		
 		review.setRev_ip(request.getRemoteAddr()); 
 		
@@ -58,7 +58,7 @@ public class UpdateReviewAction implements Action{
 			FileUtil.removeFile(request, db_review.getRev_filename2());
 		}
 		
-		return "redirect:/review/listReview.do?rev_num="+rev_num;
+		return "redirect:/review/detailReview.do?rev_num="+rev_num;
 	}
 
 }

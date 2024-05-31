@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
 import kr.review.dao.ReviewDAO;
@@ -14,6 +15,8 @@ public class ListReviewAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		HttpSession session = request.getSession();
+		Integer user_num = (Integer) session.getAttribute("user_num");
 		
 		//현재 페이지 번호 받아오기
 		String pageNum = request.getParameter("pageNum");
@@ -36,6 +39,7 @@ public class ListReviewAction implements Action{
 			list = dao.getListReview(page.getStartRow(), page.getEndRow(), keyfield, keyword);
 		}
 		
+		request.setAttribute("user_num", user_num);
 		request.setAttribute("count", count);
 		request.setAttribute("list", list);
 		request.setAttribute("page", page.getPage());

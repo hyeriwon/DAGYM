@@ -30,12 +30,6 @@ window.onload = function(){
 				return false;
 			}
 		}		
-		//별점 유효성 체크
-		const radio = document.querySelectorAll('input[type="radio"]:checked');
-		if(radio.length<1){
-			alert('별점을 선택하세요!');
-			return false;
-		}
 	};
 	
 	//별점 선택시 선택한 점수 보이게하기

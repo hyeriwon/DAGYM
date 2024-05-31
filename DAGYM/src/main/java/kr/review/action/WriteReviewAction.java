@@ -21,6 +21,12 @@ public class WriteReviewAction implements Action{
 			return "redirct:/member/loginForm.do";		
 		}
 		
+		//로그인한 회원번호와 수강내역의 회원
+		if(mem_num!= Integer.parseInt(request.getParameter("mem_num"))) {
+			request.setAttribute("notice_msg", "수강후기 작성 권한이 없습니다.");
+			request.setAttribute("notice_url", request.getContextPath()+"/history/히스토리목록보는 페이지");
+			return "/WEB-INF/views/common/alert_view.jsp";
+		}
 		//전송된 데이터 인코딩 타입 지정
 		request.setCharacterEncoding("utf-8");
 		
