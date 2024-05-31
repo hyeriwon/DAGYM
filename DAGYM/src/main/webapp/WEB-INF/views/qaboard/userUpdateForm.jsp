@@ -41,7 +41,8 @@ window.onload=function(){
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	<div class="content-main">
 		<h2>문의 글쓰기</h2>
-		<form id="write_form" action="userUpdateForm.do" method = "post" enctype="multipart/form-data">
+		<form id="write_form" action="userUpdate.do" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="qab_num" value="${qaboard.qab_num}">
 			<ul>
 				<li>
 					<select name="qab_type" id="qab_type">
@@ -68,7 +69,7 @@ window.onload=function(){
 					<%-- 점부이미지가 있는 경우 --%>
 					<c:if test="${!empty qaboard.qab_filename}">
 						<div id="file_detail">
-						<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" width="150">
+						<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" width="150"><br>
 						<input type="button" value="파일 삭제" id="file_del">
 						</div>
 						<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
