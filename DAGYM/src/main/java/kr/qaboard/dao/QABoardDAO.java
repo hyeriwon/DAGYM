@@ -72,7 +72,7 @@ public class QABoardDAO {
 				else if(keyfield.equals("3")) sub_sql += "AND (qab_title LIKE '%' || ? || '%' OR qab_content LIKE '%' || ? || '%')";
 				//제목만 검색하도록하고 나머지는 필터설정?
 			}
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard JOIN member USING(mem_num) WHERE mem_num=? " 
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard JOIN member USING(mem_num) WHERE mem_num=? AND qab_remove=0 " 
 					+ sub_sql + " ORDER BY qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
@@ -162,7 +162,10 @@ public class QABoardDAO {
 		String sql = null;
 		try {
 			conn = DBUtil.getConnection();
-			sql = "UPDATE qaboard SET filename='' WHERE qaboard_num=?";
+			sql = "UPDATE qaboard SET qab_filename='' WHERE qab_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qaboard_num);
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
@@ -171,9 +174,51 @@ public class QABoardDAO {
 	}
 	//글 수정
 	public void updateUserBoard(QABoardVO qaboard)throws Exception{
-		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		try {
+			conn = DBUtil.getConnection();
+			if(qaboard.getQab_filename()!=null&&"".equals(qaboard.getQab_filename())) {
+				sub_sql =",qab_filename=?";
+			}
+			sql = "UPDATE qaboard SET qab_type=?,qab_title=?,qab_content=?,qab_ip=?,qab_modify_date=SYSDATE" + sub_sql + " WHERE qab_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(++cnt, qaboard.getQab_type());
+			pstmt.setString(++cnt, qaboard.getQab_title());
+			pstmt.setString(++cnt, qaboard.getQab_content());
+			pstmt.setString(++cnt, qaboard.getQab_ip());
+			if(qaboard.getQab_filename()!=null&&"".equals(qaboard.getQab_filename())) {
+				pstmt.setString(++cnt, qaboard.getQab_filename());
+			}
+			pstmt.setInt(++cnt, qaboard.getQab_num());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
 	}
 	//글 삭제
+	public void deleteUserBoard(int qab_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE qaboard SET qab_remove=? WHERE qab_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, qab_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	
 	/*--------------------관리자--------------------*/
 	//총 글의 개수, 검색 개수
@@ -185,8 +230,21 @@ public class QABoardDAO {
 		String sub_sql = "";
 		int count = 0;
 		try {
-			
-			
+			conn = DBUtil.getConnection();
+			if(keyword!=null && "".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE qab_title LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE qab_id LIKE '%' || ? || '%'";
+				else if(keyfield.equals("3")) sub_sql += "WHERE qab_content LIKE '%' || ? || '%'";
+			}
+			sql = "SELECT count(*) FROM qaboard JOIN member USING(mem_num) " + sub_sql;
+			pstmt = conn.prepareStatement(sql);
+			if(keyword!=null && "".equals(keyword)) {
+				pstmt.setString(1, keyword);
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
@@ -204,7 +262,35 @@ public class QABoardDAO {
 		String sub_sql = "";
 		int cnt = 0;
 		try {
-			
+			conn = DBUtil.getConnection();
+			if(keyword!=null && "".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE qab_id LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE qab_title LIKE '%' || ? || '%'";
+				else if(keyfield.equals("3")) sub_sql += "WHERE qab_content LIKE '%' || ? || '%'";
+			}
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard JOIN member USING(mem_num) " 
+					+ sub_sql + " ORDER BY qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			if(keyword!=null && "".equals(keyword)) {
+				pstmt.setString(++cnt, keyword);
+			}
+			pstmt.setInt(++cnt, startRow);
+			pstmt.setInt(++cnt, endRow);
+			//SQL문 작성
+			rs = pstmt.executeQuery();
+			list = new ArrayList<QABoardVO>();
+			while(rs.next()) {
+				QABoardVO qaboard = new QABoardVO();
+				qaboard.setQab_num(rs.getInt("qab_num"));
+				qaboard.setQab_title(rs.getString("qab_title"));
+				qaboard.setMem_id(rs.getString("qab_id"));
+				qaboard.setQab_reg_date(rs.getDate("qab_reg_date"));
+				qaboard.setQab_type(rs.getInt("qab_type"));
+				qaboard.setQab_ref(rs.getInt(rs.getInt("qab_ref")));
+				qaboard.setQab_remove(rs.getInt("qab_remove"));
+				
+				list.add(qaboard);
+			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally{
