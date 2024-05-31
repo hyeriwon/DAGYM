@@ -115,6 +115,7 @@ form ul li{
 	clear:both;
 }
 form ul li label{
+	/* padding-top:2px; -> 상의 후 간격 결정하기 */
 	width:130px;
 	display:inline-block;
 }

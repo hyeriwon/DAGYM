@@ -73,6 +73,15 @@
 			<div class="align-center">
 				<c:if test="${member.mem_num == mem_num}">
 					<input type="button" value="수정" onclick="location.href='updateReviewForm.do?rev_num=${review.rev_num}'">
+					<input type="button" value="삭제" id="delReview">
+					<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
+					<script type="text/javascript">
+						$(function{
+							$('#delReview').click(function(){
+								
+							});
+						});
+					</script>
 				</c:if>
 				<input type="button" value="목록" onclick="location.href='listReview.do'">
 			</div>

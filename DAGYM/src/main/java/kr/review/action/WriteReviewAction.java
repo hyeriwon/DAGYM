@@ -18,7 +18,7 @@ public class WriteReviewAction implements Action{
 		Integer mem_num = (Integer) session.getAttribute("user_num");
 
 		if(mem_num==null) {
-			return "redirect:/member/loginForm.do";
+			return "redirct:/member/loginForm.do";		
 		}
 		
 		//전송된 데이터 인코딩 타입 지정
@@ -40,7 +40,7 @@ public class WriteReviewAction implements Action{
 		dao.insertReview(review);
 		
 		request.setAttribute("notice_msg", "수강후기 작성을 완료했습니다.");
-		request.setAttribute("notice_url", "수강후기 목록 url");
+		request.setAttribute("notice_url", "listReview.do");
 		
 		return "WEB-INF/views/common/alert_view.jsp";
 	}

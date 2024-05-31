@@ -5,20 +5,23 @@ ul{
 ul li{
 	clear:both;
 }
-ul li label{
+.mem_detail li label{
+	padding-top:2px;
 	width:130px;
-	float:left; /*태그를 왼쪽으로 정렬*/
+	display: inline-block; /*태그를 왼쪽으로 정렬*/
 }
 
 /*수강후기 별점 부여*/
 .star-rating {
-    direction: rtl; /* 태그를 오른쪽으로 정렬 */
+    direction:rtl; 
     display: inline-block;
 }
+
 .star-rating input[type="radio"]{
 	display:none;
 }
 .star-rating label{
+	width:15px;
 	font-size:1em;
 	color: #ddd;
 	cursor: pointer;

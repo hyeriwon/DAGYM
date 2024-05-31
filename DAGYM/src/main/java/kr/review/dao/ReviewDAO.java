@@ -191,22 +191,45 @@ public class ReviewDAO {
 	}
 	
 	//수강후기 수정
-	public void updateReview(int rev_num) throws Exception{
+	public void updateReview(ReviewVO review) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "UPDATE review SET  WHERE rev_num=?";
+			sql = "UPDATE review SET rev_title=?,rev_grade=?,rev_filename1=? "
+					+ "rev_filename2=?, rev_content=? WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, review.getRev_title());
+			pstmt.setInt(2, review.getRev_grade());
+			pstmt.setString(3, review.getRev_filename1());
+			pstmt.setString(4, review.getRev_filename2());
+			pstmt.setString(5, review.getRev_content());
+			pstmt.setInt(6, review.getRev_num());
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	//수강후기 삭제	
 	
+	//수강후기 삭제	
+	public void deleteReview(int rev_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "";
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	
 	/*       강사&관리자     */
 	//수강후기 삭제(게시보류)
