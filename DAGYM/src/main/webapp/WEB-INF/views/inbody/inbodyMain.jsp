@@ -48,7 +48,6 @@ function searchByMemNum() {
     <jsp:include page="/WEB-INF/views/common/header.jsp"/><!-- 헤더 JSP 파일을 포함합니다. -->
     <p>
     <c:if test="${user_auth ==9}">
-    <jsp:include page="/WEB-INF/views/common/usercontrolHeader.jsp"/><!-- 사용자 제어 헤더 JSP 파일을 포함합니다. -->
     </c:if>
     <div class="content-main">
     <h2 style="text-align: left;"> 인바디 등록</h2>

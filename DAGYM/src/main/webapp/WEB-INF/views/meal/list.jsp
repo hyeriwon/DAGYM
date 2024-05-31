@@ -53,7 +53,6 @@ function searchByMemNum() {
 <div class="page-main">
     <jsp:include page="/WEB-INF/views/common/header.jsp"/><!-- 헤더 JSP 파일을 포함합니다. -->
     <p>
-    <jsp:include page="/WEB-INF/views/common/usercontrolHeader.jsp"/><!-- 사용자 제어 헤더 JSP 파일을 포함합니다. -->
     <div class="content-main">
     <h2 style="text-align: left;"> 식사등록</h2>
     <div class="align-left">
