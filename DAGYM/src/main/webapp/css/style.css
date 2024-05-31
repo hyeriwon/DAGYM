@@ -116,7 +116,7 @@ form ul li{
 }
 form ul li label{
 	width:130px;
-	float:left; /*태그를 왼쪽으로 정렬*/
+	display:inline-block;
 }
 ul {
 	list-style:none;
