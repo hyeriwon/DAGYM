@@ -34,8 +34,11 @@ document.addEventListener('DOMContentLoaded', function() {
         initialView: 'dayGridMonth',
         events: [
             <c:forEach var="schedule" items="${schedules}">
+            	<c:set var="formattedTime">
+           	 <fmt:formatNumber value="${schedule.sch_time}" pattern="00"/>
+       		</c:set>
                 {
-                    title: '${schedule.sch_time}시 (${schedule.mem_id})',
+                    title: '${formattedTime}시 (${schedule.mem_id})',
                     start: '${schedule.sch_date}',
                     allDay: true,
                     extendedProps: {
