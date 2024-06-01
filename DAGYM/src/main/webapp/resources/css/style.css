@@ -328,7 +328,7 @@ ol {
 	left: 0;
 	top: 0;
 	width: 100%;
-	padding: 0 15px;
+	padding: 0 50px;
 	padding-top: 55px;
 	z-index: 99;
 }
@@ -440,7 +440,7 @@ ol {
 
 .top-option {
 	text-align: right;
-	padding: 9px 0;
+	padding: 0px 0;
 }
 
 .top-option .to-search {
