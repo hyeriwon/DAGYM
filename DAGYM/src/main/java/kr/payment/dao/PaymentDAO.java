@@ -243,8 +243,7 @@ public class PaymentDAO {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			//sql = "SELECT (COALESCE(SUM(p.pay_enroll),0) - COALESCE(COUNT(h.mem_num),0)) FROM payment p LEFT JOIN history h ON p.mem_num = h.mem_num WHERE p.mem_num=? GROUP BY p.mem_num";
-			sql = "SELECT (COALESCE(SUM(p.pay_enroll), 0) - COALESCE((SELECT COUNT(*) FROM history h WHERE h.mem_num = p.mem_num), 0)) AS result FROM payment p WHERE p.mem_num = ? GROUP BY p.mem_num";
+			sql = "SELECT (COALESCE(SUM(p.pay_enroll), 0) - COALESCE((SELECT COUNT(*) FROM history h WHERE h.mem_num = p.mem_num), 0)) AS result FROM payment p WHERE p.mem_num = ? AND p.pay_status = 2 GROUP BY p.mem_num";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
