@@ -25,11 +25,14 @@ public class ReviewDAO {
 	public void insertReview(ReviewVO review) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		String sql = null;
 		
 		try {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
 			//SQL문 작성
 			sql = "INSERT INTO review(rev_num,mem_num,sch_num,rev_grade,rev_title,"
 					+ "rev_content,rev_filename1,rev_filename2,rev_ip) "
@@ -47,9 +50,15 @@ public class ReviewDAO {
 			pstmt.setString(8, review.getRev_ip());
 			//SQL문 실행
 			pstmt.executeUpdate();
+			
+			//포인트 추가
+			
+			conn.commit();
 		}catch(Exception e) {
+			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
@@ -216,21 +225,33 @@ public class ReviewDAO {
 	}
 	
 	//수강후기 삭제	
-	public void deleteReview(int rev_num) throws Exception{
+	public void deleteReview(ReviewVO review) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		String sql = null;
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "";
+			conn.setAutoCommit(false);
+			
+			sql = "DELETE FROM review WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, review.getRev_num());
+			pstmt.executeUpdate();
+			
+			//포인트 차감
+			
+			conn.commit();
 		}catch(Exception e) {
+			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
 	
-	/*       강사&관리자     */
+	/*       관리자        */
 	//수강후기 삭제(게시보류)
 }

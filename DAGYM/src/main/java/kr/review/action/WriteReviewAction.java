@@ -21,7 +21,7 @@ public class WriteReviewAction implements Action{
 			return "redirct:/member/loginForm.do";		
 		}
 		
-		//로그인한 회원번호와 수강내역의 회원
+		//로그인한 회원번호와 수강내역의 회원번호 일치 여부 확인
 		if(mem_num!= Integer.parseInt(request.getParameter("mem_num"))) {
 			request.setAttribute("notice_msg", "수강후기 작성 권한이 없습니다.");
 			request.setAttribute("notice_url", request.getContextPath()+"/history/히스토리목록보는 페이지");
@@ -46,7 +46,7 @@ public class WriteReviewAction implements Action{
 		dao.insertReview(review);
 		
 		request.setAttribute("notice_msg", "수강후기 작성을 완료했습니다.");
-		request.setAttribute("notice_url", "listReview.do");
+		request.setAttribute("notice_url", request.getContextPath()+"review/listReview.do");
 		
 		return "WEB-INF/views/common/alert_view.jsp";
 	}

@@ -30,7 +30,7 @@ public class UpdateReviewFormAction implements Action{
 		ReviewVO review = dao.getReview(rev_num);
 		
 		if(mem_num != review.getMem_num()) {
-			return "review/listReview.do";
+			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
 		review.setRev_title(StringUtil.parseQuot(review.getRev_title()));

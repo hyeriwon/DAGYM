@@ -9,6 +9,8 @@ import kr.history.dao.HistoryDAO;
 import kr.history.vo.HistoryVO;
 import kr.member.dao.MemberDAO;
 import kr.member.vo.MemberVO;
+import kr.review.dao.ReviewDAO;
+import kr.review.vo.ReviewVO;
 
 public class WriteReviewFormAction implements Action{
 
@@ -41,6 +43,10 @@ public class WriteReviewFormAction implements Action{
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
 		MemberVO trainer = memDAO.getMember(history.getTra_num());
+		
+		//해당 PT에 대해 이미 후기가 작성되었는지 확인
+		ReviewDAO revDAO = ReviewDAO.getInstance();
+		/* ReviewVO review = revDAO.getReview(sch_num); */
 		
 		request.setAttribute("history", history);
 		request.setAttribute("trainer", trainer);

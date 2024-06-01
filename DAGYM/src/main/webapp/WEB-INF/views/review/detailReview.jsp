@@ -75,7 +75,10 @@
 					<script type="text/javascript">
 						$(function{
 							$('#delReview').click(function(){
-								
+								let choice = confirm('후기를 삭제하시겠습니까?');
+								if(choice){
+									location.replace('deleteReview.do?rev_num=${review.rev_num}');
+								}
 							});
 						});
 					</script>
