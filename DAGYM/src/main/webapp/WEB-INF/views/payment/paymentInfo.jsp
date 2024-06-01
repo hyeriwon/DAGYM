@@ -41,9 +41,13 @@
           </div>
           	<div class="row">
 				<div class="col-lg-12">
-					<img src="${pageContext.request.contextPath}/images/membershipinfo.png" width="600">
-					<input type="button" value="상담신청" onclick="location.href='${pageContext.request.contextPath}/payment/paymentCounselingForm.do'">
-					<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+					<div align="center">
+						<img src="${pageContext.request.contextPath}/images/membershipinfo.png" width="600">
+						<p>
+						<br>
+						<input type="button" value="상담신청" onclick="location.href='${pageContext.request.contextPath}/payment/paymentCounselingForm.do'">
+						<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+					</div>
 				</div>
 			</div>
       </div>
