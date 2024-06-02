@@ -13,7 +13,7 @@ window.onload=function(){
     myForm.onchange = function() {
         const nbo_type = document.getElementById('nbo_type');
         const nbo_title = document.getElementById('nbo_title');
-        // 옵션이 선택되었을 때만 제목 업데이트
+        
         if (nbo_type.value.trim() != '') {
             nbo_title.value = "[" + nbo_type.value + "]";
         }
