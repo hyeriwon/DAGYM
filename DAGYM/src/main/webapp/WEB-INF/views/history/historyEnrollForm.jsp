@@ -18,11 +18,12 @@
                 <h2>PT 예약</h2>
             </div>
             <form action="${pageContext.request.contextPath}/history/historyEnroll.do" method="post">
-                <input type="text" name="sch_num" value="${param.sch_num}">
-                <input type="text" name="tra_num" value="${param.tra_num}">
-                <input type="hidden" name="his_date" value="${his_date}">
+                <input type="hidden" name="sch_num" value="${param.sch_num}">
+                <input type="hidden" name="tra_num" value="${param.tra_num}">
+                <input type="hidden" name="his_date" value="${param.his_date}">
+                <input type="hidden" name="sch_time" value="${param.sch_time}">
                 <div class="align-center">
-                    <h2>선택한 날짜: ${his_date}</h2>
+                    <h2>선택한 날짜: ${param.his_date}</h2>
                 </div>
                 <ul>
                     <li>
@@ -37,7 +38,6 @@
                                 <input type="text" name="sch_time_display" id="sch_time" value="오후 ${pm_time == 0 ? 12 : pm_time}시" readonly>
                             </c:otherwise>
                         </c:choose>
-                        <input type="hidden" name="sch_time" value="${sch_time}"> <!-- 실제로 사용할 sch_time -->
                         <label for="tra_name">트레이너 : </label>
                         <input type="text" name="tra_name" id="tra_name" value="${param.tra_name}" readonly>
                     </li>
@@ -48,6 +48,7 @@
                             <option>가슴</option>
                             <option>등</option>
                             <option>하체</option>
+                            <option>팔</option>
                             <option>유산소</option>
                         </select>
                     </li>

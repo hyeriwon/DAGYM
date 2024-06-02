@@ -36,7 +36,7 @@ public class EnrollAction implements Action{
 		payment.setMem_num(Integer.parseInt(request.getParameter("mem_num")));
 		
 		HistoryDAO dao = HistoryDAO.getInstance();
-		//dao.insertHistory(history,payment); 잠시
+		//dao.insertHistory(history,payment);
 		
 		request.setAttribute("result_title", "수강신청 완료");
 		request.setAttribute("result_msg", "수강 신청이 완료되었습니다.");

@@ -14,6 +14,8 @@ public class ScheduleEnrollAction implements Action {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    	request.setCharacterEncoding("utf-8");
+    	
         HttpSession session = request.getSession();
         Integer userNum = (Integer) session.getAttribute("user_num");
         String memId = (String) session.getAttribute("user_id");

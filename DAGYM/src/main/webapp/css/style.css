@@ -307,14 +307,14 @@ form#mre_form{
 	margin:5px 0 0 130px;
 }
 
-/* FullCalendar
+FullCalendar
 ---------------------*/
 #fc-dom-1 {
     margin-right: 100px;
 }
 
 /* scheduleEnrollForm
----------------------*/
+---------------------
 .time-period-container {
         display: flex;
         justify-content: space-between;

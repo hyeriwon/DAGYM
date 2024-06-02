@@ -7,11 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>스케줄 목록</title>
-<style>
-    #fc-dom-1 {
-        margin-right: 100px;
-    }
-</style>
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
@@ -104,6 +100,9 @@ document.addEventListener('DOMContentLoaded', function() {
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <div class="content-main">
         <h2 align="center">스케줄 등록</h2>
+        <div class="align-right">
+         <input type="button" value="MyList" onclick="location.href='${pageContext.request.contextPath}#'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 --> 
+        </div>
 
         <div id="sch_calendar"></div>
 

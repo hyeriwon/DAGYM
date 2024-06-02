@@ -26,11 +26,14 @@ public class HistoryDAO {
     public void insertHistory(HistoryVO history) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
+        PreparedStatement pstmt2 = null;
         String sql = null;
 
         try {
             conn = DBUtil.getConnection();
-
+            conn.setAutoCommit(false);
+            
+            // PT 등록
             sql = "INSERT INTO history (his_num, mem_num, sch_num, tra_num, his_status, his_part) "
             	+ "VALUES (history_seq.nextval, ?, ?, ?, ?, ?)";
 
@@ -43,26 +46,30 @@ public class HistoryDAO {
             pstmt.setInt(3, history.getTra_num());
             pstmt.setInt(4, 0); // 0 : 예약됨, 1: 완료, 2 : 취소
             pstmt.setString(5, history.getHis_part());
-     
 
             // SQL문 실행
             pstmt.executeUpdate();
+            
+            // PT 등록 시 schedule 테이블 sch_status 1로 변경
+            sql = "UPDATE schedule SET sch_status = 1 WHERE sch_num=?";
+            pstmt2 = conn.prepareStatement(sql);
+            pstmt2.setInt(1,history.getSch_num());
+            
+            pstmt2.executeUpdate();
+            
+            conn.commit();
 
         } catch (Exception e) {
+        	conn.rollback();
             throw new Exception(e);
         } finally {
-            DBUtil.executeClose(null, pstmt, conn);
+        	DBUtil.executeClose(null, pstmt2, conn);
+        	DBUtil.executeClose(null, pstmt, conn); 
         }
     }
 	
 	
 	
-	
-	
-	
-
-	
-	// 추후 삭제 예정
 	public ScheduleVO getSchedule(int sch_num) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -72,7 +79,7 @@ public class HistoryDAO {
 
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT sch_num, sch_date, sch_time, mem_num FROM schedule WHERE sch_num = ?";
+			sql = "SELECT sch_num, sch_date, sch_time, mem_num, mem_id, sch_status FROM schedule WHERE sch_num = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, sch_num);
 			rs = pstmt.executeQuery();
@@ -82,8 +89,9 @@ public class HistoryDAO {
 				schedule.setSch_num(rs.getInt("sch_num"));
 				schedule.setSch_date(rs.getString("sch_date"));
 				schedule.setSch_time(rs.getInt("sch_time"));
-				schedule.setMem_num(rs.getInt("mem_num")); //
-				schedule.setTra_id(rs.getString("tra_id"));
+				schedule.setMem_num(rs.getInt("mem_num"));
+				schedule.setTra_id(rs.getString("mem_id"));
+				schedule.setSch_status(rs.getInt("sch_status"));
 			}
 		} catch (Exception e) {
 			throw new Exception(e);
@@ -107,16 +115,18 @@ public class HistoryDAO {
 
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT sch_num, sch_date, sch_time, mem_id FROM schedule ORDER BY sch_time ASC";
+			sql = "SELECT sch_num, sch_date, sch_time, mem_id, mem_num, sch_status FROM schedule ORDER BY sch_time ASC";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			list = new ArrayList<ScheduleVO>();
 			while (rs.next()) {
 				ScheduleVO schedule = new ScheduleVO();
 				schedule.setSch_num(rs.getInt("sch_num"));
+				schedule.setMem_num(rs.getInt("mem_num"));
 				schedule.setSch_date(rs.getString("sch_date"));
 				schedule.setSch_time(rs.getInt("sch_time"));
 				schedule.setMem_id(rs.getString("mem_id"));
+				schedule.setSch_status(rs.getInt("sch_status"));
 				list.add(schedule);
 			}
 		} catch (Exception e) {
@@ -150,42 +160,10 @@ public class HistoryDAO {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
 
-	/* =====================추후 수정 예정(LJY)====================== */
+	/* =====================추후 수정 예정====================== */
 	/*-----회원-----*/
-	// 수강신청
-	/*
-	 * public void insertHistory(HistoryVO history, PaymentVO payment) throws
-	 * Exception { Connection conn = null; PreparedStatement pstmt = null;
-	 * PreparedStatement pstmt2 = null; String sql = null; try { // 커넥션풀로부터 커넥션 할당
-	 * conn = DBUtil.getConnection(); // 오토커밋 해제 conn.setAutoCommit(false);
-	 * 
-	 * // 수강신청시 history 테이블에 데이터 등록 sql =
-	 * "INSERT INTO history (his_num,mem_num,sch_num,tra_num,his_status,his_part) VALUES (history_seq.nextval,?,?,?,?,?)"
-	 * ;// WHERE절로 // 넘겨야 pstmt = conn.prepareStatement(sql); pstmt.setInt(1,
-	 * history.getMem_num()); pstmt.setInt(2, history.getSch_num()); pstmt.setInt(3,
-	 * history.getTra_num()); pstmt.setInt(4, history.getHis_status());
-	 * pstmt.setString(5, history.getHis_part()); pstmt.executeUpdate(); // 수강신청시 PT
-	 * 등록횟수 차감 //pay_enroll 수정 필요 sql =
-	 * "UPDATE payment SET pay_enroll = pay_enroll - 1 WHERE mem_num=? AND pay_enroll > 0"
-	 * ; pstmt2 = conn.prepareStatement(sql); pstmt2.setInt(1,
-	 * payment.getMem_num()); pstmt2.executeUpdate();
-	 * 
-	 * // 예외 발생 없이 정상적으로 SQL문 실행 conn.commit(); } catch (Exception e) { // 예외 발생
-	 * conn.rollback(); throw new Exception(e); } finally {
-	 * DBUtil.executeClose(null, pstmt2, null); DBUtil.executeClose(null, pstmt,
-	 * conn); } }
-	 */
 	
-	
-
 	// 수강신청내역 총 개수, 검색 개수
 	public int getHistoryCount(String keyfield, String keyword) throws Exception {
 		Connection conn = null;
