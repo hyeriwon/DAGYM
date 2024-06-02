@@ -6,6 +6,40 @@
 <head>
 <meta charset="UTF-8">
 <title>MEMBERSHIP</title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+    $('.cancel-btn').click(function(){
+        var btn = $(this); // 버튼 저장
+        
+        var payNum = btn.data('paynum');
+        var choice = confirm('회원권을 취소하시겠습니까?');
+        if(choice){
+            $.ajax({
+                url:'updatePayment.do',
+                type:'post',
+                data:{pay_num: payNum},
+                dataType:'json',
+                success:function(param){
+                    if(param.result == 'logout'){
+                        alert('로그인 후 사용하세요');
+                    }else if(param.result == 'success'){
+                        alert('회원권 취소가 완료되었습니다.');
+                        var td = btn.parent();
+                        btn.remove(); 
+                        td.append('<span>취소 완료</span>'); 
+                    }else{
+                        alert('회원권 취소 오류 발생');
+                    }
+                },
+                error:function(){
+                    alert('네트워크 오류 발생');
+                }
+            });
+        }
+    });
+});
+</script>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 </head>
 <body>
@@ -68,6 +102,7 @@
 								<th>수강료</th>
 								<th>등록횟수</th>
 								<th>결제일</th>
+								<th>결제취소</th>
 							</tr>
 						<c:forEach var="payment" items="${list}">
 							<tr>
@@ -75,6 +110,7 @@
 								<td>${payment.pay_fee}</td>
 								<td>${payment.pay_enroll}</td>
 								<td>${payment.pay_reg_date}</td>
+								<td><input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}"></td>
 							</tr>
 						</c:forEach>
 						</table>
