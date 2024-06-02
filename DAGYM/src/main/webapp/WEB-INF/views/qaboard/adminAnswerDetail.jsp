@@ -20,6 +20,12 @@ $(function(){
 		}
 		alert('정상적으로 답변이 등록되었습니다');
 	});
+	
+	$('#delete').click(function(){
+		if(confirm("정말 삭제하시겠습니까?")){
+			location.href='adminDeleteAnswer.do?qab_num='+"${answerBoard.qab_num}";
+		}
+	});
 });
 </script>
 </head>

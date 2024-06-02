@@ -34,7 +34,7 @@ public class AdminUpdateAnswerAction implements Action{
 			qaboard.setMem_num(user_num);
 			qaboard.setQab_content(request.getParameter("re_content"));
 			qaboard.setQab_ip(request.getRemoteAddr());
-			qaboard.setQab_num(Integer.parseInt(request.getParameter("re_num")));
+			qaboard.setQab_num(Integer.parseInt(request.getParameter("qab_num")));
 			
 			dao.updateAdminBoard(qaboard);
 			

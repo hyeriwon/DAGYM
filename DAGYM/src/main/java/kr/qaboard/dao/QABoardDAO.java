@@ -408,4 +408,20 @@ public class QABoardDAO {
 		}
 	}
 	//답변삭제
+	public void deleteAdminBoard(int qab_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "DELETE FROM qaboard WHERE qab_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qab_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 }
