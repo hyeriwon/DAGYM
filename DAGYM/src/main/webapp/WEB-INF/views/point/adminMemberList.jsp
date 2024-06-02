@@ -46,6 +46,7 @@
 				<div class="col-lg-12">
 					<div class="chart-table">
 					
+					<!-- content 시작 -->
 					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					<c:if test="${count == 0}">
 						<div class="result-display">
@@ -66,7 +67,8 @@
 					</table>
 					<hr class="fixed-divider" size="1" width="%" noshade="noshade">
 					</c:if>
-		
+					<!-- content 끝 -->
+					
 					</div>
 				</div>
 			</div>

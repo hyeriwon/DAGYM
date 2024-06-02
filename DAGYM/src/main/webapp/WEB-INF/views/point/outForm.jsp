@@ -105,6 +105,7 @@
 				<div class="col-lg-12">    
 					<div class="chart-table">
 					
+					<!-- content 시작 -->
 		            <form id="out_form" action="out.do" method="post" enctype="multipart/form-data">
 		                <!-- hidden 필드로 회원 ID를 전달 -->
 		                <input type="hidden" name="mem_num" value="${param.mem_num}">
@@ -130,7 +131,8 @@
 		                    <input type="button" value="취소" onclick="location.href='adminList.do?mem_num=${param.mem_num}'">
 		                </div>
 		            </form>
-            
+            			<!-- content 끝 -->
+            			
 					</div>
 				</div>
 			</div>

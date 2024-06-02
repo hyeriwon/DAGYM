@@ -55,6 +55,7 @@
 				<div class="col-lg-12">    
 					<div class="chart-table">
 					
+					<!-- content 시작 -->
 					<br>
 					<c:if test="${count == 0}">
 					<div class="result-display">
@@ -112,7 +113,8 @@
 					<br>
 					<div class="align-center">${page}</div>
 					</c:if>
-			
+					<!-- content 끝 -->
+					
 					</div>
 				</div>
 			</div>
