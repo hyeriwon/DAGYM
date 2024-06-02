@@ -15,7 +15,7 @@ $(function(){
 	//좋아요 등록,취소
 	$('.like_img').click(function(){
 		$.ajax({
-			url:,
+			url:'',
 			type:,
 			data:,
 			dataType:,

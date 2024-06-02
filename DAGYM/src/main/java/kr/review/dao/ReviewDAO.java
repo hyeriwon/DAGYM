@@ -304,6 +304,8 @@ public class ReviewDAO {
 			pstmt.setInt(1, review.getRev_num());
 			pstmt.executeUpdate();
 			
+			//좋아요 삭제
+			
 			//포인트 차감
 			
 			conn.commit();
@@ -316,41 +318,127 @@ public class ReviewDAO {
 		}
 	}
 	
-	//수강후기 좋아요 등록
-	public void insertLike(RevLikeVO revLike) throws Exception{
+	//수강후기 좋아요 수
+	public void countReviewLikes(int rev_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			sql = "SELECT COUNT(*) FROM review_like WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rev_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+			sql = "UPDATE review SET rev_like=? WHERE rev_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, count);
+			pstmt2.setInt(2, rev_num);
+			pstmt2.executeUpdate();
+			
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+	}
+	
+	//수강후기 좋아요 여부 확인
+	public RevLikeVO getRevLike(RevLikeVO revLike) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		RevLikeVO like = null;
 		String sql = null;
 		
 		try {
 			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM review_like WHERE rev_num=? AND mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revLike.getRev_num());
+			pstmt.setInt(2, revLike.getMem_num());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				like = new RevLikeVO();
+				like.setRev_num(rs.getInt("rev_num"));
+				like.setMem_num(rs.getInt("mem_num"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return like;
+	}
+	
+	//수강후기 좋아요 등록
+	public void insertLike(RevLikeVO revLike) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
 			sql = "INSERT INTO review_like(rev_num,mem_num) VALUES (?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, revLike.getRev_num());
 			pstmt.setInt(2, revLike.getMem_num());
 			pstmt.executeUpdate();
+			
+			sql = "UPDATE review SET rev_like=rev_like+1 WHERE rev_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, revLike.getRev_num());
+			pstmt2.executeUpdate();
+			
+			conn.commit();
 		}catch(Exception e) {
+			conn.rollback();
 			throw new Exception(e);
 		}finally {
-			DBUtil.executeClose(null, pstmt, conn);
+			DBUtil.executeClose(null, pstmt, null);
+			DBUtil.executeClose(null, pstmt2, conn);
 		}
 	}
-	//수강후기 좋아요 삭제
+	
+	//수강후기 좋아요 취소
 	public void deleteLike(RevLikeVO revLike) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		String sql = null;
 		
 		try {
 			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
 			sql = "DELETE FROM review_like WHERE rev_num=?,mem_num=?";
 			pstmt = conn.prepareStatement(sql);
-			/*
 			pstmt.setInt(1, revLike.getRev_num());
 			pstmt.setInt(2, revLike.getMem_num());
 			pstmt.executeUpdate();
-			*/
+			
+			sql = "UPDATE review SET rev_like=rev_like-1 WHERE rev_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, revLike.getRev_num());
+			pstmt2.executeUpdate();
+			
+			conn.commit();
 		}catch(Exception e) {
+			conn.rollback();
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(null, pstmt, conn);
