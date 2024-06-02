@@ -99,13 +99,17 @@ $(function(){
 					<%-- 문의답변 --%>
 					<c:if test="${user_auth >= 8 && answerBoard!=null}">
 						<div id="answer-div">
+							<input type="hidden" name="qab_num" value="${answerBoard.qab_num}" id="answer_num">
 							<input type="button" id="update_answer_btn" value="수정">
 							<input type="button" value="삭제" onclick="location.href='adminDeleteAnswer.do?qab_num=${answerBoard.qab_num}'">
 							<hr size="1" noshade="noshade" width="80%">
-							<p id="qab_content">${answerBoard.qab_content}</p><br>
+							<p id="answer_content">${answerBoard.qab_content}</p><br>
 							<hr size="1" noshade="noshade" width="80%">
 							<div class="align-right">
-								${answerBoard.qab_reg_date}
+								<c:if test="${!empty answerBoard.qab_modify_date}">
+									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;|
+								</c:if>
+								작성일 &nbsp;${answerBoard.qab_reg_date}
 							</div>
 						</div>
 					</c:if>

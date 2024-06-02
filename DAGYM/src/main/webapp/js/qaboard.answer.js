@@ -27,7 +27,8 @@ $(document).ready(function(){
         event.preventDefault();
 
         // 수정된 댓글 내용
-        let qab_content = $('#qab_content').val();
+        let qab_num = $('#answer_num').val();
+        let qab_content = $('#answer_content').val();
 
         // AJAX 요청
         $.ajax({
