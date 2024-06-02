@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,7 +108,7 @@ $(function(){
 						<c:forEach var="payment" items="${list}">
 							<tr>
 								<td>${payment.pay_num}</td>
-								<td>${payment.pay_fee}</td>
+								<td><fmt:formatNumber value="${payment.pay_fee}" pattern="#,##0"></fmt:formatNumber></td>
 								<td>${payment.pay_enroll}</td>
 								<td>${payment.pay_reg_date}</td>
 								<td><input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}"></td>

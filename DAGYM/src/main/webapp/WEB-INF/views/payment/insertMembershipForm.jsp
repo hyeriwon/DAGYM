@@ -10,6 +10,13 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function() {
+	$('#write_form').submit(function() {
+        if($('#pay_fee').val().trim()==''){
+        	alert('회원권 종류를 선택하세요');
+        	$('#pay_fee').val('').focus();
+        	return false;
+        }
+    });
     function updatePayment() {
         var membershipType = $('#pay_type').val();
         var payEnroll;
@@ -17,13 +24,13 @@ $(function() {
 
         if (membershipType === "10회권") {
             payEnroll = 10;
-            payFee = 700000;
+            payFee = 600000;
         } else if (membershipType === "20회권") {
             payEnroll = 20;
-            payFee = 1400000; 
+            payFee = 1100000; 
         } else if (membershipType === "30회권") {
             payEnroll = 30;
-            payFee = 2100000; 
+            payFee = 1600000; 
         }
 
         $('#pay_enroll').val(payEnroll);
@@ -88,7 +95,7 @@ $(function() {
 							<li>
 								<label>회원권 종류</label>
 								<select id="pay_type" name="pay_type">
-										<option value="선택">--선택--</option>
+										<option value="" selected disabled>--선택--</option>
 										<option value="10회권">10회권</option>
 										<option value="20회권">20회권</option>
 										<option value="30회권">30회권</option>
