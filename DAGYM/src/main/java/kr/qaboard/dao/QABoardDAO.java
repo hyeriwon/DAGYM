@@ -271,7 +271,7 @@ public class QABoardDAO {
 			}
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard q LEFT OUTER JOIN qaboard a ON q.qab_num=a.qab_ref "
 					+ "JOIN member m ON q.mem_num=m.mem_num WHERE q.qab_ref=0 "
-					+ sub_sql + "ORDER BY q.qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?;";
+					+ sub_sql + "ORDER BY q.qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, keyword);
@@ -387,7 +387,25 @@ public class QABoardDAO {
 		}
 		return qaboard;
 	}
-	//글 수정
-	
-	//글 삭제
+	//답변수정
+	public void updateAdminBoard(QABoardVO qaboard)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE qaboard SET qab_mem_num=?,qab_content=?,qab_ip=?,qab_modify_date=SYSDATE WHERE qab_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qaboard.getMem_num());
+			pstmt.setString(2, qaboard.getQab_content());
+			pstmt.setString(3, qaboard.getQab_ip());
+			pstmt.setInt(4, qaboard.getQab_num());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//답변삭제
 }

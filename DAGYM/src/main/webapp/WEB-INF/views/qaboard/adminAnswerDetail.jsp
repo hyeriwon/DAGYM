@@ -63,6 +63,8 @@ $(function(){
 		<%-- 문의답변 --%>
 		<c:if test="${user_auth >= 8 && answerBoard!=null}">
 			<div id="answer-div">
+				<input type="button" id="update_answer_btn" value="수정">
+				<input type="button" value="삭제" onclick="location.href='adminDeleteAnswer.do?qab_num=${answerBoard.qab_num}'">
 				<hr size="1" noshade="noshade" width="80%">
 				<p>${answerBoard.qab_content}</p><br>
 				<hr size="1" noshade="noshade" width="80%">

@@ -75,7 +75,7 @@
 							<td>${qaboard.qab_reg_date}</td>
 							<td>
 								<c:if test="${qaboard.qab_ref == 0}"><span style="color:red;">미답변</span></c:if>
-								<c:if test="${qaboard.qab_ref == 1}">답변완료</c:if>
+								<c:if test="${qaboard.qab_ref == qaboard.qab_num}">답변완료</c:if>
 							</td>
 							<td>
 								<c:if test="${qaboard.qab_remove==0}">X</c:if>
