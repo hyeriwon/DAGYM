@@ -8,6 +8,23 @@
 <meta charset="UTF-8">
 <title>PT 수강후기 상세</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SYJ.css" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	//좋아요 등록,취소
+	$('.like_img').click(function(){
+		$.ajax({
+			url:,
+			type:,
+			data:,
+			dataType:,
+			success:function(param){},
+			error:function(){}
+		});
+	});
+});
+</script>
 </head>
 <body>
 <div class="page-main">
@@ -17,7 +34,8 @@
 			<h2>${review.rev_title}</h2>
 			<div class="align-right">
 					<label>조회수</label> ${review.rev_hit}
-					<label>좋아요!</label> ${review.rev_like}
+					<span class="like_img" data-num="${review.rev_num}">♥</span> <label>좋아요!</label>
+					<div class="rev_like">${review.rev_like}</div>
 			</div>
 			<ul>
 				<li>
@@ -73,7 +91,6 @@
 				<c:if test="${member.mem_num == mem_num}">
 					<input type="button" value="수정" onclick="location.href='updateReviewForm.do?rev_num=${review.rev_num}'">
 					<input type="button" value="삭제" id="delReview">
-					<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 					<script type="text/javascript">
 						$(function(){
 							$('#delReview').click(function(){

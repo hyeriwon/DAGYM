@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.review.vo.RevLikeVO;
 import kr.review.vo.ReviewVO;
 import kr.util.DBUtil;
 import kr.util.StringUtil;
@@ -315,6 +316,46 @@ public class ReviewDAO {
 		}
 	}
 	
+	//수강후기 좋아요 등록
+	public void insertLike(RevLikeVO revLike) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "INSERT INTO review_like(rev_num,mem_num) VALUES (?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revLike.getRev_num());
+			pstmt.setInt(2, revLike.getMem_num());
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//수강후기 좋아요 삭제
+	public void deleteLike(RevLikeVO revLike) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "DELETE FROM review_like WHERE rev_num=?,mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			/*
+			pstmt.setInt(1, revLike.getRev_num());
+			pstmt.setInt(2, revLike.getMem_num());
+			pstmt.executeUpdate();
+			*/
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	/*       관리자        */
 	//수강후기 삭제(게시보류)
 }

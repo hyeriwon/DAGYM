@@ -3,7 +3,7 @@ CREATE TABLE review(
 	rev_num number not null,
 	mem_num number not null,
 	sch_num number not null,
-	rev_grade number(1) not null,--0~5점
+	rev_grade number(1) not null,--1~5점
 	rev_title varchar2(150) not null,
 	rev_content clob not null,
 	rev_filename1 varchar2(400),
@@ -18,3 +18,12 @@ CREATE TABLE review(
 	constraint rev_fk2 foreign key (sch_num) references schedule (sch_num)
 );
 CREATE sequence review_seq;
+
+-- PT 수강후기 좋아요
+CREATE TABLE review_like(
+	rev_num number not null,
+	mem_num number not null,
+	constraint revLike_pk primary key (rev_num),
+	constraint revLike_fk1 foreign key (rev_num) references review (rev_num),
+	constraint revLike_fk2 foreign key (mem_num) references member (mem_num)
+);

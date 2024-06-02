@@ -33,3 +33,8 @@ ul li{
 	color:#ff5500;
 }
 
+/* 좋아요 */
+.like_img{
+	color:#ddd;
+	cursor:pointer;
+}
