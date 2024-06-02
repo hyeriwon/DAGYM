@@ -4,8 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>포인트 사용</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<title>Point</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <script type="text/javascript">
 
     window.onload=function(){
@@ -69,37 +69,76 @@
 </head>
 <body>
 
-    <div class="page-main">
-        <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-        <div class="content-main">
-            <h2>포인트 사용</h2>
-            <form id="out_form" action="out.do" method="post" enctype="multipart/form-data">
-                <!-- hidden 필드로 회원 ID를 전달 -->
-                <input type="hidden" name="mem_num" value="${param.mem_num}">
-                <ul>
-                    <li>
-                        <label for="poi_type">사용 종류</label>
-                        <select name="poi_type" id="poi_type">
-                            <option value="">--- 선택 ---</option>
-                            <option value="안마기 사용">안마기 사용</option>
-                            <option value="장비 대여">장비 대여</option>
-                            <option value="식품 구매">식품 구매</option>
-                            <option value="수건 대여">수건 대여</option>
-                            <option value="용품 구매">용품 구매</option>
-                        </select>
-                    </li>
-                    <li>
-                        <label for="poi_out">사용 포인트</label>
-                        <input type="text" name="poi_out" id="poi_out" maxlength="30">
-                    </li>          
-                </ul>
-                <div class="align-center">
-                    <input type="submit" value="확인">
-                    <input type="button" value="취소" onclick="location.href='adminList.do?mem_num=${param.mem_num}'">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Point</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <a href="#">Member</a>
+                            <span>Point</span>
+                        </div>
+                    </div>
                 </div>
-            </form>
+            </div>
         </div>
-    </div>
+    </section>
     
+  <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Point</span>
+                            <h2>포인트 사용</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+		            <form id="out_form" action="out.do" method="post" enctype="multipart/form-data">
+		                <!-- hidden 필드로 회원 ID를 전달 -->
+		                <input type="hidden" name="mem_num" value="${param.mem_num}">
+		                <ul>
+		                    <li>
+		                        <label for="poi_type">사용 종류</label>
+		                        <select name="poi_type" id="poi_type">
+		                            <option value="">--- 선택 ---</option>
+		                            <option value="안마기 사용">안마기 사용</option>
+		                            <option value="장비 대여">장비 대여</option>
+		                            <option value="식품 구매">식품 구매</option>
+		                            <option value="수건 대여">수건 대여</option>
+		                            <option value="용품 구매">용품 구매</option>
+		                        </select>
+		                    </li>
+		                    <li>
+		                        <label for="poi_out">사용 포인트</label>
+		                        <input type="text" name="poi_out" id="poi_out" maxlength="30">
+		                    </li>          
+		                </ul>
+		                <div class="align-center">
+		                    <input type="submit" value="확인">
+		                    <input type="button" value="취소" onclick="location.href='adminList.do?mem_num=${param.mem_num}'">
+		                </div>
+		            </form>
+            
+					</div>
+				</div>
+			</div>
+	      </div>
+	  </section>
+  	
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
+	
 </body>
 </html>
