@@ -10,10 +10,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function() {
-    $('#pay_type').change(function() {
-        updatePayment();
-    });
-
     function updatePayment() {
         var membershipType = $('#pay_type').val();
         var payEnroll;
@@ -31,11 +27,15 @@ $(function() {
         }
 
         $('#pay_enroll').val(payEnroll);
-        $('#pay_fee').val(addCommasToNumber(payFee));
+        $('#pay_fee').val(payFee);
     }
-    function addCommasToNumber(number) {
-        return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    }
+
+    $('#pay_type').change(function() {
+        updatePayment();
+    });
+
+    // 폼 초기화 시 "10회권" 설정
+    updatePayment();
 });
 </script>
 </head>
