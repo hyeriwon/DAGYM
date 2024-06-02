@@ -9,6 +9,16 @@
 <script type="text/javascript">
 window.onload=function(){
 	const myForm = document.getElementById('write_form');
+    
+    myForm.onchange = function() {
+        const nbo_type = document.getElementById('nbo_type');
+        const nbo_title = document.getElementById('nbo_title');
+        // 옵션이 선택되었을 때만 제목 업데이트
+        if (nbo_type.value.trim() != '') {
+            nbo_title.value = "[" + nbo_type.value + "]";
+        }
+    };
+    
 	//이벤트 연결
 	myForm.onsubmit=function(){
 		const nbo_title = document.getElementById('nbo_title');
@@ -26,6 +36,7 @@ window.onload=function(){
 			return false;
 		}
 	};
+
 };
 </script>
 </head>
@@ -70,6 +81,14 @@ window.onload=function(){
 						<!-- content 시작 -->
 						<form id="write_form" action="nboardWrite.do" method="post" enctype="multipart/form-data">
 							<ul>
+								<li>
+									<label for="nbo_type">게시글 종류</label>
+									<select name="nbo_type" id="nbo_type">
+										<option value="" selected disabled>--선택--</option>
+										<option value="공지">공지</option>
+										<option value="이벤트">이벤트</option>
+									</select>
+								</li>
 								<li>
 									<label for="nbo_title">제목</label>
 									<input type="text" name="nbo_title" id="nbo_title" maxlength="50">
