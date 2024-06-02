@@ -55,11 +55,11 @@ window.onload = function(){
 					<input type="text" name="rev_title" id="title" maxlength="20" class="input-check">
 				</li>
 				<li>
-					<label for="reg_date">진행 날짜</label>${history.sch_date}
+					<label for="reg_date">진행 날짜</label> ${history.sch_date}
 					<input type="hidden" name="sch_num" value="${history.sch_num}">
 				</li>
 				<li>
-					<label>트레이너</label>${trainer.mem_name}
+					<label>트레이너</label> ${trainer.mem_name}
 					<input type="hidden" name="tra_num" value="${history.tra_num}">
 				</li>
 				<li>

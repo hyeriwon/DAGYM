@@ -20,7 +20,21 @@ public class ReviewVO {
 	private String mem_id;
 	private String sch_date;
 	private String tra_name;
+	private int rev_fileExist1;
+	private int rev_fileExist2;
 	
+	public int getRev_fileExist1() {
+		return rev_fileExist1;
+	}
+	public void setRev_fileExist1(int rev_fileExist1) {
+		this.rev_fileExist1 = rev_fileExist1;
+	}
+	public int getRev_fileExist2() {
+		return rev_fileExist2;
+	}
+	public void setRev_fileExist2(int rev_fileExist2) {
+		this.rev_fileExist2 = rev_fileExist2;
+	}
 	public String getMem_id() {
 		return mem_id;
 	}

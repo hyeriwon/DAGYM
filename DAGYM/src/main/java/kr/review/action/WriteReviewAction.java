@@ -18,9 +18,9 @@ public class WriteReviewAction implements Action{
 		Integer mem_num = (Integer) session.getAttribute("user_num");
 
 		if(mem_num==null) {
-			return "redirct:/member/loginForm.do";		
+			return "redirect:/member/loginForm.do";		
 		}
-		
+
 		//로그인한 회원번호와 수강내역의 회원번호 일치 여부 확인
 		if(mem_num!= Integer.parseInt(request.getParameter("mem_num"))) {
 			request.setAttribute("notice_msg", "수강후기 작성 권한이 없습니다.");
@@ -29,7 +29,7 @@ public class WriteReviewAction implements Action{
 		}
 		//전송된 데이터 인코딩 타입 지정
 		request.setCharacterEncoding("utf-8");
-		
+
 		//전송된 데이터 반환받아 reviewVO 객체에 대입
 		ReviewVO review = new ReviewVO();
 		review.setMem_num(mem_num);
@@ -40,14 +40,20 @@ public class WriteReviewAction implements Action{
 		review.setRev_filename1(FileUtil.createFile(request, "filename1"));
 		review.setRev_filename2(FileUtil.createFile(request, "filename2"));
 		review.setRev_ip(request.getRemoteAddr());
-		
+
+		//해당 PT에 대해 이미 후기가 작성되었는지 확인
+		ReviewDAO revDAO = ReviewDAO.getInstance();
+		if(!revDAO.checkReview(review.getSch_num())) {
+			return "/WEB-INF/views/common/notice.jsp";
+		}
+
 		//DB에 review 기록하기
 		ReviewDAO dao = ReviewDAO.getInstance();
 		dao.insertReview(review);
-		
+
 		request.setAttribute("notice_msg", "수강후기 작성을 완료했습니다.");
 		request.setAttribute("notice_url", request.getContextPath()+"review/listReview.do");
-		
+
 		return "WEB-INF/views/common/alert_view.jsp";
 	}
 

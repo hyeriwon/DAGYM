@@ -19,7 +19,7 @@ public class UpdateReviewAction implements Action{
 		
 		//로그인 여부 확인하기
 		if(mem_num==null) {
-			return "redirect:/member/loginForm.jsp";
+			return "redirect:/member/loginForm.do";
 		}
 		
 		//전송된 데이터 인코딩 타입 지정
@@ -44,13 +44,19 @@ public class UpdateReviewAction implements Action{
 		review.setRev_title(request.getParameter("rev_title"));
 		review.setRev_grade(Integer.parseInt(request.getParameter("rev_grade")));
 		review.setRev_filename1(FileUtil.createFile(request, "rev_filename1"));
+		review.setRev_fileExist1(Integer.parseInt(request.getParameter("rev_fileExist1")));
 		review.setRev_filename2(FileUtil.createFile(request, "rev_filename2"));
+		review.setRev_fileExist2(Integer.parseInt(request.getParameter("rev_fileExist2")));
 		review.setRev_content(request.getParameter("rev_content"));		
 		review.setRev_ip(request.getRemoteAddr()); 
+		
+		System.out.println("fileExist1: "+review.getRev_fileExist1());
+		System.out.println("fileExist2: "+review.getRev_fileExist2());
 		
 		//DB에 review 수정하기
 		dao.updateReview(review);
 		
+		//이전 파일 삭제하기
 		if(review.getRev_filename1()!=null && !"".equals(review.getRev_filename1())) {
 			FileUtil.removeFile(request, db_review.getRev_filename1());
 		}

@@ -162,6 +162,25 @@ public class ReviewDAO {
 		return list;
 	}
 	
+	//수강후기 조회수 증가
+	public void updateReadCount(int rev_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE review SET rev_hit=rev_hit+1 WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rev_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+	}
 	//수강후기 상세
 	public ReviewVO getReview(int rev_num) throws Exception{
 		Connection conn = null;
@@ -199,23 +218,68 @@ public class ReviewDAO {
 		return review;
 	}
 	
+	//수강후기 작성여부 확인
+	public boolean checkReview(int sch_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM review WHERE sch_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, sch_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+			return false;
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);;
+		}
+	}
+	
 	//수강후기 수정
 	public void updateReview(ReviewVO review) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
 		
 		try {
 			conn = DBUtil.getConnection();
-			sql = "UPDATE review SET rev_title=?,rev_grade=?,rev_filename1=?, "
-					+ "rev_filename2=?, rev_content=? WHERE rev_num=?";
+			
+			if(review.getRev_filename1()!=null && !"".equals(review.getRev_filename1())) {
+				sub_sql += "rev_filename1=?,";
+			}
+			if(review.getRev_fileExist1()==0) {
+				sub_sql += "rev_filename1=null,";
+			}
+			if(review.getRev_filename2()!=null && !"".equals(review.getRev_filename2())) {
+				sub_sql += "rev_filename2=?,";
+			}
+			if(review.getRev_fileExist2()==0) {
+				sub_sql += "rev_filename2=null,";
+			}
+			sql = "UPDATE review SET rev_title=?,rev_grade=?,"+sub_sql
+				  + "rev_content=?,rev_modify_date=sysdate WHERE rev_num=?";
+			
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, review.getRev_title());
-			pstmt.setInt(2, review.getRev_grade());
-			pstmt.setString(3, review.getRev_filename1());
-			pstmt.setString(4, review.getRev_filename2());
-			pstmt.setString(5, review.getRev_content());
-			pstmt.setInt(6, review.getRev_num());
+			
+			pstmt.setString(++cnt, review.getRev_title());
+			pstmt.setInt(++cnt, review.getRev_grade());
+			if(review.getRev_filename1()!=null && !"".equals(review.getRev_filename1())) {
+				pstmt.setString(++cnt, review.getRev_filename1());
+			}
+			if(review.getRev_filename2()!=null && !"".equals(review.getRev_filename2())) {
+				pstmt.setString(++cnt, review.getRev_filename2());
+			}
+			pstmt.setString(++cnt, review.getRev_content());
+			pstmt.setInt(++cnt, review.getRev_num());
 			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -223,7 +287,6 @@ public class ReviewDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	
 	//수강후기 삭제	
 	public void deleteReview(ReviewVO review) throws Exception{
 		Connection conn = null;

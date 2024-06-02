@@ -10,7 +10,6 @@ import kr.history.vo.HistoryVO;
 import kr.member.dao.MemberDAO;
 import kr.member.vo.MemberVO;
 import kr.review.dao.ReviewDAO;
-import kr.review.vo.ReviewVO;
 
 public class WriteReviewFormAction implements Action{
 
@@ -36,9 +35,7 @@ public class WriteReviewFormAction implements Action{
 		
 		//로그인한 사람과 수강한 사람의 일치 여부 확인
 		if(mem_num != history.getMem_num()) {
-			request.setAttribute("notice_msg", "수강후기 작성 권한이 없습니다.");
-			request.setAttribute("notice_url", request.getContextPath()+"/history/히스토리목록보는 페이지");
-			return "/WEB-INF/views/common/alert_view.jsp";
+			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
@@ -46,7 +43,9 @@ public class WriteReviewFormAction implements Action{
 		
 		//해당 PT에 대해 이미 후기가 작성되었는지 확인
 		ReviewDAO revDAO = ReviewDAO.getInstance();
-		/* ReviewVO review = revDAO.getReview(sch_num); */
+		if(!revDAO.checkReview(sch_num)) {
+			return "/WEB-INF/views/common/notice.jsp";
+		}
 		
 		request.setAttribute("history", history);
 		request.setAttribute("trainer", trainer);

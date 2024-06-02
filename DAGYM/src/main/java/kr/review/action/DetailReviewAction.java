@@ -22,6 +22,7 @@ public class DetailReviewAction implements Action{
 		int rev_num = Integer.parseInt(request.getParameter("rev_num"));
 		
 		ReviewDAO dao = ReviewDAO.getInstance();
+		dao.updateReadCount(rev_num);
 		ReviewVO review = dao.getReview(rev_num);
 		
 		HistoryDAO historyDAO = HistoryDAO.getInstance();

@@ -8,8 +8,9 @@
 <title>수강후기 수정</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SYJ.css" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
-window.onload = function(){
+$(function(){
 	//별점 점수 불러오기
 	const star = document.querySelectorAll('input[type="radio"]');
 	for(let i=0;i<star.length;i++){
@@ -17,9 +18,8 @@ window.onload = function(){
 			star[i].checked = true;
 		}
 	}
-	//유효성 체크
-	const myForm = document.getElementById('updateForm');	
-	myForm.onsubmit = function(){
+	//유효성 체크	
+	$('#updateForm').submit(function(){
 		const items = document.querySelectorAll('.input-check');
 		for(let i=0;i<items.length;i++){
 			if(items[i].value.trim()==''){
@@ -30,39 +30,67 @@ window.onload = function(){
 				return false;
 			}
 		}		
-	};
+	});
 	
 	//별점 선택시 선택한 점수 보이게하기
 	const gradeInput = document.querySelectorAll('.star-rating input');
 	const gradeScore = document.getElementById('grade');
-	
 	for(let i=0;i<gradeInput.length;i++){
       gradeInput[i].onclick = function(){
 		gradeScore.textContent = '(' + this.value + '점을 선택했습니다.)';
 	  };
-  	}
+  }
 	
-/* 	//이미지 미리보기
-	const filename1 = document.getElementById('filename1');	
-	const output1 = document.getElementById('output1');
-	filename1.onchange = function(){
-		const reader = new FileReader();
-		reader.onload = function(){
-			output1.createElement('img');
+	//파일 미리보기
+	showImage('#oldFile1','#filename1','#output1','#newFile1','#fileExist1');
+	showImage('#oldFile2','#filename2','#output2','#newFile2','#fileExist2');
+	
+	function showImage(oldFileId,filenameId,outputId,newFileId,fileExistId){
+		let file_path1 = $(oldFileId).attr('src');
+		let file_path2 = $(newFileId).attr('src');
+		$(filenameId).change(function(){		
+			let file = this.files[0];
 			
-		};
-	};
-	function previewImage(e){
-		if(e.files && e.files[0]){
+			//사진 미업로드시, 이전 상태로 되돌리기
+			if(!file){
+				$(oldfileId).attr('src',file_path1);
+				$(newfileId).attr('src',file_path2);
+				return;
+			}
+			
+			//기존 파일 이미지 삭제
+			$(outputId).empty();	
+			
+			//새로 선택한 파일 업로드
+			let newPhoto = $('<img>');
+			$(outputId).append(newPhoto);		
 			const reader = new FileReader();
-			
+			reader.readAsDataURL(file);
 			reader.onload = function(){
-				myPhoto.setAttribute('src',reader.result);
+				newPhoto.attr('src',reader.result);
+				newPhoto.attr('width','200');
+				newPhoto.attr('height','200');
+				newPhoto.attr('id',newFileId);
+				$(fileExistId).attr('value','1');
 			};
-		}
-	}; */
-
-};
+		});
+	};
+	
+	//파일 삭제하기
+	delFile('#delFile1','#filename1','#output1','#fileExist1');
+	delFile('#delFile2','#filename2','#output2','#fileExist2');
+	
+	function delFile(delFileId,fileId,outputId,fileExistId){
+		$(delFileId).click(function(){
+			let choice = confirm('파일을 삭제하시겠습니까?');
+			if(choice){
+				$(fileId).replaceWith($(fileId).val('').clone(true));
+				$(outputId).empty();
+				$(fileExistId).attr('value','0');
+			}
+		});
+	}
+});
 </script>
 </head>
 <body>
@@ -100,18 +128,24 @@ window.onload = function(){
 				<li>
 					<label for="filename1">파일(Before)</label>
 					<input type="file" name="rev_filename1" id="filename1" accept="image/gif,image/png,image/jpeg">
+					<input type="button" value="파일삭제" id="delFile1">
 					<div id="output1">
 						<c:if test="${!empty review.rev_filename1}">
-							<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" width="50" height="50">
+							<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" width="200" height="200" id="oldFile1">
 						</c:if>
 					</div>		
+					<input type="hidden" name="rev_fileExist1" id="fileExist1" value="1">
 				</li>
 				<li>
 					<label for="filename2">파일(After)</label>
-					<input type="file" name="rev_filename2" id="filename2" class="photo" accept="image/gif,image/png,image/jpeg">
-					<c:if test="${!empty review.rev_filename2}">
-						<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" width="50" height="50" class="my_photo">
-					</c:if>
+					<input type="file" name="rev_filename2" id="filename2" accept="image/gif,image/png,image/jpeg">
+					<input type="button" value="파일삭제" id="delFile2">
+					<div id="output2">
+						<c:if test="${!empty review.rev_filename2}">
+							<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" width="200" height="200" class="my_photo">
+						</c:if>
+					</div>
+					<input type="hidden" name="rev_fileExist2" id="fileExist2" value="1">	
 				</li>
 				<p>
 				<li>
@@ -121,7 +155,7 @@ window.onload = function(){
 			</ul>
 			<div class="align-center">
 				<input type="submit" value="수정">
-				<input type="button" value="목록" onclick="location.href='listReview.do'">
+				<input type="button" value="후기보기" onclick="location.href='detailReview.do?rev_num=${review.rev_num}'">
 			</div>
 		</form>
 	</div>
