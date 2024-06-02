@@ -63,7 +63,7 @@ window.onload=function(){
 					<div class="chart-table">
 					
 					<!-- content 시작 -->
-					<h2><c:if test="${user_auth ==9}">(관리자 전용)${param.client_num}님의 </c:if>식사기록</h2>
+					<h2><c:if test="${user_auth ==9}">(관리자 전용)${param.client_num}님</c:if></h2>
 					<form id = "search_form" action = "mealDetail.do" method="get">
 						<ul class="search">
 							<li>
