@@ -7,54 +7,95 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>${meal_date}일의 기록</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css" type="text/css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
+<title>MEAL</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
 </head>
 <body>
-<div class="page-main">
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Meal</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <a href="#">Mypage</a>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="result-display2">
-
-			<table>
-			<caption>${meal_date}일의 칼로리</caption>
-				<tr>
-					<th>식사분류</th>
-					<th>메뉴이름</th>
-					<th>칼로리</th>
-				</tr>
-				<c:forEach var = "meal" items="${meal}">
-					<tr>
-					<c:choose>
-						<c:when test="${meal.meal_time == 0}">
-						<td>아침</td>
-						</c:when>
-						<c:when test="${meal.meal_time == 1}">
-						<td>점심</td>
-						</c:when>
-						<c:when test="${meal.meal_time == 2}">
-						<td>저녁</td>
-						</c:when>
-						<c:otherwise>
-						<td>간식</td>
-						</c:otherwise>
-					</c:choose>
-					<td>${meal.tme_name}</td>
-					<td>${meal.tme_kcal}Kcal</td>
-					</tr>
-				</c:forEach>
-				<tr>
-				<td colspan="2" class="align-right">총칼로리</td>
-				<td class="align-center">${totalKcal}Kcal</td>
-				</tr>
-				
-			</table>
-</div>
-			<div class="align-center">
-			<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do?client_num=${param.client_num}'">
+ <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Meal</span>
+                            <h2>식사상세</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+					<!-- content 시작 -->
+					<div class="result-display2">
+						<table>
+						<caption>${meal_date}일의 칼로리</caption>
+							<tr>
+								<th>식사분류</th>
+								<th>메뉴이름</th>
+								<th>칼로리</th>
+							</tr>
+							<c:forEach var = "meal" items="${meal}">
+							<tr>
+								<c:choose>
+									<c:when test="${meal.meal_time == 0}">
+									<td>아침</td>
+									</c:when>
+									<c:when test="${meal.meal_time == 1}">
+									<td>점심</td>
+									</c:when>
+									<c:when test="${meal.meal_time == 2}">
+									<td>저녁</td>
+									</c:when>
+									<c:otherwise>
+									<td>간식</td>
+									</c:otherwise>
+								</c:choose>
+								<td>${meal.tme_name}</td>
+								<td>${meal.tme_kcal}Kcal</td>
+							</tr>
+							</c:forEach>
+							<tr>
+								<td colspan="2" class="align-right">총칼로리</td>
+								<td class="align-center">${totalKcal}Kcal</td>
+							</tr>
+						</table>
+					</div>
+					<div class="align-center">
+						<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do?client_num=${param.client_num}'">
+					</div>
+					<!-- content 끝 -->
+					
+					</div>
+				</div>
 			</div>
-</div>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
+
 </body>
 </html>

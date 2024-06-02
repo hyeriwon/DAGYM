@@ -6,11 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>식사 기록</title>
-<link rel="stylesheet"
-    href="${pageContext.request.contextPath}/css/style.css" type="text/css">
-    <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
+<title>MEAL</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
 // DOMContentLoaded 이벤트 리스너를 추가하여 DOM이 완전히 로드된 후에 실행됩니다.
@@ -50,49 +48,88 @@ function searchByMemNum() {
 </script>
 </head>
 <body>
-<div class="page-main">
-    <jsp:include page="/WEB-INF/views/common/header.jsp"/><!-- 헤더 JSP 파일을 포함합니다. -->
-    <p>
-    <div class="content-main">
-    <h2 style="text-align: left;"> 식사등록</h2>
-    <div class="align-left">
-    
-    </div>
-    <div class="align-right">
-    <c:if test="${user_auth !=9}">
-    <input type="button" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
-    </c:if>
-    <c:if test="${user_auth ==9 }">
-    <label for="client_num"></label>
-     <input type="search"  id="client_num" value="회원번호입력" autocomplete="off"
-     onfocus="if(this.value=='회원번호입력') this.value='';" onblur="if(this.value=='') this.value='회원번호입력';">
-     <input type="submit" value="검색" onclick="searchByMemNum()"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
-    </c:if>
-    <div><p></div>
-    </div>
-    <c:if test="${user_auth !=9}">
-    <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
-    </c:if>
-    <c:if test="${user_auth ==9}">
-    <table>
-			<tr>
-				<th>회원번호</th>
-				<th>아이디</th>
-				<th>이름</th>
-				<th>가입일</th>
-			</tr>
-			<c:forEach var="member" items="${list}">
-			<tr>
-				<td>${member.mem_num}</td>
-				<td>${member.mem_id}</td>
-				<td>${member.mem_name}</td>
-				<td>${member.mem_reg_date}</td>
-			</tr>
-			</c:forEach>
-		</table>
-    </c:if>
-    </div>
-     
-</div>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Meal</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <a href="#">Mypage</a>
+                            <span>Meal</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Meal</span>
+                            <h2>식사등록</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+					<!-- content 시작 -->
+				    <div class="align-left">
+				    </div>
+				    <div class="align-right">
+					    <c:if test="${user_auth !=9}">
+					    	<input type="button" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
+					    </c:if>
+					    <c:if test="${user_auth ==9 }">
+					    <label for="client_num"></label>
+					    <input type="search"  id="client_num" value="회원번호입력" autocomplete="off"
+					     onfocus="if(this.value=='회원번호입력') this.value='';" onblur="if(this.value=='') this.value='회원번호입력';">
+					    <input type="submit" value="검색" onclick="searchByMemNum()"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
+					    </c:if>
+					    <div><p></div>
+				    </div>
+				    <c:if test="${user_auth !=9}">
+				    <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
+				    </c:if>
+				    <c:if test="${user_auth ==9}">
+				    <table>
+						<tr>
+							<th>회원번호</th>
+							<th>아이디</th>
+							<th>이름</th>
+							<th>가입일</th>
+						</tr>
+						<c:forEach var="member" items="${list}">
+						<tr>
+							<td>${member.mem_num}</td>
+							<td>${member.mem_id}</td>
+							<td>${member.mem_name}</td>
+							<td>${member.mem_reg_date}</td>
+						</tr>
+						</c:forEach>
+					</table>
+				    </c:if>
+					<!-- content 끝 -->
+					
+					</div>
+				</div>
+			</div>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
+
 </body>
 </html>
