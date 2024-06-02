@@ -91,6 +91,11 @@ input[type="number"]{
 .form-notice{
 	margin-left:130px;
 }
+/* 임의 추가
+---------------------*/
+table th {
+	text-align: center;
+}
 
 /*----------------------------------------*/
 
