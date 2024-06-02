@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 </head>
 <body>
-<div class="page-main">
+
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	
 	<!-- Breadcrumb Section Begin -->

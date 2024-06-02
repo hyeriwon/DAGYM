@@ -17,8 +17,12 @@
                     <nav class="nav-menu">
                         <ul> <!-- 공통 -->
                         		<li class="active"><a href="${pageContext.request.contextPath}/main/main.do">Home</a></li>
-                             <li><a href="#">About Us</a></li>
-<%--                              <li><a href="${pageContext.request.contextPath}/review/listReview.do">센터소개(수강후기)</a></li> --%>
+                             <li><a href="#">About Us</a>                            		
+                             	<ul class="dropdown">
+                                     <li><a href="#">센터소개</a></li>
+                                     <li><a href="${pageContext.request.contextPath}/review/listReview.do">수강후기</a></li>
+                                 </ul>
+                             </li>
                              <li><a href="${pageContext.request.contextPath}/payment/paymentInfo.do">Membership</a></li>
                              <li><a href="#">C/S</a>
                             		<ul class="dropdown">
@@ -120,7 +124,6 @@
                         <div class="to-social">
                             	<c:if test="${empty user_num}"><!-- 로그인 전 -->
 							<a href="${pageContext.request.contextPath}/member/loginForm.do">Login</a>
-<%-- 							<li><a href="${pageContext.request.contextPath}/member/registerUserForm.do">회원가입</a></li>	 --%>						
 							</c:if>
 							<c:if test="${!empty user_num}"><!-- 로그인 후 -->
 							<a href="${pageContext.request.contextPath}/member/logout.do">Logout</a>

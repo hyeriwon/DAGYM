@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>수강후기 수정</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<title>REVIEW</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SYJ.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
@@ -94,71 +94,113 @@ $(function(){
 </script>
 </head>
 <body>
-<div class="page-main">
+
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<div class="content-main">
-		<h2>수강후기 수정</h2>
-		<form id="updateForm" action="updateReview.do" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="rev_num" value="${review.rev_num}">
-			<ul>
-				<li>
-					<label for="title">제목</label>
-					<input type="text" name="rev_title" id="title" 
-							maxlength="20" class="input-check" value="${review.rev_title}">
-				</li>
-				<li>
-					<label for="reg_date">진행 날짜</label>${history.sch_date}시
-					<input type="hidden" name="sch_num" value="${review.sch_num}">
-				</li>
-				<li>
-					<label>트레이너</label>${trainer.mem_name}
-					<input type="hidden" name="tra_num" value="${history.tra_num}">
-				</li>
-				<li>
-					<label for="star">별점</label> 
-					<div class="star-rating" id="star">
-						<input type="radio" name="rev_grade" value="5" id="star5"><label for="star5">★</label>
-						<input type="radio" name="rev_grade" value="4" id="star4"><label for="star4">★</label>
-						<input type="radio" name="rev_grade" value="3" id="star3"><label for="star3">★</label>
-						<input type="radio" name="rev_grade" value="2" id="star2"><label for="star2">★</label>
-						<input type="radio" name="rev_grade" value="1" id="star1"><label for="star1">★</label>					
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Review</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <a href="#">About</a>
+                            <span>Review</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Review</span>
+                            <h2>후기수정</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+					<!-- content 시작 -->
+					<form id="updateForm" action="updateReview.do" method="post" enctype="multipart/form-data">
+						<input type="hidden" name="rev_num" value="${review.rev_num}">
+						<ul>
+							<li>
+								<label for="title">제목</label>
+								<input type="text" name="rev_title" id="title" maxlength="20" class="input-check" value="${review.rev_title}">
+							</li>
+							<li>
+								<label for="reg_date">진행 날짜</label>${history.sch_date}시
+								<input type="hidden" name="sch_num" value="${review.sch_num}">
+							</li>
+							<li>
+								<label>트레이너</label>${trainer.mem_name}
+								<input type="hidden" name="tra_num" value="${history.tra_num}">
+							</li>
+							<li>
+								<label for="star">별점</label> 
+								<div class="star-rating" id="star">
+									<input type="radio" name="rev_grade" value="5" id="star5"><label for="star5">★</label>
+									<input type="radio" name="rev_grade" value="4" id="star4"><label for="star4">★</label>
+									<input type="radio" name="rev_grade" value="3" id="star3"><label for="star3">★</label>
+									<input type="radio" name="rev_grade" value="2" id="star2"><label for="star2">★</label>
+									<input type="radio" name="rev_grade" value="1" id="star1"><label for="star1">★</label>					
+								</div>
+								<span id="grade">${review.rev_grade}점</span>	
+							</li>
+							<li>
+								<label for="filename1">파일(Before)</label>
+								<input type="file" name="rev_filename1" id="filename1" accept="image/gif,image/png,image/jpeg">
+								<input type="button" value="파일삭제" id="delFile1">
+								<div id="output1">
+									<c:if test="${!empty review.rev_filename1}">
+										<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" width="200" height="200" id="oldFile1">
+									</c:if>
+								</div>		
+								<input type="hidden" name="rev_fileExist1" id="fileExist1" value="1">
+							</li>
+							<li>
+								<label for="filename2">파일(After)</label>
+								<input type="file" name="rev_filename2" id="filename2" accept="image/gif,image/png,image/jpeg">
+								<input type="button" value="파일삭제" id="delFile2">
+								<div id="output2">
+									<c:if test="${!empty review.rev_filename2}">
+										<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" width="200" height="200" class="my_photo">
+									</c:if>
+								</div>
+								<input type="hidden" name="rev_fileExist2" id="fileExist2" value="1">	
+							</li>
+							<p>
+							<li>
+							    <label for="content">수강후기</label><p>
+								<textarea cols="50" rows="5" id="content" name="rev_content" class="input-check">${review.rev_content}</textarea>
+							</li>
+						</ul>
+						<div class="align-center">
+							<input type="submit" value="수정">
+							<input type="button" value="취소" onclick="location.href='detailReview.do?rev_num=${review.rev_num}'">
+						</div>
+					</form>
+					<!-- content 끝 -->
+					
 					</div>
-					<span id="grade">${review.rev_grade}점</span>	
-				</li>
-				<li>
-					<label for="filename1">파일(Before)</label>
-					<input type="file" name="rev_filename1" id="filename1" accept="image/gif,image/png,image/jpeg">
-					<input type="button" value="파일삭제" id="delFile1">
-					<div id="output1">
-						<c:if test="${!empty review.rev_filename1}">
-							<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" width="200" height="200" id="oldFile1">
-						</c:if>
-					</div>		
-					<input type="hidden" name="rev_fileExist1" id="fileExist1" value="1">
-				</li>
-				<li>
-					<label for="filename2">파일(After)</label>
-					<input type="file" name="rev_filename2" id="filename2" accept="image/gif,image/png,image/jpeg">
-					<input type="button" value="파일삭제" id="delFile2">
-					<div id="output2">
-						<c:if test="${!empty review.rev_filename2}">
-							<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" width="200" height="200" class="my_photo">
-						</c:if>
-					</div>
-					<input type="hidden" name="rev_fileExist2" id="fileExist2" value="1">	
-				</li>
-				<p>
-				<li>
-				    <label for="content">수강후기</label><p>
-					<textarea cols="50" rows="5" id="content" name="rev_content" class="input-check">${review.rev_content}</textarea>
-				</li>
-			</ul>
-			<div class="align-center">
-				<input type="submit" value="수정">
-				<input type="button" value="후기보기" onclick="location.href='detailReview.do?rev_num=${review.rev_num}'">
+				</div>
 			</div>
-		</form>
-	</div>
-</div>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
+
 </body>
 </html>
