@@ -19,57 +19,56 @@ public class HistoryDAO {
 		return instance;
 	}
 
-	private HistoryDAO() {}
-	
-	
+	private HistoryDAO() {
+	}
+
 	// PT 등록
-    public void insertHistory(HistoryVO history) throws Exception {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        PreparedStatement pstmt2 = null;
-        String sql = null;
+	public void insertHistory(HistoryVO history) throws Exception {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
 
-        try {
-            conn = DBUtil.getConnection();
-            conn.setAutoCommit(false);
-            
-            // PT 등록
-            sql = "INSERT INTO history (his_num, mem_num, sch_num, tra_num, his_status, his_part) "
-            	+ "VALUES (history_seq.nextval, ?, ?, ?, ?, ?)";
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
 
-            // PreparedStatement 생성
-            pstmt = conn.prepareStatement(sql);
+			// PT 등록
+			sql = "INSERT INTO history (his_num, mem_num, sch_num, tra_num, his_status, his_part) "
+					+ "VALUES (history_seq.nextval, ?, ?, ?, ?, ?)";
 
-            // ?에 데이터 바인딩
-            pstmt.setInt(1, history.getMem_num());
-            pstmt.setInt(2, history.getSch_num());
-            pstmt.setInt(3, history.getTra_num());
-            pstmt.setInt(4, 0); // 0 : 예약됨, 1: 완료, 2 : 취소
-            pstmt.setString(5, history.getHis_part());
+			// PreparedStatement 생성
+			pstmt = conn.prepareStatement(sql);
 
-            // SQL문 실행
-            pstmt.executeUpdate();
-            
-            // PT 등록 시 schedule 테이블 sch_status 1로 변경
-            sql = "UPDATE schedule SET sch_status = 1 WHERE sch_num=?";
-            pstmt2 = conn.prepareStatement(sql);
-            pstmt2.setInt(1,history.getSch_num());
-            
-            pstmt2.executeUpdate();
-            
-            conn.commit();
+			// ?에 데이터 바인딩
+			pstmt.setInt(1, history.getMem_num());
+			pstmt.setInt(2, history.getSch_num());
+			pstmt.setInt(3, history.getTra_num());
+			pstmt.setInt(4, 0); // 0 : 예약됨, 1: 완료, 2 : 취소
+			pstmt.setString(5, history.getHis_part());
 
-        } catch (Exception e) {
-        	conn.rollback();
-            throw new Exception(e);
-        } finally {
-        	DBUtil.executeClose(null, pstmt2, conn);
-        	DBUtil.executeClose(null, pstmt, conn); 
-        }
-    }
-	
-	
-	
+			// SQL문 실행
+			pstmt.executeUpdate();
+
+			// PT 등록 시 schedule 테이블 sch_status 1로 변경
+			sql = "UPDATE schedule SET sch_status = 1 WHERE sch_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, history.getSch_num());
+
+			pstmt2.executeUpdate();
+
+			conn.commit();
+
+		} catch (Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		} finally {
+			DBUtil.executeClose(null, pstmt2, conn);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+
+	// 스케줄 조회 메서드
 	public ScheduleVO getSchedule(int sch_num) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -101,11 +100,8 @@ public class HistoryDAO {
 
 		return schedule;
 	}
-		 
-	  
-	 
 
-	// 스케줄 조회 메서드
+	// 스케줄 조회 메서드(리스트)
 	public List<ScheduleVO> getScheduleList() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -137,33 +133,45 @@ public class HistoryDAO {
 
 		return list;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	// 특정 사용자의 이벤트들만 가져오는 메소드
+	public List<ScheduleVO> getMyScheduleList(int user_num) throws Exception {
+		List<ScheduleVO> list = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM schedule s JOIN history h ON s.sch_num = h.sch_num WHERE h.mem_num = ?";
+
+		try {
+			conn = DBUtil.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, user_num);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<ScheduleVO>();
+			while (rs.next()) {
+				ScheduleVO schedule = new ScheduleVO();
+				schedule.setSch_num(rs.getInt("sch_num"));
+				schedule.setSch_date(rs.getString("sch_date"));
+				schedule.setSch_time(rs.getInt("sch_time"));
+				schedule.setMem_id(rs.getString("mem_id"));
+				schedule.setMem_num(rs.getInt("mem_num"));
+				schedule.setSch_status(rs.getInt("sch_status"));
+				schedule.setHis_status(rs.getInt("his_status")); // 추가된 코드
+				list.add(schedule);
+			}
+		} catch (Exception e) {
+			throw new Exception(e);
+		} finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+
+		return list;
+
+	}
 
 	/* =====================추후 수정 예정====================== */
 	/*-----회원-----*/
-	
+
 	// 수강신청내역 총 개수, 검색 개수
 	public int getHistoryCount(String keyfield, String keyword) throws Exception {
 		Connection conn = null;

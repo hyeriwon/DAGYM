@@ -7,6 +7,7 @@ public class ScheduleVO {
 	private int sch_status;
 	private int sch_time;
 	private String mem_id;
+	private int his_status;
 	
 	// 필요한 추가 정보
     private String tra_id;
@@ -54,6 +55,13 @@ public class ScheduleVO {
 	public void setTra_id(String tra_id) {
 		this.tra_id = tra_id;
 	}
+	public int getHis_status() {
+		return his_status;
+	}
+	public void setHis_status(int his_status) {
+		this.his_status = his_status;
+	}
+	
 	
 	
 	

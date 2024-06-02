@@ -22,9 +22,9 @@ public class HistoryMyListAction implements Action {
         }
         
         
-        // HistoryDAO를 사용하여 스케줄 데이터를 가져옴
+     // HistoryDAO를 사용하여 사용자의 스케줄 데이터를 가져옴
         HistoryDAO dao = HistoryDAO.getInstance();
-        List<ScheduleVO> schedules = dao.getScheduleList();
+        List<ScheduleVO> schedules = dao.getMyScheduleList(user_num);
 
         // request에 스케줄 데이터를 저장
         request.setAttribute("schedules", schedules);
