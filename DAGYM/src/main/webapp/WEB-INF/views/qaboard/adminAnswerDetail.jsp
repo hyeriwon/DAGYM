@@ -24,7 +24,6 @@ $(function(){
 </script>
 </head>
 <body>
-
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	
 	<!-- Breadcrumb Section Begin -->
@@ -62,7 +61,15 @@ $(function(){
 					<div class="chart-table">
 					
 					<!-- content 시작 -->	
-					<h2>${qaboard.qab_title}</h2>${qaboard.qab_type}
+					<input type="hidden" value="${qaboard.qab_num}" name="qab_num">
+					<p>[
+						<c:if test="${qaboard.qab_type==1}">PT</c:if>
+						<c:if test="${qaboard.qab_type==2}">다이어트</c:if>
+						<c:if test="${qaboard.qab_type==3}">상담</c:if>
+						<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
+						<c:if test="${qaboard.qab_type==5}">기타</c:if>]
+					</p>
+					<h2>${qaboard.qab_title}</h2>
 					<hr size="1" noshade="noshade" width="100%">
 					<%-- 내용 --%>
 					<p>${qaboard.qab_content}</p><br>
@@ -99,12 +106,14 @@ $(function(){
 					<%-- 문의답변 --%>
 					<c:if test="${user_auth >= 8 && answerBoard!=null}">
 						<div id="answer-div">
-							<input type="hidden" name="qab_num" value="${answerBoard.qab_num}" id="answer_num">
-							<input type="button" id="update_answer_btn" value="수정">
-							<input type="button" value="삭제" onclick="location.href='adminDeleteAnswer.do?qab_num=${answerBoard.qab_num}'">
-							<hr size="1" noshade="noshade" width="80%">
+							<input type="hidden" value="${answerBoard.qab_num}" name="re_num">
+							<div class="align-right">
+								<input type="button" id="update_answer_btn" value="수정">
+								<input type="button" value="삭제" onclick="location.href='adminDeleteAnswer.do?qab_num=${answerBoard.qab_num}'">
+							</div>
+							<hr size="1" noshade="noshade" width="100%">
 							<p id="answer_content">${answerBoard.qab_content}</p><br>
-							<hr size="1" noshade="noshade" width="80%">
+							<hr size="1" noshade="noshade" width="100%">
 							<div class="align-right">
 								<c:if test="${!empty answerBoard.qab_modify_date}">
 									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;|
@@ -113,8 +122,12 @@ $(function(){
 							</div>
 						</div>
 					</c:if>
-					<!-- content 끝 -->		
-		
+					<%-- 목록 --%>
+					<br>
+					<div class="align-center">
+						<input type="button" value="목록" onclick="location.href='adminAnswerList.do'">
+					</div>
+					<!-- content 끝 -->	
 					</div>
 				</div>
 			</div>
