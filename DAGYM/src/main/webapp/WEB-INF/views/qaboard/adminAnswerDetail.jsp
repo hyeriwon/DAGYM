@@ -9,6 +9,7 @@
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/WHR.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/qaboard.answer.js"></script>
 <script type="text/javascript">
 $(function(){
 	$('#answer_form').submit(function(){
@@ -101,7 +102,7 @@ $(function(){
 							<input type="button" id="update_answer_btn" value="수정">
 							<input type="button" value="삭제" onclick="location.href='adminDeleteAnswer.do?qab_num=${answerBoard.qab_num}'">
 							<hr size="1" noshade="noshade" width="80%">
-							<p>${answerBoard.qab_content}</p><br>
+							<p id="qab_content">${answerBoard.qab_content}</p><br>
 							<hr size="1" noshade="noshade" width="80%">
 							<div class="align-right">
 								${answerBoard.qab_reg_date}

@@ -394,7 +394,7 @@ public class QABoardDAO {
 		String sql = null;
 		try {
 			conn = DBUtil.getConnection();
-			sql = "UPDATE qaboard SET qab_mem_num=?,qab_content=?,qab_ip=?,qab_modify_date=SYSDATE WHERE qab_num=?";
+			sql = "UPDATE qaboard SET mem_num=?,qab_content=?,qab_ip=?,qab_modify_date=SYSDATE WHERE qab_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, qaboard.getMem_num());
 			pstmt.setString(2, qaboard.getQab_content());
