@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 window.onload = function(){
-	const myForm = document.getElementById('write_form');
+	const myForm = document.getElementById('modify_form');
 	myForm.onsubmit = function(){
 		const items = document.querySelectorAll('input[type="number"]');
 		for(let i=0;i<items.length;i++){
@@ -25,9 +25,7 @@ window.onload = function(){
 			
 		}
 	};
-	
 };
-
 </script>
 </head>
 <body>
@@ -58,7 +56,7 @@ window.onload = function(){
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Inbody</span>
-                            <h2>인바디 등록</h2>
+                            <h2>인바디 수정</h2>
                     	</div>
                  </div>
              </div>
@@ -68,29 +66,36 @@ window.onload = function(){
 					<div class="chart-table">
 					
 					<!-- content 시작 -->	
-					<form id="write_form" action="inbodyWrite.do" method="post" enctype= "multipart/form-data">
+					<form id="modify_form" action="inbodyModify.do" method="post" enctype= "multipart/form-data">
 					<input type="hidden" id="inb_date" name="inb_date" value="${param.inb_date}">
+					<input type="hidden" id="inb_num" name="inb_num" value="${inbody.inb_num}">
 					<ul>
 						<li>
 							<label for="inb_hei">키(cm)</label>
-							<input type="number" id="inb_hei" name="inb_hei">
+							<input type="number" id="inb_hei" name="inb_hei" value="${inbody.inb_hei}">
 						</li>
 						<li>
 							<label for="inb_wei">몸무게(kg)</label>
-							<input type="number" id="inb_wei" name="inb_wei">
+							<input type="number" id="inb_wei" name="inb_wei" value="${inbody.inb_wei}">
 						</li>
 						<li>
 							<label for="inb_mus">골격근량(kg)</label>
-							<input type="number" id="inb_mus" name="inb_mus">
+							<input type="number" id="inb_mus" name="inb_mus" value="${inbody.inb_mus}">
 						</li>
 						<li>
 							<label for="inb_photo">인바디 사진</label>
-							<input type="file" id="inb_photo" name="inb_photo">
+							<input type="file" id="inb_photo" name="inb_photo" >
+						</li>
+						<li>
+						<c:if test="${!empty inbody.inb_photo}">
+					<img src="${pageContext.request.contextPath}/upload/${inbody.inb_photo}" 
+					                   width="200" height="200" class="my-photo">
+					</c:if>
 						</li>
 						<li>
 						<div class="align-center">
-						<input type="submit" value="등록">
-						<input type="button" value="취소" onclick="${pageContext.request.contextPath}/inbody/inbodyList.do">
+						<input type="submit" value="수정">
+						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do'">
 						</div>
 						</li>
 					</ul>

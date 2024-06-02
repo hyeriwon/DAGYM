@@ -21,7 +21,7 @@ window.onload=function(){
 		}
 		const radio = document.querySelectorAll('input[type="radio"]:checked');
 		if(radio.length<1){
-			alert('결제수단을 선택하세요!');
+			alert('식사분류를 선택하세요!');
 			return false;
 		}
 	

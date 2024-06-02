@@ -37,9 +37,9 @@
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Inbody</span>
-                            <h2>인바디</h2>
+                            <h2>${mem_name}님의 인바디</h2>
                     	</div>
-                 </div>
+                 </div>	
              </div>
           </div>
           	<div class="row">
@@ -78,9 +78,9 @@
 								<tr>
 									<th>측정번호</th>
 									<th>측정일자</th>
-									<th>키</th>
-									<th>몸무게</th>
-									<th>골격근량</th>
+									<th>키(cm)</th>
+									<th>몸무게(kg)</th>
+									<th>골격근량(kg)</th>
 									<th>삭제</th>
 								</tr>
 								<c:forEach var="inbody" items="${list}">

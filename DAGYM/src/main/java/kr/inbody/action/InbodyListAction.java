@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import kr.controller.Action;
 import kr.inbody.dao.InbodyDAO;
 import kr.inbody.vo.InbodyVO;
+import kr.member.dao.MemberDAO;
+import kr.member.vo.MemberVO;
 import kr.util.PagingUtil;
 
 public class InbodyListAction implements Action {
@@ -19,11 +21,15 @@ public class InbodyListAction implements Action {
 		//세션에서 로그인 정보 가져오기
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");
+		Integer user_auth = (Integer)session.getAttribute("user_auth");
 		
 		if(user_num == null) {
 			request.setAttribute("notice_msg", "로그인 후 확인가능합니다.");
-			request.setAttribute("notice_url", request.getContextPath()+"/common/loginForm.do");
+			request.setAttribute("notice_url", request.getContextPath()+"/member/loginForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
+		}
+		if(user_auth ==9) {
+			user_num = Integer.parseInt(request.getParameter("client_num"));
 		}
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null)pageNum="1";
@@ -36,8 +42,10 @@ public class InbodyListAction implements Action {
 				count,20,10,"inbodyList.do");
 		if(count > 0) {
 			inbodylist = inbodydao.getListInbodyByUser(page.getStartRow(),page.getEndRow(), keyword, keyfield, user_num);
-			System.out.println(inbodylist);
 		}
+		MemberDAO memberdao = MemberDAO.getInstance();
+		MemberVO member =memberdao.getMember(user_num);
+		request.setAttribute("mem_name",member.getMem_name());
 		request.setAttribute("count", count);
 		request.setAttribute("list", inbodylist);
 		request.setAttribute("page", page.getPage());

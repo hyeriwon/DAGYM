@@ -18,7 +18,7 @@ public class InbodyWriteFormAction implements Action{
 
 		if(user_num == null) {
 			request.setAttribute("notice_msg", "로그인 후 작성가능합니다.");
-			request.setAttribute("notice_url", request.getContextPath()+"/common/loginForm.do");
+			request.setAttribute("notice_url", request.getContextPath()+"/member/loginForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 		InbodyDAO inbodydao = InbodyDAO.getInstance();
@@ -28,9 +28,12 @@ public class InbodyWriteFormAction implements Action{
 			if(inbody !=null) {
 				//해당날짜에 작성된 기록 있으면 작성된 기록으로 이동 
 				if(inb_date.equals(inbody.getInb_date())) { 
-					return "/WEB-INF/views/inbody/inbodyDetail.jsp"; 
+					request.setAttribute("notice_msg", "인바디 등록된 내역이 있습니다.");
+					request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do");
+					return "/WEB-INF/views/common/alert_view.jsp";				
 				}
 			}
+
 		}
 		return "/WEB-INF/views/inbody/inbodyWriteForm.jsp";
 	}

@@ -41,6 +41,23 @@ public class InbodyDAO {
 		}
 	}
 	//인바디 삭제
+	public void deleteInbody(int inb_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql= "DELETE FROM inbody WHERE inb_num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, inb_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
 	//인바디 상세
 	public InbodyVO getInbody(String inb_date, int mem_num)throws Exception	{
 		Connection conn = null;
@@ -70,12 +87,40 @@ public class InbodyDAO {
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
-			DBUtil.executeClose(null, pstmt, conn);
+			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return inbody;
 	}
 	
 	//인바디 수정
+	public void modifyInbody(InbodyVO inbody) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		try {
+			if(inbody.getInb_photo()!=null && !"".equals(inbody.getInb_photo())) {
+				sub_sql+=",inb_photo=?";
+			}
+			conn= DBUtil.getConnection();
+			sql="UPDATE inbody SET inb_hei = ?, inb_wei = ?, inb_mus = ?"+sub_sql+" WHERE inb_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(++cnt, inbody.getInb_hei());
+			pstmt.setInt(++cnt, inbody.getInb_wei());
+			pstmt.setInt(++cnt, inbody.getInb_mus());
+			if(inbody.getInb_photo()!=null && !"".equals(inbody.getInb_photo())) {
+				pstmt.setString(++cnt, inbody.getInb_photo());
+			}
+			pstmt.setInt(++cnt, inbody.getInb_num());
+			pstmt.executeUpdate();
+		}catch(Exception e){
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	
 	//인바디 검색 갯수(회원별)
 	public int countInbodyByUser(String keyfield, String keyword, int mem_num)throws Exception{
 		Connection conn = null;
@@ -102,7 +147,7 @@ public class InbodyDAO {
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
-			DBUtil.executeClose(null, pstmt, conn);
+			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return count;
 	}
@@ -146,10 +191,62 @@ public class InbodyDAO {
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
-			DBUtil.executeClose(null, pstmt, conn);
+			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return list;
 	}
+	//inb_num으로 데이터 가져오기
+	public InbodyVO getInbodybyInbnum(int inb_num)throws Exception	{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		InbodyVO inbody = null;
+		
+		try {
+			conn= DBUtil.getConnection();
+			sql = "SELECT * FROM inbody WHERE inb_num = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, inb_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				inbody = new InbodyVO();
+				inbody.setMem_num(rs.getInt("mem_num"));
+				inbody.setInb_num(inb_num);
+				inbody.setInb_date(rs.getString("inb_date"));
+				inbody.setInb_mus(rs.getInt("inb_mus"));
+				inbody.setInb_hei(rs.getInt("inb_hei"));
+				inbody.setInb_wei(rs.getInt("inb_wei"));
+				inbody.setInb_photo(rs.getString("inb_photo"));	
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return inbody;
+	}
 	
+	//인바디 사진 수정
+	public void updateMyInbodyPhoto(String inb_photo,int inb_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn=DBUtil.getConnection();
+			sql = "UPDATE inbody set inb_photo = ? WHERE inb_num = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, inb_photo);
+			pstmt.setInt(2,inb_num);
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			throw new Exception(e);
+			
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	
 }

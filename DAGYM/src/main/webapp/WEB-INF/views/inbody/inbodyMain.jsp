@@ -88,7 +88,7 @@
 				    </c:if>
 				    <c:if test="${user_auth == 9 }">
 				    <label for="client_num"></label>
-				     <input type="search"  id="client_num" value="회원번호입력" autocomplete="off"
+				     <input type="search"  id="client_num" value="회원번호입력" name="client_num" autocomplete="off"
 				     onfocus="if(this.value=='회원번호입력') this.value='';" onblur="if(this.value=='') this.value='회원번호입력';">
 				     <input type="submit" value="검색" onclick="searchByMemNum()"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
 				    </c:if>

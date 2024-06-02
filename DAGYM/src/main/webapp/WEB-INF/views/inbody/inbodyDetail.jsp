@@ -36,6 +36,7 @@
       <div class="container">
           <div class="row">
           	 <div class="col-lg-12">
+          	 <div class="align-right"></div>
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Inbody</span>
@@ -47,7 +48,9 @@
           	<div class="row">
 				<div class="col-lg-12">    
 					<div class="chart-table">
-					
+					<div class="align-right">
+					<input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyModifyForm.do?inb_date=${inb_date}'">
+					</div>
 					<!-- content 시작 -->		
 					<div class="result-display2">
 						<table>
@@ -58,19 +61,19 @@
 							</tr>
 							<tr>
 								<td>키</td>
-								<td>${inbody.inb_hei}</td>
+								<td>${inbody.inb_hei}cm</td>
 							</tr>
 							<tr>
 								<td>몸무게</td>
-								<td>${inbody.inb_wei}</td>
+								<td>${inbody.inb_wei}kg</td>
 							</tr>
 							<tr>
 								<td>골격근량</td>
-								<td>${inbody.inb_mus}</td>
+								<td>${inbody.inb_mus}kg</td>
 							</tr>
 							<tr>
 								<td>bmi지수</td>
-								<td>${inb_bmi}</td>
+								<td>${inb_bmi}%</td>
 							</tr>
 							<tr>
 							<td>상태</td>
@@ -92,10 +95,10 @@
 						</table>
 					</div>
 					<div class="align-center">
-						<img src="${pageContext.request.contextPath}/upload/${inbody.inb_photo}">
+						<img src="${pageContext.request.contextPath}/upload/${inbody.inb_photo}" width="300" height="300">
 					</div>
 					<div class="align-center">
-						<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do?client_num=${client_num}'">
+						<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do?mem_num=${mem_num}'">
 					</div>
 					<!-- content 끝 -->
 					
