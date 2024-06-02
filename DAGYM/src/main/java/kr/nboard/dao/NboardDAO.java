@@ -229,7 +229,7 @@ public class NboardDAO {
 			}
 			
 			//SQL문 작성
-			sql = "UPDATE nboard SET nbo_title=?,nbo_content=?,nbo_modify_date=SYSDATE" + sub_sql + "WHERE nbo_num=?";
+			sql = "UPDATE nboard SET nbo_title=?,nbo_content=?,nbo_modify_date=SYSDATE" + sub_sql + " WHERE nbo_num=?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
