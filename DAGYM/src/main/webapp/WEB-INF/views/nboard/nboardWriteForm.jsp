@@ -15,7 +15,7 @@ window.onload=function(){
         const nbo_title = document.getElementById('nbo_title');
         
         if (nbo_type.value.trim() != '') {
-            nbo_title.value = "[" + nbo_type.value + "]";
+            nbo_title.value = "[" + nbo_type.value + "] ";
         }
     };
     

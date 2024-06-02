@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(function(){
     $('.cancel-btn').click(function(){
-        var btn = $(this); // 버튼 저장
+        var btn = $(this);
         
         var payNum = btn.data('paynum');
         var choice = confirm('회원권을 취소하시겠습니까?');

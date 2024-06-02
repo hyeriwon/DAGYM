@@ -95,7 +95,7 @@ $(function() {
 							<li>
 								<label>회원권 종류</label>
 								<select id="pay_type" name="pay_type">
-										<option value="" selected disabled>--선택--</option>
+										<option value="선택" selected disabled>--선택--</option>
 										<option value="10회권">10회권</option>
 										<option value="20회권">20회권</option>
 										<option value="30회권">30회권</option>

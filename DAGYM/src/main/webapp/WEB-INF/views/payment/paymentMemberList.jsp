@@ -13,7 +13,7 @@ window.onload=function(){
 	//이벤트 연결
 	myForm.onsubmit=function(){
 		const keyword = document.getElementById('keyword');
-		if(keyword.value.trim()==''){//아무것도 입력하지 않은 경우
+		if(keyword.value.trim()==''){
 			alert('검색어를 입력하세요');
 			keyword.value='';
 			keyword.focus();

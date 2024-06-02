@@ -49,7 +49,7 @@ public class PaymentDAO {
 		}
 	}
 	
-	//회원 목록(관리자)
+	//회원 목록 개수(관리자)
 	public int getMemberCountPayment(String keyfield,String keyword)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -135,7 +135,7 @@ public class PaymentDAO {
 	
 	
 
-	//회원별 회원권 결제내역 총 개수
+	//회원별 회원권 결제내역 총 개수(회원상세)
 	public int getPayMemCount(int mem_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -232,7 +232,7 @@ public class PaymentDAO {
 	    return mem_name;
 	}
 	
-	//보유한 회원권 계산
+	//보유한 회원권 계산 (남은 회원권)
 	public int remainpayment(int mem_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;

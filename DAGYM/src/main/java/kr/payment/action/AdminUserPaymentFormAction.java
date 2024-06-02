@@ -34,7 +34,6 @@ public class AdminUserPaymentFormAction implements Action{
 		
 		//전송된 데이터 반환
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
-		//int mem_name = Integer.parseInt(request.getParameter("mem_name"));
 		PaymentDAO dao = PaymentDAO.getInstance();
 		int count = dao.getPayMemCount(mem_num);
 		int remain = dao.remainpayment(mem_num);
