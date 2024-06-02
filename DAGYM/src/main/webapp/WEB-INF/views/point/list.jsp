@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>포인트</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <style>
     .point-in {
         color: blue;
@@ -19,10 +19,42 @@
 </head>
 <body>
 
-	<div class="page-main">
-		<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-		<div class="content-main">
-			<h2>포인트</h2>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Point</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <a href="#">MyPage</a>
+                            <span>Point</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+  <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Point</span>
+                            <h2>포인트 내역</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
 			<br>
 			<c:if test="${count == 0}">
 			<div class="result-display">
@@ -80,8 +112,15 @@
 			<br>
 			<div class="align-center">${page}</div>
 			</c:if>
+			
+				</div>
+			</div>
 		</div>
-	</div>
+      </div>
+  </section>
+  	
+  	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
 	
 </body>
 </html>
