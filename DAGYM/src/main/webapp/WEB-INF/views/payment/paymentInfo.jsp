@@ -4,12 +4,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원권 안내</title>
+<title>MEMBERSHIP</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 </head>
 <body>
-<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
 	<!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
         <div class="container">
@@ -26,8 +27,8 @@
             </div>
         </div>
     </section>
-    
-  <section class="team-section team-page spad">
+
+ <section class="team-section team-page spad">
       <div class="container">
           <div class="row">
           	 <div class="col-lg-12">
@@ -40,20 +41,28 @@
              </div>
           </div>
           	<div class="row">
-				<div class="col-lg-12">
-					<div align="center">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+					<!-- content 시작 -->
+					<div class="align-center">
+						<br>
 						<img src="${pageContext.request.contextPath}/images/membershipinfo.png" width="600">
 						<p>
 						<br>
 						<input type="button" value="상담신청" onclick="location.href='${pageContext.request.contextPath}/payment/paymentCounselingForm.do'">
 						<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 					</div>
+					<!-- content 끝 -->
+					
+					</div>
 				</div>
 			</div>
-      </div>
-  </section>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
 
-<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
-<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
 </body>
 </html>

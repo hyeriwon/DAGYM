@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원권 상담신청</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<title>MEMBERSHIP</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <script type="text/javascript">
 window.onload=function(){
 	const myForm = document.getElementById('write_form');
@@ -31,31 +30,73 @@ window.onload=function(){
 </script>
 </head>
 <body>
-<div class="page-main">
-	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
-	<div class="content-main">
-		<h2>회원권 상담 신청</h2>
-		<form id="write_form" action="paymentCounseling.do" method="post">
-			<ul>
-				<li>
-					<label for="qab_title">제목</label>
-					<input type="text" name="qab_title" id="qab_title" maxlength="50">
-				</li>
-				<li>
-					<label for="qab_type">문의종류</label>
-					<span>회원권 상담 신청</span>
-				</li>
-				<li>
-					<label for="qab_content">내용</label>
-					<textarea rows="5" cols="40" name="qab_content" id="qab_content"></textarea>
-				</li>
-			</ul>
-			<div class="align-center">
-				<input type="submit" value="등록">
-				<input type="button" value="취소" onclick="location.href='paymentInfo.do'">
+
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Membership</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <span>Membership</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Membership</span>
+                            <h2>회원권 상담신청</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+					<!-- content 시작 -->
+					<form id="write_form" action="paymentCounseling.do" method="post">
+						<ul>
+							<li>
+								<label for="qab_title">제목</label>
+								<input type="text" name="qab_title" id="qab_title" maxlength="50">
+							</li>
+							<li>
+								<label for="qab_type">문의종류</label>
+								<span>회원권 상담신청</span>
+							</li>
+							<li>
+								<label for="qab_content">내용</label>
+								<textarea rows="5" cols="40" name="qab_content" id="qab_content"></textarea>
+							</li>
+						</ul>
+						<div class="align-center">
+							<input type="submit" value="등록">
+							<input type="button" value="취소" onclick="location.href='paymentInfo.do'">
+						</div>
+					</form>
+					<!-- content 끝 -->
+					
+					</div>
+				</div>
 			</div>
-		</form>
-	</div>
-</div>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
+
 </body>
 </html>
