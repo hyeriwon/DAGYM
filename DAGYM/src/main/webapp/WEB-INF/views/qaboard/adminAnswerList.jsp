@@ -54,36 +54,38 @@
 			<table>
 				<tr>
 					<th>카테고리</th>
-					<th>작성자</th>
 					<th>제목</th>
+					<th>작성자</th>
 					<th>작성일</th>
 					<th>답변여부</th>
 					<th>삭제여부</th>
 				</tr>
 				<c:forEach var="qaboard" items="${list}">
-				<tr>
-					<td>
-						<c:if test="${qaboard.qab_type==1}">PT</c:if>
-						<c:if test="${qaboard.qab_type==2}">다이어트</c:if>
-						<c:if test="${qaboard.qab_type==3}">상담</c:if>
-						<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
-						<c:if test="${qaboard.qab_type==5}">기타</c:if>
-					</td>
-					<td>${qaboard.qab_id}</td>
-					<td><a href="adminDetail.do?qab_num=${qaboard.qab_num}">${qaboard.qab_title}</a></td>
-					<td>${qaboard.qab_reg_date}</td>
-					<td>
-						<c:if test="${qaboard.qab_ref == 0}"><span style="color:red;">미답변</span></c:if>
-						<c:if test="${qaboard.qab_ref == 1}">답변완료</c:if>
-					</td>
-					<td>
-						<c:if test="${qaboard.qab_remove==0}">X</c:if>
-						<c:if test="${qaboard.qab_remove==1}">O</c:if>
-					</td>
-				</tr>
+					<c:if test="${qaboard.qab_ref==0}"><!-- 문의만 출력되도록 조건체크 -->
+						<tr>
+							<td>
+								<c:if test="${qaboard.qab_type==1}">PT</c:if>
+								<c:if test="${qaboard.qab_type==2}">다이어트</c:if>
+								<c:if test="${qaboard.qab_type==3}">상담</c:if>
+								<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
+								<c:if test="${qaboard.qab_type==5}">기타</c:if>
+							</td>
+							<td><a href="adminAnswerDetail.do?qab_num=${qaboard.qab_num}">${qaboard.qab_title}</a></td>
+							<td>${qaboard.mem_id}</td>
+							<td>${qaboard.qab_reg_date}</td>
+							<td>
+								<c:if test="${qaboard.qab_ref == 0}"><span style="color:red;">미답변</span></c:if>
+								<c:if test="${qaboard.qab_ref == 1}">답변완료</c:if>
+							</td>
+							<td>
+								<c:if test="${qaboard.qab_remove==0}">X</c:if>
+								<c:if test="${qaboard.qab_remove==1}">O</c:if>
+							</td>
+						</tr>
+					</c:if>
 				</c:forEach>
 			</table>
-			<hr class="fixed-divider" size="1" width="%" noshade="noshade">
+			<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 			<div class="align-center">${page}</div>
 		</c:if>
 	</div>

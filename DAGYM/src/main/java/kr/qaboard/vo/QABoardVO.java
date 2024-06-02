@@ -16,6 +16,7 @@ public class QABoardVO {
 	private int qab_ref;
 	
 	private String mem_id;
+	private String mem_photo;
 
 	public int getQab_num() {
 		return qab_num;
@@ -113,5 +114,11 @@ public class QABoardVO {
 		this.mem_id = mem_id;
 	}
 
-	
+	public String getMem_photo() {
+		return mem_photo;
+	}
+
+	public void setMem_photo(String mem_photo) {
+		this.mem_photo = mem_photo;
+	}
 }

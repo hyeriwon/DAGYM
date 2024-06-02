@@ -22,6 +22,13 @@ public class AdminAnswerListAction implements Action{
 		if(user_num==null) {
 			return "redirect:/member/loginForm.do";
 		}
+		
+		//로그인한 사람이 관리자,강사가 맞는지 체크
+		Integer user_auth = (Integer)session.getAttribute("user_auth");
+		if(user_auth < 8) {
+			return "/WEB-INF/views/common/notice.jsp";
+		}
+		
 		request.setCharacterEncoding("utf-8");
 		
 		//페이지처리
@@ -32,14 +39,14 @@ public class AdminAnswerListAction implements Action{
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
 		
-		QABoardDAO qaboardDAO = QABoardDAO.getInstance();
-		int count = qaboardDAO.getInquiryCount(keyfield, keyword);
+		QABoardDAO dao = QABoardDAO.getInstance();
+		int count = dao.getAnswerCount(keyfield, keyword);
 		
-		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"adminAnswerList.do");
+		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20, 10, "adminAnswerList.do");
 		
 		List<QABoardVO> list = null;
 		if(count > 0) {
-			list = qaboardDAO.getAnswerList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			list = dao.getAnswerList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
 		}
 		
 		request.setAttribute("count", count);

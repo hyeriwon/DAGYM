@@ -8,6 +8,7 @@ import java.util.List;
 
 import kr.qaboard.vo.QABoardVO;
 import kr.util.DBUtil;
+import kr.util.StringUtil;
 
 public class QABoardDAO {
 	private static QABoardDAO instance = new QABoardDAO();
@@ -101,7 +102,7 @@ public class QABoardDAO {
 		}
 		return list;
 	}
-	//문의굴 등록
+	//문의글 등록
 	public void insertInquiryBoard(QABoardVO qaboard)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -231,14 +232,14 @@ public class QABoardDAO {
 		int count = 0;
 		try {
 			conn = DBUtil.getConnection();
-			if(keyword!=null && "".equals(keyword)) {
+			if(keyword!=null && !"".equals(keyword)) {
 				if(keyfield.equals("1")) sub_sql += "WHERE qab_title LIKE '%' || ? || '%'";
 				else if(keyfield.equals("2")) sub_sql += "WHERE qab_id LIKE '%' || ? || '%'";
 				else if(keyfield.equals("3")) sub_sql += "WHERE qab_content LIKE '%' || ? || '%'";
 			}
 			sql = "SELECT count(*) FROM qaboard JOIN member USING(mem_num) " + sub_sql;
 			pstmt = conn.prepareStatement(sql);
-			if(keyword!=null && "".equals(keyword)) {
+			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(1, keyword);
 			}
 			rs = pstmt.executeQuery();
@@ -263,15 +264,16 @@ public class QABoardDAO {
 		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
-			if(keyword!=null && "".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE qab_id LIKE '%' || ? || '%'";
-				else if(keyfield.equals("2")) sub_sql += "WHERE qab_title LIKE '%' || ? || '%'";
-				else if(keyfield.equals("3")) sub_sql += "WHERE qab_content LIKE '%' || ? || '%'";
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "AND m.mem_id LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "AND q.qab_title LIKE '%' || ? || '%'";
+				else if(keyfield.equals("3")) sub_sql += "AND q.qab_content LIKE '%' || ? || '%'";
 			}
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard JOIN member USING(mem_num) " 
-					+ sub_sql + " ORDER BY qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard q LEFT OUTER JOIN qaboard a ON q.qab_num=a.qab_ref "
+					+ "JOIN member m ON q.mem_num=m.mem_num WHERE q.qab_ref=0 "
+					+ sub_sql + "ORDER BY q.qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?;";
 			pstmt = conn.prepareStatement(sql);
-			if(keyword!=null && "".equals(keyword)) {
+			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, keyword);
 			}
 			pstmt.setInt(++cnt, startRow);
@@ -282,11 +284,11 @@ public class QABoardDAO {
 			while(rs.next()) {
 				QABoardVO qaboard = new QABoardVO();
 				qaboard.setQab_num(rs.getInt("qab_num"));
-				qaboard.setQab_title(rs.getString("qab_title"));
-				qaboard.setMem_id(rs.getString("qab_id"));
+				qaboard.setQab_title(StringUtil.useNoHTML(rs.getString("qab_title")));
+				qaboard.setMem_id(rs.getString("mem_id"));
 				qaboard.setQab_reg_date(rs.getDate("qab_reg_date"));
 				qaboard.setQab_type(rs.getInt("qab_type"));
-				qaboard.setQab_ref(rs.getInt(rs.getInt("qab_ref")));
+				qaboard.setQab_ref(rs.getInt("qab_ref"));
 				qaboard.setQab_remove(rs.getInt("qab_remove"));
 				
 				list.add(qaboard);
@@ -298,10 +300,93 @@ public class QABoardDAO {
 		}
 		return list;
 	}
-	//답변 등록
-	
+
 	//글 상세
-	
+	public QABoardVO getUserBoardByAdmin(int qab_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QABoardVO qaboard = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM qaboard JOIN member USING (mem_num) LEFT OUTER JOIN member_detail USING(mem_num) WHERE qab_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qab_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				qaboard = new QABoardVO();
+				qaboard.setMem_num(rs.getInt("mem_num"));
+				qaboard.setQab_type(rs.getInt("qab_type"));
+				qaboard.setMem_id(rs.getString("mem_id"));
+				qaboard.setQab_title(rs.getString("qab_title"));
+				qaboard.setQab_content(rs.getString("qab_content"));
+				qaboard.setQab_filename(rs.getString("qab_filename"));
+				qaboard.setQab_reg_date(rs.getDate("qab_reg_date"));
+				qaboard.setQab_modify_date(rs.getDate("qab_modify_date"));
+				qaboard.setQab_num(rs.getInt("qab_num"));
+				qaboard.setMem_photo(rs.getString("mem_photo"));
+				qaboard.setMem_photo(rs.getString("mem_photo"));
+				qaboard.setQab_ref(rs.getInt("qab_ref"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return qaboard;
+	}
+	//답변 등록
+	public void insertAnswerBoard(QABoardVO qaboard)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "INSERT INTO qaboard (qab_num,mem_num,qab_type,qab_content,qab_ip,qab_ref) VALUES (qaboard_seq.nextval,?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qaboard.getMem_num());
+			pstmt.setInt(2, qaboard.getQab_type());
+			pstmt.setString(3, qaboard.getQab_content());
+			pstmt.setString(4, qaboard.getQab_ip());
+			pstmt.setInt(5, qaboard.getQab_ref());//댓글의 부모 번호
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//답변상세
+	public QABoardVO getAdminBoard(int qab_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		QABoardVO qaboard = null;
+		String sql = null;
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM qaboard WHERE qab_ref=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, qab_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				qaboard = new QABoardVO();
+				qaboard.setMem_num(rs.getInt("mem_num"));
+				qaboard.setQab_type(rs.getInt("qab_type"));
+				qaboard.setQab_content(rs.getString("qab_content"));
+				qaboard.setQab_reg_date(rs.getDate("qab_reg_date"));
+				qaboard.setQab_modify_date(rs.getDate("qab_modify_date"));
+				qaboard.setQab_num(rs.getInt("qab_num"));
+				qaboard.setQab_ref(rs.getInt("qab_ref"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return qaboard;
+	}
 	//글 수정
 	
 	//글 삭제
