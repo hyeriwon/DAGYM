@@ -85,7 +85,7 @@ window.onload = function(){
 						<input type="hidden" name="mem_num" value="${history.mem_num}">
 						<ul>
 							<li>
-								<label for="title">후기 제목</label>
+								<label for="title">제목</label>
 								<input type="text" name="rev_title" id="title" maxlength="20" class="input-check">
 							</li>
 							<li>
@@ -115,6 +115,7 @@ window.onload = function(){
 								<label for="filename2">파일(After)</label>
 								<input type="file" name="rev_filename2" id="filename2" accept="image/gif,image/png,image/jpeg">
 							</li>
+							<p>
 							<li>
 							    <label for="content">수강후기</label><br><br>
 								<textarea cols="50" rows="5" id="content" name="rev_content" class="input-check"></textarea>
