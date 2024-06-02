@@ -21,7 +21,7 @@
                         <h2>Attend</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">Mypage</a>
+                            <a href="#">Member</a>
                             <span>Attend</span>
                         </div>
                     </div>

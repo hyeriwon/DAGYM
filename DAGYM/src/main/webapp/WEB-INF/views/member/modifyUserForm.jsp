@@ -5,8 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 수정</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<title>MYPAGE</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -130,93 +130,125 @@ $(function(){
 </script> 
 </head>
 <body>
-<div class="page-main">
-	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
-	<div class="content-main">
-		<h2>회원정보 수정</h2>
-		<form id="modify_form" action="modifyUser.do" method="post" enctype="multipart/form-data">
-			<h4>현재 비밀번호를 입력해야 수정가능합니다.</h4>
-			<ul>
-				<li>
-					<label for="nowPw" style="color:red;">*현재 비밀번호</label>
-					<input type="password" maxlength="12" name="mem_nowPw" id="nowPw" class="input-check">
-				</li>
-				<li>
-					<label for="name">이름</label>
-					<input type="text" name="mem_name" id="name" class="input-check"
-							value="${member.mem_name}" maxlength="10">
-				</li>
-				<li>
-					<label for="photo">프로필 사진</label>
-					<input type="file" name="mem_photo" id="photo" accept="image/gif,image/png,image/jpeg"><br>
-					<c:if test="${empty member.mem_photo}">
-						<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
-					</c:if>
-					<c:if test="${!empty member.mem_photo}">
-						<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="200" height="200" class="my-photo">
-					</c:if>				
-				</li>
-				<li>
-					<label>새 비밀번호</label>
-					<input type="password" maxlength="12" name="mem_newPw" id="newPw" maxlength="12">
-				</li>
-				<li>
-					<label>새 비밀번호 확인</label>
-					<input type="password" id="newCpw" maxlength="12"><br>
-					<span id="check-msg"></span>
-				</li>
-				<li>
-					<label for="phone">전화번호</label>
-					<input type="text" name="mem_phone" id="phone" value="${member.mem_phone}" maxlength="15" class="input-check">
-				</li>
-				<li>
-					<label for="email">이메일</label>
-					<input type="email" name="mem_email" id="email" value="${member.mem_email}" maxlength="50" class="input-check">
-					<input type="button" value="중복체크" id="email_check" style="display:none;">
-					<input type="button" value="초기화" id="email_reset" style="display:none;">
-					<span id="email_msg"></span>
-				</li>
-				<li>
-					<label>성별</label>
-					<input type="radio" name="mem_gender" value="0" <c:if test="${member.mem_gender == 0}">checked</c:if>>남성
-					<input type="radio" name="mem_gender" value="1" <c:if test="${member.mem_gender == 1}">checked</c:if>>여성
-				</li>
-				<li>
-					<label>생년월일</label>
-					<input type="date" name="mem_birth" id="birth" value="${member.mem_birth}">
-				</li>
-				<li>
-					<label for="zipcode">우편번호</label>
-					<input type="text" name="mem_zipcode" id="zipcode" value="${member.mem_zipcode}" maxlength="5" autocomplete="off">
-					<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
-				</li>
-				<li>
-					<label for="address1">주소</label>
-					<input type="text" name="mem_address1" id="address1" value="${member.mem_address1}" maxlength="30">
-				</li>
-				<li>
-					<label for="address2">상세 주소</label>
-					<input type="text" name="mem_address2" id="address2" value="${member.mem_address2}" maxlength="30">
-				</li>
-			</ul>
-			<div class="align-center">
-				<input type="submit" value="수정">
-				<input type="button" value="취소" onclick="location.href='myPage.do'">
-			</div>
-		</form>
-			<!-- 다음 우편번호 API 시작 -->
-			<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
-			<div id="layer"
-				style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
-				<img src="//t1.daumcdn.net/postcode/resource/images/close.png"
-					id="btnCloseLayer"
-					style="cursor: pointer; position: absolute; right: -3px; top: -3px; z-index: 1"
-					onclick="closeDaumPostcode()" alt="닫기 버튼">
-			</div>
 
-			<script
-				src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-			<script>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Mypage</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <span>Mypage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Mypage</span>
+                            <h2>회원수정</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+					<!-- content 시작 -->
+					<form id="modify_form" action="modifyUser.do" method="post" enctype="multipart/form-data">
+						<h4>현재 비밀번호를 입력해야 수정가능합니다.</h4>
+						<ul>
+							<li>
+								<label for="nowPw" style="color:red;">*현재 비밀번호</label>
+								<input type="password" maxlength="12" name="mem_nowPw" id="nowPw" class="input-check">
+							</li>
+							<li>
+								<label for="name">이름</label>
+								<input type="text" name="mem_name" id="name" class="input-check"
+										value="${member.mem_name}" maxlength="10">
+							</li>
+							<li>
+								<label for="photo">프로필 사진</label>
+								<input type="file" name="mem_photo" id="photo" accept="image/gif,image/png,image/jpeg"><br>
+								<c:if test="${empty member.mem_photo}">
+									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
+								</c:if>
+								<c:if test="${!empty member.mem_photo}">
+									<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="200" height="200" class="my-photo">
+								</c:if>				
+							</li>
+							<li>
+								<label>새 비밀번호</label>
+								<input type="password" maxlength="12" name="mem_newPw" id="newPw" maxlength="12">
+							</li>
+							<li>
+								<label>새 비밀번호 확인</label>
+								<input type="password" id="newCpw" maxlength="12"><br>
+								<span id="check-msg"></span>
+							</li>
+							<li>
+								<label for="phone">전화번호</label>
+								<input type="text" name="mem_phone" id="phone" value="${member.mem_phone}" maxlength="15" class="input-check">
+							</li>
+							<li>
+								<label for="email">이메일</label>
+								<input type="email" name="mem_email" id="email" value="${member.mem_email}" maxlength="50" class="input-check">
+								<input type="button" value="중복체크" id="email_check" style="display:none;">
+								<input type="button" value="초기화" id="email_reset" style="display:none;">
+								<span id="email_msg"></span>
+							</li>
+							<li>
+								<label>성별</label>
+								<input type="radio" name="mem_gender" value="0" <c:if test="${member.mem_gender == 0}">checked</c:if>>남성
+								<input type="radio" name="mem_gender" value="1" <c:if test="${member.mem_gender == 1}">checked</c:if>>여성
+							</li>
+							<li>
+								<label>생년월일</label>
+								<input type="date" name="mem_birth" id="birth" value="${member.mem_birth}">
+							</li>
+							<li>
+								<label for="zipcode">우편번호</label>
+								<input type="text" name="mem_zipcode" id="zipcode" value="${member.mem_zipcode}" maxlength="5" autocomplete="off">
+								<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
+							</li>
+							<li>
+								<label for="address1">주소</label>
+								<input type="text" name="mem_address1" id="address1" value="${member.mem_address1}" maxlength="30">
+							</li>
+							<li>
+								<label for="address2">상세 주소</label>
+								<input type="text" name="mem_address2" id="address2" value="${member.mem_address2}" maxlength="30">
+							</li>
+						</ul>
+						<div class="align-center">
+							<input type="submit" value="수정">
+							<input type="button" value="취소" onclick="location.href='myPage.do'">
+						</div>
+					</form>
+		
+<!-- 다음 우편번호 API 시작 -->
+<!-- iOS에서는 position:fixed 버그가 있음, 적용하는 사이트에 맞게 position:absolute 등을 이용하여 top,left값 조정 필요 -->
+<div id="layer" style="display: none; position: fixed; overflow: hidden; z-index: 1; -webkit-overflow-scrolling: touch;">
+	<img src="//t1.daumcdn.net/postcode/resource/images/close.png"
+		id="btnCloseLayer"
+		style="cursor: pointer; position: absolute; right: -3px; top: -3px; z-index: 1"
+		onclick="closeDaumPostcode()" alt="닫기 버튼">
+</div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
     // 우편번호 찾기 화면을 넣을 element
     var element_layer = document.getElementById('layer');
 
@@ -306,8 +338,18 @@ $(function(){
         element_layer.style.top = (((window.innerHeight || document.documentElement.clientHeight) - height)/2 - borderWidth) + 'px';
     }
 </script>
-			<!-- 다음 우편번호 API 끝 -->
-	</div>
-</div>
+<!-- 다음 우편번호 API 끝 -->
+
+					<!-- content 끝 -->
+					
+					</div>
+				</div>
+			</div>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
+
 </body>
 </html>
