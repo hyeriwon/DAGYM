@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>스케줄 목록</title>
+<title>SCHEDULE</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet"	href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
 
@@ -96,18 +96,59 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </head>
 <body>
-<div class="page-main">
-    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-    <div class="content-main">
-        <h2 align="center">스케줄 등록</h2>
-        <div class="align-right">
-         <input type="button" value="MyList" onclick="location.href='${pageContext.request.contextPath}#'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 --> 
+
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Schedule</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <a href="#">Mypage</a>
+                            <span>Schedule</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div id="sch_calendar"></div>
+ <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Schedule</span>
+                            <h2>스케줄</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+					<!-- content 시작 -->
+			        <div class="align-right">
+			        		<input type="button" value="MyList" onclick="location.href='${pageContext.request.contextPath}#'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 --> 
+			        </div>
+			        <div id="sch_calendar"></div>
+			        <input type="hidden" value="" name="date" id="date" maxlength="30">
+					<!-- content 끝 -->
+					
+					</div>
+				</div>
+			</div>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
 
-        <input type="hidden" value="" name="date" id="date" maxlength="30">
-    </div>
-</div>
 </body>
 </html>
