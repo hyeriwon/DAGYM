@@ -28,12 +28,19 @@ document.addEventListener('DOMContentLoaded', function() {
         var today = new Date().toISOString().split('T')[0];
         return selectInfo.startStr <= today;
       },
-    
-    dateClick: function(info) { // 날짜 클릭 이벤트 핸들러.
-    	
-      var selectedDate = info.dateStr; // 클릭한 날짜를 문자열로 가져옵니다.
-      window.location.href = '${pageContext.request.contextPath}/meal/mealWriteForm.do?meal_date='+selectedDate; // 클릭한 날짜로 이동합니다.
-    }
+      dateClick: function(info) {
+	      var today = new Date();
+	      var clickedDate = new Date(info.dateStr);
+
+	      // 클릭된 날짜가 오늘 이전인지 확인
+	      if (clickedDate >= today.setDate(today.getDate())) {
+	          alert('오늘 이후의 식사내역을 등록할 수 없습니다.');
+	          window.location.reload();
+	      } else {
+	        var selectedDate = info.dateStr; // 클릭한 날짜를 문자열로 가져옵니다.
+	        window.location.href = '${pageContext.request.contextPath}/meal/mealWriteForm.do?meal_date='+selectedDate; // 클릭한 날짜로 이동합니다.
+	      }
+	    }
   });
   calendar.render(); // 캘린더를 렌더링합니다.
 });

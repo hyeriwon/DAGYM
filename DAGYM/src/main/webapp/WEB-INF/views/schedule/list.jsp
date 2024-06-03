@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 클릭된 날짜가 오늘 이전인지 확인
             if (clickedDate <= today.setDate(today.getDate() - 1)) {
-                alert('오늘 이후로 스케줄을 등록할 수 있습니다.');
+                alert('오늘 이후의 식사내역을 등록할 수 있습니다.');
                 window.location.reload();
             } else {
                 var dateStr = info.dateStr;

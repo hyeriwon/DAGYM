@@ -39,3 +39,17 @@ create table inbody(
  constraint mem_num_fk foreign key(mem_num) references member(mem_num)
 );
  create sequence inbody_seq;
+ 
+create table exercise(
+ exe_num number not null,		--운동 번호
+ mem_num number not null,		--회원번호
+ exe_type varchar2(50) not null,--운동 부위 (어깨,허리 다리 등)
+ exe_content varchar2(4000) not null,--운동 상세
+ exe_date varchar2(30) not null, --운동 날짜
+ exe_time number not null, 		-- 운동한 시간
+  constraint exe_num_pk primary key(exe_num),
+  constraint exercise_fk foreign key(mem_num) references member(mem_num)
+);
+create sequence exercise_seq;
+ 
+ 
