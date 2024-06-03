@@ -22,7 +22,16 @@ public class ExerciseDAO {
 		String sql = null;
 		try {
 			conn= DBUtil.getConnection();
-			sql="INSERT INTO exercise() VALUES()";
+			sql="INSERT INTO exercise(exe_num,mem_num,exe_type,exe_content,exe_date,exe_time) VALUES("
+					+ "exercise_seq.nextval,?,?,?,?,?)";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, exercise.getExe_num());
+			pstmt.setInt(2, exercise.getMem_num());
+			pstmt.setString(3, exercise.getExe_type());
+			pstmt.setString(4, exercise.getExe_content());
+			pstmt.setString(5, exercise.getExe_date());
+			pstmt.setInt(6, exercise.getExe_time());
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
