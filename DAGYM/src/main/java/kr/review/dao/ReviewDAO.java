@@ -319,7 +319,7 @@ public class ReviewDAO {
 	}
 	
 	//수강후기 좋아요 수
-	public void countReviewLikes(int rev_num) throws Exception{
+	public int countReviewLikes(int rev_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -352,6 +352,7 @@ public class ReviewDAO {
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
+		return count;
 	}
 	
 	//수강후기 좋아요 여부 확인
@@ -393,7 +394,7 @@ public class ReviewDAO {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			sql = "INSERT INTO review_like(rev_num,mem_num) VALUES (?,?)";
+			sql = "INSERT INTO review_like (rev_num,mem_num) VALUES (?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, revLike.getRev_num());
 			pstmt.setInt(2, revLike.getMem_num());
@@ -425,7 +426,7 @@ public class ReviewDAO {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			sql = "DELETE FROM review_like WHERE rev_num=?,mem_num=?";
+			sql = "DELETE FROM review_like WHERE rev_num=? AND mem_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, revLike.getRev_num());
 			pstmt.setInt(2, revLike.getMem_num());

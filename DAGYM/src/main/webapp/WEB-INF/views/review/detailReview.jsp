@@ -12,17 +12,54 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
+	//초기데이터 호출
+	getReviewLikes();
 	//좋아요 등록,취소
 	$('.like_img').click(function(){
 		$.ajax({
-			url:'',
-			type:,
-			data:,
-			dataType:,
-			success:function(param){},
-			error:function(){}
+			url:'changeReviewLike.do',
+			type:'post',
+			data:{rev_num:$(this).attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인 후 좋아요를 누를 수 있습니다.');					
+				}else if(param.result == 'success'){
+					displayLike(param);
+					showCount(param);
+				}else{
+					alert('좋아요 등록/취소 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
 		});
-	});
+	});	
+	function displayLike(param){
+		if(param.status == 'noLikes'){
+			$('.like_img').css('color','#ddd');
+		}else if(param.status == 'yesLikes'){
+			$('.like_img').css('color','red');
+		}		
+	}
+	function showCount(param){
+		$('.rev_like').text(param.count);
+	}
+	function getReviewLikes(){
+		$.ajax({
+			url:'getLikeStatus.do',
+			type:'post',
+			data:{rev_num:$('.like_img').attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				displayLike(param);
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	}
 });
 </script>
 </head>
@@ -70,9 +107,9 @@ $(function(){
 							<li>
 								<h2>${review.rev_title}</h2>
 								<div class="align-right">
-										<label>조회수</label> ${review.rev_hit}
-										<span class="like_img" data-num="${review.rev_num}">♥</span> <label>좋아요!</label>
-										<div class="rev_like">${review.rev_like}</div>
+										<label>조회수</label> ${review.rev_hit}<br>
+										<span class="like_img" data-num="${review.rev_num}">♥</span> <label>좋아요</label>
+										<span class="rev_like">${review.rev_like}</span>
 								</div>
 							</li>
 							<li>
@@ -133,7 +170,6 @@ $(function(){
 										$('#delReview').click(function(){
 											let choice = confirm('후기를 삭제하시겠습니까?');
 											if(choice){
-												//location.replace('deleteReview.do?rev_num=');
 												$.ajax({
 													url:'deleteReview.do',
 													type:'post',

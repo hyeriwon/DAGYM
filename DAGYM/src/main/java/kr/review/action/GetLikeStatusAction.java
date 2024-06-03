@@ -13,40 +13,34 @@ import kr.controller.Action;
 import kr.review.dao.ReviewDAO;
 import kr.review.vo.RevLikeVO;
 
-public class ChangeReviewLikeAction implements Action{
+public class GetLikeStatusAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		Map<String,Object> mapAjax = new HashMap<String,Object>();
+		Map<String,String> mapAjax = new HashMap<>();
 		
 		HttpSession session = request.getSession();
 		Integer mem_num = (Integer) session.getAttribute("user_num");
 		
 		if(mem_num==null) {
-			mapAjax.put("result", "logout");
+			mapAjax.put("status", "logout");
 		}else {
 			request.setCharacterEncoding("utf-8");
 			
-			int rev_num = Integer.parseInt(request.getParameter("rev_num"));
+			int rev_num = Integer.parseInt(request.getParameter("rev_num")); 
 			
-			RevLikeVO reviewLike = new RevLikeVO();
-			reviewLike.setRev_num(rev_num);
-			reviewLike.setMem_num(mem_num);
+			RevLikeVO revLike = new RevLikeVO();
+			revLike.setRev_num(rev_num);
+			revLike.setMem_num(mem_num);
 			
-			ReviewDAO dao = ReviewDAO.getInstance();			
-			RevLikeVO db_revLike = dao.getRevLike(reviewLike);
-			
-			if(db_revLike!=null) {
-				dao.deleteLike(db_revLike);
-				mapAjax.put("status", "noLikes");
-			}else {
-				dao.insertLike(reviewLike);				
+			ReviewDAO dao = ReviewDAO.getInstance();
+
+			if(dao.getRevLike(revLike)!=null) {
 				mapAjax.put("status", "yesLikes");
+			}else {
+				mapAjax.put("status", "noLikes");
 			}
-			mapAjax.put("result", "success");
-			mapAjax.put("count", dao.countReviewLikes(rev_num));			
 		}
-		
 		ObjectMapper mapper = new ObjectMapper();
 		String ajaxData = mapper.writeValueAsString(mapAjax);
 		
