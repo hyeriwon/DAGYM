@@ -25,7 +25,7 @@ public class ChangeReviewLikeAction implements Action{
 		if(mem_num==null) {
 			mapAjax.put("result", "logout");
 		}else {
-			request.setCharacterEncoding("utf-8");
+			request.setCharacterEncoding("utf-8"); 
 			
 			int rev_num = Integer.parseInt(request.getParameter("rev_num"));
 			

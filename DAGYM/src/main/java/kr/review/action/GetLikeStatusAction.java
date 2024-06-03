@@ -29,7 +29,7 @@ public class GetLikeStatusAction implements Action{
 			
 			int rev_num = Integer.parseInt(request.getParameter("rev_num")); 
 			
-			RevLikeVO revLike = new RevLikeVO();
+			RevLikeVO revLike = new RevLikeVO(); 
 			revLike.setRev_num(rev_num);
 			revLike.setMem_num(mem_num);
 			

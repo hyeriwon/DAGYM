@@ -434,7 +434,7 @@ public class ReviewDAO {
 			
 			sql = "UPDATE review SET rev_like=rev_like-1 WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
-			pstmt2.setInt(1, revLike.getRev_num());
+			pstmt2.setInt(1, revLike.getRev_num()); 
 			pstmt2.executeUpdate();
 			
 			conn.commit();
