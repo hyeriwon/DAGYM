@@ -60,7 +60,7 @@
 			        <div class="align-center">
 			            <form action="${pageContext.request.contextPath}/schedule/scheduleEnroll.do" method="post">
 			                <input type="hidden" name="sch_date" value="${sch_date}">
-			                <h2>선택한 날짜: ${sch_date}</h2>
+			                <h2>선택한 날짜 ${sch_date}</h2>
 			                <br>
 			                <div class="time-period-container">
 			                    <div class="time-period">

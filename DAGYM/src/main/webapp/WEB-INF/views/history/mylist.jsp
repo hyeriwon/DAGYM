@@ -79,37 +79,18 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         eventClick: function(info) {
+        	// 완료된 PT 일정일 경우 후기 등록으로 이동
             if (info.event.extendedProps.his_status == '2') {
                 var redirectUrl = '${pageContext.request.contextPath}/review/writeReviewForm.do?sch_num=' + encodeURIComponent(info.event.extendedProps.sch_num);
                 window.location.href = redirectUrl;
-            } else {
-                var today = new Date();
-                var eventDate = new Date(info.event.startStr);
-
-                var sch_time = parseInt(info.event.extendedProps.sch_time);
-                var tra_name = info.event.extendedProps.mem_id;
-                var sch_num = info.event.extendedProps.sch_num;
-                var tra_num = info.event.extendedProps.mem_num;
-
-                var form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '${pageContext.request.contextPath}/history/historyEnrollForm.do?sch_date=' + encodeURIComponent(info.event.startStr) + '&sch_time=' + encodeURIComponent(sch_time) + '&tra_name=' + encodeURIComponent(tra_name);
-                form.style.display = 'none';
-
-                var schNumInput = document.createElement('input');
-                schNumInput.type = 'hidden';
-                schNumInput.name = 'sch_num';
-                schNumInput.value = sch_num;
-                form.appendChild(schNumInput);
-
-                var traNumInput = document.createElement('input');
-                traNumInput.type = 'hidden';
-                traNumInput.name = 'tra_num';
-                traNumInput.value = tra_num;
-                form.appendChild(traNumInput);
-
-                document.body.appendChild(form);
-                form.submit();
+            }
+            
+            // 수강 예정인 PT 일정일 경우 PT 일정 취소
+            if (info.event.extendedProps.his_status == '0') {
+	            if (confirm('선택하신 일정을 취소하시겠습니까?')) {
+	            	var schNum = info.event.extendedProps.sch_num;
+	            	location.href = 'historyDeleteForm.do?sch_num=' + schNum;
+	            }
             }
         }
     });
