@@ -60,7 +60,7 @@
 										<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
 										<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
 										<li><a href="#">수강내역</a></li>
-										<li><a href="#">문의내역</a></li>
+										<li><a href="${pageContext.request.contextPath}/qaboard/adminAnswerList.do">문의내역</a></li>
                                 	</ul>
                         		</li>
                         	</c:if>
@@ -81,7 +81,7 @@
                         		<li><a href="#">TRAINER</a>
                         			<ul class="dropdown">
                                      	<li><a href="${pageContext.request.contextPath}/member/adminTrainerList.do">강사상세</a></li>
-                                     	<li><a href="#">스케줄</a></li>
+                                     	<li><a href="${pageContext.request.contextPath}/schedule/list.do">스케줄</a></li>
                                  	</ul>
                         		<li>		                    							
 							</c:if>
