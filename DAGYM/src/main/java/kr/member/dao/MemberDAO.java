@@ -137,7 +137,8 @@ public class MemberDAO {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			sql = "SELECT * FROM member_detail JOIN member USING(mem_num) WHERE mem_num=?";
+			sql = "SELECT * FROM member_detail RIGHT OUTER JOIN member USING(mem_num) WHERE mem_num=?";
+												//수강후기 ID를 불러오기 위해서 OUTER JOIN 진행
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩

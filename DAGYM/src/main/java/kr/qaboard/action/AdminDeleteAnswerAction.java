@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import kr.controller.Action;
 import kr.qaboard.dao.QABoardDAO;
 
-public class AdminDeleteAction implements Action{
+public class AdminDeleteAnswerAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -29,7 +29,7 @@ public class AdminDeleteAction implements Action{
 		QABoardDAO dao = QABoardDAO.getInstance();
 		dao.deleteAdminBoard(qab_num);
 		
-		return "redirect:qaboard/adminAnswerDetail.do?="+qab_num;
+		return "redirect:qaboard/adminAnswerDetail";
 	}
 
 }

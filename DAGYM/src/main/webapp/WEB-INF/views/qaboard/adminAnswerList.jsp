@@ -48,7 +48,7 @@
 					
 					<!-- content 시작 -->	
 					<%-- 검색 --%>
-					<form id="search_form" action="userQuestionList.do" method="get">
+					<form id="search_form" action="adminAnswerList.do" method="get">
 						<ul class="search">
 							<li>
 								<select name="keyfield">
@@ -74,7 +74,7 @@
 							</select>
 						</div>
 						<div class="align-right">
-							<input type="button" value="목록" onclick="location.href='userQuestionList.do'">
+							<input type="button" value="목록" onclick="location.href='adminAnswerList.do'">
 						</div>
 					</div>
 					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">

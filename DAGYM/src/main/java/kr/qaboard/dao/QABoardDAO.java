@@ -234,7 +234,7 @@ public class QABoardDAO {
 			conn = DBUtil.getConnection();
 			if(keyword!=null && !"".equals(keyword)) {
 				if(keyfield.equals("1")) sub_sql += "WHERE qab_title LIKE '%' || ? || '%'";
-				else if(keyfield.equals("2")) sub_sql += "WHERE qab_id LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
 				else if(keyfield.equals("3")) sub_sql += "WHERE qab_content LIKE '%' || ? || '%'";
 			}
 			sql = "SELECT count(*) FROM qaboard JOIN member USING(mem_num) " + sub_sql;

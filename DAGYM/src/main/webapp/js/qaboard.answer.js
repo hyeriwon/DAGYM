@@ -1,7 +1,8 @@
 /*----------댓글 등록----------*/
 
-/*----------댓글 수정----------*/
+
 $(document).ready(function(){
+	/*----------댓글 수정----------*/
 	$(document).on('click','#update_answer_btn', function(){//수정 버튼 클릭시
 		//댓글번호
 		var answer_num = "${answerBoard.qab_num}";
@@ -62,4 +63,11 @@ $(document).ready(function(){
 	$(document).on('click', '.re-reset', function(){
 	    location.reload();
 	});
+	
+	
+	/*----------댓글 삭제----------*/
+	$(document).on('click','#update_answer_btn', function(){
+		
+	});
+	
 });//end of document

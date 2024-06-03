@@ -115,7 +115,7 @@ $(function(){
 							<input type="hidden" value="${answerBoard.qab_num}" name="re_num">
 							<div class="align-right">
 								<input type="button" id="update_answer_btn" value="수정">
-								<input type="button" value="삭제" onclick="location.href='adminDeleteAnswer.do?qab_num=${answerBoard.qab_num}'">
+								<input type="button" id="delete_answer_btn" value="삭제" onclick="location.href='adminDeleteAnswer.do?qab_num=${answerBoard.qab_num}'">
 							</div>
 							<hr size="1" noshade="noshade" width="100%">
 							<p id="answer_content">${answerBoard.qab_content}</p><br>
