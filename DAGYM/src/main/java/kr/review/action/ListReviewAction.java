@@ -1,3 +1,4 @@
+
 package kr.review.action;
 
 import java.util.List;
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.controller.Action;
+import kr.member.dao.MemberDAO;
+import kr.member.vo.MemberVO;
 import kr.review.dao.ReviewDAO;
 import kr.review.vo.ReviewVO;
 import kr.util.PagingUtil;
@@ -17,7 +20,7 @@ public class ListReviewAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer) session.getAttribute("user_num");
-		
+			
 		//현재 페이지 번호 받아오기
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
@@ -28,7 +31,14 @@ public class ListReviewAction implements Action{
 		
 		//해당되는 전체 페이지 번호 받아오기
 		ReviewDAO dao = ReviewDAO.getInstance();
-		int count = dao.getReviewCount(null, null);
+		int count = 0;
+		if(user_num==null) {
+			count = dao.getReviewCount(null, null,3);
+		}else {
+			MemberDAO memDAO = MemberDAO.getInstance();
+			MemberVO member = memDAO.getMember(user_num);
+			count = dao.getReviewCount(null, null,member.getMem_auth());
+		}
 		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,20,10,"listReview.do");

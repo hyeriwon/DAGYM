@@ -113,13 +113,13 @@ $(function(){
 								</div>
 							</li>
 							<li>
-								<c:if test="${mem_num != member.mem_num}">
+								<c:if test="${mem_num != member.mem_num && member.mem_auth!=9}">
 									<c:set var="len" value="${fn:length(member.mem_id)}"/>
 									<c:set var="maskedId" value="${fn:substring(member.mem_id, 0, 4)}"/>
 									<c:set var="maskedId" value="${maskedId}${fn:substring('********', 0, len-4)}"/>
 									${maskedId} 님 
 								</c:if>
-								<c:if test="${mem_num == member.mem_num}">
+								<c:if test="${mem_num == member.mem_num || member.mem_auth==9}">
 									${member.mem_id} 님
 								</c:if>
 							</li>
