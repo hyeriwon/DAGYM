@@ -42,8 +42,6 @@ window.onload=function(){
 </script>
 </head>
 <body>
-<div class="page-main">
-
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	
 	<!-- Breadcrumb Section Begin -->
