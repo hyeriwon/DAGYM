@@ -12,11 +12,6 @@
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
 	<!-- Offcanvas Menu Section Begin -->
  	<jsp:include page="/WEB-INF/views/common/mobile.jsp"/>
  	<!-- Offcanvas Menu Section End -->
@@ -33,7 +28,7 @@
                     <div class="breadcrumb-text">
                         <h2>About us</h2>
                         <div class="bt-option">
-                            <a href="${pageContext.request.contextPath}/resources/main/main.do">Home</a>
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
                             <span>About</span>
                         </div>
                     </div>
