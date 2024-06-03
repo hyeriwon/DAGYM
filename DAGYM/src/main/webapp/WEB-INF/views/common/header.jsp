@@ -19,7 +19,7 @@
                         		<li class="active"><a href="${pageContext.request.contextPath}/main/main.do">Home</a></li>
                              <li><a href="#">About Us</a>                            		
                              	<ul class="dropdown">
-                                     <li><a href="#">센터소개</a></li>
+                                     <li><a href="${pageContext.request.contextPath}/main/about.do">센터소개</a></li>
                                      <li><a href="${pageContext.request.contextPath}/review/listReview.do">수강후기</a></li>
                                  </ul>
                              </li>
