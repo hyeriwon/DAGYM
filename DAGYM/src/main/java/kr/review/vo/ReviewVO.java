@@ -1,6 +1,6 @@
 package kr.review.vo; 
 
-import java.sql.Date;
+import java.sql.Date; 
 
 public class ReviewVO {
 	private int rev_num;

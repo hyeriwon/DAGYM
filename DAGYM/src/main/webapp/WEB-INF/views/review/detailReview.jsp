@@ -94,7 +94,7 @@ $(function(){
                     		<span>Review</span>
                             <h2>후기상세</h2>
                     	</div>
-                 </div>
+                 </div> 
              </div>
           </div>
           	<div class="row">

@@ -69,7 +69,7 @@ window.onload = function(){
 					<!-- content 시작 -->
 					<form id="search_form" action="listReview.do" method="get">
 						<ul class="search">
-							<li>
+							<li> 
 								<select name="keyfield">
 									<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>트레이너 이름</option>
 									<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>제목</option>

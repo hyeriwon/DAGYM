@@ -67,7 +67,7 @@ public class ReviewDAO {
 	//수강후기 개수, 검색 개수
 	public int getReviewCount(String keyfield,String keyword,int mem_auth)throws Exception{
 		Connection conn = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null; 
 		ResultSet rs = null;
 		String sql = null;
 		String sub_sql = "";

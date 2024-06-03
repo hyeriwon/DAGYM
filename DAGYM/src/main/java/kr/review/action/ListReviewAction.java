@@ -37,7 +37,7 @@ public class ListReviewAction implements Action{
 		}else {
 			MemberDAO memDAO = MemberDAO.getInstance();
 			MemberVO member = memDAO.getMember(user_num);
-			count = dao.getReviewCount(null, null,member.getMem_auth());
+			count = dao.getReviewCount(null, null,member.getMem_auth()); 
 		}
 		
 		//페이지 처리
