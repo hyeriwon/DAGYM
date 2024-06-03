@@ -19,14 +19,6 @@ window.onload = function() {
             nbo_title.value = prefix;
         }
     };
-
-    //제목 필드 입력 시 접두사 유지
-    nbo_title.oninput = function() {
-        const prefix = "[" + nbo_type.value + "] ";
-        if (!nbo_title.value.startsWith(prefix)) {
-            nbo_title.value = prefix + nbo_title.value.replace(/^\[[^\]]*\]\s*/, '');
-        }
-    };
     
 	//이벤트 연결
 	myForm.onsubmit=function(){
@@ -96,6 +88,7 @@ window.onload = function() {
 										<option value="" selected disabled>--선택--</option>
 										<option value="공지">공지</option>
 										<option value="이벤트">이벤트</option>
+										<option value="기타">기타</option>
 									</select>
 								</li>
 								<li>

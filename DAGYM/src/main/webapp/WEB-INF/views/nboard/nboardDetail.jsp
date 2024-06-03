@@ -85,6 +85,7 @@
 										};
 									</script>
 								</c:if>
+								<input type="button" value="목록" onclick="location.href='nboardList.do'">
 							</li>
 						</ul>
 						<!-- content 끝 -->

@@ -21,14 +21,6 @@ window.onload=function(){
         }
     };
 
-    //제목 필드 입력 시 접두사 유지
-    nbo_title.oninput = function() {
-        const prefix = "[" + nbo_type.value + "] ";
-        if (!nbo_title.value.startsWith(prefix)) {
-            nbo_title.value = prefix + nbo_title.value.replace(/^\[[^\]]*\]\s*/, '');
-        }
-    };
-    
 	//이벤트 연결
 	myForm.onsubmit=function(){
 		const nbo_title = document.getElementById('nbo_title');
