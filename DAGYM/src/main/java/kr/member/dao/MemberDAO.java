@@ -391,4 +391,47 @@ public class MemberDAO {
 		}
 	}
 	//강사 - 회원 목록, 검색 목록
+	public List<MemberVO> getListMemberByTrainer(int start, int end, String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<MemberVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt = 0;
+		try {
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "AND mem_name LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "AND mem_id LIKE '%' || ? || '%'";
+			}
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) WHERE mem_auth !=8 AND mem_auth!=9 " 
+					+ sub_sql + " ORDER BY mem_auth DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			pstmt = conn.prepareStatement(sql);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, keyword);
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			rs = pstmt.executeQuery();
+			list = new ArrayList<MemberVO>();
+			while(rs.next()) {
+				MemberVO member = new MemberVO();
+				member.setMem_num(rs.getInt("mem_num"));
+				member.setMem_id(rs.getString("mem_id"));
+				member.setMem_auth(rs.getInt("mem_auth"));
+				member.setMem_name(rs.getString("mem_name"));
+				member.setMem_phone(rs.getString("mem_phone"));
+				member.setMem_birth(rs.getString("mem_birth"));
+				member.setMem_reg_date(rs.getDate("mem_reg_date"));
+				
+				list.add(member);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
 }

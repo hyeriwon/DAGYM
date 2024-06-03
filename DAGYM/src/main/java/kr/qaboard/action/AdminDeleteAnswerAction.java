@@ -1,8 +1,13 @@
 package kr.qaboard.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.codehaus.jackson.map.ObjectMapper;
 
 import kr.controller.Action;
 import kr.qaboard.dao.QABoardDAO;
@@ -11,25 +16,33 @@ public class AdminDeleteAnswerAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		
 		HttpSession session = request.getSession();
-
+		int qab_num = Integer.parseInt(request.getParameter("qab_num"));//댓글번호
+		
+		Map<String, String> mapAjax = new HashMap<String, String>();
+		
 		//로그인 체크
 		Integer user_num = (Integer)session.getAttribute("user_num");
-		if(user_num==null) {
-			return "redirect:/member/loginForm.do";
-		}
-		//로그인한 사람이 관리자,강사가 맞는지 체크
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
-		if(user_auth < 8) {
-			return "/WEB-INF/views/common/notice.jsp";
+		QABoardDAO dao = QABoardDAO.getInstance();
+		
+		if(user_num==null) {
+			mapAjax.put("result", "logout");
+		}else if(user_auth >= 8 && user_num!=null) {
+			dao.deleteAdminBoard(qab_num);
+			mapAjax.put("result", "success");
+		}else {
+			mapAjax.put("result", "wrongAccess");
 		}
 		
-		int qab_num = Integer.parseInt(request.getParameter("qab_num"));
+		ObjectMapper mapper = new ObjectMapper();
+		String ajaxData = mapper.writeValueAsString(mapAjax);
 		
-		QABoardDAO dao = QABoardDAO.getInstance();
-		dao.deleteAdminBoard(qab_num);
+		request.setAttribute("ajaxData", ajaxData);
 		
-		return "redirect:qaboard/adminAnswerDetail";
+		return "/WEB-INF/views/common/ajax_view.jsp";
 	}
 
 }

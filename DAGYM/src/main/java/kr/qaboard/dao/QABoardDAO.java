@@ -57,7 +57,7 @@ public class QABoardDAO {
 		return count;
 	}
 	//글 목록, 검색 글 목록
-	public List<QABoardVO> getInquiryList(int mem_num, int startRow, int endRow, String keyfield, String keyword)throws Exception{
+	public List<QABoardVO> getInquiryList(int mem_num, int startRow, int endRow)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -67,18 +67,13 @@ public class QABoardDAO {
 		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
-			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "AND qab_title LIKE '%' || ? || '%'";
-				else if(keyfield.equals("2")) sub_sql += "AND qab_content LIKE '%' || ? || '%'";//이거 검색 가능..?
-				else if(keyfield.equals("3")) sub_sql += "AND (qab_title LIKE '%' || ? || '%' OR qab_content LIKE '%' || ? || '%')";
-				//제목만 검색하도록하고 나머지는 필터설정?
-			}
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard JOIN member USING(mem_num) WHERE mem_num=? AND qab_remove=0 " 
-					+ sub_sql + " ORDER BY qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT q.qab_num, q.mem_num, q.qab_type,q.qab_title, "
+				+ "q.qab_content, q.qab_reg_date, a.qab_ref,m.mem_id,q.qab_remove FROM qaboard q LEFT OUTER JOIN "
+				+ "qaboard a ON q.qab_num = a.qab_ref JOIN member m ON q.mem_num = m.mem_num WHERE m.mem_num=? AND q.qab_remove=0 "
+				+ "AND q.qab_ref=0 ORDER BY q.qab_reg_date DESC) a) WHERE rnum >= ? AND rnum <= ?";
+			
 			pstmt = conn.prepareStatement(sql);
-			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(++cnt, keyword);
-			}
 			pstmt.setInt(++cnt, mem_num);
 			pstmt.setInt(++cnt, startRow);
 			pstmt.setInt(++cnt, endRow);
@@ -233,8 +228,8 @@ public class QABoardDAO {
 		try {
 			conn = DBUtil.getConnection();
 			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE qab_title LIKE '%' || ? || '%'";
-				else if(keyfield.equals("2")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
+				if(keyfield.equals("1")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE qab_title LIKE '%' || ? || '%'";
 				else if(keyfield.equals("3")) sub_sql += "WHERE qab_content LIKE '%' || ? || '%'";
 			}
 			sql = "SELECT count(*) FROM qaboard JOIN member USING(mem_num) " + sub_sql;
@@ -269,9 +264,11 @@ public class QABoardDAO {
 				else if(keyfield.equals("2")) sub_sql += "AND q.qab_title LIKE '%' || ? || '%'";
 				else if(keyfield.equals("3")) sub_sql += "AND q.qab_content LIKE '%' || ? || '%'";
 			}
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM qaboard q LEFT OUTER JOIN qaboard a ON q.qab_num=a.qab_ref "
-					+ "JOIN member m ON q.mem_num=m.mem_num WHERE q.qab_ref=0 "
-					+ sub_sql + "ORDER BY q.qab_reg_date DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT q.qab_num, q.mem_num, q.qab_type,q.qab_title, q.qab_content, "
+				+ "q.qab_reg_date, a.qab_ref,m.mem_id,q.qab_remove FROM qaboard q LEFT OUTER JOIN qaboard a ON q.qab_num = a.qab_ref "
+				+ "JOIN member m ON q.mem_num = m.mem_num WHERE q.qab_ref = 0 "
+				+ sub_sql + "ORDER BY q.qab_reg_date DESC) a) WHERE rnum >= ? AND rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, keyword);

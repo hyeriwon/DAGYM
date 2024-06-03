@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Q&A</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/WHR.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -58,7 +59,9 @@ $(function(){
 					<!-- content 시작 -->			
 					<h2>${qaboard.qab_title}</h2>
 					<div class="align-right">
-						<input type="button" value="수정" onclick="location.href='userUpdateForm.do?qab_num=${qaboard.qab_num}'">
+						<c:if test="${empty answerBoard}">
+							<input type="button" value="수정" onclick="location.href='userUpdateForm.do?qab_num=${qaboard.qab_num}'">
+						</c:if>
 						<input type="button" value="삭제" id="delete">
 						<input type="button" value="목록" onclick="location.href='userQuestionList.do'">
 					</div>
@@ -75,11 +78,27 @@ $(function(){
 					<%-- 등록일, 수정일 --%>
 					<div class="align-right">
 						<c:if test="${!empty qaboard.qab_modify_date}">
-							최근 수정일 : ${qaboard.qab_modify_date}
+							최근 수정일 &nbsp;${qaboard.qab_modify_date}&nbsp;|
 						</c:if>
-						작성일 : ${qaboard.qab_reg_date}
+						작성일 &nbsp;${qaboard.qab_reg_date}
 					</div>
+					<br>
 					<%-- 문의답변 --%>
+					<c:if test="${answerBoard!=null}">
+						<div id="answer-div">
+							<div class="align-right">
+							</div>
+							<hr size="1" noshade="noshade" width="100%">
+							<p id="answer_content">${answerBoard.qab_content}</p><br>
+							<hr size="1" noshade="noshade" width="100%">
+							<div class="align-right">
+								<c:if test="${!empty answerBoard.qab_modify_date}">
+									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;|
+								</c:if>
+								작성일 &nbsp;${answerBoard.qab_reg_date}
+							</div>
+						</div>
+					</c:if>
 					<!-- content 끝 -->
 					
 					</div>

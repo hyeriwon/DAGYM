@@ -39,7 +39,7 @@ public class UserQuestionListAction implements Action{
 		
 		List<QABoardVO> list = null;
 		if(count > 0) {
-			list = qaboardDAO.getInquiryList(user_num, page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			list = qaboardDAO.getInquiryList(user_num, page.getStartRow(), page.getEndRow());
 		}
 		
 		request.setAttribute("count", count);

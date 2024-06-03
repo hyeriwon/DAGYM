@@ -48,6 +48,8 @@ public class AdminAnswerListAction implements Action{
 		if(count > 0) {
 			list = dao.getAnswerList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
 		}
+		System.out.println(count);
+		System.out.println(list);
 		
 		request.setAttribute("count", count);
         request.setAttribute("list", list);
