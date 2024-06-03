@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 import kr.controller.Action;
 import kr.meal.dao.MealDAO;
 import kr.meal.vo.MealVO;
+import kr.member.dao.MemberDAO;
+import kr.member.vo.MemberVO;
 import kr.util.PagingUtil;
 
 public class MealDetailAction implements Action {
@@ -27,19 +29,24 @@ public class MealDetailAction implements Action {
 		if (mem_num == null) {
 			return "redirect:/member/loginForm.do";
 		}
-		if(user_auth == 9) {
+		if(user_auth >= 8) {
 			mem_num = Integer.parseInt(request.getParameter("client_num"));
+			
 		}
 		
 		
 		MealDAO dao = MealDAO.getInstance();
 		int count = dao.getMealCount(keyfield,
 		 keyword,mem_num); PagingUtil page = new
-		 PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,20,10,
+		 PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,5,10,
 		 "mealDetail.do"); List<MealVO> mealList =
 		  dao.getListMeal(page.getStartRow(),page.getEndRow(), keyfield, keyword,
 		  mem_num);
-		  
+		 MemberDAO memberdao = MemberDAO.getInstance();
+		MemberVO member =memberdao.getMember(mem_num);
+		 
+			
+		 request.setAttribute("mem_name",member.getMem_name());
 		  request.setAttribute("meal",mealList); 
 		  request.setAttribute("count", count);
 		  request.setAttribute("page", page.getPage());

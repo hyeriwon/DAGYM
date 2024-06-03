@@ -25,7 +25,7 @@ public class ListDateMealAction implements Action {
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 		
-		if(user_auth == 9) {
+		if(user_auth >= 8) {
 			mem_num = Integer.parseInt(request.getParameter("client_num"));
 		}
 		String meal_date = request.getParameter("meal_date");

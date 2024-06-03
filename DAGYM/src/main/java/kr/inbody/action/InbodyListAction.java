@@ -28,7 +28,7 @@ public class InbodyListAction implements Action {
 			request.setAttribute("notice_url", request.getContextPath()+"/member/loginForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
-		if(user_auth ==9) {
+		if(user_auth >=8) {
 			user_num = Integer.parseInt(request.getParameter("client_num"));
 		}
 		String pageNum = request.getParameter("pageNum");

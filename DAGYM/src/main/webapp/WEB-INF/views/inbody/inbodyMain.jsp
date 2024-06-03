@@ -79,14 +79,11 @@
 					<div class="chart-table">
 					
 					<!-- content 시작 -->	
-					<p>
-				    <c:if test="${user_auth == 9}">
-				    </c:if>
 				    <div class="align-right">
-				    <c:if test="${user_auth != 9}">
+				    <c:if test="${user_auth == 2}">
 				    	<input type="button" value="목록보기" id ="view_List"onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
 				    </c:if>
-				    <c:if test="${user_auth == 9 }">
+				    <c:if test="${user_auth >= 8  }">
 				    <label for="client_num"></label>
 				     <input type="search"  id="client_num" value="회원번호입력" name="client_num" autocomplete="off"
 				     onfocus="if(this.value=='회원번호입력') this.value='';" onblur="if(this.value=='') this.value='회원번호입력';">
@@ -94,8 +91,10 @@
 				    </c:if>
 				    <div><p></div>
 				    </div>
+				      <c:if test="${user_auth == 2}">
 				    <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
-				    <c:if test="${user_auth == 9}">
+				    </c:if>
+				    <c:if test="${user_auth >= 8}">
 				    <table>
 							<tr>
 								<th>회원번호</th>

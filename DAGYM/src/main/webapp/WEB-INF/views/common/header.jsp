@@ -47,8 +47,8 @@
                                      <li><a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석체크</a></li>
                                 		<li><a href="${pageContext.request.contextPath}/point/adminMemberList.do">포인트</a></li>
 									<li><a href="#">운동기록</a></li>
-									<li><a href="#">식사기록</a></li>
-									<li><a href="#">인바디</a></li>
+									<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
+									<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
 									<li><a href="#">수강내역</a></li>
 									<li><a href="#">문의내역</a></li>
                                  </ul>
@@ -62,8 +62,8 @@
                                      <li><a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석체크</a></li>
                                 		<li><a href="${pageContext.request.contextPath}/point/adminMemberList.do">포인트</a></li>
 									<li><a href="#">운동기록</a></li>
-									<li><a href="#">식사기록</a></li>
-									<li><a href="#">인바디</a></li>
+									<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
+									<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
 									<li><a href="#">수강내역</a></li>
 									<li><a href="${pageContext.request.contextPath}/qaboard/adminAnswerList.do">문의내역</a></li>
                                  </ul>

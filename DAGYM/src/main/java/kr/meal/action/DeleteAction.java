@@ -29,12 +29,12 @@ public class DeleteAction implements Action{
 		MealVO db_meal = dao.getMeal(meal_num);
 		//로그인한 회원번호와 작성자 회원번호 일치 여부 체크
 		if(user_num != db_meal.getMem_num()) {
-			request.setAttribute("notice_msg", "회원본인이 삭제해야합니다.");
+			request.setAttribute("notice_msg", "본인기록만  삭제가능합니다.");
 			request.setAttribute("notice_url", request.getContextPath()+"/member/loginForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 		
-		if(user_auth ==9) {
+		if(user_auth >=8) {
 			request.setAttribute("notice_msg", "회원본인이 삭제해야합니다.");
 			request.setAttribute("notice_url", request.getContextPath()+"/meal/mealDetail.do");
 			return "/WEB-INF/views/common/alert_view.jsp";

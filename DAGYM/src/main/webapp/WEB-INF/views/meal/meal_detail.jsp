@@ -63,7 +63,7 @@ window.onload=function(){
 					<div class="chart-table">
 					
 					<!-- content 시작 -->
-					<h2><c:if test="${user_auth ==9}">(관리자 전용)${param.client_num}님</c:if></h2>
+					<h2><c:if test="${user_auth >=8}">(관리자 전용)</c:if>${mem_name}님</h2>
 					<form id = "search_form" action = "mealDetail.do" method="get">
 						<ul class="search">
 							<li>
@@ -83,11 +83,11 @@ window.onload=function(){
 					</form>
 					
 					<div class= "list-space align-right">
-						<c:if test="${ user_auth!=9}">
+						<c:if test="${ user_auth ==2}">
 						<input type="button" value="등록" onclick="location.href='list.do'">
 						</c:if>
-						<c:if test="${ user_auth==9}">
-						<input type="button" value="검색" onclick="location.href='list.do'">
+						<c:if test="${ user_auth >=8}">
+						<input type="button" value="회원검색" onclick="location.href='list.do'">
 						</c:if>
 						<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 					</div>
