@@ -10,6 +10,25 @@
 <script type="text/javascript">
 window.onload=function(){
 	const myForm = document.getElementById('update_form');
+	const nbo_type = document.getElementById('nbo_type');
+	const nbo_title = document.getElementById('nbo_title');
+	    
+    //게시글 종류 변경 시 제목 필드 업데이트
+    nbo_type.onchange = function() {
+        const prefix = "[" + nbo_type.value + "] ";
+        if (!nbo_title.value.startsWith(prefix)) {
+            nbo_title.value = prefix;
+        }
+    };
+
+    //제목 필드 입력 시 접두사 유지
+    nbo_title.oninput = function() {
+        const prefix = "[" + nbo_type.value + "] ";
+        if (!nbo_title.value.startsWith(prefix)) {
+            nbo_title.value = prefix + nbo_title.value.replace(/^\[[^\]]*\]\s*/, '');
+        }
+    };
+    
 	//이벤트 연결
 	myForm.onsubmit=function(){
 		const nbo_title = document.getElementById('nbo_title');
@@ -73,6 +92,14 @@ window.onload=function(){
 						<form id="update_form" action="nboardUpdate.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="nbo_num" value="${nboard.nbo_num}">
 							<ul>
+								<li>
+									<label for="nbo_type">게시글 종류</label>
+									<select name="nbo_type" id="nbo_type">
+										<option value="" selected disabled>--선택--</option>
+										<option value="공지">공지</option>
+										<option value="이벤트">이벤트</option>
+									</select>
+								</li>
 								<li>
 									<label for="nbo_title">제목</label>
 									<input type="text" name="nbo_title" id="nbo_title" value="${nboard.nbo_title}" maxlength="50">

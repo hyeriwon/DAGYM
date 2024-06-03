@@ -94,12 +94,14 @@ window.onload=function(){
 					<c:if test="${count > 0}">
 					<table>
 						<tr>
+							<th>회원번호</th>
 							<th>아이디</th>
 							<th>이름</th>
 							<th>전화번호</th>
 						</tr>
 						<c:forEach var="member" items="${list}">
 						<tr>
+							<td>${member.mem_num}</td>
 							<td>
 							<c:if test="${member.mem_auth > 0}">
 							<a href="adminUserPaymentForm.do?mem_num=${member.mem_num}">${member.mem_id}</a>

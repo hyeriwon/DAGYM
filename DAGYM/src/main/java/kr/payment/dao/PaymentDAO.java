@@ -198,6 +198,7 @@ public class PaymentDAO {
 				payment.setPay_enroll(rs.getInt("pay_enroll"));
 				payment.setPay_reg_date(rs.getDate("pay_reg_date"));
 				payment.setMem_name(rs.getString("mem_name"));
+				payment.setPay_status(rs.getInt("pay_status"));
 				
 				list.add(payment);
 			}
@@ -295,7 +296,7 @@ public class PaymentDAO {
 				//커넥션 풀로부터 커넥션 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "UPDATE payment SET pay_enroll = 0 WHERE pay_num = ?";
+				sql = "UPDATE payment SET pay_enroll = 0, pay_status = 1 WHERE pay_num = ?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩

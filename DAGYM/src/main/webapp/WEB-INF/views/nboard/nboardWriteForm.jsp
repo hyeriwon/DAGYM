@@ -7,15 +7,24 @@
 <title>NOTICE</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <script type="text/javascript">
-window.onload=function(){
+window.onload = function() {
 	const myForm = document.getElementById('write_form');
+    const nbo_type = document.getElementById('nbo_type');
+    const nbo_title = document.getElementById('nbo_title');
     
-    myForm.onchange = function() {
-        const nbo_type = document.getElementById('nbo_type');
-        const nbo_title = document.getElementById('nbo_title');
-        
-        if (nbo_type.value.trim() != '') {
-            nbo_title.value = "[" + nbo_type.value + "] ";
+    //게시글 종류 변경 시 제목 필드 업데이트
+    nbo_type.onchange = function() {
+        const prefix = "[" + nbo_type.value + "] ";
+        if (!nbo_title.value.startsWith(prefix)) {
+            nbo_title.value = prefix;
+        }
+    };
+
+    //제목 필드 입력 시 접두사 유지
+    nbo_title.oninput = function() {
+        const prefix = "[" + nbo_type.value + "] ";
+        if (!nbo_title.value.startsWith(prefix)) {
+            nbo_title.value = prefix + nbo_title.value.replace(/^\[[^\]]*\]\s*/, '');
         }
     };
     

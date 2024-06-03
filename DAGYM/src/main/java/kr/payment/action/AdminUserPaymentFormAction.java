@@ -54,6 +54,7 @@ public class AdminUserPaymentFormAction implements Action{
 		request.setAttribute("remain", remain);
 		request.setAttribute("mem_num", mem_num);
 		
+		
 		//JSP 경로 반환
 		return "/WEB-INF/views/payment/detailPaymentUserForm.jsp";
 	}

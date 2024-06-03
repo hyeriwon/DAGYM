@@ -10,34 +10,30 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
-    $('.cancel-btn').click(function(){
-        var btn = $(this);
-        
-        var payNum = btn.data('paynum');
+    $('.cancel-btn').on('click', function() {
+        var pay_num = $(this).data('paynum');
         var choice = confirm('회원권을 취소하시겠습니까?');
         if(choice){
-            $.ajax({
-                url:'updatePayment.do',
-                type:'post',
-                data:{pay_num: payNum},
-                dataType:'json',
-                success:function(param){
-                    if(param.result == 'logout'){
-                        alert('로그인 후 사용하세요');
-                    }else if(param.result == 'success'){
-                        alert('회원권 취소가 완료되었습니다.');
-                        var td = btn.parent();
-                        btn.remove(); 
-                        td.append('<span>취소 완료</span>'); 
-                    }else{
-                        alert('회원권 취소 오류 발생');
-                    }
-                },
-                error:function(){
-                    alert('네트워크 오류 발생');
+        	$.ajax({
+            type: 'POST',
+            url:'updatePayment.do',
+            data: {pay_num: pay_num},
+            dataType: 'json',
+            success: function(param) {
+                if(param.result === 'success') {
+                    alert('회원권 취소가 완료되었습니다.');
+                    location.reload();
+                } else if(param.result === 'wrongAccess') {
+                    alert('잘못된 접근입니다.');
+                }else{
+                	alert('회원권 취소 오류 발생')
                 }
-            });
-        }
+            },
+            error: function() {
+                alert('네트워크 오류 발생');
+            }
+        });
+      }
     });
 });
 </script>
@@ -88,6 +84,9 @@ $(function(){
 							<label>[${mem_name}]님</label>
 						</li>
 						<li>
+							<label>회원 번호 : </label>${mem_num}
+						</li>
+						<li>
 							<label>보유한 회원권 : </label>${remain}
 						</li>
 					</ul>
@@ -103,15 +102,23 @@ $(function(){
 								<th>수강료</th>
 								<th>등록횟수</th>
 								<th>결제일</th>
-								<th>결제취소</th>
+								<th>결제상태</th>
 							</tr>
 						<c:forEach var="payment" items="${list}">
 							<tr>
 								<td>${payment.pay_num}</td>
-								<td><fmt:formatNumber value="${payment.pay_fee}" pattern="#,##0"></fmt:formatNumber></td>
+								<td><fmt:formatNumber value="${payment.pay_fee}"/></td>
 								<td>${payment.pay_enroll}</td>
 								<td>${payment.pay_reg_date}</td>
-								<td><input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}"></td>
+								<td>
+								<c:if test="${payment.pay_status == 1}">
+									결제 취소 완료
+								</c:if>
+								<c:if test="${payment.pay_status == 0}">
+									결제 완료
+								<input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}">
+								</c:if>
+								</td>
 							</tr>
 						</c:forEach>
 						</table>
