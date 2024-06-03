@@ -44,7 +44,7 @@
                             <c:if test="${!empty user_num && user_auth != 8 && user_auth != 9}"><!-- 회원 -->
 	                        	<li><a href="#">Class</a>
 	                        		<ul class="dropdown">
-	                                    <li><a href="#">강사프로필</a></li>
+	                                    <li><a href="${pageContext.request.contextPath}/main/profile.do">강사프로필</a></li>
 	                                    <li><a href="${pageContext.request.contextPath}/history/list.do">PT신청</a></li>
 	                                </ul>
 	                        	</li>
