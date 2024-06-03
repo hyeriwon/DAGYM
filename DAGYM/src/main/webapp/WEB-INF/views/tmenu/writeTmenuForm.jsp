@@ -32,6 +32,20 @@ window.onload=function(){
 			return false;
 		}
 	}
+	//오늘의 메뉴 사진 미리보기
+	let photo_path = $('.my-photo').attr('src');
+	$('#filename').change(function(){
+		let photo = this.files[0];
+		//선택된 사진이 없을 때 마지막으로 수정된 이미지로 되돌리기
+		if(!photo){
+			$('.my-photo').attr('src',photo_path);
+		}
+		const reader = new FileReader();
+		reader.readAsDataURL(photo);
+		reader.onload = function(){
+			$('.my-photo').attr('src',reader.result);
+		};
+	});
 }
 </script>
 </head>
@@ -81,7 +95,13 @@ window.onload=function(){
 							</li>
 							<li>
 								<label for="filename">메뉴 사진</label>
-								<input type="file" name="filename" id="filename" class="input-check"  accept="image/gif,image/png,image/jpeg">
+								<input type="file" name="filename" id="filename"  class="input-check" accept="image/gif,image/png,image/jpeg"><br>
+								<c:if test="${empty inbody.inb_photo}">
+									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
+								</c:if>
+								<c:if test="${!empty inbody.inb_photo}">
+									<img src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="200" height="200" class="my-photo">
+								</c:if>				
 							</li>
 							<li>
 								<label for="menu_kcal">칼로리(Kcal)</label>

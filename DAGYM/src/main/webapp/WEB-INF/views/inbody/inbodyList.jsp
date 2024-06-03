@@ -48,6 +48,7 @@
 					
 					<!-- content 시작 -->		
 					<form id="search_form" action="inbodyList.do" method="get">
+						<input type="hidden" id="client_num" value="${param.client_num}" name="client_num">
 						<ul class="search">
 						<li>
 						<select name = "keyfield">
@@ -63,7 +64,7 @@
 						</ul>
 						</form>
 						<div class= "list-space align-right">
-						<c:if test="${user_auth!=9}">
+						<c:if test="${user_auth==2}">
 						<input type="button" value="등록" onclick="location.href='inbodyMain.do'">
 						</c:if>
 						<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">

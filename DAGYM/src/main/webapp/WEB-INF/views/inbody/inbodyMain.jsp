@@ -31,14 +31,19 @@
 	  });
 	  calendar.render(); // 캘린더를 렌더링합니다.
 	});
-	function searchByMemNum() {
-		  var client_num = document.getElementById('client_num').value.trim();
-		  if(client_num == '회원번호입력' || client_num ==''){
-			  alert('회원번호를 입력하세요');
-			  return;
-		  }
-		  window.location.href = '${pageContext.request.contextPath}/inbody/inbodyList.do?client_num='+client_num;
-	}
+	window.onload=function(){
+		const myForm = document.getElementById('search_form');
+		//이벤트 연결
+		myForm.onsubmit=function(){
+			const keyword = document.getElementById('keyword');
+			if(keyword.value.trim()==''){//아무것도 입력하지 않은 경우
+				alert('검색어를 입력하세요');
+				keyword.value='';
+				keyword.focus();
+				return false;
+			}
+		};
+	};
 </script>
 </head>
 <body>
@@ -69,7 +74,8 @@
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Inbody</span>
-                            <h2>인바디 등록</h2>
+                            <h2> <c:if test="${user_auth == 2}">인바디 등록</c:if></h2>
+                            <h2> <c:if test="${user_auth >= 2}">인바디 기록</c:if></h2>
                     	</div>
                  </div>
              </div>
@@ -83,18 +89,27 @@
 				    <c:if test="${user_auth == 2}">
 				    	<input type="button" value="목록보기" id ="view_List"onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
 				    </c:if>
-				    <c:if test="${user_auth >= 8  }">
-				    <label for="client_num"></label>
-				     <input type="search"  id="client_num" value="회원번호입력" name="client_num" autocomplete="off"
-				     onfocus="if(this.value=='회원번호입력') this.value='';" onblur="if(this.value=='') this.value='회원번호입력';">
-				     <input type="submit" value="검색" onclick="searchByMemNum()"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
-				    </c:if>
-				    <div><p></div>
 				    </div>
 				      <c:if test="${user_auth == 2}">
 				    <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
 				    </c:if>
 				    <c:if test="${user_auth >= 8}">
+				    <form id="search_form" action="inbodyMain.do" method="get">
+						<ul class="search">
+							<li>
+								<select name="keyfield">
+									<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>이름</option>
+									<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>아이디</option>
+								</select>
+							</li>
+							<li>
+								<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
+							</li>
+							<li>
+								<input type="submit" value="검색">
+							</li>
+						</ul>
+					</form>
 				    <table>
 							<tr>
 								<th>회원번호</th>
@@ -104,7 +119,7 @@
 							</tr>
 							<c:forEach var="member" items="${list}">
 							<tr>
-								<td>${member.mem_num}</td>
+								<td><a href="${pageContext.request.contextPath}/inbody/inbodyList.do?client_num=${member.mem_num}">${member.mem_num}</a></td>
 								<td>${member.mem_id}</td>
 								<td>${member.mem_name}</td>
 								<td>${member.mem_reg_date}</td>

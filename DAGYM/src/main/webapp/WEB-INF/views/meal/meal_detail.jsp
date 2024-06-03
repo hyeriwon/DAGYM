@@ -133,7 +133,8 @@ window.onload=function(){
 							</c:forEach>
 						
 						</table>
-						<div class="align-center">${page}</div>
+						<div class="align-center">${page}
+						</div>
 					</c:if>
 					<!-- content 끝 -->
 					
