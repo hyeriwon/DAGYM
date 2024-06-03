@@ -11,6 +11,11 @@
 <link rel="stylesheet"	href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
+//redirectMain 변수가 true일 때만 alert를 표시하고 메인 페이지로 이동
+<c:if test="${requestScope.redirectMain == true}">
+    alert("${error}");
+    window.location.href = "${pageContext.request.contextPath}/main/main.do";
+</c:if>
 
 document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('his_calendar');

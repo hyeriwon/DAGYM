@@ -44,7 +44,7 @@ public class HistoryDAO {
 			pstmt.setInt(1, history.getMem_num());
 			pstmt.setInt(2, history.getSch_num());
 			pstmt.setInt(3, history.getTra_num());
-			pstmt.setInt(4, 0); // 0 : 예약됨, 1: 완료, 2 : 취소
+			pstmt.setInt(4, 0); // 0 : 예약됨, 1: 취소, 2 : 완료
 			pstmt.setString(5, history.getHis_part());
 
 			// SQL문 실행
@@ -168,6 +168,38 @@ public class HistoryDAO {
 		return list;
 
 	}
+	
+	
+	// 중복된 시간인지 확인하는 메서드
+    public boolean isDuplicateSchedule(String his_date, int sch_time) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        boolean isDuplicate = false;
+        String sql = "SELECT COUNT(*) FROM history h JOIN schedule s ON h.sch_num = s.sch_num WHERE s.sch_date = ? AND s.sch_time = ?";
+
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, his_date);
+            pstmt.setInt(2, sch_time);
+            rs = pstmt.executeQuery();
+            if (rs.next() && rs.getInt(1) > 0) {
+                isDuplicate = true;
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            DBUtil.executeClose(rs, pstmt, conn);
+        }
+
+        return isDuplicate;
+    }
+
+	
+	
+	
+	
 
 	/* =====================추후 수정 예정====================== */
 	/*-----회원-----*/

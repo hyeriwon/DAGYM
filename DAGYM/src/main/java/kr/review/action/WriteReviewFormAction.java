@@ -43,7 +43,7 @@ public class WriteReviewFormAction implements Action{
 		
 		//해당 PT에 대해 이미 후기가 작성되었는지 확인
 		ReviewDAO revDAO = ReviewDAO.getInstance();
-		if(!revDAO.checkReview(sch_num)) {
+		if(revDAO.checkReview(sch_num)) {
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		

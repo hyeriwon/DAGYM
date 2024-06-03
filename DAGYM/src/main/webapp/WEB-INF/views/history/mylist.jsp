@@ -62,35 +62,54 @@ document.addEventListener('DOMContentLoaded', function() {
             </c:forEach>
         ],
         eventDidMount: function(info) {
-            if (info.event.extendedProps.his_status == '1') {
+            if (info.event.extendedProps.his_status == '2') {
                 info.el.classList.add('completed-event');
             }
-            // 기존 eventDidMount 내용 유지
         },
         eventMouseEnter: function(info) {
-            // 기존 eventMouseEnter 내용 유지
+            if (info.event.extendedProps.his_status) {
+                info.el.style.cursor = 'pointer';
+                info.el.style.transform = 'scale(1.1)';
+                info.el.style.transition = 'transform 0.2s';
+            }
         },
         eventMouseLeave: function(info) {
-            // 기존 eventMouseLeave 내용 유지
+            if (info.event.extendedProps.his_status) {
+                info.el.style.transform = 'scale(1)';
+            }
         },
         eventClick: function(info) {
-            if (info.event.extendedProps.his_status == '1') {
+            if (info.event.extendedProps.his_status == '2') {
+                var redirectUrl = '${pageContext.request.contextPath}/review/writeReviewForm.do?sch_num=' + encodeURIComponent(info.event.extendedProps.sch_num);
+                window.location.href = redirectUrl;
+            } else {
+                var today = new Date();
+                var eventDate = new Date(info.event.startStr);
+
+                var sch_time = parseInt(info.event.extendedProps.sch_time);
+                var tra_name = info.event.extendedProps.mem_id;
+                var sch_num = info.event.extendedProps.sch_num;
+                var tra_num = info.event.extendedProps.mem_num;
+
                 var form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '${pageContext.request.contextPath}/review/writeReviewsForm.do';
+                form.action = '${pageContext.request.contextPath}/history/historyEnrollForm.do?sch_date=' + encodeURIComponent(info.event.startStr) + '&sch_time=' + encodeURIComponent(sch_time) + '&tra_name=' + encodeURIComponent(tra_name);
                 form.style.display = 'none';
-                
-                // 스케줄 번호를 전달
+
                 var schNumInput = document.createElement('input');
                 schNumInput.type = 'hidden';
                 schNumInput.name = 'sch_num';
-                schNumInput.value = info.event.extendedProps.sch_num;
+                schNumInput.value = sch_num;
                 form.appendChild(schNumInput);
-                
+
+                var traNumInput = document.createElement('input');
+                traNumInput.type = 'hidden';
+                traNumInput.name = 'tra_num';
+                traNumInput.value = tra_num;
+                form.appendChild(traNumInput);
+
                 document.body.appendChild(form);
                 form.submit();
-            } else {
-                // 기존 eventClick 내용 유지
             }
         }
     });
@@ -106,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <h2 align="center">PT 신청 목록</h2>
         
         <div class="align-right">
-         <input type="button" value="PT등록" onclick="location.href='list.do'">
+            <input type="button" value="PT등록" onclick="location.href='list.do'">
         </div>
 
         <div id="his_calendar"></div>
