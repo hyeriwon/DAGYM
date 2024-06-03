@@ -38,13 +38,16 @@ public class AdminUserPaymentFormAction implements Action{
 		int count = dao.getPayMemCount(mem_num);
 		int remain = dao.remainpayment(mem_num);
 		String mem_name = dao.getMemberName(mem_num);
+		
+		//만료된 결제 내역 업데이트
+		dao.updateExpMembership(mem_num);
+		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,20,10,"adminUserPaymentForm.do");
 		
 		List<PaymentVO> list = null;
 		if(count > 0) {
 			list = dao.getPayMemList(mem_num,page.getStartRow(),page.getEndRow());
-			
 		}
 		
 		request.setAttribute("mem_name", mem_name);

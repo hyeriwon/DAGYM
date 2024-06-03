@@ -36,6 +36,7 @@ $(function(){
       }
     });
 });
+
 </script>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 </head>
@@ -84,10 +85,10 @@ $(function(){
 							<label>[${mem_name}]님</label>
 						</li>
 						<li>
-							<label>회원 번호 : </label>${mem_num}
+							<label>회원 번호 :</label> ${mem_num}
 						</li>
 						<li>
-							<label>보유한 회원권 : </label>${remain}
+							<label>보유한 회원권 :</label> ${remain}
 						</li>
 					</ul>
 					<c:if test="${count == 0}">
@@ -102,6 +103,7 @@ $(function(){
 								<th>수강료</th>
 								<th>등록횟수</th>
 								<th>결제일</th>
+								<th>만료일</th>
 								<th>결제상태</th>
 							</tr>
 						<c:forEach var="payment" items="${list}">
@@ -110,6 +112,7 @@ $(function(){
 								<td><fmt:formatNumber value="${payment.pay_fee}"/></td>
 								<td>${payment.pay_enroll}</td>
 								<td>${payment.pay_reg_date}</td>
+								<td>${payment.pay_exp}</td>
 								<td>
 								<c:if test="${payment.pay_status == 1}">
 									결제 취소 완료
@@ -117,6 +120,9 @@ $(function(){
 								<c:if test="${payment.pay_status == 0}">
 									결제 완료
 								<input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}">
+								</c:if>
+								<c:if test="${payment.pay_status == 3}">
+									만료됨
 								</c:if>
 								</td>
 							</tr>
