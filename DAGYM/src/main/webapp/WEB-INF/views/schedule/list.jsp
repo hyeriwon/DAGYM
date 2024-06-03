@@ -48,30 +48,38 @@ document.addEventListener('DOMContentLoaded', function() {
             // 등록한 사람의 ID와 현재 사용자의 ID가 다르면 배경색을 빨간색으로 설정
             if (info.event.extendedProps.mem_id !== currentUserId) {
                 info.el.style.backgroundColor = 'red';
+                info.el.style.cursor = 'default'; // 커서를 기본 화살표로 설정
+            } else {
+            	// 마우스를 올리면 포인터로 변경
+                info.el.style.cursor = 'pointer';
+            	
             }
             // 테두리 없애기
             info.el.style.border = 'none';
-            
-            
-         	// 마우스를 올리면 포인터로 변경
-            info.el.style.cursor = 'pointer';
         },
         eventMouseEnter: function(info) {
             // 이벤트가 커지는 효과를 위해 크기를 증가시킵니다.
-            info.el.style.transform = 'scale(1.1)';
-            info.el.style.transition = 'transform 0.2s';
+            if (info.event.extendedProps.mem_id == currentUserId) {
+                info.el.style.transform = 'scale(1.1)';
+                info.el.style.transition = 'transform 0.2s';
+            }
         },
         eventMouseLeave: function(info) {
             // 마우스가 이벤트에서 벗어나면 다시 원래 크기로 돌아갑니다.
-            info.el.style.transform = 'scale(1)';
+            if (info.event.extendedProps.mem_id == currentUserId) {
+                info.el.style.transform = 'scale(1)';
+            }
         },
         dateClick: function(info) {
+        	
+        
+        	
             var today = new Date();
             var clickedDate = new Date(info.dateStr);
             
             // 클릭된 날짜가 오늘 이전인지 확인
             if (clickedDate <= today.setDate(today.getDate() - 1)) {
-                alert('오늘 이후의 식사내역을 등록할 수 있습니다.');
+                alert('오늘 이후로 스케줄을 등록할 수 있습니다.');
                 window.location.reload();
             } else {
                 var dateStr = info.dateStr;
