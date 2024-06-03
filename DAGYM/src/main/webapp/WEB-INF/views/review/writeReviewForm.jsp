@@ -39,6 +39,56 @@ window.onload = function(){
 		gradeScore.textContent = '(' + this.value + '점을 선택했습니다.)';
 	  };
   	}
+	
+	//파일 미리보기
+	showImage('#oldFile1','#filename1','#output1','#newFile1','#fileExist1');
+	showImage('#oldFile2','#filename2','#output2','#newFile2','#fileExist2');
+	
+	function showImage(oldFileId,filenameId,outputId,newFileId,fileExistId){
+		let file_path1 = $(oldFileId).attr('src');
+		let file_path2 = $(newFileId).attr('src');
+		$(filenameId).change(function(){		
+			let file = this.files[0];
+			
+			//사진 미업로드시, 이전 상태로 되돌리기
+			if(!file){
+				$(oldfileId).attr('src',file_path1);
+				$(newfileId).attr('src',file_path2);
+				return;
+			}
+			
+			//기존 파일 이미지 삭제
+			$(outputId).empty();	
+			
+			//새로 선택한 파일 업로드
+			let newPhoto = $('<img>');
+			$(outputId).append(newPhoto);		
+			const reader = new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload = function(){
+				newPhoto.attr('src',reader.result);
+				newPhoto.attr('width','200');
+				newPhoto.attr('height','200');
+				newPhoto.attr('id',newFileId);
+				$(fileExistId).attr('value','1');
+			};
+		});
+	};
+	
+	//파일 삭제하기
+	delFile('#delFile1','#filename1','#output1','#fileExist1');
+	delFile('#delFile2','#filename2','#output2','#fileExist2');
+	
+	function delFile(delFileId,fileId,outputId,fileExistId){
+		$(delFileId).click(function(){
+			let choice = confirm('파일을 삭제하시겠습니까?');
+			if(choice){
+				$(fileId).replaceWith($(fileId).val('').clone(true));
+				$(outputId).empty();
+				$(fileExistId).attr('value','0');
+			}
+		});
+	}
 };
 </script>
 </head>
@@ -89,7 +139,7 @@ window.onload = function(){
 								<input type="text" name="rev_title" id="title" maxlength="20" class="input-check">
 							</li>
 							<li>
-								<label for="reg_date">진행 날짜</label> ${history.sch_date}
+								<label for="reg_date">진행 날짜</label> ${history.sch_date}시
 								<input type="hidden" name="sch_num" value="${history.sch_num}">
 							</li>
 							<li>
@@ -110,10 +160,16 @@ window.onload = function(){
 							<li>
 								<label for="filename1">파일(Before)</label>
 								<input type="file" name="rev_filename1" id="filename1" accept="image/gif,image/png,image/jpeg">
+								<input type="button" value="파일삭제" id="delFile1">
+								<div id="output1"></div>		
+								<input type="hidden" name="rev_fileExist1" id="fileExist1" value="1">
 							</li>
 							<li>
 								<label for="filename2">파일(After)</label>
 								<input type="file" name="rev_filename2" id="filename2" accept="image/gif,image/png,image/jpeg">
+								<input type="button" value="파일삭제" id="delFile2">
+								<div id="output2"></div>
+								<input type="hidden" name="rev_fileExist2" id="fileExist2" value="1">	
 							</li>
 							<p>
 							<li>

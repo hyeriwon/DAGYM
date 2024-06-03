@@ -8,6 +8,11 @@
 <meta charset="UTF-8">
 <title>REVIEW</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<style type="text/css">
+    .yellow-bg {
+        background-color: yellow;
+    }
+</style>
 <script type="text/javascript">
 window.onload = function(){
 	const searchForm = document.getElementById('search_form');
@@ -64,7 +69,7 @@ window.onload = function(){
 					<!-- content 시작 -->
 					<form id="search_form" action="listReview.do" method="get">
 						<ul class="search">
-							<li>
+							<li> 
 								<select name="keyfield">
 									<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>트레이너 이름</option>
 									<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>제목</option>
@@ -97,7 +102,7 @@ window.onload = function(){
 								<th>조회수</th>
 							</tr>
 							<c:forEach var="review" items="${list}">
-								<tr>
+								<tr class="<c:if test='${review.rev_del==1}'>yellow-bg</c:if>">
 									<td><a href="detailReview.do?rev_num=${review.rev_num}">${review.rev_title}</a></td>
 									<td>${review.tra_name}</td>
 									<td>${review.sch_date}시</td>

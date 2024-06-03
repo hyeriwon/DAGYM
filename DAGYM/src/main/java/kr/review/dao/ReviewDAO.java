@@ -65,9 +65,9 @@ public class ReviewDAO {
 	}
 	
 	//수강후기 개수, 검색 개수
-	public int getReviewCount(String keyfield,String keyword)throws Exception{
+	public int getReviewCount(String keyfield,String keyword,int mem_auth)throws Exception{
 		Connection conn = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt = null; 
 		ResultSet rs = null;
 		String sql = null;
 		String sub_sql = "";
@@ -80,6 +80,10 @@ public class ReviewDAO {
 				if(keyfield.equals("1")) sub_sql += "WHERE tra_name LIKE '%'|| ? ||'%'";	    //트레이너
 				else if(keyfield.equals("2")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";   //제목
 				else if(keyfield.equals("3")) sub_sql += "WHERE rev_content LIKE '%'|| ? ||'%'";//내용
+			}
+			if(mem_auth!=9) {
+				if(keyword!=null && !"".equals(keyword)) sub_sql += " AND rev_del=0";
+				else sub_sql += "WHERE rev_del=0";		
 			}
 			//SQL문 작성
 			sql = "SELECT COUNT(*) FROM review re "
@@ -152,6 +156,7 @@ public class ReviewDAO {
 				review.setRev_grade(rs.getInt("rev_grade"));
 				review.setRev_hit(rs.getInt("rev_hit"));
 				review.setSch_date(rs.getString("sch_date")+" "+rs.getString("sch_time"));
+				review.setRev_del(rs.getInt("rev_del"));
 				
 				list.add(review);
 			}
@@ -293,18 +298,23 @@ public class ReviewDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 		String sql = null;
 		
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
 			
-			sql = "DELETE FROM review WHERE rev_num=?";
-			pstmt = conn.prepareStatement(sql);
+			sql = "UPDATE review SET rev_del=1 WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql);			
 			pstmt.setInt(1, review.getRev_num());
 			pstmt.executeUpdate();
 			
 			//좋아요 삭제
+			sql = "DELETE FROM review_like WHERE rev_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, review.getRev_num());
+			pstmt2.executeUpdate();
 			
 			//포인트 차감
 			
@@ -313,6 +323,7 @@ public class ReviewDAO {
 			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
