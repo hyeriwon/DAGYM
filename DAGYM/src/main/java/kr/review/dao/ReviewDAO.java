@@ -107,13 +107,14 @@ public class ReviewDAO {
 		}		
 		return count;
 	}
-	//수강후기 목록(전체), 수강후기 검색 목록
-	public List<ReviewVO> getListReview(int start,int end,String keyfield,String keyword) throws Exception{
+	//수강후기 목록(전체), 수강후기 검색 목록, 수강후기 정렬
+	public List<ReviewVO> getListReview(int start,int end,String keyfield,String keyword,String keyfield2) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List<ReviewVO> list = null;
 		String sql = null;
+		String sub_str = "";
 		String sub_sql = "";
 		int cnt=0;
 		
@@ -125,7 +126,11 @@ public class ReviewDAO {
 				else if(keyfield.equals("2")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";   //제목
 				else if(keyfield.equals("3")) sub_sql += "WHERE rev_content LIKE '%'|| ? ||'%'";//내용
 			}
-			//SQL문 작성 -> 좋아요 순?
+			//sub_str 작성
+			if(keyfield2==null || keyfield2.equals("1")) sub_str += "rev_num";	    	//최신순
+			else if(keyfield2.equals("2")) sub_str += "rev_like";                       //좋아요
+			
+			//SQL문 작성
 			sql = "SELECT * FROM "
 					+ "(SELECT re.*, mb.mem_id, md.mem_name AS tra_name, sc.sch_date, sc.sch_time, rownum rnum "
 					+ "FROM review re "
@@ -133,7 +138,7 @@ public class ReviewDAO {
 					+ "JOIN history his ON his.sch_num = re.sch_num "
 					+ "JOIN member_detail md ON his.tra_num = md.mem_num "
 					+ "JOIN schedule sc ON sc.sch_num = his.sch_num " + sub_sql 
-					+ " ORDER BY rev_num DESC) "
+					+ " ORDER BY "+sub_str+" DESC) "
 					+ "WHERE rnum >= ? AND rnum <= ?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);

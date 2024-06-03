@@ -25,9 +25,10 @@ public class ListReviewAction implements Action{
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		
-		//검색유형, 검색어 받아오기
+		//검색유형, 검색어, 정렬기준 받아오기
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
+		String keyfield2 = request.getParameter("keyfield2");
 		
 		//해당되는 전체 페이지 번호 받아오기
 		ReviewDAO dao = ReviewDAO.getInstance();
@@ -46,7 +47,7 @@ public class ListReviewAction implements Action{
 		//수강후기 목록 받아오기
 		List<ReviewVO> list = null;	
 		if(count > 0) {
-			list = dao.getListReview(page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			list = dao.getListReview(page.getStartRow(), page.getEndRow(), keyfield, keyword,keyfield2);
 		}
 		
 		request.setAttribute("user_num", user_num);
