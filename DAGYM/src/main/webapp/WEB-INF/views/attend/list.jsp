@@ -18,7 +18,7 @@
 	        var year = date.getFullYear();
 	        var month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
 	        //monthHeader.innerText = month + '월 출석일수 : ${attendCount}일';
-	        monthHeader.innerText = '전체 출석일수 : ${attendCount}일';
+	        monthHeader.innerText = '이번달 출석일수 : ${attendCount}일';
 	    }
 
 	    function updateCalendarTitle(date) {
