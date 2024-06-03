@@ -6,63 +6,103 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PT 예약</title>
-<link rel="stylesheet"
-    href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<title>SCHEDULE</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 </head>
 <body>
-    <div class="page-main">
-        <jsp:include page="/WEB-INF/views/common/header.jsp" />
-        <div class="content-main">
-            <div class="align-center">
-                <h2>PT 예약</h2>
+
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>Schedule</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <a href="#">Class</a>
+                            <span>Schedule</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <form action="${pageContext.request.contextPath}/history/historyEnroll.do" method="post">
-                <input type="hidden" name="sch_num" value="${param.sch_num}">
-                <input type="hidden" name="tra_num" value="${param.tra_num}">
-                <input type="hidden" name="his_date" value="${param.his_date}">
-                <input type="hidden" name="sch_time" value="${param.sch_time}">
-                <div class="align-center">
-                    <h2>선택한 날짜: ${param.his_date}</h2>
-                </div>
-                <ul>
-                    <li>
-                        <label for="tra_name">선택한 시간</label>
-                        <c:set var="sch_time" value="${param.sch_time}" />
-                        <c:choose>
-                            <c:when test="${sch_time < 12}">
-                                <input type="text" name="sch_time_display" id="sch_time" value="오전 ${sch_time}시" readonly>
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="pm_time" value="${sch_time - 12}" />
-                                <input type="text" name="sch_time_display" id="sch_time" value="오후 ${pm_time == 0 ? 12 : pm_time}시" readonly>
-                            </c:otherwise>
-                        </c:choose>
-                        <label for="tra_name">트레이너 : </label>
-                        <input type="text" name="tra_name" id="tra_name" value="${param.tra_name}" readonly>
-                    </li>
-                    <li>
-                        <label for="his_part">운동 부위(희망) : </label>
-                        <select name="his_part">
-                            <option>어깨</option>
-                            <option>가슴</option>
-                            <option>등</option>
-                            <option>하체</option>
-                            <option>팔</option>
-                            <option>유산소</option>
-                        </select>
-                    </li>
-                    <li>
-                        <label for="remainingPT">잔여 PT : </label>
-                        <input type="text" name="remainingPT" value="${remainingPT}" readonly>
-                    </li>
-                </ul>
-                <div class="align-center">
-                    <input type="submit" value="수강 신청">
-                    <input type="button" value="취소" onclick="location.href='list.do'">
-                </div>
-            </form>
         </div>
-    </div>
+    </section>
+
+ <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>Schedule</span>
+                            <h2>PT신청</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="chart-table">
+					
+					<!-- content 시작 -->
+		            <form action="${pageContext.request.contextPath}/history/historyEnroll.do" method="post">
+		                <input type="hidden" name="sch_num" value="${param.sch_num}">
+		                <input type="hidden" name="tra_num" value="${param.tra_num}">
+		                <input type="hidden" name="his_date" value="${param.his_date}">
+		                <input type="hidden" name="sch_time" value="${param.sch_time}">
+		                <div class="align-center">
+		                    <h4>선택한 날짜: ${param.his_date}</h4>
+		                </div>
+		                <ul>
+		                    <li>
+		                        <label for="tra_name">선택한 시간</label>
+		                        <c:set var="sch_time" value="${param.sch_time}" />
+		                        <c:choose>
+		                            <c:when test="${sch_time < 12}">
+		                                <input type="text" name="sch_time_display" id="sch_time" value="오전 ${sch_time}시" readonly>
+		                            </c:when>
+		                            <c:otherwise>
+		                                <c:set var="pm_time" value="${sch_time - 12}" />
+		                                <input type="text" name="sch_time_display" id="sch_time" value="오후 ${pm_time == 0 ? 12 : pm_time}시" readonly>
+		                            </c:otherwise>
+		                        </c:choose>
+		                        <label for="tra_name">트레이너 : </label>
+		                        <input type="text" name="tra_name" id="tra_name" value="${param.tra_name}" readonly>
+		                    </li>
+		                    <li>
+		                        <label for="his_part">운동 부위(희망) : </label>
+		                        <select name="his_part">
+		                            <option>어깨</option>
+		                            <option>가슴</option>
+		                            <option>등</option>
+		                            <option>하체</option>
+		                            <option>팔</option>
+		                            <option>유산소</option>
+		                        </select>
+		                    </li>
+		                    <li>
+		                        <label for="remainingPT">잔여 PT : </label>
+		                        <input type="text" name="remainingPT" value="${remainingPT}" readonly>
+		                    </li>
+		                </ul>
+		                <div class="align-center">
+		                    <input type="submit" value="수강 신청">
+		                    <input type="button" value="취소" onclick="location.href='list.do'">
+		                </div>
+		            </form>
+					<!-- content 끝 -->
+					
+					</div>
+				</div>
+			</div>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
+
 </body>
 </html>
