@@ -225,10 +225,11 @@ public class ReviewDAO {
 	}
 	
 	//수강후기 작성여부 확인
-	public boolean checkReview(int sch_num) throws Exception{
+	public ReviewVO checkReview(int sch_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		ReviewVO review = null;
 		String sql = null;
 		
 		try {
@@ -238,14 +239,17 @@ public class ReviewDAO {
 			pstmt.setInt(1, sch_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return true;
+				review = new ReviewVO();
+				review.setRev_num(rs.getInt("rev_num"));
+				review.setSch_num(rs.getInt("sch_num"));
+				review.setRev_del(rs.getInt("rev_del"));
 			}
-			return false;
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);;
 		}
+		return review;
 	}
 	
 	//수강후기 수정

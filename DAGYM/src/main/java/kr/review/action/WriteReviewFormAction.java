@@ -10,6 +10,7 @@ import kr.history.vo.HistoryVO;
 import kr.member.dao.MemberDAO;
 import kr.member.vo.MemberVO;
 import kr.review.dao.ReviewDAO;
+import kr.review.vo.ReviewVO;
 
 public class WriteReviewFormAction implements Action{
 
@@ -43,8 +44,13 @@ public class WriteReviewFormAction implements Action{
 		
 		//해당 PT에 대해 이미 후기가 작성되었는지 확인
 		ReviewDAO revDAO = ReviewDAO.getInstance();
-		if(revDAO.checkReview(sch_num)) {
-			return "/WEB-INF/views/common/notice.jsp";
+		ReviewVO review = revDAO.checkReview(sch_num);
+		if(review!=null && review.getRev_del()==0) {
+			String notice_msg = "이미 후기를 작성했습니다.";
+			String notice_url = request.getContextPath()+"/review/listReview.do";
+			request.setAttribute("notice_msg", notice_msg);
+			request.setAttribute("notice_url", notice_url);
+			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 		
 		request.setAttribute("history", history);

@@ -102,7 +102,7 @@ window.onload = function(){
 								<th>조회수</th>
 							</tr>
 							<c:forEach var="review" items="${list}">
-								<tr class="<c:if test='${review.rev_del==1}'>yellow-bg</c:if>">
+								<tr>
 									<td><a href="detailReview.do?rev_num=${review.rev_num}">${review.rev_title}</a></td>
 									<td>${review.tra_name}</td>
 									<td>${review.sch_date}시</td>

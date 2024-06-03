@@ -43,8 +43,13 @@ public class WriteReviewAction implements Action{
 
 		//해당 PT에 대해 이미 후기가 작성되었는지 확인
 		ReviewDAO revDAO = ReviewDAO.getInstance();
-		if(!revDAO.checkReview(review.getSch_num())) {
-			return "/WEB-INF/views/common/notice.jsp";
+		ReviewVO revVO = revDAO.checkReview(review.getSch_num());
+		if(revVO!=null && revVO.getRev_del()==0) {
+			String notice_msg = "이미 후기를 작성했습니다.";
+			String notice_url = request.getContextPath()+"/review/listReview.do";
+			request.setAttribute("notice_msg", notice_msg);
+			request.setAttribute("notice_url", notice_url);
+			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 
 		//DB에 review 기록하기
