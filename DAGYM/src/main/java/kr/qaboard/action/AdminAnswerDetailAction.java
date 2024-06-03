@@ -29,8 +29,8 @@ public class AdminAnswerDetailAction implements Action{
 		int qab_num = Integer.parseInt(request.getParameter("qab_num"));
 
 		QABoardDAO dao = QABoardDAO.getInstance();
-		QABoardVO qaboard = dao.getUserBoardByAdmin(qab_num);
-		QABoardVO answerBoard = dao.getAdminBoard(qab_num);
+		QABoardVO qaboard = dao.getUserBoardByAdmin(qab_num);//질문
+		QABoardVO answerBoard = dao.getAdminBoard(qab_num);//답변
 
 		//HTML 비허용
 		qaboard.setQab_title(StringUtil.useNoHTML(qaboard.getQab_title()));

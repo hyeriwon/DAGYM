@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>INBODY</title>
+<title>EXERCISE</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
@@ -30,11 +30,11 @@
 
 	      // 클릭된 날짜가 오늘 이전인지 확인
 	      if (clickedDate >= today.setDate(today.getDate())) {
-	          alert('오늘 이후의 인바디를 등록할 수 없습니다.');
+	          alert('오늘 이후의 운동기록를 등록할 수 없습니다.');
 	          window.location.reload();
 	      } else {
 	        var selectedDate = info.dateStr; // 클릭한 날짜를 문자열로 가져옵니다.
-	        window.location.href = '${pageContext.request.contextPath}/inbody/inbodyWriteForm.do?inb_date=' + selectedDate; // 클릭한 날짜로 이동합니다.
+	        window.location.href = '${pageContext.request.contextPath}/exercise/exerciseWriteForm.do?exe_date=' + selectedDate; // 클릭한 날짜로 이동합니다.
 	      }
 	    }
 	  });
@@ -64,11 +64,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
-                        <h2>Inbody</h2>
+                        <h2>Exercise</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
                             <a href="#">MyPage</a>
-                            <span>Inbody</span>
+                            <span>Exercise</span>
                         </div>
                     </div>
                 </div>
@@ -82,9 +82,9 @@
           	 <div class="col-lg-12">
           		<div class="team-title">
                 		<div class="section-title">
-                    		<span>Inbody</span>
-                            <h2> <c:if test="${user_auth == 2}">인바디 등록</c:if></h2>
-                            <h2> <c:if test="${user_auth >= 8}">인바디 기록</c:if></h2>
+                    		<span>Exercise</span>
+                            <h2> <c:if test="${user_auth == 2}">운동내역 등록</c:if></h2>
+                            <h2> <c:if test="${user_auth >= 8}">운동내역 확인</c:if></h2>
                     	</div>
                  </div>
              </div>
@@ -96,14 +96,14 @@
 					<!-- content 시작 -->	
 				    <div class="align-right">
 				    <c:if test="${user_auth == 2}">
-				    	<input type="button" value="목록보기" id ="view_List" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
+				    	<input type="button" value="목록보기" id ="view_List" onclick="location.href='${pageContext.request.contextPath}/exercise/exerciseList.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
 				    </c:if>
 				    </div>
 				      <c:if test="${user_auth == 2}">
 				    <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
 				    </c:if>
 				    <c:if test="${user_auth >= 8}">
-				    <form id="search_form" action="inbodyMain.do" method="get">
+				    <form id="search_form" action="exerciseMain.do" method="get">
 						<ul class="search">
 							<li>
 								<select name="keyfield">
@@ -128,7 +128,7 @@
 							</tr>
 							<c:forEach var="member" items="${list}">
 							<tr>
-								<td><a href="${pageContext.request.contextPath}/inbody/inbodyList.do?client_num=${member.mem_num}">${member.mem_num}</a></td>
+								<td><a href="${pageContext.request.contextPath}/exercise/exerciseList.do?client_num=${member.mem_num}">${member.mem_num}</a></td>
 								<td>${member.mem_id}</td>
 								<td>${member.mem_name}</td>
 								<td>${member.mem_reg_date}</td>

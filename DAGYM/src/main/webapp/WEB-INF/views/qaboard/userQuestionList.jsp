@@ -47,24 +47,6 @@
 					<div class="chart-table">
 					
 					<!-- content 시작 -->		
-					<%-- 검색 --%>
-					<form id="search_form" action="userQuestionList.do" method="get">
-						<ul class="search">
-							<li>
-								<select name="keyfield">
-									<option value="1" <c:if test="${param.keyfield==1}">selected</c:if>>제목</option>
-									<option value="2" <c:if test="${param.keyfield==2}">selected</c:if>>내용</option>
-									<option value="3" <c:if test="${param.keyfield==3}">selected</c:if>>제목+내용</option>
-								</select>
-							</li>
-							<li>
-								<input type="search" size="16" name="keyword" id="keyword" value="${param.keyword}">
-							</li>
-							<li>
-								<input type="submit" value="검색">
-							</li>
-						</ul>
-					</form>
 					<%-- 목록 --%>
 					<div class="list-span">
 						<div class="align-left">
@@ -105,7 +87,7 @@
 								<td>${qaboard.qab_reg_date}</td>
 								<td>
 									<c:if test="${qaboard.qab_ref == 0}">미답변</c:if>
-									<c:if test="${qaboard.qab_ref == 1}">답변완료</c:if>
+									<c:if test="${qaboard.qab_ref > 0}">답변완료</c:if>
 								</td>
 							</tr>
 							</c:forEach>

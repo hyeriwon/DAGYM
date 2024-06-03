@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 window.onload=function(){
-	const myForm = document.getElementById('write_form');
+	const myForm = document.getElementById('modify_form');
 	myForm.onsubmit=function(){
 		const items = document.querySelectorAll('.input-check');
 		for (let i = 0; i < items.length; i++) {
@@ -32,6 +32,23 @@ window.onload=function(){
 			return false;
 		}
 	}
+	
+//오늘의 메뉴 사진 미리보기
+let photo_path = $('.my-photo').attr('src');
+$('#filename').change(function(){
+	let photo = this.files[0];
+	//선택된 사진이 없을 때 마지막으로 수정된 이미지로 되돌리기
+	if(!photo){
+		$('.my-photo').attr('src',photo_path);
+		return;
+	}
+	const reader = new FileReader();
+	reader.readAsDataURL(photo);
+	reader.onload = function(){
+		$('.my-photo').attr('src',reader.result);
+	};
+	reader.readAsDataURL(photo);
+});
 }
 </script>
 </head>
@@ -80,12 +97,15 @@ window.onload=function(){
 								<label for="menu_name">메뉴 이름</label>
 								<input type="text" name="menu_name" id="menu_name" value="${tmenu.tme_name}">
 							</li>
-							<li>
+								<li>
 								<label for="filename">메뉴 사진</label>
-								<input type="file" name="filename" id="filename" accept="image/gif,image/png,image/jpeg">
-								<div id="file_detail">
-									<img src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="400">
-								</div>
+								<input type="file" name="filename" id="filename" accept="image/gif,image/png,image/jpeg"><br>
+								<c:if test="${empty tmenu.tme_photo}">
+									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
+								</c:if>
+								<c:if test="${!empty tmenu.tme_photo}">
+									<img src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="200" height="200" class="my-photo">
+								</c:if>				
 							</li>
 							<li>
 								<label for="menu_kcal">칼로리(Kcal)</label>

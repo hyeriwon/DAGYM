@@ -11,6 +11,7 @@ public class PaymentVO {
 	private int pay_status;
 	
 	private String mem_name;
+	private Date pay_exp;
 
 	public int getPay_num() {
 		return pay_num;
@@ -67,6 +68,12 @@ public class PaymentVO {
 	public void setMem_name(String mem_name) {
 		this.mem_name = mem_name;
 	}
-	
-	
+
+	public Date getPay_exp() {
+		return pay_exp;
+	}
+
+	public void setPay_exp(Date pay_exp) {
+		this.pay_exp = pay_exp;
+	}
 }

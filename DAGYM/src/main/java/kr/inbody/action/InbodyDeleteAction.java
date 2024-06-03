@@ -22,7 +22,7 @@ public class InbodyDeleteAction implements Action {
 		//전송된 데이터 인코딩 타입 지정
 		request.setCharacterEncoding("utf-8");
 
-
+		String client_num = request.getParameter("client_num");
 		int inb_num = Integer.parseInt(request.getParameter("inb_num"));
 		InbodyDAO inbodydao  = InbodyDAO.getInstance();
 		InbodyVO db_inbody = inbodydao.getInbodybyInbnum(inb_num);
@@ -32,8 +32,9 @@ public class InbodyDeleteAction implements Action {
 			request.setAttribute("notice_msg", "삭제 처리되었습니다.");
 			request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do" );
 			}else {
+				
 				request.setAttribute("notice_msg", "본인만 삭제 가능합니다.");
-				request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do" );
+				request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do?client_num="+db_inbody.getMem_num());
 			}
 		return "../WEB-INF/views/common/alert_view.jsp";
 	}

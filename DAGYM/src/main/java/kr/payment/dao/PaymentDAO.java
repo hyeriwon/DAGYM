@@ -133,8 +133,6 @@ public class PaymentDAO {
 		return list;
 	}
 	
-	
-
 	//회원별 회원권 결제내역 총 개수(회원상세)
 	public int getPayMemCount(int mem_num)throws Exception{
 		Connection conn = null;
@@ -178,7 +176,12 @@ public class PaymentDAO {
 			
 			//SQL문 작성
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM "
-					+ "(SELECT * FROM payment RIGHT OUTER JOIN member_detail USING(mem_num) ORDER BY pay_num DESC)a) "
+					+ "(SELECT mem_num,mem_name,pay_num,pay_fee,pay_enroll,pay_reg_date,pay_status,"
+					+ "CASE WHEN pay_enroll = 10 THEN ADD_MONTHS(pay_reg_date,5) "
+					+ "WHEN pay_enroll = 20 THEN ADD_MONTHS(pay_reg_date,10) "
+					+ "WHEN pay_enroll = 30 THEN ADD_MONTHS(pay_reg_date,18) "
+					+ "END pay_exp FROM payment RIGHT OUTER JOIN member_detail "
+					+ "USING(mem_num) ORDER BY pay_num DESC)a) "
 					+ "WHERE mem_num=? AND rnum >= ? AND rnum <= ?";
 			
 			//PreparedStatement 객체 생성
@@ -197,6 +200,7 @@ public class PaymentDAO {
 				payment.setPay_fee(rs.getInt("pay_fee"));
 				payment.setPay_enroll(rs.getInt("pay_enroll"));
 				payment.setPay_reg_date(rs.getDate("pay_reg_date"));
+				payment.setPay_exp(rs.getDate("pay_exp"));
 				payment.setMem_name(rs.getString("mem_name"));
 				payment.setPay_status(rs.getInt("pay_status"));
 				
@@ -303,6 +307,33 @@ public class PaymentDAO {
 				pstmt.setInt(1, pay_num);
 				//SQL문 실행
 				pstmt.executeUpdate();
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(null, pstmt, conn);
+			}
+		}
+		
+		//만료한 회원권 업데이트
+		public void updateExpMembership(int mem_num)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			String sql = null;
+			try {
+				//커넥션풀로부터 커넥션 할당
+				conn = DBUtil.getConnection();
+				//SQL문 작성
+				 sql = "UPDATE payment "
+			                + "SET pay_enroll = 0, pay_status = 3 "
+			                + "WHERE mem_num = ? AND CASE "
+			                + "WHEN pay_enroll = 10 THEN ADD_MONTHS(pay_reg_date, 5) "
+			                + "WHEN pay_enroll = 20 THEN ADD_MONTHS(pay_reg_date, 10) "
+			                + "WHEN pay_enroll = 30 THEN ADD_MONTHS(pay_reg_date, 18) "
+			                + "END < SYSDATE AND pay_status = 0";
+				 pstmt = conn.prepareStatement(sql);
+				 pstmt.setInt(1, mem_num);
+				 pstmt.executeUpdate();
+				
 			}catch(Exception e) {
 				throw new Exception(e);
 			}finally {

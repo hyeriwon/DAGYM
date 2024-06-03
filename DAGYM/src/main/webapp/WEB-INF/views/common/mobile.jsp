@@ -24,6 +24,7 @@
 	                	<ul class="dropdown">
 	                        <li><a href="${pageContext.request.contextPath}/nboard/nboardList.do">공지사항</a></li>
                             <li><a href="${pageContext.request.contextPath}/qaboard/userQuestionList.do">1:1문의</a></li>
+                            <li><a href="${pageContext.request.contextPath}/nboard/faqBoard.do">자주하는질문</a></li>
 	                    </ul>
 	                </li>
 	            </ul>

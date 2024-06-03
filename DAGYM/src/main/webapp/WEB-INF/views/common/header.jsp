@@ -27,26 +27,27 @@
                         <ul> <!-- 공통 -->
                         	 <li class="active"><a href="${pageContext.request.contextPath}/main/main.do">Home</a></li>
                              <li><a href="#">About Us</a>                            		
-                             	<ul class="dropdown">
+                             	 <ul class="dropdown">
                                      <li><a href="${pageContext.request.contextPath}/main/about.do">센터소개</a></li>
                                      <li><a href="${pageContext.request.contextPath}/review/listReview.do">수강후기</a></li>
                                  </ul>
                              </li>
                              <li><a href="${pageContext.request.contextPath}/payment/paymentInfo.do">Membership</a></li>
                              <li><a href="#">C/S</a>
-                            		<ul class="dropdown">
+                            	 <ul class="dropdown">
                                      <li><a href="${pageContext.request.contextPath}/nboard/nboardList.do">공지사항</a></li>
                                      <li><a href="${pageContext.request.contextPath}/qaboard/userQuestionList.do">1:1문의</a></li>
+                                     <li><a href="${pageContext.request.contextPath}/nboard/faqBoard.do">자주하는질문</a></li>
                                  </ul>
                              </li>
                              
                             <c:if test="${!empty user_num && user_auth != 8 && user_auth != 9}"><!-- 회원 -->
 	                        	<li><a href="#">Class</a>
 	                        		<ul class="dropdown">
-	                                    <li><a href="#">강사프로필</a></li>
+	                                    <li><a href="${pageContext.request.contextPath}/main/profile.do">강사프로필</a></li>
 	                                    <li><a href="${pageContext.request.contextPath}/history/list.do">PT신청</a></li>
 	                                </ul>
-	                        	<li>
+	                        	</li>
                         	</c:if>
                         		
                         	<c:if test="${!empty user_num && user_auth == 8}"><!-- 강사 -->
@@ -59,9 +60,9 @@
 										<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
 										<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
 										<li><a href="#">수강내역</a></li>
-										<li><a href="#">문의내역</a></li>
+										<li><a href="${pageContext.request.contextPath}/qaboard/adminAnswerList.do">문의내역</a></li>
                                 	</ul>
-                        		<li>
+                        		</li>
                         	</c:if>
                         		
 							<c:if test="${!empty user_num && user_auth == 9}"><!-- 관리자 -->
@@ -76,11 +77,11 @@
 										<li><a href="#">수강내역</a></li>
 										<li><a href="${pageContext.request.contextPath}/qaboard/adminAnswerList.do">문의내역</a></li>
                                  	</ul>
-                        		<li>					
+                        		</li>					
                         		<li><a href="#">TRAINER</a>
                         			<ul class="dropdown">
                                      	<li><a href="${pageContext.request.contextPath}/member/adminTrainerList.do">강사상세</a></li>
-                                     	<li><a href="#">스케줄</a></li>
+                                     	<li><a href="${pageContext.request.contextPath}/schedule/list.do">스케줄</a></li>
                                  	</ul>
                         		<li>		                    							
 							</c:if>

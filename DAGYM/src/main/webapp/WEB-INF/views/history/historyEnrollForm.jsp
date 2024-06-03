@@ -54,7 +54,7 @@
 		                <input type="hidden" name="his_date" value="${param.his_date}">
 		                <input type="hidden" name="sch_time" value="${param.sch_time}">
 		                <div class="align-center">
-		                    <h4>선택한 날짜: ${param.his_date}</h4>
+		                    <h4>선택한 날짜 ${param.his_date}</h4>
 		                </div>
 		                <ul>
 		                    <li>
@@ -69,11 +69,11 @@
 		                                <input type="text" name="sch_time_display" id="sch_time" value="오후 ${pm_time == 0 ? 12 : pm_time}시" readonly>
 		                            </c:otherwise>
 		                        </c:choose>
-		                        <label for="tra_name">트레이너 : </label>
+		                        <label for="tra_name">트레이너</label>
 		                        <input type="text" name="tra_name" id="tra_name" value="${param.tra_name}" readonly>
 		                    </li>
 		                    <li>
-		                        <label for="his_part">운동 부위(희망) : </label>
+		                        <label for="his_part">운동 부위(희망)</label>
 		                        <select name="his_part">
 		                            <option>어깨</option>
 		                            <option>가슴</option>
@@ -84,12 +84,12 @@
 		                        </select>
 		                    </li>
 		                    <li>
-		                        <label for="remainingPT">잔여 PT : </label>
+		                        <label for="remainingPT">잔여 PT</label>
 		                        <input type="text" name="remainingPT" value="${remainingPT}" readonly>
 		                    </li>
 		                </ul>
 		                <div class="align-center">
-		                    <input type="submit" value="수강 신청">
+		                    <input type="submit" value="신청">
 		                    <input type="button" value="취소" onclick="location.href='list.do'">
 		                </div>
 		            </form>

@@ -25,6 +25,7 @@ public class UserDetailAction implements Action{
 		
 		QABoardDAO dao = QABoardDAO.getInstance();
 		QABoardVO qaboard = dao.getUserBoard(qab_num,user_num);
+		QABoardVO answerBoard = dao.getAdminBoard(qab_num);//답변
 		
 		if(user_num!=qaboard.getMem_num()) {
 			return "/WEB-INF/views/common/notice.jsp";
@@ -35,7 +36,7 @@ public class UserDetailAction implements Action{
 		qaboard.setQab_content(StringUtil.useBrNoHTML(qaboard.getQab_content()));
 		
 		request.setAttribute("qaboard", qaboard);
-		
+		request.setAttribute("answerBoard", answerBoard);
 		return "/WEB-INF/views/qaboard/userDetail.jsp";
 	}
 

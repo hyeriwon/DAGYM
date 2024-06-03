@@ -22,7 +22,7 @@ public class PointDAO {
 	}
 
 	//포인트 등록 
-	//(AttendDAO +10p) (PaymentDAO +500p) (ReviewDAO +200P)
+	//(AttendDAO +10p) (ReviewDAO +200P) (PaymentDAO +300 +600 +900p)
 	
 	//총 포인트의 개수
 	public int getPointCount(int mem_num) throws Exception{

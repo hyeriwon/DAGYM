@@ -22,13 +22,13 @@ $(function() {
         var payEnroll;
         var payFee;
 
-        if (membershipType === "10회권") {
+        if (membershipType == "10회권") {
             payEnroll = 10;
             payFee = 600000;
-        } else if (membershipType === "20회권") {
+        } else if (membershipType == "20회권") {
             payEnroll = 20;
             payFee = 1100000; 
-        } else if (membershipType === "30회권") {
+        } else if (membershipType == "30회권") {
             payEnroll = 30;
             payFee = 1600000; 
         }
@@ -47,7 +47,6 @@ $(function() {
 </script>
 </head>
 <body>
-<
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	
 	<!-- Breadcrumb Section Begin -->

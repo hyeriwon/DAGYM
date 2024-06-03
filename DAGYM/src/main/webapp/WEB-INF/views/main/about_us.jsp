@@ -5,18 +5,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>DAGYM</title>
+    <title>ABOUT US</title>
     
     <!-- Google Font & Css Styles -->
     <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 </head>
 
 <body>
-    <!-- Page Preloder -->
-    <div id="preloder">
-        <div class="loader"></div>
-    </div>
-
 	<!-- Offcanvas Menu Section Begin -->
  	<jsp:include page="/WEB-INF/views/common/mobile.jsp"/>
  	<!-- Offcanvas Menu Section End -->
@@ -33,7 +28,7 @@
                     <div class="breadcrumb-text">
                         <h2>About us</h2>
                         <div class="bt-option">
-                            <a href="${pageContext.request.contextPath}/resources/main/main.do">Home</a>
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
                             <span>About</span>
                         </div>
                     </div>
@@ -296,36 +291,6 @@
         </div>
     </section>
     <!-- Testimonial Section End -->
-
-    <!-- Get In Touch Section Begin -->
-    <div class="gettouch-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-map-marker"></i>
-                        <p>333 Middle Winchendon Rd, Rindge,<br/> NH 03461</p>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text">
-                        <i class="fa fa-mobile"></i>
-                        <ul>
-                            <li>125-711-811</li>
-                            <li>125-668-886</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="gt-text email">
-                        <i class="fa fa-envelope"></i>
-                        <p>Support.gymcenter@gmail.com</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Get In Touch Section End -->
 
     <!-- Footer Section Begin -->
     <jsp:include page="/WEB-INF/views/common/footer.jsp"/>

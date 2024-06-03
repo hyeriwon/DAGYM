@@ -14,11 +14,15 @@ public class InbodyDetailAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer)session.getAttribute("user_num");
+		Integer user_auth = (Integer)session.getAttribute("user_auth");
 		
 		if(user_num == null) {
 			request.setAttribute("notice_msg", "로그인 후 확인가능합니다.");
 			request.setAttribute("notice_url", request.getContextPath()+"/common/loginForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
+		}
+		if(user_auth >=8) {
+			user_num = Integer.parseInt(request.getParameter("client_num"));
 		}
 		String inb_date = request.getParameter("inb_date");
 		InbodyDAO inbodydao = InbodyDAO.getInstance();

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>INBODY</title>
+<title>Exercise</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
 </head>
@@ -18,11 +18,11 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb-text">
-                        <h2>Inbody</h2>
+                        <h2>Exercise</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
                             <a href="#">MyPage</a>
-                            <span>Inbody</span>
+                            <span>Exercise</span>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
           	 <div class="col-lg-12">
           		<div class="team-title">
                 		<div class="section-title">
-                    		<span>Inbody</span>
+                    		<span>Exercise</span>
                             <h2>${mem_name}님의 인바디</h2>
                     	</div>
                  </div>	
@@ -47,7 +47,7 @@
 					<div class="chart-table">
 					
 					<!-- content 시작 -->		
-					<form id="search_form" action="inbodyList.do" method="get">
+					<form id="search_form" action="ExerciseList.do" method="get">
 						<input type="hidden" id="client_num" value="${param.client_num}" name="client_num">
 						<ul class="search">
 						<li>
@@ -77,23 +77,19 @@
 						<c:if test="${count>0 }">
 							<table>
 								<tr>
-									<th>측정번호</th>
+									<th>운동번호</th>
 									<th>측정일자</th>
-									<th>키(cm)</th>
-									<th>몸무게(kg)</th>
-									<th>골격근량(kg)</th>
+									<th>운동부위</th>
+									<th>운동상세</th>
+									<th>운동시간</th>
 									<th>삭제</th>
 								</tr>
-								<c:forEach var="inbody" items="${list}">
+								<c:forEach var="exercise" items="${list}">
 									<tr>
-									<td><a href="inbodyDetail.do?inb_date=${inbody.inb_date}&client_num=${param.client_num}">${inbody.inb_num}</a></td>
-									<td>${inbody.inb_date}</td>
-									<td>${inbody.inb_hei }</td>
-									<td>${inbody.inb_wei}</td>
-									<td>${inbody.inb_mus}</td>
+									<td><a href="exerciseDetail.do?exe_date=${exercise.exe_date}&client_num=${param.client_num}">${exercise.exe_num}</a></td>
 									<td>
 									<div class="align-center">
-									<input type="button" value="삭제" onclick="location.href='deleteInbody.do?inb_num=${inbody.inb_num}'">
+									<input type="button" value="삭제" onclick="location.href='deleteExercise.do?exe_num=${exercise.exe_num}'">
 									</div>
 									</td>
 									</tr>

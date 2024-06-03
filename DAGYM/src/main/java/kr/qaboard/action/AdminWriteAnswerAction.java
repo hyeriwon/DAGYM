@@ -42,7 +42,7 @@ public class AdminWriteAnswerAction implements Action{
 		dao.insertAnswerBoard(qaboard);
 
 		request.setAttribute("result", qaboard);
-		
+																//질문번호
 		return "redirect:/qaboard/adminAnswerDetail.do?qab_num="+qab_num;
 	}
 

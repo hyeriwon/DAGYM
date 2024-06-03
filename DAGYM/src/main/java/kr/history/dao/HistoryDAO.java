@@ -134,7 +134,7 @@ public class HistoryDAO {
 		return list;
 	}
 
-	// 특정 사용자의 이벤트들만 가져오는 메소드
+	// 본인이 등록한 PT들만 가져오는 메소드
 	public List<ScheduleVO> getMyScheduleList(int user_num) throws Exception {
 		List<ScheduleVO> list = null;
 		Connection conn = null;
@@ -197,10 +197,52 @@ public class HistoryDAO {
     }
 
 	
-	
-	
-	
+    
+    
+    // PT 취소
+ 	public void deleteHistory(int sch_num, int mem_num) throws Exception {
+ 		Connection conn = null;
+ 		PreparedStatement pstmt = null;
+ 		PreparedStatement pstmt2 = null;
+ 		String sql = null;
 
+ 		try {
+ 			conn = DBUtil.getConnection();
+ 			conn.setAutoCommit(false);
+
+ 			// PT 취소
+ 			sql = "DELETE FROM history WHERE sch_num =? AND mem_num = ?";
+
+ 			// PreparedStatement 생성
+ 			pstmt = conn.prepareStatement(sql);
+
+ 			// ?에 데이터 바인딩
+ 			pstmt.setInt(1, sch_num);
+ 			pstmt.setInt(2, mem_num);
+
+ 			// SQL문 실행
+ 			pstmt.executeUpdate();
+
+ 			// PT 취소 시 schedule 테이블 sch_status 0로 변경
+ 			sql = "UPDATE schedule SET sch_status = 0 WHERE sch_num=?";
+ 			pstmt2 = conn.prepareStatement(sql);
+ 			pstmt2.setInt(1, sch_num);
+
+ 			pstmt2.executeUpdate();
+
+ 			conn.commit();
+
+ 		} catch (Exception e) {
+ 			conn.rollback();
+ 			throw new Exception(e);
+ 		} finally {
+ 			DBUtil.executeClose(null, pstmt2, conn);
+ 			DBUtil.executeClose(null, pstmt, conn);
+ 		}
+ 	}
+    
+    
+  
 	/* =====================추후 수정 예정====================== */
 	/*-----회원-----*/
 
