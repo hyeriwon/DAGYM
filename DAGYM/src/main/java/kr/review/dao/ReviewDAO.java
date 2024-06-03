@@ -308,12 +308,14 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
+		PreparedStatement pstmt4 = null;
 		String sql = null;
 		
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
 			
+			//글 블라인드 처리
 			sql = "UPDATE review SET rev_del=1 WHERE rev_num=?";
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setInt(1, review.getRev_num());
@@ -324,6 +326,8 @@ public class ReviewDAO {
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, review.getRev_num());
 			pstmt2.executeUpdate();
+			
+			//신고 삭제
 			
 			//포인트 차감
 			

@@ -17,6 +17,7 @@ public class ReviewVO {
 	private int rev_hit;
 	private int rev_like;
 	private int rev_del;
+	private int rev_report;
 	
 	private String mem_id;
 	private String sch_date;
@@ -24,6 +25,12 @@ public class ReviewVO {
 	private int rev_fileExist1;
 	private int rev_fileExist2;
 	
+	public int getRev_report() {
+		return rev_report;
+	}
+	public void setRev_report(int rev_report) {
+		this.rev_report = rev_report;
+	}
 	public int getRev_del() {
 		return rev_del;
 	}

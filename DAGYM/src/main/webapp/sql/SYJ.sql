@@ -13,6 +13,8 @@ CREATE TABLE review(
 	rev_modify_date date,
 	rev_hit number(10) default 0 not null,
 	rev_like number(10) default 0 not null,
+	rev_del number default 0 not null, -- 0:등록됨,1:본인삭제함
+	rev_report number default 0 not null,
 	constraint rev_pk primary key (rev_num),
 	constraint rev_fk1 foreign key (mem_num) references member (mem_num),
 	constraint rev_fk2 foreign key (sch_num) references schedule (sch_num)
@@ -23,7 +25,15 @@ CREATE sequence review_seq;
 CREATE TABLE review_like(
 	rev_num number not null,
 	mem_num number not null,
-	constraint revLike_pk primary key (rev_num),
 	constraint revLike_fk1 foreign key (rev_num) references review (rev_num),
 	constraint revLike_fk2 foreign key (mem_num) references member (mem_num)
+);
+
+-- PT 수강후기 신고
+CREATE TABLE review_report(
+	rev_num number not null,
+	mem_num number not null, -- 신고를 한 사람
+	report_content clob not null,
+	constraint revReport_fk1 foreign key (rev_num) references review (rev_num),
+	constraint revReport_fk2 foreign key (mem_num) references member (mem_num)
 );

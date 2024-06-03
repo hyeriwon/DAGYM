@@ -17,7 +17,7 @@ public class DetailReviewAction implements Action{
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		Integer mem_num = (Integer) session.getAttribute("user_num");
+		Integer user_num = (Integer) session.getAttribute("user_num");
 		
 		int rev_num = Integer.parseInt(request.getParameter("rev_num"));
 		
@@ -29,6 +29,7 @@ public class DetailReviewAction implements Action{
 		HistoryVO history = historyDAO.getHistory(review.getSch_num());
 		
 		MemberDAO memberDAO = MemberDAO.getInstance();
+		MemberVO user = memberDAO.getMember(user_num);
 		MemberVO member = memberDAO.getMember(history.getMem_num());
 		MemberVO trainer = memberDAO.getMember(history.getTra_num());
 		
@@ -36,7 +37,7 @@ public class DetailReviewAction implements Action{
 		request.setAttribute("history", history);
 		request.setAttribute("member", member);
 		request.setAttribute("trainer", trainer);
-		request.setAttribute("mem_num", mem_num);
+		request.setAttribute("user", user);
 		
 		return "/WEB-INF/views/review/detailReview.jsp";
 	}
