@@ -199,7 +199,7 @@ $(function(){
 							</c:if>
 							<input type="button" value="목록" onclick="location.href='listReview.do'">
 							<div class="align-right">
-							<c:if test="${user_auth==2}">
+							<c:if test="${user_auth==2 && member.mem_num != user_num}">
 								<input type="button" value="🚨신고하기" 
 								onclick="location.href='reportReviewForm.do?rev_num=${review.rev_num}'">
 							</c:if>

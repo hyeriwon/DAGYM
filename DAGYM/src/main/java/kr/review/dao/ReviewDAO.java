@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kr.review.vo.RevLikeVO;
+import kr.review.vo.RevReportVO;
 import kr.review.vo.ReviewVO;
 import kr.util.DBUtil;
 import kr.util.StringUtil;
@@ -468,6 +469,12 @@ public class ReviewDAO {
 		}finally {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
+	}
+	
+	//수강후기 신고하기
+	public void insertRevReport(RevReportVO revReport)throws Exception{
+		
+		
 	}
 	/*       관리자        */
 	//수강후기 삭제(게시보류)
