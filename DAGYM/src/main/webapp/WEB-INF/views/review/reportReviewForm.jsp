@@ -15,7 +15,7 @@ window.onload = function(){
 			alert('신고 사유 필수 입력!');
 			content.value = '';
 			content.focus();
-			return false;
+			return false; 
 		}
 	};	
 };
