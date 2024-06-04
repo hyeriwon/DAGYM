@@ -113,13 +113,13 @@ $(function(){
 								</div>
 							</li>
 							<li>
-								<c:if test="${user.mem_num != member.mem_num && user.mem_auth!=9}">
+								<c:if test="${user_num != member.mem_num && user_auth!=9}">
 									<c:set var="len" value="${fn:length(member.mem_id)}"/>
 									<c:set var="maskedId" value="${fn:substring(member.mem_id, 0, 4)}"/>
 									<c:set var="maskedId" value="${maskedId}${fn:substring('********', 0, len-4)}"/>
 									${maskedId} 님 
 								</c:if>
-								<c:if test="${user.mem_num == member.mem_num || user.mem_auth==9}">
+								<c:if test="${user_num == member.mem_num || user_auth==9}">
 									${member.mem_id} 님
 								</c:if>
 							</li>
@@ -199,8 +199,9 @@ $(function(){
 							</c:if>
 							<input type="button" value="목록" onclick="location.href='listReview.do'">
 							<div class="align-right">
-							<c:if test="${user.mem_auth==2}">
-								<input type="button" value="🚨신고하기" onclick="location.href='/report/reportReviewForm.do'">
+							<c:if test="${user_auth==2}">
+								<input type="button" value="🚨신고하기" 
+								onclick="location.href='reportReviewForm.do?rev_num=${review.rev_num}'">
 							</c:if>
 							</div>
 						</div>
