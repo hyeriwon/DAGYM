@@ -112,7 +112,7 @@ window.onload=function(){
 							<td>${member.mem_name}</td>
 							<td>${member.mem_phone}</td>
 							<td>${member.mem_birth}</td>
-							<td><%-- 담당트레이너 데이터 --%></td>
+							<td>${member.tra_name}</td>
 							<td>${member.mem_reg_date}</td>
 							<td>
 								<c:if test="${member.mem_auth == 0}">탈퇴</c:if>

@@ -299,8 +299,8 @@ public class MemberDAO {
 				if(keyfield.equals("1")) sub_sql += "AND mem_name LIKE '%' || ? || '%'";
 				else if(keyfield.equals("2")) sub_sql += "AND mem_id LIKE '%' || ? || '%'";
 			}
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) WHERE mem_auth !=8 AND mem_auth!=9 " 
-					+ sub_sql + " ORDER BY mem_auth DESC)a) WHERE rnum >= ? AND rnum <= ?";
+			sql = "SELECT b.*,(SELECT mem_name FROM history h JOIN schedule s USING(sch_num) JOIN member_detail m ON h.tra_num=m.mem_num  WHERE his_status = 1 AND h.mem_num=b.mem_num) tra_name FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) WHERE mem_auth !=8 AND mem_auth!=9 " 
+					+ sub_sql + " ORDER BY mem_auth DESC)a)b WHERE rnum >= ? AND rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, keyword);
@@ -318,6 +318,7 @@ public class MemberDAO {
 				member.setMem_phone(rs.getString("mem_phone"));
 				member.setMem_birth(rs.getString("mem_birth"));
 				member.setMem_reg_date(rs.getDate("mem_reg_date"));
+				member.setTra_name(rs.getString("tra_name"));
 				
 				list.add(member);
 			}

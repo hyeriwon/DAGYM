@@ -19,6 +19,8 @@ public class MemberVO {
 	private Date mem_reg_date;
 	private Date mem_modify_date;
 	
+	private String tra_name; //트레이너 이름
+	
 	//비밀번호 일치 여부 체크
 	public boolean isCheckedPassword(String userPasswd) {
 		//회원 등급(auth) : 0탈퇴회원,1정지회원,2일반회원,9관리자
@@ -147,6 +149,12 @@ public class MemberVO {
 	public void setMem_modify_date(Date mem_modify_date) {
 		this.mem_modify_date = mem_modify_date;
 	}
-	
-	
+
+	public String getTra_name() {
+		return tra_name;
+	}
+
+	public void setTra_name(String tra_name) {
+		this.tra_name = tra_name;
+	}
 }
