@@ -12,10 +12,6 @@
 </head>
 
 <body>
-	<!-- Offcanvas Menu Section Begin -->
- 	<jsp:include page="/WEB-INF/views/common/mobile.jsp"/>
- 	<!-- Offcanvas Menu Section End -->
-
     <!-- Header Section Begin -->
     <jsp:include page="/WEB-INF/views/common/header.jsp"/>
     <!-- Header End -->

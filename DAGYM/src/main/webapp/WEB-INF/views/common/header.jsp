@@ -132,10 +132,10 @@
                         </div>
                         <div class="to-social">
                             <c:if test="${empty user_num}"><!-- 로그인 전 -->
-								<a href="${pageContext.request.contextPath}/member/loginForm.do">Login</a>
+								<a href="${pageContext.request.contextPath}/member/loginForm.do">LOGIN</a>
 							</c:if>
 							<c:if test="${!empty user_num}"><!-- 로그인 후 -->
-								<a href="${pageContext.request.contextPath}/member/logout.do">Logout</a>
+								<a href="${pageContext.request.contextPath}/member/logout.do">LOGOUT</a>
 							</c:if>
                         </div>
                     </div>

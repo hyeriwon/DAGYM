@@ -1,3 +1,4 @@
+@import url('https://hangeul.pstatic.net/hangeul_static/css/nanum-square-neo.css');
 /******************************************************************
   Template Name: Gym
   Description:  Gym Fitness HTML Template
@@ -75,6 +76,7 @@ ul {
 }
 input{
 	margin-top:4px;
+	font-family: "NanumSquareNeo", sans-serif;
 }
 input[type="text"],input[type="password"]{
 	width:310px;	
@@ -101,7 +103,6 @@ table th {
 
 /* Template default CSS
 /*----------------------------------------*/
-
 html,
 body {
 	height: 100%;
@@ -109,7 +110,6 @@ body {
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
 }
-
 h1,
 h2,
 h3,
@@ -423,7 +423,7 @@ ol {
 	position: absolute;
 	left: -30px;
 	top: 58px;
-	width: 180px;
+	width: 160px;
 	background: #252525;
 	z-index: 99;
 	text-align: left;
@@ -445,6 +445,7 @@ ol {
 	text-transform: none;
 	padding: 6px 0 6px 30px;
 	font-weight: 400;
+	font-family: "NanumSquareNeo", sans-serif;
 }
 
 .nav-menu ul li .dropdown li a:after {
@@ -544,6 +545,7 @@ ol {
 	color: #ffffff;
 	font-size: 16px;
 	margin-left: 15px;
+	font-weight: 700;
 }
 
 .offcanvas-menu-wrapper {
@@ -2046,9 +2048,22 @@ ol {
 	text-align: left;
 }
 
+div.chart-table {
+	border: 1px solid #363636;
+	width: 100%;
+	font-family: "NanumSquareNeo", sans-serif;
+}
+
+div.chart-table h2 {
+	border: 1px solid #363636;
+	width: 100%;
+	font-family: "NanumSquareNeo", sans-serif;
+}
+
 .chart-table table {
 	border: 1px solid #363636;
 	width: 100%;
+	font-family: "NanumSquareNeo", sans-serif;
 }
 
 .chart-table table thead {
@@ -2064,6 +2079,7 @@ ol {
 	border-right: 1px solid #363636;
 	padding: 14px 0;
 	text-align: center;
+	font-family: "NanumSquareNeo", sans-serif;
 }
 
 .chart-table table tbody tr:nth-child(even) {
@@ -2076,6 +2092,7 @@ ol {
 	border-right: 1px solid #363636;
 	padding: 17px 0;
 	text-align: center;
+	font-family: "NanumSquareNeo", sans-serif;
 }
 
 .chart-table table tbody tr td.point {
@@ -2101,6 +2118,7 @@ ol {
 	padding-right: 5px;
 	background: transparent;
 	margin-bottom: 20px;
+	font-family: "NanumSquareNeo", sans-serif;
 }
 
 .chart-calculate-form form input::-webkit-input-placeholder {
@@ -2132,6 +2150,7 @@ ol {
 	border: none;
 	padding: 15px 0;
 	background: #f36100;
+	font-family: "NanumSquareNeo", sans-serif;
 }
 
 /*---------------------
