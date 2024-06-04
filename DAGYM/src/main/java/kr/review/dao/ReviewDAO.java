@@ -473,8 +473,18 @@ public class ReviewDAO {
 	
 	//수강후기 신고하기
 	public void insertRevReport(RevReportVO revReport)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
 		
-		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "INSERT INTO review_report(rev_num,) VALUES";
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
 	}
 	/*       관리자        */
 	//수강후기 삭제(게시보류)
