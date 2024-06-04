@@ -20,10 +20,9 @@ $(function(){
 				items[i].focus();
 				return false;
 			}
-			
-			if(items[i].id == 'phone' && !/^\d{3}-\d{4}-\d{4}$/.test($('#phone').val())){
-				alert('전화번호는 000-0000-0000 형식으로 입력');
-				$('#phone').val('').focus();
+			if(items[i].id == 'id' && !/^(?=.*[a-zA-Z])(?=.*[0-9]).{8,12}$/.test($('#id').val())){
+				alert('아이디는 영문, 숫자 혼합하여 8~12자 사이로 입력하세요');
+				$('#id').val('').focus();
 				return false;
 			}
 		}
@@ -58,8 +57,8 @@ $(function(){
           	 <div class="col-lg-12">
           		<div class="team-title">
                 		<div class="section-title">
-                    		<span>IDFIND</span>
-                            <h2>아이디 찾기</h2>
+                    		<span>PWFIND</span>
+                            <h2>비밀번호 찾기</h2>
                     	</div>
                  </div>
              </div>
@@ -69,15 +68,16 @@ $(function(){
 					<div class="chart-table">
 					
 					<!-- content 시작 -->
-					<form id="find_form" action="idFind.do" method="post">
+					<form id="find_form" action="pwFind.do" method="post">
 						<ul>
 							<li>
 								<label for="name">* 이름</label>
 								<input type="text" name="name" id="name" maxlength="10" class="input-check">
 							</li>
 							<li>
-								<label for="phone">* 전화번호</label>
-								<input type="text" name="phone" id="phone" placeholder="010-0000-0000 형식으로 입력" maxlength="13" class="input-check">
+								<label for="id">* 아이디</label>
+								<input type="text" name="id" id="id" maxlength="12" autocomplete="off" class="input-check">
+								<div class="form-notice">* 영문 숫자 혼합(8자~12자)</div>
 							</li>
 							<li>
 								<label for="email">* 이메일</label>
@@ -86,7 +86,7 @@ $(function(){
 						</ul>
 						<br>
 						<div class="align-center">
-							<input type="submit" value="아이디 찾기">
+							<input type="submit" value="비밀번호 찾기">
 							<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 						</div>
 					</form>

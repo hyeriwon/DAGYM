@@ -7,28 +7,27 @@ import kr.controller.Action;
 import kr.find.dao.FindDAO;
 import kr.member.vo.MemberVO;
 
-public class IdFindAction implements Action{
+public class PwFindAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
 		request.setCharacterEncoding("utf-8");
 		String name = request.getParameter("name");
-		String phone = request.getParameter("phone");
+		String id = request.getParameter("id");
 		String email = request.getParameter("email");
 		
 		FindDAO dao = FindDAO.getInstance();
-		MemberVO db_member = dao.findMemberId(name, phone, email);
+		MemberVO db_member = dao.findMemberPasswd(name, id, email);
 		
-		if(db_member == null){
+		if(db_member == null) {
 			request.setAttribute("notice_msg", "일치하는 회원 정보가 없습니다.");
 			request.setAttribute("notice_url", request.getContextPath()+"/member/registerUserForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
-		//일치하는 회원정보가 있는 경우
-		request.setAttribute("foundId", db_member.getMem_id());
+		//일치하는 회원정보가 있는 경우 새로운 비밀번호 설정으로
+		request.setAttribute("foundPw", db_member.getMem_pw());
 		
-		return "/WEB-INF/views/find/id_find.jsp";
+		return "/WEB-INF/views/find/new_pw.jsp";
 	}
 
 }

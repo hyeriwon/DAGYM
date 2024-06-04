@@ -9,26 +9,51 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	//회원 정보 등록 유효성 체크
-	$('#find_form').submit(function(){
+	let emailCheck = 1;
+	//유효성 체크
+	$('#modify_form').submit(function(){
+		
 		const items = document.querySelectorAll('.input-check');
 		for(let i=0;i<items.length;i++){
-			if(items[i].value.trim()==''){
+			if(items[i].value.trim() == ''){
 				const label = document.querySelector('label[for="'+items[i].id+'"]');
-				alert(label.textContent + ' 항목은 필수 입력');
+				alert(label.textContent+' 항목 필수 입력!');
 				items[i].value = '';
 				items[i].focus();
 				return false;
 			}
-			
-			if(items[i].id == 'phone' && !/^\d{3}-\d{4}-\d{4}$/.test($('#phone').val())){
-				alert('전화번호는 000-0000-0000 형식으로 입력');
-				$('#phone').val('').focus();
-				return false;
-			}
+		}
+		//새 비밀번호와 새 비밀번호 확인 일치 여부(폼 전송시)
+		if($('#newPw').val() != $('#newCpw').val()){
+			alert('새 비밀번호와 새 비밀번호 확인이 불일치합니다.');
+			$('#newPw').val('').focus();
+			$('#newCpw').val('');
+			return false;
+		}
+		//새 비밀번호 자리수 체크
+		if($('#newPw').val() != '' && !/^(?=.*[0-9])(?=.*[a-zA-Z]).{8,12}$/.test($('#newPw').val())){
+			alert('비밀번호는 숫자와 영문을 혼용하여 8~12자리로 작성해주세요.');
+			$('#newPw').val('').focus();
+			$('#newCpw').val('');
+			$('#check-msg').text('');
+			return false;
 		}
 	});
-});//end of function
+	//새 비밀번호와 새 비밀번호 확인 일치 여부
+	$('#newCpw').keyup(function(){
+		if($('#newPw').val() == $('#newCpw').val()){
+			$('#check-msg').text('새 비밀번호와 새 비밀번호 확인이 일치합니다.').css('color','blue');
+		}else{
+			$('#check-msg').text('');
+		}		
+	});
+	
+	//새 비밀번호 확인까지 한 후 다시 새 비밀번호를 수정하려고 하면 새 비밀번호 확인을 초기화
+	$('#newPw').keyup(function(){
+		$('#newCpw').val('');
+		$('#check-msg').text('');
+	});
+});
 </script>
 </head>
 <body>
@@ -58,8 +83,8 @@ $(function(){
           	 <div class="col-lg-12">
           		<div class="team-title">
                 		<div class="section-title">
-                    		<span>IDFIND</span>
-                            <h2>아이디 찾기</h2>
+                    		<span>PWFIND</span>
+                            <h2>새로운 비밀번호 설정</h2>
                     	</div>
                  </div>
              </div>
@@ -69,24 +94,21 @@ $(function(){
 					<div class="chart-table">
 					
 					<!-- content 시작 -->
-					<form id="find_form" action="idFind.do" method="post">
+					<form id="modify_form" action="newPw.do" method="post">
 						<ul>
 							<li>
-								<label for="name">* 이름</label>
-								<input type="text" name="name" id="name" maxlength="10" class="input-check">
+								<label>새 비밀번호</label>
+								<input type="password" maxlength="12" name="mem_newPw" id="newPw" maxlength="12">
 							</li>
 							<li>
-								<label for="phone">* 전화번호</label>
-								<input type="text" name="phone" id="phone" placeholder="010-0000-0000 형식으로 입력" maxlength="13" class="input-check">
-							</li>
-							<li>
-								<label for="email">* 이메일</label>
-								<input type="email" name="email" id="email" maxlength="50" class="input-check">
+								<label>새 비밀번호 확인</label>
+								<input type="password" id="newCpw" maxlength="12"><br>
+								<span id="check-msg"></span>
 							</li>
 						</ul>
 						<br>
 						<div class="align-center">
-							<input type="submit" value="아이디 찾기">
+							<input type="submit" value="새로운 비밀번호 설정">
 							<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 						</div>
 					</form>
