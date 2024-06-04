@@ -110,9 +110,23 @@ $(function(){
 							<tr>
 								<td>${payment.pay_num}</td>
 								<td><fmt:formatNumber value="${payment.pay_fee}"/></td>
-								<td>${payment.pay_enroll}</td>
+								<td>
+								<c:if test="${payment.pay_status == 1 || payment.pay_status == 2}">
+									0
+								</c:if>
+								<c:if test="${payment.pay_status == 0}">
+									${payment.pay_enroll}
+								</c:if>
+								</td>
 								<td>${payment.pay_reg_date}</td>
-								<td>${payment.pay_exp}</td>
+								<td>
+								<c:if test="${payment.pay_status == 1}">
+								 	결제취소
+								</c:if>
+								<c:if test="${payment.pay_status == 0 || payment.pay_status == 2}">
+									${payment.pay_exp}
+								</c:if>
+								</td>
 								<td>
 								<c:if test="${payment.pay_status == 1}">
 									결제 취소 완료
@@ -121,7 +135,7 @@ $(function(){
 									결제 완료
 								<input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}">
 								</c:if>
-								<c:if test="${payment.pay_status == 3}">
+								<c:if test="${payment.pay_status == 2}">
 									만료됨
 								</c:if>
 								</td>
