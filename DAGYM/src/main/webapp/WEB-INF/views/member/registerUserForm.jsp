@@ -228,7 +228,7 @@ $(function(){
 						<br>
 						<div class="align-center">
 							<input type="submit" value="회원가입">
-							<input type="button" value="취소" onclick="${pageContext.request.contextPath}/main/main.do">
+							<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 						</div>
 					</form>
 	

@@ -26,16 +26,17 @@ public class InsertMembershipAction implements Action{
 		}
 		request.setCharacterEncoding("UTF-8");
 		
+		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		PaymentVO payment = new PaymentVO();
 		payment.setPay_fee(Integer.parseInt(request.getParameter("pay_fee")));
         payment.setPay_enroll(Integer.parseInt(request.getParameter("pay_enroll")));
-        payment.setMem_num(Integer.parseInt(request.getParameter("mem_num")));
+        payment.setMem_num(mem_num);
 		
         PaymentDAO dao = PaymentDAO.getInstance();
         dao.insertMembership(payment);
         
         request.setAttribute("notice_msg", "회원권 등록 완료");
-        request.setAttribute("notice_url", request.getContextPath()+"/payment/paymentMemberList.do");
+        request.setAttribute("notice_url", request.getContextPath()+"/payment/adminUserPaymentForm.do?mem_num="+mem_num);
         
         return "/WEB-INF/views/common/alert_view.jsp";
 
