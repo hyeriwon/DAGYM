@@ -34,7 +34,12 @@ public class StringUtil {
 		
 		return str.replaceAll("\"", "&quot;");
 	}
-	
+	//문자열 글줄임표 처리
+	public static String truncate(String str,int len) {
+		if(str == null || str.length() < len) return str;
+		
+		return str.substring(0, len)+"...";
+	}
 }
 
 
