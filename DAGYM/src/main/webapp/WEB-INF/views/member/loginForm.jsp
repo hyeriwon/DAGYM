@@ -78,7 +78,9 @@ $(function(){
 							<input type="submit" value="로그인">
 							<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 							<br><br>
-							<a href="${pageContext.request.contextPath}/member/registerUserForm.do">회원가입</a>
+							<a href="${pageContext.request.contextPath}/member/registerUserForm.do">회원가입 | </a>
+							<a href="${pageContext.request.contextPath}/find/idFindForm.do">아이디 찾기 | </a>
+							<a href="${pageContext.request.contextPath}/find/pwFindForm.do">비밀번호 찾기</a>
 						</div>
 					</form>
 					<!-- content 끝 -->

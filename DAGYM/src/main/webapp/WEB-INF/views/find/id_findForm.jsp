@@ -72,22 +72,26 @@ $(function(){
 					<form id="find_form" action="idFind.do" method="post">
 						<ul>
 							<li>
-								<label for="name">* 이름</label>
+								<label for="name">이름</label>
 								<input type="text" name="name" id="name" maxlength="10" class="input-check">
 							</li>
 							<li>
-								<label for="phone">* 전화번호</label>
-								<input type="text" name="phone" id="phone" placeholder="010-0000-0000 형식으로 입력" maxlength="13" class="input-check">
+								<label for="phone">전화번호</label>
+								<input type="text" name="phone" id="phone" maxlength="13" class="input-check">
+								<div class="form-notice">* 000-0000-0000 형식으로 입력</div>
 							</li>
 							<li>
-								<label for="email">* 이메일</label>
+								<label for="email">이메일</label>
 								<input type="email" name="email" id="email" maxlength="50" class="input-check">
 							</li>
 						</ul>
 						<br>
 						<div class="align-center">
 							<input type="submit" value="아이디 찾기">
-							<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
+							<input type="button" value="이전으로 돌아가기" onclick="history.go(-1)">
+							<br><br>
+							<a href="${pageContext.request.contextPath}/member/registerUserForm.do">회원가입 | </a>
+							<a href="${pageContext.request.contextPath}/find/pwFindForm.do">비밀번호 찾기</a>
 						</div>
 					</form>
 					<!-- content 끝 -->
