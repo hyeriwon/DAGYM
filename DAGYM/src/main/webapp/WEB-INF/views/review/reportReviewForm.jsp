@@ -27,13 +27,13 @@ window.onload = function(){
 	<div class="content-main">
 		<h2>PT후기 신고하기</h2>
 		<form id="reportForm" action="reportReview.do" method="post">
-			<input type="hidden" name="rev_num" value="rev_num">
-			<input type="hidden" name="mem_num" value="mem_num">
+			<input type="hidden" name="rev_num" value="${rev_num}">
+			<input type="hidden" name="mem_num" value="${user_num}">
 			<h3>신고 사유를 작성해주세요.</h3>
 			<div class="align-center">
 				<ul>
 					<li>
-						<textarea rows="5" cols="50" id="content"></textarea>
+						<textarea rows="5" cols="50" name="report_content" id="content"></textarea>
 					</li>
 				</ul>		
 				<input type="submit" value="신고">

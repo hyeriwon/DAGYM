@@ -15,13 +15,13 @@ import kr.util.StringUtil;
 public class ReviewDAO {
 	//싱글톤 패턴 작성
 	private static ReviewDAO instance = new ReviewDAO();
-	
+
 	public static ReviewDAO getInstance() {
 		return instance;
 	}
-	
+
 	private ReviewDAO() {}
-	
+
 	/*        사용자        */
 	//수강후기 등록
 	public void insertReview(ReviewVO review) throws Exception{
@@ -29,12 +29,12 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		String sql = null;
-		
+
 		try {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
-			
+
 			//SQL문 작성
 			sql = "INSERT INTO review(rev_num,mem_num,sch_num,rev_grade,rev_title,"
 					+ "rev_content,rev_filename1,rev_filename2,rev_ip) "
@@ -52,9 +52,9 @@ public class ReviewDAO {
 			pstmt.setString(8, review.getRev_ip());
 			//SQL문 실행
 			pstmt.executeUpdate();
-			
+
 			//포인트 추가
-			
+
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
@@ -64,7 +64,7 @@ public class ReviewDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	
+
 	//수강후기 개수, 검색 개수
 	public int getReviewCount(String keyfield,String keyword,int mem_auth)throws Exception{
 		Connection conn = null;
@@ -73,7 +73,7 @@ public class ReviewDAO {
 		String sql = null;
 		String sub_sql = "";
 		int count = 0;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			//sub_sql문 작성
@@ -118,7 +118,7 @@ public class ReviewDAO {
 		String sub_str = "";
 		String sub_sql = "";
 		int cnt=0;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			//sub_sql문 작성
@@ -130,7 +130,7 @@ public class ReviewDAO {
 			//sub_str 작성
 			if(keyfield2==null || keyfield2.equals("1")) sub_str += "rev_num";	    	//최신순
 			else if(keyfield2.equals("2")) sub_str += "rev_like";                       //좋아요
-			
+
 			//SQL문 작성
 			sql = "SELECT * FROM "
 					+ "(SELECT re.*, mb.mem_id, md.mem_name AS tra_name, sc.sch_date, sc.sch_time, rownum rnum "
@@ -163,7 +163,7 @@ public class ReviewDAO {
 				review.setRev_hit(rs.getInt("rev_hit"));
 				review.setSch_date(rs.getString("sch_date")+" "+rs.getString("sch_time"));
 				review.setRev_del(rs.getInt("rev_del"));
-				
+
 				list.add(review);
 			}
 		}catch(Exception e) {
@@ -173,14 +173,14 @@ public class ReviewDAO {
 		}
 		return list;
 	}
-	
+
 	//수강후기 조회수 증가
 	public void updateReadCount(int rev_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			sql = "UPDATE review SET rev_hit=rev_hit+1 WHERE rev_num=?";
@@ -200,7 +200,7 @@ public class ReviewDAO {
 		ResultSet rs = null;
 		ReviewVO review = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM review WHERE rev_num=?";
@@ -229,7 +229,7 @@ public class ReviewDAO {
 		}
 		return review;
 	}
-	
+
 	//수강후기 작성여부 확인
 	public ReviewVO checkReview(int sch_num) throws Exception{
 		Connection conn = null;
@@ -237,7 +237,7 @@ public class ReviewDAO {
 		ResultSet rs = null;
 		ReviewVO review = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM review WHERE sch_num=?";
@@ -257,7 +257,7 @@ public class ReviewDAO {
 		}
 		return review;
 	}
-	
+
 	//수강후기 수정
 	public void updateReview(ReviewVO review) throws Exception{
 		Connection conn = null;
@@ -265,10 +265,10 @@ public class ReviewDAO {
 		String sql = null;
 		String sub_sql = "";
 		int cnt = 0;
-		
+
 		try {
 			conn = DBUtil.getConnection();
-			
+
 			if(review.getRev_filename1()!=null && !"".equals(review.getRev_filename1())) {
 				sub_sql += "rev_filename1=?,";
 			}
@@ -282,10 +282,10 @@ public class ReviewDAO {
 				sub_sql += "rev_filename2=null,";
 			}
 			sql = "UPDATE review SET rev_title=?,rev_grade=?,"+sub_sql
-				  + "rev_content=?,rev_modify_date=sysdate WHERE rev_num=?";
-			
+					+ "rev_content=?,rev_modify_date=sysdate WHERE rev_num=?";
+
 			pstmt = conn.prepareStatement(sql);
-			
+
 			pstmt.setString(++cnt, review.getRev_title());
 			pstmt.setInt(++cnt, review.getRev_grade());
 			if(review.getRev_filename1()!=null && !"".equals(review.getRev_filename1())) {
@@ -311,27 +311,27 @@ public class ReviewDAO {
 		PreparedStatement pstmt3 = null;
 		PreparedStatement pstmt4 = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
-			
+
 			//글 블라인드 처리
 			sql = "UPDATE review SET rev_del=1 WHERE rev_num=?";
 			pstmt = conn.prepareStatement(sql);			
 			pstmt.setInt(1, review.getRev_num());
 			pstmt.executeUpdate();
-			
+
 			//좋아요 삭제
 			sql = "DELETE FROM review_like WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, review.getRev_num());
 			pstmt2.executeUpdate();
-			
+
 			//신고 삭제
-			
+
 			//포인트 차감
-			
+
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
@@ -342,7 +342,7 @@ public class ReviewDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	
+
 	//수강후기 좋아요 수
 	public int countReviewLikes(int rev_num) throws Exception{
 		Connection conn = null;
@@ -351,11 +351,11 @@ public class ReviewDAO {
 		ResultSet rs = null;
 		String sql = null;
 		int count = 0;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
-			
+
 			sql = "SELECT COUNT(*) FROM review_like WHERE rev_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, rev_num);
@@ -363,13 +363,13 @@ public class ReviewDAO {
 			if(rs.next()) {
 				count = rs.getInt(1);
 			}
-			
+
 			sql = "UPDATE review SET rev_like=? WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, count);
 			pstmt2.setInt(2, rev_num);
 			pstmt2.executeUpdate();
-			
+
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
@@ -379,7 +379,7 @@ public class ReviewDAO {
 		}
 		return count;
 	}
-	
+
 	//수강후기 좋아요 여부 확인
 	public RevLikeVO getRevLike(RevLikeVO revLike) throws Exception{
 		Connection conn = null;
@@ -387,7 +387,7 @@ public class ReviewDAO {
 		ResultSet rs = null;
 		RevLikeVO like = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM review_like WHERE rev_num=? AND mem_num=?";
@@ -407,29 +407,29 @@ public class ReviewDAO {
 		}
 		return like;
 	}
-	
+
 	//수강후기 좋아요 등록
 	public void insertLike(RevLikeVO revLike) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
-			
+
 			sql = "INSERT INTO review_like (rev_num,mem_num) VALUES (?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, revLike.getRev_num());
 			pstmt.setInt(2, revLike.getMem_num());
 			pstmt.executeUpdate();
-			
+
 			sql = "UPDATE review SET rev_like=rev_like+1 WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, revLike.getRev_num());
 			pstmt2.executeUpdate();
-			
+
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
@@ -439,29 +439,29 @@ public class ReviewDAO {
 			DBUtil.executeClose(null, pstmt2, conn);
 		}
 	}
-	
+
 	//수강후기 좋아요 취소
 	public void deleteLike(RevLikeVO revLike) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
-			
+
 			sql = "DELETE FROM review_like WHERE rev_num=? AND mem_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, revLike.getRev_num());
 			pstmt.setInt(2, revLike.getMem_num());
 			pstmt.executeUpdate();
-			
+
 			sql = "UPDATE review SET rev_like=rev_like-1 WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, revLike.getRev_num()); 
 			pstmt2.executeUpdate();
-			
+
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
@@ -470,16 +470,50 @@ public class ReviewDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	
+
+	//후기 신고 여부 확인하기
+	public RevReportVO checkRevReport(RevReportVO revReport) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		RevReportVO report = null;
+		String sql = null;
+
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT * FROM review_report WHERE rev_num=? AND mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revReport.getRev_num());
+			pstmt.setInt(2, revReport.getMem_num());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				report = new RevReportVO();
+				report.setRev_num(rs.getInt("rev_num"));
+				report.setMem_num(rs.getInt("mem_num"));
+				report.setReport_del(rs.getInt("report_del"));
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return report;
+	}
 	//수강후기 신고하기
 	public void insertRevReport(RevReportVO revReport)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
-		
+
 		try {
 			conn = DBUtil.getConnection();
-			sql = "INSERT INTO review_report(rev_num,) VALUES";
+			sql = "INSERT INTO review_report(rev_num,mem_num,report_content) "
+					+ "VALUES (?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revReport.getRev_num());
+			pstmt.setInt(2, revReport.getMem_num());
+			pstmt.setString(3, revReport.getReport_content());
+			pstmt.executeUpdate();
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
@@ -487,5 +521,94 @@ public class ReviewDAO {
 		}
 	}
 	/*       관리자        */
+	//수강후기 신고 개수, 검색 개수
+	public int getReportCount(String keyfield,String keyword) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			
+			//sub_sql 작성
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE report_content LIKE '%'|| ? ||'%'";
+			}
+			sql = "SELECT COUNT(*) FROM review_report rp " 
+				  + "JOIN review rev ON rp.rev_num = rev.rev_num " + sub_sql;
+			
+			pstmt = conn.prepareStatement(sql);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(1, keyword);
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}		
+		return count;
+	}
+	//수강후기 신고 내역 목록 및 검색
+	public List<RevReportVO> getAdminListReport(int start,int end,String keyfield,String keyword) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<RevReportVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt=0;
+
+		try {
+			conn = DBUtil.getConnection();
+			//sub_sql문 작성
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";	  //수강후기 글번호
+				else if(keyfield.equals("2")) sub_sql += "WHERE report_content LIKE '%'|| ? ||'%'";	  //신고사유
+			}		
+			//SQL문 작성
+			sql = "SELECT * FROM "
+					+ "(SELECT rp.*,mb.mem_id,rev.rev_title,rownum rnum "
+					+ "FROM review_report rp "
+					+ "JOIN member mb ON rp.mem_num = mb.mem_num "
+					+ "JOIN review rev ON rp.rev_num = rev.rev_num "+ sub_sql 
+					+ " ORDER BY report_date DESC) "
+					+ "WHERE rnum >= ? AND rnum <= ?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(++cnt, keyword);
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			list = new ArrayList<RevReportVO>();
+			while(rs.next()) {
+				RevReportVO report = new RevReportVO();
+				report.setRev_num(rs.getInt("rev_num"));
+				report.setMem_num(rs.getInt("mem_num"));
+				report.setReport_content(StringUtil.useNoHTML(rs.getString("report_content")));
+				report.setReport_del(rs.getInt("report_del"));
+				report.setMem_id(rs.getString("mem_id"));
+				report.setRev_title(StringUtil.useNoHTML(rs.getString("rev_title")));
+
+				list.add(report);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
 	//수강후기 삭제(게시보류)
 }
