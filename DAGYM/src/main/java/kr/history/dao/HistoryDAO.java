@@ -134,7 +134,7 @@ public class HistoryDAO {
 		return list;
 	}
 
-	// 본인이 등록한 PT들만 가져오는 메소드
+	// 회원 - 본인이 등록한 PT들만 가져오는 메소드
 	public List<ScheduleVO> getMyScheduleList(int user_num) throws Exception {
 		List<ScheduleVO> list = null;
 		Connection conn = null;
@@ -168,6 +168,12 @@ public class HistoryDAO {
 		return list;
 
 	}
+	
+	
+
+
+	
+	
 	
 	
 	// 중복된 시간인지 확인하는 메서드

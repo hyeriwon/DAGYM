@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.history.vo.HistoryVO;
 import kr.schedule.vo.ScheduleVO;
 import kr.util.DBUtil;
 
@@ -179,5 +180,68 @@ public class ScheduleDAO {
 
         return schedule;
     }
+    
+    
+    // 트레이너 - 본인이 등록한 스케줄만 가져오는 메소드
+    public List<ScheduleVO> getMyScheduleListByTraNum(int user_num) throws Exception {
+        List<ScheduleVO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        
+        String sql = "SELECT s.*, h.*, h.mem_num, m.mem_id AS mi " +
+        "FROM schedule s LEFT OUTER JOIN history h ON s.sch_num = h.sch_num " +
+        "LEFT OUTER JOIN member m ON h.mem_num = m.mem_num " + 
+        "WHERE s.mem_num = ?";
+        
+        
+        
+		/*
+		 * String sql = "SELECT s.*, h.*, h.mem_num AS mn " + "FROM schedule s " +
+		 * "LEFT OUTER JOIN history h ON s.sch_num = h.sch_num " +
+		 * "WHERE s.mem_num = ?";
+		 */
+        
+        try {
+            conn = DBUtil.getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, user_num);
+            rs = pstmt.executeQuery();
+            
+            while (rs.next()) {
+                ScheduleVO schedule = new ScheduleVO();
+                schedule.setSch_num(rs.getInt("sch_num"));
+				schedule.setSch_date(rs.getString("sch_date"));
+				schedule.setSch_time(rs.getInt("sch_time"));
+				schedule.setMem_id(rs.getString("mi"));
+				schedule.setMem_num(rs.getInt("mem_num"));
+				schedule.setSch_status(rs.getInt("sch_status"));
+				schedule.setHis_status(rs.getInt("his_status")); // 추가된 코드
+                
+                // history 정보 설정
+                HistoryVO history = new HistoryVO();
+                history.setHis_num(rs.getInt("his_num"));
+				history.setMem_num(rs.getInt("mem_num"));
+				history.setSch_num(rs.getInt("sch_num"));
+				history.setTra_num(rs.getInt("tra_num"));
+				history.setHis_status(rs.getInt("his_status"));
+				history.setHis_part(rs.getString("his_part"));
+				
+                
+                // ScheduleVO에 HistoryVO 추가
+                schedule.setHistory(history);
+                
+                list.add(schedule);
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            DBUtil.executeClose(rs, pstmt, conn);
+        }
+        
+        return list;
+    }
+
 
 }

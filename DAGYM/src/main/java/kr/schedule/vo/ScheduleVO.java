@@ -1,5 +1,7 @@
 package kr.schedule.vo;
 
+import kr.history.vo.HistoryVO;
+
 public class ScheduleVO {
 	private int sch_num;
 	private int mem_num;
@@ -11,6 +13,8 @@ public class ScheduleVO {
 	
 	// 필요한 추가 정보
     private String tra_id;
+    
+    private HistoryVO history;
 
 	
 	public int getSch_num() {
@@ -61,6 +65,15 @@ public class ScheduleVO {
 	public void setHis_status(int his_status) {
 		this.his_status = his_status;
 	}
+	public HistoryVO getHistory() {
+		return history;
+	}
+	public void setHistory(HistoryVO history) {
+		this.history = history;
+	}
+	
+	
+	
 	
 	
 	

@@ -13,6 +13,7 @@ public class HistoryVO {
 	private String sch_date;
 	private int sch_time;
 	private String mem_phone;
+	private String mem_id;
 	
 	public String getMem_phone() {
 		return mem_phone;
@@ -73,6 +74,12 @@ public class HistoryVO {
 	}
 	public void setSch_time(int sch_time) {
 		this.sch_time = sch_time;
+	}
+	public String getMem_id() {
+		return mem_id;
+	}
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
 	}
 	
 	

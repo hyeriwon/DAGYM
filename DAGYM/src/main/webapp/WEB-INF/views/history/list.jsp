@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					
 					<!-- content 시작 -->
 			        <div class="align-right">
-			        	<input type="button" value="MyList" onclick="location.href='${pageContext.request.contextPath}/history/mylist.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
+			        	<input type="button" value="MyList" onclick="location.href='${pageContext.request.contextPath}/history/mylist.do'">
 			        </div>
 			        <div id="his_calendar"></div>
 			        <input type="hidden" value="" name="date" id="date" maxlength="30">

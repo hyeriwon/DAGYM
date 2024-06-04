@@ -54,7 +54,7 @@
 		                <input type="hidden" name="his_date" value="${param.his_date}">
 		                <input type="hidden" name="sch_time" value="${param.sch_time}">
 		                <div class="align-center">
-		                    <h4>선택한 날짜 ${param.his_date}</h4>
+		                    <h4>선택한 날짜 : ${param.sch_date}</h4>
 		                </div>
 		                <ul>
 		                    <li>

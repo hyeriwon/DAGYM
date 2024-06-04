@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', function() {
 					
 					<!-- content 시작 -->
 			        <div class="align-right">
-			        		<input type="button" value="MyList" onclick="location.href='${pageContext.request.contextPath}#'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 --> 
+			        	<input type="button" value="PT 수강 내역" onclick="location.href='${pageContext.request.contextPath}/schedule/mylist.do'">
 			        </div>
 			        <div id="sch_calendar"></div>
 			        <input type="hidden" value="" name="date" id="date" maxlength="30">
