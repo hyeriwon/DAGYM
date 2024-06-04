@@ -535,15 +535,18 @@ public class ReviewDAO {
 			
 			//sub_sql 작성
 			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";
-				else if(keyfield.equals("2")) sub_sql += "WHERE report_content LIKE '%'|| ? ||'%'";
+				if(keyfield.equals("1")) sub_sql += "AND rev_title LIKE '%'|| ? ||'%'";
+				else if(keyfield.equals("2")) sub_sql += "AND report_content LIKE '%'|| ? ||'%'";
+				else if(keyfield.equals("3")) sub_sql += "AND rp.rev_num=?";
 			}
 			sql = "SELECT COUNT(*) FROM review_report rp " 
-				  + "JOIN review rev ON rp.rev_num = rev.rev_num " + sub_sql;
+				  + "JOIN review rev ON rp.rev_num = rev.rev_num WHERE rev_del=0 "
+				  + "OR rev_del=1 AND report_del=1 " + sub_sql;
 			
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(1, keyword);
+				if(keyfield.equals("3")) pstmt.setInt(1, Integer.parseInt(keyword));
+				else pstmt.setString(1, keyword);
 			}
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
@@ -570,22 +573,25 @@ public class ReviewDAO {
 			conn = DBUtil.getConnection();
 			//sub_sql문 작성
 			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";	  //수강후기 글번호
-				else if(keyfield.equals("2")) sub_sql += "WHERE report_content LIKE '%'|| ? ||'%'";	  //신고사유
+				if(keyfield.equals("1")) sub_sql += "AND rev_title LIKE '%'|| ? ||'%'";	  //수강후기 글 제목
+				else if(keyfield.equals("2")) sub_sql += "AND report_content LIKE '%'|| ? ||'%'";	  //신고사유
+				else if(keyfield.equals("3")) sub_sql += "AND rp.rev_num=?"; //수강후기 글번호
 			}		
 			//SQL문 작성
 			sql = "SELECT * FROM "
 					+ "(SELECT rp.*,mb.mem_id,rev.rev_title,rownum rnum "
 					+ "FROM review_report rp "
 					+ "JOIN member mb ON rp.mem_num = mb.mem_num "
-					+ "JOIN review rev ON rp.rev_num = rev.rev_num "+ sub_sql 
+					+ "JOIN review rev ON rp.rev_num = rev.rev_num WHERE rev_del=0 "
+					+ "OR rev_del=1 AND report_del=1 "+ sub_sql 
 					+ " ORDER BY report_date DESC) "
 					+ "WHERE rnum >= ? AND rnum <= ?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
 			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(++cnt, keyword);
+				if(keyfield.equals("3")) pstmt.setInt(++cnt, Integer.parseInt(keyword));
+				else pstmt.setString(++cnt, keyword);
 			}
 			pstmt.setInt(++cnt, start);
 			pstmt.setInt(++cnt, end);
@@ -610,5 +616,67 @@ public class ReviewDAO {
 		}
 		return list;
 	}
-	//수강후기 삭제(게시보류)
+	
+	//수강후기 신고처리
+	public void AdminReportYes(RevReportVO revReport) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			sql = "UPDATE review_report SET report_del=1 WHERE rev_num=? AND mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revReport.getRev_num());
+			pstmt.setInt(2, revReport.getMem_num());
+			pstmt.executeUpdate();
+			
+			sql = "UPDATE review SET rev_report=rev_report+1 WHERE rev_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, revReport.getRev_num());
+			pstmt2.executeUpdate();
+			
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//수강후기 신고처리 취소
+	public void AdminReportNo(RevReportVO revReport) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			
+			sql = "UPDATE review_report SET report_del=0 WHERE rev_num=? AND mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, revReport.getRev_num());
+			pstmt.setInt(2, revReport.getMem_num());
+			pstmt.executeUpdate();
+			
+			sql = "UPDATE review SET rev_report=rev_report-1 WHERE rev_num=?";
+			pstmt2 = conn.prepareStatement(sql);
+			pstmt2.setInt(1, revReport.getRev_num());
+			pstmt2.executeUpdate();
+			
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 }

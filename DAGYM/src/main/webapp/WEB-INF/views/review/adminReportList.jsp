@@ -8,6 +8,48 @@
 <meta charset="UTF-8">
 <title>PT후기 신고내역</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#updateRev').click(function(){
+		$.ajax({
+			url:'changeReviewReport.do',
+			type:'post',
+			dataType:'json',
+			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
+			success:function(param){
+				
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	
+	$('#recoverRev').click(function(){
+		$.ajax({
+			url:'changeReviewReport.do',
+			type:'post',
+			dataType:'json',
+			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
+			success:function(param){
+				
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	
+/* 	function toggleButton(param){
+		if(param.status == 'yesReport'){
+			
+		}else{
+			
+		}
+	} */
+});
+</script>
 </head>
 <body>
 <div class="page-main">
@@ -21,6 +63,7 @@
 					<select name="keyfield">
 						<option value="1" <c:if test="${param.keyfield == 1}">selected</c:if>>원본 제목</option>
 						<option value="2" <c:if test="${param.keyfield == 2}">selected</c:if>>신고 사유</option>
+						<option value="3" <c:if test="${param.keyfield == 3}">selected</c:if>>후기 번호</option>
 					</select>					
 				</li>
 				<li>
@@ -57,13 +100,10 @@
 						${fn:substring(report.report_content,0,10)}...
 					</td>
 					<td>
-					<c:if test="${report.report_del == 0}">
-						<input type="button" value="신고" id="UpdateRev">
-					</c:if>
-					<c:if test="${report.report_del == 1}">
-						<input type="button" value="완료" disabled>
-						<input type="button" value="취소" id="recoverRev">
-					</c:if>
+						<input type="button" value="승인" data-rev="${report.rev_num}" 
+							data-mem="${report.mem_num}" id="updateRev" <c:if test="${report.report_del == 1}">disabled</c:if>>
+						<input type="button" value="취소" data-rev="${report.rev_num}" 
+							data-mem="${report.mem_num}" id="recoverRev" <c:if test="${report.report_del == 0}">disabled</c:if>>
 					</td>
 				</tr>
 				</c:forEach>
