@@ -86,7 +86,12 @@
 								</tr>
 								<c:forEach var="inbody" items="${list}">
 									<tr>
+									<c:if test="${user_auth>=8}">
 									<td><a href="inbodyDetail.do?inb_date=${inbody.inb_date}&client_num=${param.client_num}">${inbody.inb_num}</a></td>
+									</c:if>
+									<c:if test="${user_auth==2}">
+									<td><a href="inbodyDetail.do?inb_date=${inbody.inb_date}">${inbody.inb_num}</a></td>
+									</c:if>
 									<td>${inbody.inb_date}</td>
 									<td>${inbody.inb_hei }</td>
 									<td>${inbody.inb_wei}</td>
@@ -95,6 +100,9 @@
 									<div class="align-center">
 									<c:if test="${user_auth==2}">
 									<input type="button" value="삭제" onclick="location.href='deleteInbody.do?inb_num=${inbody.inb_num}'">
+									</c:if>
+									<c:if test="${user_auth>=8}">
+									<input type="button" value="삭제" onclick="location.href='deleteInbody.do?inb_num=${inbody.inb_num}&client_num=${param.client_num}'">
 									</c:if>
 									</div>
 									</td>
