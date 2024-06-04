@@ -248,7 +248,9 @@ public class PaymentDAO {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			sql = "SELECT (COALESCE(SUM(p.pay_enroll), 0) - COALESCE((SELECT COUNT(*) FROM history h WHERE h.mem_num = p.mem_num AND h.his_status = 2), 0)) AS result FROM payment p WHERE p.mem_num = ? GROUP BY p.mem_num";
+			sql = "SELECT (COALESCE(SUM(p.pay_enroll), 0) - COALESCE((SELECT COUNT(*) FROM history h "
+					+ "WHERE h.mem_num = p.mem_num AND h.his_status = 2), 0)) AS result FROM payment p WHERE p.mem_num = ? AND p.pay_status = 0 "
+					+ "GROUP BY p.mem_num";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
@@ -291,7 +293,7 @@ public class PaymentDAO {
 			}
 		}
 	
-	//회원권 수정(관리자)
+	//회원권 결제취소(관리자)
 		public void updateMembership(int pay_num)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -300,7 +302,7 @@ public class PaymentDAO {
 				//커넥션 풀로부터 커넥션 할당
 				conn = DBUtil.getConnection();
 				//SQL문 작성
-				sql = "UPDATE payment SET pay_enroll = 0, pay_status = 1 WHERE pay_num = ?";
+				sql = "UPDATE payment SET pay_status = 1 WHERE pay_num = ?";
 				//PreparedStatement 객체 생성
 				pstmt = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
@@ -324,7 +326,7 @@ public class PaymentDAO {
 				conn = DBUtil.getConnection();
 				//SQL문 작성
 				 sql = "UPDATE payment "
-			                + "SET pay_enroll = 0, pay_status = 3 "
+			                + "SET pay_enroll = 0, pay_status = 2 "
 			                + "WHERE mem_num = ? AND CASE "
 			                + "WHEN pay_enroll = 10 THEN ADD_MONTHS(pay_reg_date, 5) "
 			                + "WHEN pay_enroll = 20 THEN ADD_MONTHS(pay_reg_date, 10) "

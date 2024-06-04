@@ -27,6 +27,7 @@ public class DeleteAction implements Action{
 				      request.getParameter("meal_num"));
 		MealDAO dao = MealDAO.getInstance();
 		MealVO db_meal = dao.getMeal(meal_num);
+		
 		//로그인한 회원번호와 작성자 회원번호 일치 여부 체크
 		if(user_num != db_meal.getMem_num()) {
 			request.setAttribute("notice_msg", "본인기록만  삭제가능합니다.");

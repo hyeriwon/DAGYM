@@ -93,7 +93,9 @@
 									<td>${inbody.inb_mus}</td>
 									<td>
 									<div class="align-center">
+									<c:if test="${user_auth==2}">
 									<input type="button" value="삭제" onclick="location.href='deleteInbody.do?inb_num=${inbody.inb_num}'">
+									</c:if>
 									</div>
 									</td>
 									</tr>
