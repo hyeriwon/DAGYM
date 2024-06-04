@@ -22,7 +22,7 @@ public class IdFindAction implements Action{
 		
 		if(db_member == null){
 			request.setAttribute("notice_msg", "일치하는 회원 정보가 없습니다.");
-			request.setAttribute("notice_url", request.getContextPath()+"/member/registerUserForm.do");
+			request.setAttribute("notice_url", request.getContextPath()+"/find/idFindForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 		//일치하는 회원정보가 있는 경우

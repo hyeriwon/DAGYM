@@ -95,6 +95,7 @@ $(function(){
 					
 					<!-- content 시작 -->
 					<form id="modify_form" action="newPw.do" method="post">
+						<input type="hidden" name="mem_id" value="${mem_id}">
 						<ul>
 							<li>
 								<label>새 비밀번호</label>
