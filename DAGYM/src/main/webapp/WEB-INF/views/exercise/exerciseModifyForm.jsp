@@ -67,26 +67,33 @@ window.onload = function(){
 					<div class="chart-table">
 					
 					<!-- content 시작 -->	
-					<form id="write_form" action="exerciseWrite.do" method="post" enctype= "multipart/form-data">
-					<input type="hidden" id="exe_date" name="exe_date" value="${param.exe_date}">
+					<form id="write_form" action="exerciseModify.do" method="post" enctype= "multipart/form-data">
+					<input type="hidden" id="exe_date" name="exe_date" value="${exercise.exe_date}">
+					<input type="hidden" id="exe_num" name="exe_num" value="${exercise.exe_num}">
 					<ul>
+						 <li>
+		                        <label for="exe_type">운동 부위</label>
+		                        <select name="exe_type">
+		                            <option value="어깨"<c:if test="${exercise.exe_type == '어깨'}">selected</c:if>>어깨</option>
+		                            <option value="가슴" <c:if test="${exercise.exe_type == '가슴'}">selected</c:if>>가슴</option>
+		                            <option value="등" <c:if test="${exercise.exe_type == '등'}">selected</c:if>>등</option>
+		                            <option value="하체"<c:if test="${exercise.exe_type == '하체'}">selected</c:if>>하체</option>
+		                            <option value="팔"<c:if test="${exercise.exe_type == '팔'}">selected</c:if>>팔</option>
+		                            <option value="유산소"<c:if test="${exercise.exe_type == '유산소'}">selected</c:if>>유산소</option>
+		                        </select>
+		                    </li>
 						<li>
-							<label for="exe_type">운동 타입</label>
-							<input type="text" id="exe_type" name="exe_type">
+							<label for="exe_time">운동시간(분)</label>
+							<input type="number" id="exe_time" name="exe_time" min="0" value="${exercise.exe_time}">
 						</li>
 						<li>
 							<label for="exe_content">운동내역(상세)</label>
-							<input type="text" id="exe_content" name="exe_content">
+							<textarea rows="5" cols="20"id="exe_content" name="exe_content">${exercise.exe_content}</textarea>
 						</li>
-						<li>
-							<label for="exe_time">운동시간(분)</label>
-							<input type="number" id="exe_time" name="exe_time">
-						</li>
-						
 						<li>
 						<div class="align-center">
 						<input type="submit" value="수정">
-						<input type="button" value="취소" onclick="${pageContext.request.contextPath}/exercise/exerciseList.do">
+						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/exercise/exerciseList.do'">
 						</div>
 						</li>
 					</ul>

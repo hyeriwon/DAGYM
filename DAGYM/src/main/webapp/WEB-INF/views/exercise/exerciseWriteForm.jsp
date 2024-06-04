@@ -13,7 +13,7 @@
 window.onload = function(){
 	const myForm = document.getElementById('write_form');
 	myForm.onsubmit = function(){
-		const items = document.querySelectorAll('input[type="number"], input[type="text"]');
+		const items = document.querySelectorAll('input[type="number"]');
 		for(let i=0;i<items.length;i++){
 			if(items[i].value.trim()== ''){
 			const label = document.querySelector('label[for="'+items[i].id+'"]');
@@ -23,6 +23,14 @@ window.onload = function(){
 			return false;
 			}
 			
+		}
+		
+		const text = document.getElementById('exe_content');
+		if(text.value.trim()== ''){
+			alert('운동내역(상세) 항목은 필수 입력');
+			text.value = '';
+			text.focus();
+			return false;
 		}
 	};
 };
@@ -70,23 +78,31 @@ window.onload = function(){
 					<form id="write_form" action="exerciseWrite.do" method="post" enctype= "multipart/form-data">
 					<input type="hidden" id="exe_date" name="exe_date" value="${param.exe_date}">
 					<ul>
+						 <li>
+		                        <label for="exe_type">운동 부위</label>
+		                        <select name="exe_type">
+		                            <option value="어깨">어깨</option>
+		                            <option value="가슴">가슴</option>
+		                            <option value="등">등</option>
+		                            <option value="하체">하체</option>
+		                            <option value="팔">팔</option>
+		                            <option value="유산소">유산소</option>
+		                        </select>
+		                    </li>
+						
 						<li>
-							<label for="exe_type">운동 타입</label>
-							<input type="text" id="exe_type" name="exe_type">
+							<label for="exe_time">운동시간(분)</label>
+							<input type="number" id="exe_time" name="exe_time" min="0">
 						</li>
 						<li>
 							<label for="exe_content">운동내역(상세)</label>
-							<input type="text" id="exe_content" name="exe_content">
-						</li>
-						<li>
-							<label for="exe_time">운동시간(분)</label>
-							<input type="number" id="exe_time" name="exe_time">
+							<textarea rows="5" cols="20"id="exe_content" name="exe_content"></textarea>
 						</li>
 						
 						<li>
 						<div class="align-center">
 						<input type="submit" value="등록">
-						<input type="button" value="취소" onclick="${pageContext.request.contextPath}/exercise/exerciseList.do">
+						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/exercise/exerciseList.do'">
 						</div>
 						</li>
 					</ul>

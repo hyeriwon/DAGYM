@@ -110,7 +110,7 @@ window.onload = function(){
 						<li>
 						<div class="align-center">
 						<input type="submit" value="등록">
-						<input type="button" value="취소" onclick="${pageContext.request.contextPath}/inbody/inbodyList.do">
+						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do'">
 						</div>
 						</li>
 					</ul>

@@ -37,7 +37,7 @@
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Exercise</span>
-                            <h2>${mem_name}님의 인바디</h2>
+                            <h2><c:if test="${user_auth >=8 }">(관리자전용)</c:if>${mem_name}님의 운동기록</h2>
                     	</div>
                  </div>	
              </div>
@@ -47,12 +47,13 @@
 					<div class="chart-table">
 					
 					<!-- content 시작 -->		
-					<form id="search_form" action="ExerciseList.do" method="get">
+					<form id="search_form" action="exerciseList.do" method="get">
 						<input type="hidden" id="client_num" value="${param.client_num}" name="client_num">
 						<ul class="search">
 						<li>
 						<select name = "keyfield">
 							<option value="1"<c:if test="${param.keyfield ==1}">selected</c:if>>날짜</option>
+							<option value="2"<c:if test="${param.keyfield ==2}">selected</c:if>>운동부위</option>
 						</select>
 						</li>
 						<li>
@@ -77,19 +78,31 @@
 						<c:if test="${count>0 }">
 							<table>
 								<tr>
-									<th>운동번호</th>
-									<th>측정일자</th>
+									<th>운동일자</th>
 									<th>운동부위</th>
 									<th>운동상세</th>
-									<th>운동시간</th>
+									<th>운동시간(분)</th>
 									<th>삭제</th>
 								</tr>
 								<c:forEach var="exercise" items="${list}">
 									<tr>
-									<td><a href="exerciseDetail.do?exe_date=${exercise.exe_date}&client_num=${param.client_num}">${exercise.exe_num}</a></td>
+									<c:if test="${user_auth ==2}">
+									<td><a href="exerciseDetail.do?exe_date=${exercise.exe_date}">${exercise.exe_date}</a></td>
+									</c:if>
+									<c:if test="${user_auth >=8}">
+									<td><a href="exerciseDetail.do?exe_date=${exercise.exe_date}&client_num=${param.client_num}">${exercise.exe_date}</a></td>
+									</c:if>
+									<td>${exercise.exe_type}</td>
+									<td>${exercise.exe_content}</td>
+									<td>${exercise.exe_time}</td>
 									<td>
 									<div class="align-center">
-									<input type="button" value="삭제" onclick="location.href='deleteExercise.do?exe_num=${exercise.exe_num}'">
+									<c:if test="${user_auth ==2 }">
+									<input type="button" value="삭제" onclick="location.href='exerciseDelete.do?exe_num=${exercise.exe_num}'">
+									</c:if>
+									<c:if test="${user_auth >=8 }">
+									<input type="button" value="삭제" onclick="location.href='exerciseDelete.do?exe_num=${exercise.exe_num}&client_num=${param.client_num}'">
+									</c:if>
 									</div>
 									</td>
 									</tr>
