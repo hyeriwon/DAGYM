@@ -8,9 +8,6 @@
 <meta charset="UTF-8">
 <title>HISTORY</title>
 <style>
-    #fc-dom-1 {
-        margin-right: 100px;
-    }
     .fc-event {
         cursor: pointer;
     }

@@ -8,14 +8,16 @@
 <meta charset="UTF-8">
 <title>PT 수강 내역</title>
 <style>
-    #fc-dom-1 {
-        margin-right: 100px;
-    }
     .fc-event {
         cursor: pointer;
     }
     .completed-event {
         background-color: #32CD32; /* 진한 연두색 */
+        color: white;
+        border: none; /* 테두리 제거 */
+    }
+    .pending-event {
+        background-color: #CC9966;
         color: white;
         border: none; /* 테두리 제거 */
     }
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <fmt:formatNumber value="${schedule.sch_time}" pattern="00"/>
                 </c:set>
                 {
-                    title: '${formattedTime}시 (${schedule.mem_id})',
+                    title: '${formattedTime}시 (<c:choose><c:when test="${schedule.mem_id == null}">대기중</c:when><c:otherwise>${schedule.mem_id}</c:otherwise></c:choose>)',
                     start: '${schedule.sch_date}',
                     allDay: true,
                     extendedProps: {
@@ -65,6 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
             if (info.event.extendedProps.his_status == '2') {
                 info.el.classList.add('completed-event');
             }
+            if (info.event.extendedProps.sch_status == 0) {
+                info.el.classList.add('pending-event');
+            }
         },
         eventMouseEnter: function(info) {
             if (info.event.extendedProps.his_status) {
@@ -79,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         eventClick: function(info) {
-        	// 완료된 PT 일정일 경우 후기 등록으로 이동
+            // 완료된 PT 일정일 경우 후기 등록으로 이동
             if (info.event.extendedProps.his_status == '2') {
                 var redirectUrl = '${pageContext.request.contextPath}/review/writeReviewForm.do?sch_num=' + encodeURIComponent(info.event.extendedProps.sch_num);
                 window.location.href = redirectUrl;
@@ -87,10 +92,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 수강 예정인 PT 일정일 경우 PT 일정 취소
             if (info.event.extendedProps.his_status == '0') {
-	            if (confirm('선택하신 일정을 취소하시겠습니까?')) {
-	            	var schNum = info.event.extendedProps.sch_num;
-	            	location.href = 'historyDeleteForm.do?sch_num=' + schNum;
-	            }
+                if (confirm('선택하신 일정을 취소하시겠습니까?')) {
+                    var schNum = info.event.extendedProps.sch_num;
+                    location.href = 'scheduleDeleteForm.do?sch_num=' + schNum;
+                }
             }
         }
     });
