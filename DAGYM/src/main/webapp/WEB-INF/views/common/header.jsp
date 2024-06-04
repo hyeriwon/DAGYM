@@ -56,7 +56,7 @@
 	                                    <li><a href="${pageContext.request.contextPath}/member/adminMemberList.do">회원상세</a></li>
 	                                    <li><a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석체크</a></li>
 	                                	<li><a href="${pageContext.request.contextPath}/point/adminMemberList.do">포인트</a></li>
-										<li><a href="#">운동기록</a></li>
+										<li><a href="${pageContext.request.contextPath}/exercise/exerciseMain.do">운동기록</a></li>
 										<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
 										<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
 										<li><a href="#">수강내역</a></li>
@@ -71,7 +71,7 @@
                                     	<li><a href="${pageContext.request.contextPath}/member/adminMemberList.do">회원상세</a></li>
                                     	<li><a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석체크</a></li>
                                 		<li><a href="${pageContext.request.contextPath}/point/adminMemberList.do">포인트</a></li>
-										<li><a href="#">운동기록</a></li>
+										<li><a href="${pageContext.request.contextPath}/exercise/exerciseMain.do">운동기록</a></li>
 										<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
 										<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
 										<li><a href="#">수강내역</a></li>
@@ -100,7 +100,7 @@
 		                                     <li><a href="${pageContext.request.contextPath}/member/myPage.do">회원상세</a></li>
 		                                     <li><a href="${pageContext.request.contextPath}/attend/list.do">출석체크</a></li>
 		                                     <li><a href="${pageContext.request.contextPath}/point/list.do">포인트</a></li>
-		                                     <li><a href="#">운동기록</a></li>
+		                                     <li><a href="${pageContext.request.contextPath}/exercise/exerciseMain.do">운동기록</a></li>
 		                                     <li><a href="${pageContext.request.contextPath}/meal/mealDetail.do">식사기록</a></li>
 		                                     <li><a href="${pageContext.request.contextPath}/inbody/inbodyList.do">인바디</a></li>
 		                                     <li><a href="#">수강내역</a></li>
