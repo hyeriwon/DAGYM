@@ -120,6 +120,7 @@
 		                        	<c:if test="${!empty user_num && user_auth == 9}"><!-- 관리자 -->
 		                        		<li><a href="#"><i class="fa fa-user"></i></a>
 		                        			<ul class="dropdown">
+		                        			 <li><a href="${pageContext.request.contextPath}/member/myPage.do">관리자상세</a></li>
 		                                     <li><a href="${pageContext.request.contextPath}/payment/paymentMemberList.do">회원권등록</a></li>
 		                                     <li><a href="${pageContext.request.contextPath}/tmenu/tmenuList.do">메뉴등록</a></li>
 		                                 </ul>
