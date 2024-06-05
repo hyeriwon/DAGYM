@@ -71,33 +71,38 @@
 							<input type="button" value="목록" onclick="location.href='nboardList.do'">
 							<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 						</div>
-						<br>
+						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 						<c:if test="${count == 0}">
 						
 							<div class="result-display">
 								표시할 게시물이 없습니다.
 							</div>
+							<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 						</c:if>
 						<c:if test="${count > 0}">
 							<table>
 								<tr>
-									<th>글번호</th>
+									<th>카테고리</th>
 									<th>제목</th>
-									<th>작성자</th>
+									<%-- <th>작성자</th> --%>
 									<th>작성일</th>
 									<th>조회</th>
 								</tr>
 								<c:forEach var="nboard" items="${list}">
 									<tr>
-										<td>${nboard.nbo_num}</td>
+										<td>
+											<c:if test="${nboard.nbo_type==0}">공지</c:if>
+											<c:if test="${nboard.nbo_type==1}">이벤트</c:if>
+											<c:if test="${nboard.nbo_type==2}">기타</c:if>
+										</td>
 										<td><a href="nboardDetail.do?nbo_num=${nboard.nbo_num}">${nboard.nbo_title}</a></td>
-										<td>관리자</td>
+										<%-- <td>관리자</td> --%>
 										<td>${nboard.nbo_reg_date}</td>
 										<td>${nboard.nbo_hit}</td>
 									</tr>
 								</c:forEach>
 							</table>
-							<br>
+							<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 							<div class="align-center">${page}</div>
 						</c:if>
 						<!-- content 끝 -->

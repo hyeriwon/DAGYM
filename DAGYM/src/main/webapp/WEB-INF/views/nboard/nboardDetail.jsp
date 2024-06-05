@@ -47,13 +47,13 @@
 						<div class="chart-table">
 						
 						<!-- content 시작 -->
+						<p>[
+							<c:if test="${nboard.nbo_type==0}">공지</c:if>
+							<c:if test="${nboard.nbo_type==1}">이벤트</c:if>
+							<c:if test="${nboard.nbo_type==2}">기타</c:if>]
+						</p>
 						<h2>${nboard.nbo_title}</h2>
-						<ul class="detail-info">
-							<li>
-								관리자<br>
-								조회수 : ${nboard.nbo_hit}
-							</li>
-						</ul>
+						<p>조회수 : ${nboard.nbo_hit}</p>
 						<hr size="1" noshade="noshade" width="100%">
 						<c:if test="${!empty nboard.nbo_filename}">
 						<div class="align-center">
@@ -64,30 +64,32 @@
 							${nboard.nbo_content}
 						</p>
 						<hr size="1" noshade="noshade" width="100%">
-						<ul class="align-right detail-sub">
-							<li>
-								
-								<c:if test="${!empty nboard.nbo_modify_date}">
-								최근 수정일 : ${nboard.nbo_reg_date}
-								</c:if>
-								작성일 : ${nboard.nbo_reg_date}
-								<c:if test="${user_num == nboard.mem_num}">
-									<input type="button" value="수정" onclick="location.href='nboardUpdateForm.do?nbo_num=${nboard.nbo_num}'">
-									<input type="button" value="삭제" id="delete_btn">
-									<script type="text/javascript">
-										const delete_btn = document.getElementById('delete_btn');
-										//이벤트 연결
-										delete_btn.onclick=function(){
-											let choice = confirm('삭제하시겠습니까?');
-											if(choice){
-												location.replace('nboardDelete.do?nbo_num=${nboard.nbo_num}');
-											}
-										};
-									</script>
-								</c:if>
-								<input type="button" value="목록" onclick="location.href='nboardList.do'">
-							</li>
-						</ul>
+						
+						<div class="align-right">
+							<%-- 작성자 관리자&nbsp;| --%>
+							<c:if test="${!empty nboard.nbo_modify_date}">
+							최근 수정일 ${nboard.nbo_reg_date}&nbsp;|
+							</c:if>
+							작성일 &nbsp;${nboard.nbo_reg_date}
+						</div>
+						<div class="align-center">
+							<c:if test="${user_num == nboard.mem_num}">
+								<input type="button" value="수정" onclick="location.href='nboardUpdateForm.do?nbo_num=${nboard.nbo_num}'">
+								<input type="button" value="삭제" id="delete_btn">
+								<script type="text/javascript">
+								const delete_btn = document.getElementById('delete_btn');
+								//이벤트 연결
+								delete_btn.onclick=function(){
+								let choice = confirm('삭제하시겠습니까?');
+									if(choice){
+										location.replace('nboardDelete.do?nbo_num=${nboard.nbo_num}');
+									}
+								};
+								</script>
+							</c:if>
+							<input type="button" value="목록" onclick="location.href='nboardList.do'">
+						</div>
+						
 						<!-- content 끝 -->
 						
 						</div>

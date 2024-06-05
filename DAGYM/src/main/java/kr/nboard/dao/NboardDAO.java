@@ -28,7 +28,7 @@ public class NboardDAO {
 			//커넥션풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			//SQL문 작성
-			sql = "INSERT INTO nboard (nbo_num,mem_num,nbo_title,nbo_content,nbo_filename) VALUES (nboard_seq.nextval,?,?,?,?)";
+			sql = "INSERT INTO nboard (nbo_num,mem_num,nbo_title,nbo_content,nbo_filename,nbo_type) VALUES (nboard_seq.nextval,?,?,?,?,?)";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
@@ -36,6 +36,7 @@ public class NboardDAO {
 			pstmt.setString(2, nboard.getNbo_title());
 			pstmt.setString(3, nboard.getNbo_content());
 			pstmt.setString(4, nboard.getNbo_filename());
+			pstmt.setInt(5, nboard.getNbo_type());
 			//SQL문 실행
 			pstmt.executeUpdate();
 		}catch(Exception e) {
@@ -121,6 +122,7 @@ public class NboardDAO {
 				nboard.setNbo_hit(rs.getInt("nbo_hit"));
 				nboard.setNbo_reg_date(rs.getDate("nbo_reg_date"));
 				nboard.setMem_num(rs.getInt("mem_num"));
+				nboard.setNbo_type(rs.getInt("nbo_type"));
 				
 				list.add(nboard);
 			}
@@ -159,6 +161,7 @@ public class NboardDAO {
 				nboard.setNbo_modify_date(rs.getDate("nbo_modify_date"));
 				nboard.setNbo_filename(rs.getString("nbo_filename"));
 				nboard.setMem_num(rs.getInt("mem_num"));
+				nboard.setNbo_type(rs.getInt("nbo_type"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -229,13 +232,14 @@ public class NboardDAO {
 			}
 			
 			//SQL문 작성
-			sql = "UPDATE nboard SET nbo_title=?,nbo_content=?,nbo_modify_date=SYSDATE" + sub_sql + " WHERE nbo_num=?";
+			sql = "UPDATE nboard SET nbo_title=?,nbo_content=?,nbo_type=?,nbo_modify_date=SYSDATE" + sub_sql + " WHERE nbo_num=?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
 			pstmt.setString(++cnt, nboard.getNbo_title());
 			pstmt.setString(++cnt, nboard.getNbo_content());
+			pstmt.setInt(++cnt, nboard.getNbo_type());
 			if(nboard.getNbo_filename()!=null && !"".equals(nboard.getNbo_filename())) {
 				pstmt.setString(++cnt, nboard.getNbo_filename());
 			}

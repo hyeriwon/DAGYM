@@ -48,6 +48,7 @@ create table nboard(
  nbo_content clob not null,
  nbo_filename varchar2(400),
  nbo_hit number default 0 not null,
+ nbo_type number(1) not null,
  nbo_reg_date date default sysdate not null,
  nbo_modify_date date,
  constraint nboard_pk primary key (nbo_num),

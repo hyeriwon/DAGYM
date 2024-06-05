@@ -15,12 +15,7 @@ public class NboardListAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		/*
-		HttpSession session = request.getSession();
-		Integer user_auth = (Integer)session.getAttribute("user_auth");
-		
-		request.setAttribute("user_auth", user_auth);
-		*/
+	
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		

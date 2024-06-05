@@ -11,7 +11,14 @@ public class NboardVO {
 	private int nbo_hit;
 	private Date nbo_reg_date;
 	private Date nbo_modify_date;
+	private int nbo_type;
 	
+	public int getNbo_type() {
+		return nbo_type;
+	}
+	public void setNbo_type(int nbo_type) {
+		this.nbo_type = nbo_type;
+	}
 	public int getNbo_num() {
 		return nbo_num;
 	}

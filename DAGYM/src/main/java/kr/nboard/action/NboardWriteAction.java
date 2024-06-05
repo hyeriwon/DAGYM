@@ -31,6 +31,7 @@ public class NboardWriteAction implements Action{
 		nboard.setNbo_title(request.getParameter("nbo_title"));
 		nboard.setNbo_content(request.getParameter("nbo_content"));
 		nboard.setNbo_filename(FileUtil.createFile(request, "nbo_filename"));
+		nboard.setNbo_type(Integer.parseInt(request.getParameter("nbo_type")));
 		
 		nboard.setMem_num(user_num);
 		

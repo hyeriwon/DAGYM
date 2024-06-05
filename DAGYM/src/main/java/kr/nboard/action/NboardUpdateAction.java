@@ -38,6 +38,7 @@ public class NboardUpdateAction implements Action{
 		nboard.setNbo_title(request.getParameter("nbo_title"));
 		nboard.setNbo_content(request.getParameter("nbo_content"));
 		nboard.setNbo_filename(FileUtil.createFile(request, "nbo_filename"));
+		nboard.setNbo_type(Integer.parseInt(request.getParameter("nbo_type")));
 		dao.updateNboard(nboard);
 		
 		if(nboard.getNbo_filename()!=null && !"".equals(nboard.getNbo_filename())) {

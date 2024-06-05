@@ -10,19 +10,15 @@
 <script type="text/javascript">
 window.onload=function(){
 	const myForm = document.getElementById('update_form');
-	const nbo_type = document.getElementById('nbo_type');
-	const nbo_title = document.getElementById('nbo_title');
-	    
-    //게시글 종류 변경 시 제목 필드 업데이트
-    nbo_type.onchange = function() {
-        const prefix = "[" + nbo_type.value + "] ";
-        if (!nbo_title.value.startsWith(prefix)) {
-            nbo_title.value = prefix;
-        }
-    };
-
 	//이벤트 연결
 	myForm.onsubmit=function(){
+		const nbo_type = document.getElementById('nbo_type');
+		if(nbo_type.value.trim()==''){
+			alert('게시글 유형을 선택하세요');
+			nbo_type.value='';
+			nbo_type.focus();
+			return false;
+		}
 		const nbo_title = document.getElementById('nbo_title');
 		if(nbo_title.value.trim()==''){
 			alert('제목을 입력하세요');
@@ -83,12 +79,12 @@ window.onload=function(){
 						<input type="hidden" name="nbo_num" value="${nboard.nbo_num}">
 							<ul>
 								<li>
-									<label for="nbo_type">게시글 종류</label>
-									<select name="nbo_type" id="nbo_type">
-										<option value="" selected disabled>--선택--</option>
-										<option value="공지">공지</option>
-										<option value="이벤트">이벤트</option>
-									</select>
+								<select name="nbo_type" id="nbo_type">
+									<option value="" selected disabled>--선택--</option>
+									<option value="0" <c:if test="${nboard.nbo_type == 0}">selected</c:if>>공지</option>
+									<option value="1" <c:if test="${nboard.nbo_type == 1}">selected</c:if>>이벤트</option>
+									<option value="2" <c:if test="${nboard.nbo_type == 2}">selected</c:if>>기타</option>
+								</select>
 								</li>
 								<li>
 									<label for="nbo_title">제목</label>
@@ -140,7 +136,7 @@ window.onload=function(){
 								</li>
 							</ul>
 							<div class="align-center">
-								<input type="submit" value="공지글 수정">
+								<input type="submit" value="수정">
 								<input type="button" value="목록" onclick="location.href='nboardList.do'">
 							</div>
 						</form>
