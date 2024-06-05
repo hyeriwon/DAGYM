@@ -52,7 +52,7 @@ public class ChangeReviewReportAction implements Action{
 				}else {
 					dao.AdminReportNo(db_report);
 					mapAjax.put("status", "reportNo");
-					if(dao.totalRevReport(rev_num) < 3) {
+					if(dao.totalRevReport(rev_num) == 2) {
 						mapAjax.put("count", "clearBlind");
 					}
 				}

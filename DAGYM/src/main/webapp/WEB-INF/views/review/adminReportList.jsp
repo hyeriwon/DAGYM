@@ -11,9 +11,9 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$(document).on('click','[id^=updateRev${sta.index}]',function(){
+	$(document).on('click','[id^=updateRev]',function(){
 		var index = $(this).attr('id').replace('updateRev', '');
-		var selectedRevNum = $(this).data('rev-num');
+		var selectedRevNum = $(this).data('rev');
 		$.ajax({
 			url:'changeReviewReport.do',
 			type:'post',
@@ -29,9 +29,9 @@ $(function(){
 		});
 	});
 	
-	$(document).on('click','[id^=recoverRev${sta.index}]',function(){
+	$(document).on('click','[id^=recoverRev]',function(){
 		var index = $(this).attr('id').replace('recoverRev', '');
-		var selectedRevNum = $(this).data('rev-num');
+		var selectedRevNum = $(this).data('rev');
 		$.ajax({
 			url:'changeReviewReport.do',
 			type:'post',
@@ -39,7 +39,7 @@ $(function(){
 			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
 			success:function(param){
 				toggleButton(param,index);
-				//toggleRow(param,selectedRevNum);
+				toggleRow(param,selectedRevNum);
 			},
 			error:function(){
 				alert('네트워크 오류 발생');
@@ -71,23 +71,16 @@ $(function(){
 				var row = $(this);
 				var revNum = row.find('[data-rev]').data('rev');
 				if(revNum == selectedRevNum && row.find('input[type="button"][id^=recoverRev]').is(':disabled')){
-                    row.prevAll('tr').each(function(){
-                        var prevRow = $(this);
-                        if(prevRow.find('[data-rev]').data('rev') == selectedRevNum){
-                            prevRow.hide();
-                        }
-                    });
-                }else if (revNum != selectedRevNum){
-                    row.show();
-                }
+          row.hide();
+        }
 			});
 		}else{
 			$('tr').each(function(){
 				var row = $(this);
 				var revNum = row.find('[data-rev]').data('rev');
-				if(revNum != selectedRevNum){
-	            	row.show();
-	            }
+				if(revNum == selectedRevNum){
+	      	row.show();
+	      }
 			});
 		}
  	}
