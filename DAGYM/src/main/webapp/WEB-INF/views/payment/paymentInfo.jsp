@@ -46,10 +46,10 @@
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-8">
                     <div class="ps-item">
-                        <h3>Class drop-in</h3>
+                        <h3>10회권</h3>
                         <div class="pi-price">
-                            <h2>$ 39.0</h2>
-                            <span>SINGLE CLASS</span>
+                            <h2>600,000</h2>
+                            <span>PT10회</span>
                         </div>
                         <ul>
                             <li>Free riding</li>
