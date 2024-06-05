@@ -27,6 +27,13 @@ public class DeleteAction implements Action{
 				      request.getParameter("meal_num"));
 		MealDAO dao = MealDAO.getInstance();
 		MealVO db_meal = dao.getMeal(meal_num);
+		if(user_auth >=8) {
+			Integer client_num =  Integer.parseInt(request.getParameter("client_num"));
+			dao.deleteMeal(meal_num);
+			request.setAttribute("notice_msg", "글 삭제 완료");
+			request.setAttribute("notice_url", request.getContextPath()+"/meal/mealDetail.do?client_num="+client_num);
+			return "/WEB-INF/views/common/alert_view.jsp";
+		}
 		
 		//로그인한 회원번호와 작성자 회원번호 일치 여부 체크
 		if(user_num != db_meal.getMem_num()) {
@@ -35,11 +42,7 @@ public class DeleteAction implements Action{
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
 		
-		if(user_auth >=8) {
-			request.setAttribute("notice_msg", "회원본인이 삭제해야합니다.");
-			request.setAttribute("notice_url", request.getContextPath()+"/meal/mealDetail.do");
-			return "/WEB-INF/views/common/alert_view.jsp";
-		}
+		
 		//로그인한 회원번호와 작성자 회원번호 일치
 		dao.deleteMeal(meal_num);
 		//파일 삭제

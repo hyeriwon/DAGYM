@@ -81,8 +81,9 @@ window.onload = function(){
 					
 					<!-- content 시작 -->	
 					<form id="modify_form" action="inbodyModify.do" method="post" enctype= "multipart/form-data">
-					<input type="hidden" id="inb_date" name="inb_date" value="${param.inb_date}">
+					<input type="hidden" id="inb_date" name="inb_date" value="${inbody.inb_date}">
 					<input type="hidden" id="inb_num" name="inb_num" value="${inbody.inb_num}">
+					<input type="hidden" id="client_num" name="client_num" value="${param.client_num}">
 					<ul>
 						<li>
 							<label for="inb_hei">키(cm)</label>
@@ -109,7 +110,12 @@ window.onload = function(){
 						<li>
 						<div class="align-center">
 						<input type="submit" value="수정">
+						<c:if test="${user_auth ==2}">
 						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do'">
+						</c:if>
+						<c:if test="${user_auth >=8}">
+						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do?client_num='+${param.client_num}">
+						</c:if>
 						</div>
 						</li>
 					</ul>

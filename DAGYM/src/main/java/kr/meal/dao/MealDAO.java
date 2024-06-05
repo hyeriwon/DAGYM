@@ -278,7 +278,7 @@ public class MealDAO {
 
 	
 	//칼로리 계산
-	public int calKcal(String meal_date)throws Exception{
+	public int calKcal(String meal_date, int mem_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -286,9 +286,10 @@ public class MealDAO {
 		int totalKcal = 0;
 		try {
 			conn=DBUtil.getConnection();
-			sql="SELECT SUM(tme_kcal) AS totalKcal FROM meal JOIN t_menu USING(tme_num) WHERE meal_date= ? GROUP BY meal_date";
+			sql="SELECT SUM(tme_kcal) AS totalKcal FROM meal JOIN t_menu USING(tme_num) WHERE meal_date= ?  AND mem_num = ? GROUP BY meal_date";
 			pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, meal_date);
+            pstmt.setInt(2, mem_num);
             rs = pstmt.executeQuery();
             if(rs.next()) {
             	totalKcal =rs.getInt("totalKcal");

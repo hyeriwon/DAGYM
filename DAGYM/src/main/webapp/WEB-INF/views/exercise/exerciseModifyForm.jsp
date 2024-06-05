@@ -24,6 +24,13 @@ window.onload = function(){
 			}
 			
 		}
+		const text = document.getElementById('exe_content');
+		if(text.value.trim()== ''){
+			alert('운동내역(상세) 항목은 필수 입력');
+			text.value = '';
+			text.focus();
+			return false;
+		}
 	};
 };
 
@@ -70,6 +77,7 @@ window.onload = function(){
 					<form id="write_form" action="exerciseModify.do" method="post" enctype= "multipart/form-data">
 					<input type="hidden" id="exe_date" name="exe_date" value="${exercise.exe_date}">
 					<input type="hidden" id="exe_num" name="exe_num" value="${exercise.exe_num}">
+					<input type="hidden" id="client_num" name="client_num" value="${param.client_num}">
 					<ul>
 						 <li>
 		                        <label for="exe_type">운동 부위</label>

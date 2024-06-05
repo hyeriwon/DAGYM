@@ -33,7 +33,7 @@ public class ListDateMealAction implements Action {
 		List<MealVO> mealList = dao.listDateMeal(mem_num,meal_date);
 		
 		
-		int totalKcal = dao.calKcal(meal_date);
+		int totalKcal = dao.calKcal(meal_date,mem_num);
 		request.setAttribute("totalKcal", totalKcal);
 		request.setAttribute("meal",mealList);
 		request.setAttribute("meal_date", meal_date);

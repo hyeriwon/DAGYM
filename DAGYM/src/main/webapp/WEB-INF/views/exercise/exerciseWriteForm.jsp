@@ -13,7 +13,7 @@
 window.onload = function(){
 	const myForm = document.getElementById('write_form');
 	myForm.onsubmit = function(){
-		const items = document.querySelectorAll('input[type="number"]');
+		const items = document.querySelectorAll('input[type="number"]',);
 		for(let i=0;i<items.length;i++){
 			if(items[i].value.trim()== ''){
 			const label = document.querySelector('label[for="'+items[i].id+'"]');

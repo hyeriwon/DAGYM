@@ -8,6 +8,13 @@
 <title>Exercise</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/HJW.css" type="text/css">
+<script type="text/javascript">
+function confirmDelete(url) {
+    if (confirm('정말 삭제하시겠습니까?')) {
+        location.href = url;
+    }
+}
+</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -97,11 +104,11 @@
 									<td>${exercise.exe_time}</td>
 									<td>
 									<div class="align-center">
-									<c:if test="${user_auth ==2 }">
-									<input type="button" value="삭제" onclick="location.href='exerciseDelete.do?exe_num=${exercise.exe_num}'">
+									<c:if test="${user_auth==2}">
+									<input type="button" value="삭제" onclick="confirmDelete('exerciseDelete.do?exe_num=${exercise.exe_num}')">
 									</c:if>
-									<c:if test="${user_auth >=8 }">
-									<input type="button" value="삭제" onclick="location.href='exerciseDelete.do?exe_num=${exercise.exe_num}&client_num=${param.client_num}'">
+									<c:if test="${user_auth>=8}">
+									<input type="button" value="삭제" onclick="confirmDelete('exerciseDelete.do?exe_num=${exercise.exe_num}&client_num=${param.client_num}')">
 									</c:if>
 									</div>
 									</td>

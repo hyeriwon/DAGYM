@@ -15,7 +15,7 @@ public class InbodyDeleteAction implements Action {
 		//로그인 여부 확인하기
 		HttpSession session = request.getSession();
 		Integer mem_num = (Integer) session.getAttribute("user_num");
-
+		Integer user_auth = (Integer)session.getAttribute("user_auth");
 		if(mem_num==null) {
 			return "redirect:/member/loginForm.do";
 		}
@@ -26,17 +26,23 @@ public class InbodyDeleteAction implements Action {
 		int inb_num = Integer.parseInt(request.getParameter("inb_num"));
 		InbodyDAO inbodydao  = InbodyDAO.getInstance();
 		InbodyVO db_inbody = inbodydao.getInbodybyInbnum(inb_num);
+		if(user_auth >=8) {
+			inbodydao.deleteInbody(inb_num);
+			request.setAttribute("notice_msg", "(관리자)삭제 처리되었습니다.");
+			request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do?client_num="+client_num);
+			return "/WEB-INF/views/common/alert_view.jsp";
+			
+		}
 		if(db_inbody.getMem_num() == mem_num) {
 
 			inbodydao.deleteInbody(inb_num);
 			request.setAttribute("notice_msg", "삭제 처리되었습니다.");
 			request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do" );
 			}else {
-				
 				request.setAttribute("notice_msg", "본인만 삭제 가능합니다.");
-				request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do?client_num="+db_inbody.getMem_num());
+				request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do");
 			}
-		return "../WEB-INF/views/common/alert_view.jsp";
+		return "/WEB-INF/views/common/alert_view.jsp";
 	}
 
 }

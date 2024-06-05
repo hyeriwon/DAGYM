@@ -28,6 +28,10 @@ public class InbodyDetailAction implements Action{
 		InbodyDAO inbodydao = InbodyDAO.getInstance();
 		InbodyVO inbody = inbodydao.getInbody(inb_date, user_num);
 		
+		if (inbody == null) {
+			return "/WEB-INF/views/common/notice.jsp";
+		}
+		
 		double heightInMeters = inbody.getInb_hei() / 100.0; // cm를 미터로 계산
         double bmi = inbody.getInb_wei() / (Math.pow(heightInMeters, 2));
         int bmi2 = (int) Math.round(bmi);

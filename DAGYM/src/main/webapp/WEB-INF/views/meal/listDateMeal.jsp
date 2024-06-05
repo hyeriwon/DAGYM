@@ -84,7 +84,12 @@
 						</table>
 					</div>
 					<div class="align-center">
+						<c:if test="${user_auth >=8}">
 						<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do?client_num=${param.client_num}'">
+						</c:if>
+						<c:if test="${user_auth ==2}">
+						<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'">
+						</c:if>
 					</div>
 					<!-- content 끝 -->
 					
