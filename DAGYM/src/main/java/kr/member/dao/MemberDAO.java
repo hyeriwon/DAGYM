@@ -439,7 +439,7 @@ public class MemberDAO {
 				if(keyfield.equals("1")) sub_sql += "AND mem_name LIKE '%' || ? || '%'";
 				else if(keyfield.equals("2")) sub_sql += "AND mem_id LIKE '%' || ? || '%'";
 			}
-			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) WHERE mem_auth == 1 OR mem_auth == 2 " 
+			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT * FROM member LEFT OUTER JOIN member_detail USING(mem_num) WHERE mem_auth=1 OR mem_auth=2 " 
 					+ sub_sql + " ORDER BY mem_auth DESC)a) WHERE rnum >= ? AND rnum <= ?";
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
