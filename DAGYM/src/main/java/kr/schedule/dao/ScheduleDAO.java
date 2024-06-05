@@ -189,14 +189,10 @@ public class ScheduleDAO {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         
-        
         String sql = "SELECT s.*, h.*, h.mem_num, m.mem_id AS mi, m.mem_num AS mn " +
         "FROM schedule s LEFT OUTER JOIN history h ON s.sch_num = h.sch_num " +
         "LEFT OUTER JOIN member m ON h.mem_num = m.mem_num " + 
         "WHERE s.mem_num = ?";
-        
-        
-        
 		/*
 		 * String sql = "SELECT s.*, h.*, h.mem_num AS mn " + "FROM schedule s " +
 		 * "LEFT OUTER JOIN history h ON s.sch_num = h.sch_num " +
@@ -219,6 +215,7 @@ public class ScheduleDAO {
 				schedule.setSch_status(rs.getInt("sch_status"));
 				schedule.setHis_status(rs.getInt("his_status")); // 추가된 코드
 				schedule.setHis_part(rs.getString("his_part"));
+				schedule.setHis_num(rs.getInt("his_num"));
                 
                 // history 정보 설정
                 HistoryVO history = new HistoryVO();

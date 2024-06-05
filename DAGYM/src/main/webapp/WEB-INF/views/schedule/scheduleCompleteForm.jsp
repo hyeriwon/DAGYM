@@ -48,9 +48,9 @@
                     <div class="chart-table">
                     
                     <!-- content 시작 -->
-                    <form action="${pageContext.request.contextPath}/schedule/scheduleComplite.do" method="post">
-                        <input type="hidden" name="sch_num" value="${sch_num}">
-                        <input type="hidden" name="his_num" value="${his_num}">
+                    <form action="${pageContext.request.contextPath}/schedule/scheduleComplete.do" method="post">
+                        <input type="hidden" name="sch_num" value="${param.sch_num}">
+                        <input type="hidden" name="his_num" value="${param.his_num}">
                         <input type="hidden" name="tra_num" value="${param.tra_num}">
                         <input type="hidden" name="his_date" value="${param.his_date}">
                         <input type="hidden" name="sch_time" value="${param.sch_time}">

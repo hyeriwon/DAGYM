@@ -15,6 +15,7 @@ public class ScheduleVO {
     private String tra_id;
     private HistoryVO history;
     private String his_part;
+    private int his_num;
 
 	
 	public int getSch_num() {
@@ -77,4 +78,12 @@ public class ScheduleVO {
 	public void setHis_part(String his_part) {
 		this.his_part = his_part;
 	}
+	public int getHis_num() {
+		return his_num;
+	}
+	public void setHis_num(int his_num) {
+		this.his_num = his_num;
+	}
+	
+	
 }

@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         sch_status: '${schedule.sch_status}',
                         his_status: '${schedule.his_status}',
                         his_part : '${schedule.his_part}',
+                        his_num : '${schedule.his_num}',
                         mem_num_history: '${schedule.mem_num}' // history의 mem_num도 가져오기 위해 추가
                     }
                 },
@@ -82,12 +83,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 var sch_num = info.event.extendedProps.sch_num;
                 var mem_num = info.event.extendedProps.mem_num;
                 var his_part = info.event.extendedProps.his_part;
+                var his_num = info.event.extendedProps.his_num;
                 var mem_num_history = info.event.extendedProps.mem_num_history; // history의 mem_num 값 가져오기
 
                 // 폼 생성
                 var form = document.createElement('form');
                 form.method = 'POST';
-                form.action = '${pageContext.request.contextPath}/schedule/scheduleCompliteForm.do?sch_date=' + info.event.startStr + '&sch_time=' + sch_time + '&mem_name=' + mem_name + '&his_part=' + his_part;
+                form.action = '${pageContext.request.contextPath}/schedule/scheduleCompleteForm.do?sch_date=' + info.event.startStr + '&sch_time=' + sch_time + '&mem_name=' + mem_name + '&his_part=' + his_part;
                 form.style.display = 'none'; // 폼을 보이지 않게 설정
                 
                 // 스케줄 번호를 전달
@@ -110,6 +112,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 hisPartInput.name = 'his_part';
                 hisPartInput.value = his_part;
                 form.appendChild(hisPartInput);
+                
+             	// 히스토리 번호를 전달
+                var hisNumInput = document.createElement('input');
+                hisNumInput.type = 'hidden';
+                hisNumInput.name = 'his_num';
+                hisNumInput.value = his_num;
+                form.appendChild(hisNumInput);
 
                 // 스케줄을 등록한 회원 번호(mem_num)을 전달
                 var memNumHistoryInput = document.createElement('input');
