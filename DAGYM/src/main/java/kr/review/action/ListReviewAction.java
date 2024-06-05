@@ -47,7 +47,14 @@ public class ListReviewAction implements Action{
 		//수강후기 목록 받아오기
 		List<ReviewVO> list = null;	
 		if(count > 0) {
-			list = dao.getListReview(page.getStartRow(), page.getEndRow(), keyfield, keyword,keyfield2);
+			if(user_num==null) {
+				list = dao.getListReview(page.getStartRow(), page.getEndRow(), keyfield, keyword,keyfield2,3);
+			}else {
+				MemberDAO memDAO = MemberDAO.getInstance();
+				MemberVO member = memDAO.getMember(user_num);
+				list = dao.getListReview(page.getStartRow(), page.getEndRow(), keyfield, keyword,keyfield2,member.getMem_auth());
+			}
+			
 		}
 		
 		request.setAttribute("user_num", user_num);

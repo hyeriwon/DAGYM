@@ -83,8 +83,8 @@ public class ReviewDAO {
 				else if(keyfield.equals("3")) sub_sql += "WHERE rev_content LIKE '%'|| ? ||'%'";//내용
 			}
 			if(mem_auth!=9) {
-				if(keyword!=null && !"".equals(keyword)) sub_sql += " AND rev_del=0";
-				else sub_sql += "WHERE rev_del=0";		
+				if(keyword!=null && !"".equals(keyword)) sub_sql += " AND rev_del=0 AND rev_report < 3";
+				else sub_sql += "WHERE rev_del=0 AND rev_report < 3";		
 			}
 			//SQL문 작성
 			sql = "SELECT COUNT(*) FROM review re "
@@ -109,7 +109,7 @@ public class ReviewDAO {
 		return count;
 	}
 	//수강후기 목록(전체), 수강후기 검색 목록, 수강후기 정렬
-	public List<ReviewVO> getListReview(int start,int end,String keyfield,String keyword,String keyfield2) throws Exception{
+	public List<ReviewVO> getListReview(int start,int end,String keyfield,String keyword,String keyfield2,int mem_auth) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -126,6 +126,10 @@ public class ReviewDAO {
 				if(keyfield.equals("1")) sub_sql += "WHERE md.mem_name LIKE '%'|| ? ||'%'";	    //트레이너
 				else if(keyfield.equals("2")) sub_sql += "WHERE rev_title LIKE '%'|| ? ||'%'";   //제목
 				else if(keyfield.equals("3")) sub_sql += "WHERE rev_content LIKE '%'|| ? ||'%'";//내용
+			}
+			if(mem_auth!=9) {
+				if(keyword!=null && !"".equals(keyword)) sub_sql += " AND rev_del=0 AND rev_report < 3";
+				else sub_sql += "WHERE rev_del=0 AND rev_report < 3";		
 			}
 			//sub_str 작성
 			if(keyfield2==null || keyfield2.equals("1")) sub_str += "rev_num";	    	//최신순
@@ -622,6 +626,7 @@ public class ReviewDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 		String sql = null;
 		
 		try {
@@ -634,16 +639,22 @@ public class ReviewDAO {
 			pstmt.setInt(2, revReport.getMem_num());
 			pstmt.executeUpdate();
 			
-			sql = "UPDATE review SET rev_report=rev_report+1 WHERE rev_num=?";
+			sql = "UPDATE review SET rev_del=1,rev_report=rev_report+1 WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
+			
+			sql = "UPDATE member m SET mem_auth=1 WHERE m.mem_num "
+					+ "IN (SELECT r.mem_num FROM review r WHERE r.rev_report>= 3)";
+			pstmt3 = conn.prepareStatement(sql);
+			pstmt3.executeUpdate();
 			
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
@@ -653,6 +664,7 @@ public class ReviewDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 		String sql = null;
 		
 		try {
@@ -665,18 +677,48 @@ public class ReviewDAO {
 			pstmt.setInt(2, revReport.getMem_num());
 			pstmt.executeUpdate();
 			
-			sql = "UPDATE review SET rev_report=rev_report-1 WHERE rev_num=?";
+			sql = "UPDATE review SET rev_del=0,rev_report=rev_report-1 WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
+			
+			sql = "UPDATE member m SET mem_auth=2 WHERE m.mem_num "
+					+ "IN (SELECT r.mem_num FROM review r WHERE r.rev_report < 3)";
+			pstmt3 = conn.prepareStatement(sql);
+			pstmt3.executeUpdate();
 			
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
+	}
+	//수강후기 누적 신고수
+	public int totalRevReport(int rev_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int count = 0;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "SELECT rev_report FROM review WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql); 
+			pstmt.setInt(1, rev_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return count;
 	}
 }

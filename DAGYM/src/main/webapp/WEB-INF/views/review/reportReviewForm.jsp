@@ -71,7 +71,7 @@ window.onload = function(){
 								</li>
 							</ul>		
 							<input type="submit" value="신고">
-							<input type="button" value="취소" onclick="location.href='detailReview.do?rev_num=${rev_num}">
+							<input type="button" value="취소" onclick="history.go(-1)">
 						</div>
 					</form>
 					<!-- content 끝 -->

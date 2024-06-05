@@ -11,14 +11,17 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
-	$('#updateRev').click(function(){
+	$(document).on('click','[id^=updateRev${sta.index}]',function(){
+		var index = $(this).attr('id').replace('updateRev', '');
+		var selectedRevNum = $(this).data('rev-num');
 		$.ajax({
 			url:'changeReviewReport.do',
 			type:'post',
 			dataType:'json',
 			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
 			success:function(param){
-				
+				toggleButton(param,index);
+				toggleRow(param,selectedRevNum);
 			},
 			error:function(){
 				alert('네트워크 오류 발생');
@@ -26,14 +29,17 @@ $(function(){
 		});
 	});
 	
-	$('#recoverRev').click(function(){
+	$(document).on('click','[id^=recoverRev${sta.index}]',function(){
+		var index = $(this).attr('id').replace('recoverRev', '');
+		var selectedRevNum = $(this).data('rev-num');
 		$.ajax({
 			url:'changeReviewReport.do',
 			type:'post',
 			dataType:'json',
 			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
 			success:function(param){
-				
+				toggleButton(param,index);
+				//toggleRow(param,selectedRevNum);
 			},
 			error:function(){
 				alert('네트워크 오류 발생');
@@ -41,13 +47,50 @@ $(function(){
 		});
 	});
 	
-/* 	function toggleButton(param){
-		if(param.status == 'yesReport'){
-			
+ 	function toggleButton(param,index){
+		if(param.status == 'reportYes'){
+			$('#updateRev'+index).attr('disabled',true);
+			$('#recoverRev'+index).attr('disabled',false);
+			alert('신고가 정상처리 되었습니다.');
+			if(param.count=='blind'){
+				alert('후기를 블라인드 처리합니다!');
+			}
 		}else{
-			
+			$('#updateRev'+index).attr('disabled',false);
+			$('#recoverRev'+index).attr('disabled',true);
+			alert('신고가 취소되었습니다.');
+			if(param.count=='clearBlind'){
+				alert('블라인드 처리를 취소합니다!');
+			}
 		}
-	} */
+	}
+ 	
+ 	function toggleRow(param,selectedRevNum){
+ 		if(param.count=='blind'){
+			$('tr').each(function(){
+				var row = $(this);
+				var revNum = row.find('[data-rev]').data('rev');
+				if(revNum == selectedRevNum && row.find('input[type="button"][id^=recoverRev]').is(':disabled')){
+                    row.prevAll('tr').each(function(){
+                        var prevRow = $(this);
+                        if(prevRow.find('[data-rev]').data('rev') == selectedRevNum){
+                            prevRow.hide();
+                        }
+                    });
+                }else if (revNum != selectedRevNum){
+                    row.show();
+                }
+			});
+		}else{
+			$('tr').each(function(){
+				var row = $(this);
+				var revNum = row.find('[data-rev]').data('rev');
+				if(revNum != selectedRevNum){
+	            	row.show();
+	            }
+			});
+		}
+ 	}
 });
 </script>
 </head>
@@ -88,8 +131,8 @@ $(function(){
 					<th>신고사유</th>
 					<th>신고처리</th>
 				</tr>
-				<c:forEach var="report" items="${list}">
-				<tr>
+				<c:forEach var="report" items="${list}" varStatus="sta">
+				<tr id="report${sta.index}">
 					<td>${report.rev_num}</td>
 					<td>
 						<a href="detailReview.do?rev_num=${report.rev_num}">
@@ -99,15 +142,17 @@ $(function(){
 					<td title="${report.report_content}">
 						${fn:substring(report.report_content,0,10)}...
 					</td>
-					<td>
+					<td>		
 						<input type="button" value="승인" data-rev="${report.rev_num}" 
-							data-mem="${report.mem_num}" id="updateRev" <c:if test="${report.report_del == 1}">disabled</c:if>>
+							data-mem="${report.mem_num}" id="updateRev${sta.index}" <c:if test="${report.report_del == 1}">disabled</c:if>>
 						<input type="button" value="취소" data-rev="${report.rev_num}" 
-							data-mem="${report.mem_num}" id="recoverRev" <c:if test="${report.report_del == 0}">disabled</c:if>>
+							data-mem="${report.mem_num}" id="recoverRev${sta.index}" <c:if test="${report.report_del == 0}">disabled</c:if>>
 					</td>
 				</tr>
 				</c:forEach>
-			</table> 
+			</table>
+			<br>
+			<div class="align-center">${page}</div> 
 		</c:if>
 	</div>
 </div>
