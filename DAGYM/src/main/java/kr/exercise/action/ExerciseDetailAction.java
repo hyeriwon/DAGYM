@@ -25,6 +25,12 @@ public class ExerciseDetailAction  implements Action{
 		}
 		if(user_auth >=8) {
 			user_num = Integer.parseInt(request.getParameter("client_num"));
+			String exe_date = request.getParameter("exe_date");
+			ExerciseDAO exercisedao = ExerciseDAO.getInstance();
+			List<ExerciseVO> exerciselist = exercisedao.getDetailExercise(exe_date, user_num);
+			request.setAttribute("exerciselist",exerciselist );
+			request.setAttribute("exe_date", exe_date);
+			return "/WEB-INF/views/exercise/exerciseDetail.jsp";
 		}
 		String exe_date = request.getParameter("exe_date");
 		ExerciseDAO exercisedao = ExerciseDAO.getInstance();

@@ -1,5 +1,8 @@
 package kr.inbody.action;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -18,9 +21,19 @@ public class InbodyWriteAction implements Action {
 		if(user_num == null) {
 			return "redirect:/WEB-INF/common/login.jsp";
 		}
+		String inb_date = request.getParameter("inb_date");
+		LocalDate selectedDate = LocalDate.parse(inb_date, DateTimeFormatter.ISO_DATE);
+	    LocalDate today = LocalDate.now();
+	    System.out.println(selectedDate);
+	    if (selectedDate.isAfter(today)) {
+	    	request.setAttribute("notice_msg", "오늘 날짜 이후의 인바디기록을 작성할 수 없습니다.");
+            request.setAttribute("notice_url", request.getContextPath() + "/inbody/inbodyMain.do");
+            return "/WEB-INF/views/common/alert_view.jsp";
+	    }
+		
 		InbodyVO inbody = new InbodyVO();
 		inbody.setMem_num(user_num);
-		inbody.setInb_date(request.getParameter("inb_date"));
+		inbody.setInb_date(inb_date);
 		inbody.setInb_hei(Integer.parseInt(request.getParameter("inb_hei")));
 		inbody.setInb_wei(Integer.parseInt(request.getParameter("inb_wei")));
 		inbody.setInb_mus(Integer.parseInt(request.getParameter("inb_mus")));

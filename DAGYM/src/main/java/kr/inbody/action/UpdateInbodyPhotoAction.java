@@ -28,22 +28,23 @@ import kr.util.FileUtil;
 			}else {//로그인 된 경우
 				//전송된 데이터 인코딩 타입 지정
 				request.setCharacterEncoding("UTF-8");
-				//파일 업로드 처리
-				String photo = 
-						FileUtil.createFile(request, "photo");
-				System.out.println(photo);
 				
+				//파일 업로드 처리
 				InbodyDAO inbodydao = InbodyDAO.getInstance();
 				String inb_date = request.getParameter("inb_date");
 				InbodyVO inbody = inbodydao.getInbody(inb_date, user_num);
-				inbodydao.updateMyInbodyPhoto(photo, inbody.getInb_num());
-				mapAjax.put("result", "success");
+				if(inbody != null && inbody.getInb_photo() != null) {
+					FileUtil.removeFile(request,inbody.getInb_photo());
+					inbodydao.updateMyInbodyPhoto(inbody.getInb_num());
+					mapAjax.put("result", "success");
+				}else {
+					mapAjax.put("result", "fail");
+				}
 			}
 			ObjectMapper mapper = new ObjectMapper();
 			String ajaxData = mapper.writeValueAsString(mapAjax);
 			
 			request.setAttribute("ajaxData", ajaxData);
-	
 			return "/WEB-INF/views/common/ajax_view.jsp";
 		}
 	}

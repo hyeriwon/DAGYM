@@ -19,7 +19,7 @@ public class ExerciseListAction implements Action{
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		
+
 		//로그인체크
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num == null) {
@@ -30,8 +30,21 @@ public class ExerciseListAction implements Action{
 		if(pageNum == null) pageNum = "1";
 		String keyfield = request.getParameter("keyfield");
 		String keyword =request.getParameter("keyword");
-		
-		if(user_auth >=8) {//관리자일경우
+
+
+		if(user_auth == 2) {//사용자일 경우
+			ExerciseDAO exedao = ExerciseDAO.getInstance();
+			int count = exedao.countExerciseByUser(keyfield, keyword, user_num);
+			PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,5,"exerciseList.do");
+			List<ExerciseVO> exerciseList = exedao.listExerciseByUser(page.getStartRow(),page.getEndRow(),keyfield,keyword,user_num);
+			MemberDAO memberdao = MemberDAO.getInstance();
+			MemberVO member = memberdao.getMember(user_num);
+			request.setAttribute("mem_name", member.getMem_name());
+			request.setAttribute("count",count);
+			request.setAttribute("list", exerciseList);
+			request.setAttribute("page", page.getPage());
+		}
+		else if(user_auth >=8) {//관리자일경우
 			Integer client_num = Integer.parseInt(request.getParameter("client_num"));
 			ExerciseDAO exedao = ExerciseDAO.getInstance();
 			int count = exedao.countExerciseByUser(keyfield, keyword, client_num);
@@ -39,26 +52,15 @@ public class ExerciseListAction implements Action{
 			PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count, 10,5,"exerciseList.do",addKey);
 			List<ExerciseVO> exerciseList = exedao.listExerciseByUser(page.getStartRow(),page.getEndRow(),keyfield,keyword, client_num	);
 			MemberDAO memberdao = MemberDAO.getInstance();
-	        MemberVO member = memberdao.getMember(client_num);
+			MemberVO member = memberdao.getMember(client_num);
 			request.setAttribute("mem_name", member.getMem_name());
-	        request.setAttribute("count",count);
-	        request.setAttribute("list", exerciseList);
-	        request.setAttribute("page", page.getPage());
+			request.setAttribute("count",count);
+			request.setAttribute("list", exerciseList);
+			request.setAttribute("page", page.getPage());
 
-	        return "/WEB-INF/views/exercise/exerciseList.jsp";
-		}else if(user_auth == 2) {//사용자일 경우
-			ExerciseDAO exedao = ExerciseDAO.getInstance();
-			int count = exedao.countExerciseByUser(keyfield, keyword, user_num);
-			PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,5,"exerciseList.do");
-			List<ExerciseVO> exerciseList = exedao.listExerciseByUser(page.getStartRow(),page.getEndRow(),keyfield,keyword,user_num);
-			MemberDAO memberdao = MemberDAO.getInstance();
-	        MemberVO member = memberdao.getMember(user_num);
-			request.setAttribute("mem_name", member.getMem_name());
-	        request.setAttribute("count",count);
-	        request.setAttribute("list", exerciseList);
-	        request.setAttribute("page", page.getPage());
+			return "/WEB-INF/views/exercise/exerciseList.jsp";
 		}
 		return "/WEB-INF/views/exercise/exerciseList.jsp";
-	}
 
+	}
 }

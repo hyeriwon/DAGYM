@@ -39,6 +39,30 @@ window.onload = function(){
 			$('.my-photo').attr('src',reader.result);
 		};
 	});
+	const delete_photo = document.getElementById('delete_photo');
+	/* delete_photo.onclick = function(){
+		const client_num =$('#client_num').val();
+		const inb_num = $('#inb_num').val();
+		$.ajax({
+			url:'${pageContext.request.contextPath}/inbody/deletePhoto.do',
+			data:{client_num:client_num,inb_num:inb_num},
+			dataType:'post',
+			success:function(param){
+				if(param.result ==success){
+					  $('.my-photo').attr('src', '${pageContext.request.contextPath}/images/face.png');
+					alert('삭제처리 완료');
+				}else if(param.result == logout){
+					alert('로그인을 해야합니다.');
+					location.href= '${pageContext.request.contextPath}/member/loginForm.do';
+				}else{
+					alert('사진 삭제에 실패했습니다.');
+				}
+			},
+			error: function(){
+				alert('서버 오류로 사진 삭제에 실패했습니다.');	
+			}
+		});
+	} */
 };
 </script>
 </head>
@@ -99,7 +123,12 @@ window.onload = function(){
 						</li>
 						<li>
 								<label for="inb_photo">인바디 사진</label>
-								<input type="file" name="inb_photo" id="inb_photo" accept="image/gif,image/png,image/jpeg"><br>
+								<input type="file" name="inb_photo" id="inb_photo" accept="image/gif,image/png,image/jpeg">
+								<c:if test="${!empty inbody.inb_photo}">
+								<div>
+								<input type="button" value="사진 삭제" id="delete_photo">
+								</div>
+								</c:if>
 								<c:if test="${empty inbody.inb_photo}">
 									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
 								</c:if>

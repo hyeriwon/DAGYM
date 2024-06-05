@@ -229,16 +229,15 @@ public class InbodyDAO {
 	}
 	
 	//인바디 사진 수정
-	public void updateMyInbodyPhoto(String inb_photo,int inb_num)throws Exception{
+	public void updateMyInbodyPhoto(int inb_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		String sql = null;
 		try {
 			conn=DBUtil.getConnection();
-			sql = "UPDATE inbody set inb_photo = ? WHERE inb_num = ?";
+			sql = "UPDATE inbody set inb_photo = null WHERE inb_num = ?";
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, inb_photo);
-			pstmt.setInt(2,inb_num);
+			pstmt.setInt(1,inb_num);
 			pstmt.executeUpdate();
 			
 		}catch(Exception e) {

@@ -74,12 +74,14 @@
 									</c:otherwise>
 								</c:choose>
 								<td>${meal.tme_name}</td>
-								<td>${meal.tme_kcal}Kcal</td>
+								<td><fmt:formatNumber value="${meal.tme_kcal}"/>Kcal</td>
+								
 							</tr>
 							</c:forEach>
 							<tr>
 								<td colspan="2" class="align-right">총칼로리</td>
-								<td class="align-center">${totalKcal}Kcal</td>
+								<td class="align-center"><fmt:formatNumber value="${totalKcal}"/>Kcal</td>
+								
 							</tr>
 						</table>
 					</div>

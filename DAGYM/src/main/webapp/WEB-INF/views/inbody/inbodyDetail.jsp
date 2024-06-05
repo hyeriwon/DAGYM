@@ -99,9 +99,13 @@
 							</tr>
 						</table>
 					</div>
+						<c:if test="${!empty inbody.inb_photo }">
+				
 					<div class="align-center">
 						<img src="${pageContext.request.contextPath}/upload/${inbody.inb_photo}" width="300" height="300">
 					</div>
+					
+						</c:if>
 					<div class="align-center">
 					<c:if test="${user_auth==2}">
 						<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do'">

@@ -23,6 +23,9 @@ public class ExerciseModifyFormAction implements Action {
 		Integer exe_num = Integer.parseInt(request.getParameter("exe_num"));
 		ExerciseDAO exercisedao = ExerciseDAO.getInstance();
 		ExerciseVO exercise = exercisedao.getDetailExerciseByExe_num(exe_num);
+		if(exercise == null) {
+			return "/WEB-INF/views/common/notice.jsp";
+		}
 		if(user_auth >= 8) {
 			request.setAttribute("exercise", exercise);
 			return "/WEB-INF/views/exercise/exerciseModifyForm.jsp";

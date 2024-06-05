@@ -1,5 +1,8 @@
 package kr.exercise.action;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -20,8 +23,17 @@ public class ExerciseWriteAction implements Action{
 			request.setAttribute("notice_url", request.getContextPath()+"/member/loginForm.do");
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}
+		String exe_date = request.getParameter("exe_date");
+		LocalDate selectedDate = LocalDate.parse(exe_date, DateTimeFormatter.ISO_DATE);
+	    LocalDate today = LocalDate.now();
+	    System.out.println(selectedDate);
+	    if (selectedDate.isAfter(today)) {
+	    	request.setAttribute("notice_msg", "오늘 날짜 이후의 운동기록을 작성할 수 없습니다.");
+            request.setAttribute("notice_url", request.getContextPath() + "/exercise/exerciseMain.do");
+            return "/WEB-INF/views/common/alert_view.jsp";
+	    }
 		ExerciseVO exercise = new ExerciseVO();
-		exercise.setExe_date(request.getParameter("exe_date"));
+		exercise.setExe_date(exe_date);
 		exercise.setExe_time(Integer.parseInt(request.getParameter("exe_time")));
 		exercise.setExe_type(request.getParameter("exe_type"));
 		exercise.setExe_content(request.getParameter("exe_content"));

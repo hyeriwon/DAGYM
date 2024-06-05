@@ -101,7 +101,12 @@ window.onload = function(){
 						<li>
 						<div class="align-center">
 						<input type="submit" value="수정">
+						<c:if test="${user_auth==2}">
 						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/exercise/exerciseList.do'">
+						</c:if>
+						<c:if test="${user_auth>=8}">
+						<input type="button" value="취소" onclick="location.href='${pageContext.request.contextPath}/exercise/exerciseList.do?client_num=${param.client_num}'">
+						</c:if>
 						</div>
 						</li>
 					</ul>
