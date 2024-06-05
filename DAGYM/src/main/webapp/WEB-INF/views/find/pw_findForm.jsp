@@ -87,7 +87,7 @@ $(function(){
 						<br>
 						<div class="align-center">
 							<input type="submit" value="확인">
-							<input type="button" value="이전으로 돌아가기" onclick="history.go(-1)">
+							<input type="button" value="취소" onclick="history.go(-1)">
 							<br><br>
 							<a href="${pageContext.request.contextPath}/member/registerUserForm.do">회원가입 | </a>
 							<a href="${pageContext.request.contextPath}/find/idFindForm.do">아이디 찾기</a>
