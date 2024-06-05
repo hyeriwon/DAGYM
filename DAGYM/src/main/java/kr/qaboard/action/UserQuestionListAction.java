@@ -22,20 +22,17 @@ public class UserQuestionListAction implements Action{
 		if(user_num==null) {
 			return "redirect:/member/loginForm.do";
 		}
+		
 		request.setCharacterEncoding("utf-8");
 		
 		//페이지처리
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		
-		//검색
-		String keyfield = request.getParameter("keyfield");
-		String keyword = request.getParameter("keyword");
-		
 		QABoardDAO qaboardDAO = QABoardDAO.getInstance();
-		int count = qaboardDAO.getInquiryCount(keyfield, keyword);
+		int count = qaboardDAO.getInquiryCount(user_num);
 		
-		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"userQuestionList.do");
+		PagingUtil page = new PagingUtil(Integer.parseInt(pageNum), count, 20,10,"userQuestionList.do");
 		
 		List<QABoardVO> list = null;
 		if(count > 0) {

@@ -192,7 +192,8 @@ $(function(){
 							</li>
 							<li>
 								* <label for="phone">전화번호</label>
-								<input type="text" name="phone" id="phone" placeholder="010-0000-0000 형식으로 입력" maxlength="13" class="input-check">
+								<input type="text" name="phone" id="phone" maxlength="13" class="input-check">
+								<div class = "form-notice">* 000-0000-0000 형식으로 입력</div>
 							</li>
 							<li>
 								* <label for="email">이메일</label>

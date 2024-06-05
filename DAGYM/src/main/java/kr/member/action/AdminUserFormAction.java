@@ -22,7 +22,7 @@ public class AdminUserFormAction implements Action{
 		//관리자 여부 체크
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
 			//세션에 저장해둔 데이터를 가져옴
-		if(user_auth!=9) {//관리자로 로그인하지 않은 경우
+		if(user_auth < 8) {//관리자,강사로 로그인하지 않은 경우
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		//전송된 데이터 반환
@@ -32,7 +32,7 @@ public class AdminUserFormAction implements Action{
 		MemberVO member = dao.getMember(mem_num);//한 건의 레코드를 읽어옴
 		
 		request.setAttribute("member", member);
-		
+		request.setAttribute("user_auth", user_auth);
 		//JSP 경로 반환
 		return "/WEB-INF/views/member/detailUserForm.jsp";
 	}

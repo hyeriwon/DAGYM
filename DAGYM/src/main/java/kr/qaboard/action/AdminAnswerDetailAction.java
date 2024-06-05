@@ -26,7 +26,7 @@ public class AdminAnswerDetailAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
-		int qab_num = Integer.parseInt(request.getParameter("qab_num"));
+		int qab_num = Integer.parseInt(request.getParameter("qab_num"));//질문번호
 
 		QABoardDAO dao = QABoardDAO.getInstance();
 		QABoardVO qaboard = dao.getUserBoardByAdmin(qab_num);//질문
@@ -38,8 +38,7 @@ public class AdminAnswerDetailAction implements Action{
 		
 		request.setAttribute("qaboard", qaboard);
 		request.setAttribute("answerBoard", answerBoard);
-		request.setAttribute("user_auth", user_auth);
+		request.setAttribute("user_num", user_num);
 		return "/WEB-INF/views/qaboard/adminAnswerDetail.jsp";
 	}
-
 }

@@ -85,7 +85,7 @@ window.onload=function(){
 					</div>
 					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					<c:if test="${count == 0}">
-						<div class="result-display">
+						<div class="result-display align-center">
 							표시할 강사정보가 없습니다.
 						</div>
 						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
@@ -98,24 +98,16 @@ window.onload=function(){
 							<th>전화번호</th>
 							<th>생년월일</th>
 							<th>가입일</th>
-							<th>등급</th>
 						</tr>
 						<c:forEach var="member" items="${list}">
 						<tr>
 							<td>
-							<c:if test="${member.mem_auth > 0}">
-							<a href="adminTrainerForm.do?mem_num=${member.mem_num}">${member.mem_id}</a>
-							</c:if>
-							<c:if test="${member.mem_auth == 0}">${member.mem_id}</c:if>
+								<a href="adminTrainerForm.do?mem_num=${member.mem_num}">${member.mem_id}</a>
 							</td>
 							<td>${member.mem_name}</td>
 							<td>${member.mem_phone}</td>
 							<td>${member.mem_birth}</td>
 							<td>${member.mem_reg_date}</td>
-							<td>
-								<c:if test="${member.mem_auth == 8}">강사</c:if>
-								<c:if test="${member.mem_auth == 9}">관리자</c:if>
-							</td>
 						</tr>
 						</c:forEach>
 					</table>

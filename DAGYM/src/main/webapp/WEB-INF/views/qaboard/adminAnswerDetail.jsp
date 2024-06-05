@@ -10,9 +10,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/WHR.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/qaboard.answer.js"></script>
-<script type="text/javascript">
-
-</script>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -82,9 +79,10 @@
 					</div>
 					<%-- 질문 끝 --%>
 					<br>
+					
 					<!-- 답변시작 -->
-					<%-- 문의미답변 --%>
-					<c:if test="${user_auth >= 8 && answerBoard==null}">
+					<%-- 문의미답변, 답변등록 --%>
+					<c:if test="${answerBoard==null}">
 						<div id="answer-div">
 						<hr size="1" noshade="noshade" width="80%">
 							<span class="answer-title">답변 등록</span>
@@ -97,13 +95,15 @@
 						<hr size="1" noshade="noshade" width="80%">
 						</div>
 					</c:if>
-					<%-- 문의답변 --%>
-					<c:if test="${user_auth >= 8 && answerBoard!=null}">
+					<%-- 문의답변 완료 --%>
+					<c:if test="${answerBoard!=null}">
 						<div id="answer-div">
+							<c:if test="${user_num == answerBoard.mem_num}">
 							<div class="align-right">
 								<input type="button" id="update_answer_btn" value="수정" data-num="${answerBoard.qab_num}">
 								<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}">
 							</div>
+							</c:if>
 							<hr size="1" noshade="noshade" width="100%">
 							<p id="answer_content">${answerBoard.qab_content}</p><br>
 							<hr size="1" noshade="noshade" width="100%">

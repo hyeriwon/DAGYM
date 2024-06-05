@@ -48,9 +48,11 @@
 					
 					<!-- content 시작 -->
 					<form action="adminUser.do" method="post" id="detail_form">
-					<h4>[${member.mem_id}]님</h4>
+					<h4>[${member.mem_name}]님</h4>
 					<br>
 						<input type="hidden" name="mem_num" value="${member.mem_num}">
+						<%-- 회원등급 변경 --%>
+						<c:if test="${user_auth==9}"><!-- user_auth가 9일때만 등급 변경 가능 -->
 						<ul>
 							<li>
 								<label>등급</label>
@@ -63,7 +65,7 @@
 										<input type="radio" name="auth" value="8"id="auth8" 
 										<c:if test="${member.mem_auth == 8}">checked</c:if>>강사
 								</c:if>
-								<!-- 9가 아닌 경우에는 등급 변경 불가능 -->
+								<!-- 9가 아닌 경우에는 회원등급 변경 불가능 -->
 								<c:if test="${member.mem_auth==9}">
 									<input type="radio" name="auth" value="9" id="auth9" 
 										checked>관리자
@@ -71,13 +73,14 @@
 							</li>
 						</ul>
 						<div class="align-center">
-							<!-- 관리자가 아닌 경우에만 수정 버튼 등장 -->
+							<!-- 관리자가 아닌 경우에만 회원등급 수정 버튼 등장 -->
 							<c:if test="${member.mem_auth!=9}">
 								<input type="submit" value="수정">
 							</c:if>
 							<input type="button" value="목록"
 								onclick="location.href='adminMemberList.do'">
 						</div>
+						</c:if>
 						<ul>
 							<li>
 								<label>아이디</label>${member.mem_id}
@@ -116,7 +119,15 @@
 							</li>
 							<li>
 								<label>주소</label>${member.mem_address1} ${member.mem_address2}
-							</li>		
+							</li>
+							<c:if test="${user_auth==8}">
+							<li>
+								<label>등급</label><!-- user_auth가 8일때만 등급 확인, 관리자는 변경에 명시 -->
+								<c:if test="${member.mem_auth == 1}">정지</c:if>
+								<c:if test="${member.mem_auth == 2}">일반</c:if>
+								<c:if test="${member.mem_auth == 8}">강사</c:if>
+							</li>
+							</c:if>		
 						</ul>
 					</form>
 					<!-- content 끝 -->

@@ -25,7 +25,7 @@ public class AdminMemberListAction implements Action{
 			}
 			
 			Integer user_auth = (Integer)session.getAttribute("user_auth");
-			if(user_auth != 9) {
+			if(user_auth < 8) {//관리자,강사가 아닐 결우
 				return "/WEB-INF/views/common/notice.jsp";
 			}
 			

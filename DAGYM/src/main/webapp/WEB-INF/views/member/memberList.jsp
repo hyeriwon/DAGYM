@@ -85,7 +85,7 @@ window.onload=function(){
 					</div>
 					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					<c:if test="${count == 0}">
-						<div class="result-display">
+						<div class="result-display align-center">
 							표시할 회원정보가 없습니다.
 						</div>
 						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
@@ -97,7 +97,6 @@ window.onload=function(){
 							<th>이름</th>
 							<th>전화번호</th>
 							<th>생년월일</th>
-							<th>담당트레이너</th>
 							<th>가입일</th>
 							<th>등급</th>
 						</tr>
@@ -112,7 +111,6 @@ window.onload=function(){
 							<td>${member.mem_name}</td>
 							<td>${member.mem_phone}</td>
 							<td>${member.mem_birth}</td>
-							<td>${member.tra_name}</td>
 							<td>${member.mem_reg_date}</td>
 							<td>
 								<c:if test="${member.mem_auth == 0}">탈퇴</c:if>
