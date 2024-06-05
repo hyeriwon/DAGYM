@@ -249,7 +249,7 @@ public class PaymentDAO {
 			conn = DBUtil.getConnection();
 			//SQL문 작성
 			sql = "SELECT (COALESCE(SUM(p.pay_enroll), 0) - COALESCE((SELECT COUNT(*) FROM history h "
-					+ "WHERE h.mem_num = p.mem_num AND h.his_status = 2), 0)) AS result FROM payment p WHERE p.mem_num = ? AND p.pay_status = 0 "
+					+ "WHERE h.mem_num = p.mem_num AND h.his_status != 3), 0)) AS result FROM payment p WHERE p.mem_num = ? AND p.pay_status = 0 "
 					+ "GROUP BY p.mem_num";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);

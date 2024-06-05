@@ -28,10 +28,7 @@ public class DetailUserPaymentFormAction implements Action{
 		
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
-		
-		String keyfield = request.getParameter("keyfield");
-		String keyword = request.getParameter("keyword");
-		
+	
 		//전송된 데이터 반환
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		PaymentDAO dao = PaymentDAO.getInstance();
@@ -43,7 +40,7 @@ public class DetailUserPaymentFormAction implements Action{
 		dao.updateExpMembership(mem_num);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"detailUserPaymentForm.do","mem_num="+mem_num);
+		PagingUtil page = new PagingUtil(Integer.parseInt(pageNum),count,10,10,"detailUserPaymentForm.do","mem_num="+mem_num);
 		
 		List<PaymentVO> list = null;
 		if(count > 0) {
