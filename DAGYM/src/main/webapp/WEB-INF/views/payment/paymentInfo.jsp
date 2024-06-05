@@ -40,24 +40,72 @@
                  </div>
              </div>
           </div>
-          	<div class="row">
-				<div class="col-lg-12">    
-					<div class="chart-table">
-					<!-- content 시작 -->
-					<div class="align-center">
-						<br>
-						<img src="${pageContext.request.contextPath}/images/membershipinfo.png" width="700">
-						<p>
-						<br>
-						<input type="button" value="상담신청" onclick="location.href='${pageContext.request.contextPath}/payment/paymentCounselingForm.do'">
-						<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
-					</div>
-					<!-- content 끝 -->
-					</div>
+    </div>
+	<br><br>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-4 col-md-8">
+                    <div class="ps-item">
+                        <h3>Class drop-in</h3>
+                        <div class="pi-price">
+                            <h2>$ 39.0</h2>
+                            <span>SINGLE CLASS</span>
+                        </div>
+                        <ul>
+                            <li>Free riding</li>
+                            <li>Unlimited equipments</li>
+                            <li>Personal trainer</li>
+                            <li>Weight losing classes</li>
+                            <li>Month to mouth</li>
+                            <li>No time restriction</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8">
+                    <div class="ps-item">
+                        <h3>12 Month unlimited</h3>
+                        <div class="pi-price">
+                            <h2>$ 99.0</h2>
+                            <span>SINGLE CLASS</span>
+                        </div>
+                        <ul>
+                            <li>Free riding</li>
+                            <li>Unlimited equipments</li>
+                            <li>Personal trainer</li>
+                            <li>Weight losing classes</li>
+                            <li>Month to mouth</li>
+                            <li>No time restriction</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-8">
+                    <div class="ps-item">
+                        <h3>6 Month unlimited</h3>
+                        <div class="pi-price">
+                            <h2>$ 59.0</h2>
+                            <span>SINGLE CLASS</span>
+                        </div>
+                        <ul>
+                            <li>Free riding</li>
+                            <li>Unlimited equipments</li>
+                            <li>Personal trainer</li>
+                            <li>Weight losing classes</li>
+                            <li>Month to mouth</li>
+                            <li>No time restriction</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- content 시작 -->
+				<div class="align-center">
+					<br>
+					<input type="button" value="상담신청" onclick="location.href='${pageContext.request.contextPath}/payment/paymentCounselingForm.do'">
+					<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 				</div>
-			</div>
-	      </div>
-	  </section>
+				<!-- content 끝 -->
+            </div>
+        </div>
+    </section>
+    <!-- Pricing Section End -->
 	  
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>

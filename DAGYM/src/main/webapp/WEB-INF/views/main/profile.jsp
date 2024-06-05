@@ -45,7 +45,7 @@
                             <span>Our Team</span>
                             <h2>강사 프로필</h2>
                         </div>
-                        <a href="${pageContext.request.contextPath}/history/list.do" class="primary-btn btn-normal appoinment-btn">appointment</a>
+                        <a href="${pageContext.request.contextPath}/history/list.do" class="primary-btn btn-normal appoinment-btn">schedule</a>
                     </div>
                 </div>
             </div>
