@@ -43,7 +43,7 @@ $(function(){
                         <h2>FIND</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <span>find</span>
+                            <span>Find</span>
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@ $(function(){
           	 <div class="col-lg-12">
           		<div class="team-title">
                 		<div class="section-title">
-                    		<span>PWFIND</span>
+                    		<span>PW FIND</span>
                             <h2>비밀번호 찾기</h2>
                     	</div>
                  </div>
