@@ -36,7 +36,7 @@ public class InsertMembershipAction implements Action{
         dao.insertMembership(payment);
         
         request.setAttribute("notice_msg", "회원권 등록 완료");
-        request.setAttribute("notice_url", request.getContextPath()+"/payment/adminUserPaymentForm.do?mem_num="+mem_num);
+        request.setAttribute("notice_url", request.getContextPath()+"/payment/detailUserPaymentForm.do?mem_num="+mem_num);
         
         return "/WEB-INF/views/common/alert_view.jsp";
 

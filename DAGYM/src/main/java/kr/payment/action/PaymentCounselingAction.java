@@ -32,7 +32,7 @@ public class PaymentCounselingAction implements Action{
 		
 		
 		request.setAttribute("notice_msg", "상담신청 완료");
-		request.setAttribute("notice_url", request.getContextPath()+"/payment/paymentInfo.do");
+		request.setAttribute("notice_url", request.getContextPath()+"/qaboard/userQuestionList.do");
 		
 		return "/WEB-INF/views/common/alert_view.jsp";
 	}

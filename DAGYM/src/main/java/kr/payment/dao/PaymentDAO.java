@@ -180,7 +180,7 @@ public class PaymentDAO {
 					+ "CASE WHEN pay_enroll = 10 THEN ADD_MONTHS(pay_reg_date,5) "
 					+ "WHEN pay_enroll = 20 THEN ADD_MONTHS(pay_reg_date,10) "
 					+ "WHEN pay_enroll = 30 THEN ADD_MONTHS(pay_reg_date,18) "
-					+ "END pay_exp FROM payment RIGHT OUTER JOIN member_detail "
+					+ "END pay_exp FROM payment JOIN member_detail "
 					+ "USING(mem_num) ORDER BY pay_num DESC)a) "
 					+ "WHERE mem_num=? AND rnum >= ? AND rnum <= ?";
 			

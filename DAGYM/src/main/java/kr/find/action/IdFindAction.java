@@ -14,11 +14,10 @@ public class IdFindAction implements Action{
 		
 		request.setCharacterEncoding("utf-8");
 		String name = request.getParameter("name");
-		String phone = request.getParameter("phone");
 		String email = request.getParameter("email");
 		
 		FindDAO dao = FindDAO.getInstance();
-		MemberVO db_member = dao.findMemberId(name, phone, email);
+		MemberVO db_member = dao.findMemberId(name, email);
 		
 		if(db_member == null){
 			request.setAttribute("notice_msg", "일치하는 회원 정보가 없습니다.");

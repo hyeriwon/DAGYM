@@ -70,16 +70,17 @@ window.onload=function(){
 					<form id="write_form" action="paymentCounseling.do" method="post">
 						<ul>
 							<li>
-								<label for="qab_title">제목</label>
-								<input type="text" name="qab_title" id="qab_title" maxlength="50">
-							</li>
-							<li>
 								<label for="qab_type">문의종류</label>
 								<span>회원권 상담신청</span>
 							</li>
 							<li>
+								<label for="qab_title">제목</label>
+								<input type="text" name="qab_title" id="qab_title" maxlength="50">
+							</li>
+							
+							<li>
 								<label for="qab_content">내용</label>
-								<textarea rows="5" cols="40" name="qab_content" id="qab_content"></textarea>
+								<textarea rows="10" cols="50" name="qab_content" id="qab_content"></textarea>
 							</li>
 						</ul>
 						<div class="align-center">

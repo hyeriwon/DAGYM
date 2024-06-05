@@ -80,17 +80,10 @@ $(function(){
 					
 					<!-- content 시작 -->
 					<input type="hidden" name="mem_num" value="${mem_num}">
-					<ul>
-						<li>
-							<label>[${mem_name}]님</label>
-						</li>
-						<li>
-							<label>회원 번호 :</label> ${mem_num}
-						</li>
-						<li>
-							<label>보유한 회원권 :</label> ${remain}
-						</li>
-					</ul>
+					<h4>[${mem_name}]님</h4>
+					<p>
+						보유한 회원권 : <span style="color:red;">${remain}</span>회
+						
 					<c:if test="${count == 0}">
 						<div class="result-display">
 							표시할 회원권 결제내역이 없습니다.
@@ -105,6 +98,7 @@ $(function(){
 								<th>결제일</th>
 								<th>만료일</th>
 								<th>결제상태</th>
+								<td></td>
 							</tr>
 						<c:forEach var="payment" items="${list}">
 							<tr>
@@ -133,10 +127,14 @@ $(function(){
 								</c:if>
 								<c:if test="${payment.pay_status == 0}">
 									결제 완료
-								<input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}">
 								</c:if>
 								<c:if test="${payment.pay_status == 2}">
 									만료됨
+								</c:if>
+								</td>
+								<td>
+									<c:if test="${payment.pay_status == 0}">
+									<input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}">
 								</c:if>
 								</td>
 							</tr>

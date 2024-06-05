@@ -17,7 +17,7 @@ public class FindDAO {
 	private FindDAO() {}
 
 	//아이디 찾기
-	public MemberVO findMemberId(String name,String phone,String email)throws Exception{
+	public MemberVO findMemberId(String name,String email)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -29,13 +29,12 @@ public class FindDAO {
 			conn = DBUtil.getConnection();
 			//SQL문 작성
 			sql = "SELECT mem_id FROM member JOIN member_detail USING(mem_num) "
-					+ "WHERE mem_name=? AND mem_phone=? AND mem_email=?";
+					+ "WHERE mem_name=? AND mem_email=?";
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
 			pstmt.setString(1, name);
-			pstmt.setString(2, phone);
-			pstmt.setString(3, email);
+			pstmt.setString(2, email);
 			//SQL문 실행
 			rs = pstmt.executeQuery();
 			if(rs.next()) {

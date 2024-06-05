@@ -43,18 +43,16 @@
           	<div class="row">
 				<div class="col-lg-12">    
 					<div class="chart-table">
-					
 					<!-- content 시작 -->
 					<div class="align-center">
 						<br>
-						<img src="${pageContext.request.contextPath}/images/membershipinfo.png" width="600">
+						<img src="${pageContext.request.contextPath}/images/membershipinfo.png" width="700">
 						<p>
 						<br>
 						<input type="button" value="상담신청" onclick="location.href='${pageContext.request.contextPath}/payment/paymentCounselingForm.do'">
 						<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 					</div>
 					<!-- content 끝 -->
-					
 					</div>
 				</div>
 			</div>

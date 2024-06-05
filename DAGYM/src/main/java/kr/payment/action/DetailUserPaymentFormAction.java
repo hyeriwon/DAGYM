@@ -11,7 +11,7 @@ import kr.payment.dao.PaymentDAO;
 import kr.payment.vo.PaymentVO;
 import kr.util.PagingUtil;
 
-public class AdminUserPaymentFormAction implements Action{
+public class DetailUserPaymentFormAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -43,7 +43,7 @@ public class AdminUserPaymentFormAction implements Action{
 		dao.updateExpMembership(mem_num);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,20,10,"adminUserPaymentForm.do");
+		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"detailUserPaymentForm.do");
 		
 		List<PaymentVO> list = null;
 		if(count > 0) {
@@ -59,7 +59,7 @@ public class AdminUserPaymentFormAction implements Action{
 		
 		
 		//JSP 경로 반환
-		return "/WEB-INF/views/payment/detailPaymentUserForm.jsp";
+		return "/WEB-INF/views/payment/detailUserPaymentForm.jsp";
 	}
 
 }
