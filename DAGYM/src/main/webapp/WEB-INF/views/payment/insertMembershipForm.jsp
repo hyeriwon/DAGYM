@@ -11,9 +11,9 @@
 <script type="text/javascript">
 $(function() {
 	$('#write_form').submit(function() {
-        if($('#pay_fee').val().trim()==''){
+        if($('#formatted_fee').val().trim()==''){
         	alert('회원권 종류를 선택하세요');
-        	$('#pay_fee').val('').focus();
+        	$('#formatted_fee').val('').focus();
         	return false;
         }
     });
@@ -21,20 +21,25 @@ $(function() {
         var membershipType = $('#pay_type').val();
         var payEnroll;
         var payFee;
+        var formatted_fee;
 
         if (membershipType == "10회권") {
             payEnroll = 10;
             payFee = 600000;
+            formatted_fee = payFee.toLocaleString();
         } else if (membershipType == "20회권") {
             payEnroll = 20;
-            payFee = 1100000; 
+            payFee = 1100000;
+            formatted_fee = payFee.toLocaleString();
         } else if (membershipType == "30회권") {
             payEnroll = 30;
-            payFee = 1600000; 
+            payFee = 1600000;
+            formatted_fee = payFee.toLocaleString();
         }
 
         $('#pay_enroll').val(payEnroll);
         $('#pay_fee').val(payFee);
+        $('#formatted_fee').val(formatted_fee);
     }
 
     $('#pay_type').change(function() {
@@ -105,7 +110,8 @@ $(function() {
 			       			</li>
 							<li>
 			                    <label>결제 금액</label>
-			                    <input type="text" name="pay_fee" id="pay_fee" readonly>
+			                    <input type="text" id="formatted_fee" name="formatted_fee" readonly>
+			                    <input type="hidden" name="pay_fee" id="pay_fee">
 			                </li>
 						</ul>
 						<div class="align-center">
