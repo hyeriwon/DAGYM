@@ -145,7 +145,7 @@
 	.event-circle {
 	    width: 25px;
 	    height: 25px;
-	    background-color: #3788d8; /* 이벤트 색상 */
+	    background-color: #f36100; /* 이벤트 색상 */
 	    border-radius: 50%;
 	    margin: 0 auto;
 	}
@@ -188,7 +188,7 @@
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="class-timetable">
 					
 					<!-- content 시작 -->
 		            <h4 id="monthHeader" style="text-align: right;"></h4>
