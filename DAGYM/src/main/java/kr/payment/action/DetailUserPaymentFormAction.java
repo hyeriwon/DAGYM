@@ -43,7 +43,7 @@ public class DetailUserPaymentFormAction implements Action{
 		dao.updateExpMembership(mem_num);
 		
 		//페이지 처리
-		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"detailUserPaymentForm.do");
+		PagingUtil page = new PagingUtil(keyfield,keyword,Integer.parseInt(pageNum),count,10,10,"detailUserPaymentForm.do","mem_num="+mem_num);
 		
 		List<PaymentVO> list = null;
 		if(count > 0) {

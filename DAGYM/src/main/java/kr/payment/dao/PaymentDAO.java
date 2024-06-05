@@ -181,8 +181,8 @@ public class PaymentDAO {
 					+ "WHEN pay_enroll = 20 THEN ADD_MONTHS(pay_reg_date,10) "
 					+ "WHEN pay_enroll = 30 THEN ADD_MONTHS(pay_reg_date,18) "
 					+ "END pay_exp FROM payment JOIN member_detail "
-					+ "USING(mem_num) ORDER BY pay_num DESC)a) "
-					+ "WHERE mem_num=? AND rnum >= ? AND rnum <= ?";
+					+ "USING(mem_num) WHERE mem_num=? ORDER BY pay_num DESC)a) "
+					+ "WHERE rnum >= ? AND rnum <= ?";
 			
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
