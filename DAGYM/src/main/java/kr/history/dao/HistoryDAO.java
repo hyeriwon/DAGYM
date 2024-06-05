@@ -169,13 +169,6 @@ public class HistoryDAO {
 
 	}
 	
-	
-
-
-	
-	
-	
-	
 	// 중복된 시간인지 확인하는 메서드
     public boolean isDuplicateSchedule(String his_date, int sch_time) throws Exception {
         Connection conn = null;
@@ -205,7 +198,7 @@ public class HistoryDAO {
 	
     
     
-    // PT 취소
+    // PT 취소(스케줄 status도 추가로 수정 필요함)
  	public void deleteHistory(int sch_num, int mem_num) throws Exception {
  		Connection conn = null;
  		PreparedStatement pstmt = null;

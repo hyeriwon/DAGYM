@@ -7,21 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>PT 수강 내역</title>
-<style>
-    .fc-event {
-        cursor: pointer;
-    }
-    .completed-event {
-        background-color: #32CD32; /* 진한 연두색 */
-        color: white;
-        border: none; /* 테두리 제거 */
-    }
-    .pending-event {
-        background-color: #CC9966;
-        color: white;
-        border: none; /* 테두리 제거 */
-    }
-</style>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
@@ -58,7 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
                         sch_time: '${schedule.sch_time}',
                         mem_num: '${schedule.mem_num}',
                         sch_status: '${schedule.sch_status}',
-                        his_status: '${schedule.his_status}' // 추가된 부분
+                        his_status: '${schedule.his_status}',
+                        his_part : '${schedule.his_part}',
+                        mem_num_history: '${schedule.mem_num}' // history의 mem_num도 가져오기 위해 추가
                     }
                 },
             </c:forEach>
@@ -84,14 +71,58 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         },
         eventClick: function(info) {
-            // 완료된 PT 일정일 경우 후기 등록으로 이동
             if (info.event.extendedProps.his_status == '2') {
+                // 완료된 PT 일정일 경우 후기 등록으로 이동
                 var redirectUrl = '${pageContext.request.contextPath}/review/writeReviewForm.do?sch_num=' + encodeURIComponent(info.event.extendedProps.sch_num);
                 window.location.href = redirectUrl;
-            }
-            
-            // 수강 예정인 PT 일정일 경우 PT 일정 취소
-            if (info.event.extendedProps.his_status == '0') {
+            } else if (info.event.extendedProps.sch_status == '1') {
+                // 진행 중인 PT 일정일 경우 일정 완료 폼으로 이동
+                var sch_time = parseInt(info.event.extendedProps.sch_time);
+                var mem_name = info.event.extendedProps.mem_id;
+                var sch_num = info.event.extendedProps.sch_num;
+                var mem_num = info.event.extendedProps.mem_num;
+                var his_part = info.event.extendedProps.his_part;
+                var mem_num_history = info.event.extendedProps.mem_num_history; // history의 mem_num 값 가져오기
+
+                // 폼 생성
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '${pageContext.request.contextPath}/schedule/scheduleCompliteForm.do?sch_date=' + info.event.startStr + '&sch_time=' + sch_time + '&mem_name=' + mem_name + '&his_part=' + his_part;
+                form.style.display = 'none'; // 폼을 보이지 않게 설정
+                
+                // 스케줄 번호를 전달
+                var schNumInput = document.createElement('input');
+                schNumInput.type = 'hidden';
+                schNumInput.name = 'sch_num';
+                schNumInput.value = sch_num;
+                form.appendChild(schNumInput);
+                
+                // 트레이너 번호(tra_num)를 전달
+                var memNumInput = document.createElement('input');
+                memNumInput.type = 'hidden';
+                memNumInput.name = 'mem_num';
+                memNumInput.value = mem_num;
+                form.appendChild(memNumInput);
+
+                // 운동 부위를 전달
+                var hisPartInput = document.createElement('input');
+                hisPartInput.type = 'hidden';
+                hisPartInput.name = 'his_part';
+                hisPartInput.value = his_part;
+                form.appendChild(hisPartInput);
+
+                // 스케줄을 등록한 회원 번호(mem_num)을 전달
+                var memNumHistoryInput = document.createElement('input');
+                memNumHistoryInput.type = 'hidden';
+                memNumHistoryInput.name = 'mem_num_history';
+                memNumHistoryInput.value = mem_num_history;
+                form.appendChild(memNumHistoryInput);
+
+                // 폼을 body에 추가하고 제출
+                document.body.appendChild(form);
+                form.submit();
+            } else if (info.event.extendedProps.his_status == '0' && info.event.extendedProps.sch_status == '0') {
+                // 수강 예정인 PT 일정일 경우 PT 일정 취소
                 if (confirm('선택하신 일정을 취소하시겠습니까?')) {
                     var schNum = info.event.extendedProps.sch_num;
                     location.href = 'scheduleDeleteForm.do?sch_num=' + schNum;

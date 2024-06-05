@@ -13,8 +13,8 @@ public class ScheduleVO {
 	
 	// 필요한 추가 정보
     private String tra_id;
-    
     private HistoryVO history;
+    private String his_part;
 
 	
 	public int getSch_num() {
@@ -71,11 +71,10 @@ public class ScheduleVO {
 	public void setHistory(HistoryVO history) {
 		this.history = history;
 	}
-	
-	
-	
-	
-	
-	
-	
+	public String getHis_part() {
+		return his_part;
+	}
+	public void setHis_part(String his_part) {
+		this.his_part = his_part;
+	}
 }

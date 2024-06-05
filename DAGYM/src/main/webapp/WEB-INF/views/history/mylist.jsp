@@ -7,16 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>HISTORY</title>
-<style>
-    .fc-event {
-        cursor: pointer;
-    }
-    .completed-event {
-        background-color: #32CD32; /* 진한 연두색 */
-        color: white;
-        border: none; /* 테두리 제거 */
-    }
-</style>
+
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>

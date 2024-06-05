@@ -150,7 +150,7 @@ public class ScheduleDAO {
     }
 
     
-    // 스케줄 조회(PT 신청 연동)
+    // 스케줄 조회
     public ScheduleVO getSchedule(int sch_num) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -182,7 +182,7 @@ public class ScheduleDAO {
     }
     
     
-    // 트레이너 - 본인이 등록한 스케줄만 가져오는 메소드
+    // 트레이너 - 본인이 등록한 스케줄만 가져오는 메소드(history 연동)
     public List<ScheduleVO> getMyScheduleListByTraNum(int user_num) throws Exception {
         List<ScheduleVO> list = new ArrayList<>();
         Connection conn = null;
@@ -190,7 +190,7 @@ public class ScheduleDAO {
         ResultSet rs = null;
         
         
-        String sql = "SELECT s.*, h.*, h.mem_num, m.mem_id AS mi " +
+        String sql = "SELECT s.*, h.*, h.mem_num, m.mem_id AS mi, m.mem_num AS mn " +
         "FROM schedule s LEFT OUTER JOIN history h ON s.sch_num = h.sch_num " +
         "LEFT OUTER JOIN member m ON h.mem_num = m.mem_num " + 
         "WHERE s.mem_num = ?";
@@ -215,9 +215,10 @@ public class ScheduleDAO {
 				schedule.setSch_date(rs.getString("sch_date"));
 				schedule.setSch_time(rs.getInt("sch_time"));
 				schedule.setMem_id(rs.getString("mi"));
-				schedule.setMem_num(rs.getInt("mem_num"));
+				schedule.setMem_num(rs.getInt("mn"));
 				schedule.setSch_status(rs.getInt("sch_status"));
 				schedule.setHis_status(rs.getInt("his_status")); // 추가된 코드
+				schedule.setHis_part(rs.getString("his_part"));
                 
                 // history 정보 설정
                 HistoryVO history = new HistoryVO();
@@ -242,6 +243,44 @@ public class ScheduleDAO {
         
         return list;
     }
+    
+	// PT 스케줄 진행 최종 완료 처리
+    public void completeHistory(int sch_num, int his_num) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt1 = null;
+        PreparedStatement pstmt2 = null;
 
+        try {
+            conn = DBUtil.getConnection();
+            conn.setAutoCommit(false); // 트랜잭션 시작
+
+            // schedule 테이블 업데이트
+            String sql1 = "UPDATE schedule SET sch_status = 2 WHERE sch_num = ?";
+            pstmt1 = conn.prepareStatement(sql1);
+            pstmt1.setInt(1, sch_num);
+            pstmt1.executeUpdate();
+
+            // history 테이블 업데이트
+            String sql2 = "UPDATE history SET his_status = 2 WHERE his_num = ?";
+            pstmt2 = conn.prepareStatement(sql2);
+            pstmt2.setInt(1, his_num);
+            pstmt2.executeUpdate();
+
+            conn.commit(); // 트랜잭션 커밋
+
+        } catch (Exception e) {
+            if (conn != null) {
+                try {
+                    conn.rollback(); // 트랜잭션 롤백
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+            throw new Exception(e);
+        } finally {
+            DBUtil.executeClose(null, pstmt1, conn);
+            DBUtil.executeClose(null, pstmt2, null); // conn은 이미 위에서 닫혔으므로 null을 전달
+        }
+    }
 
 }
