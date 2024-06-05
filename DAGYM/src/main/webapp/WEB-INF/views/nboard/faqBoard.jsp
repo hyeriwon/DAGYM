@@ -130,6 +130,8 @@
 								</div>
 							</div><!-- end of item -->
 						</div>
+						<br>
+						<a href="${pageContext.request.contextPath}/qaboard/userQuestionList.do">1:1문의</a>
 						<!-- content 끝 -->
 						
 						</div>
