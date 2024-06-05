@@ -391,6 +391,39 @@ public class MemberDAO {
 		}
 	}
 	
+	/*-------------------관리자(활동회원 목록)------------------*/
+	//전체 내용 개수, 검색 내용 개수
+	public int getMemberCountByAdmin2(String keyfield, String keyword)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		String sub_sql = "";
+		int count = 0;
+		try {
+			conn = DBUtil.getConnection();
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "WHERE mem_name LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
+			}
+			sql = "SELECT COUNT(*) FROM member LEFT OUTER JOIN member_detail USING(mem_num) " + sub_sql;
+			pstmt = conn.prepareStatement(sql);
+			if(keyword!=null && !"".equals(keyword)) {
+				pstmt.setString(1, keyword);
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				count = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return count;
+	}
+		
 	//관리자 - 회원 목록, 검색 목록 (활동 회원)
 	public List<MemberVO> getListMemberByAdmin2(int start, int end, String keyfield, String keyword)throws Exception{
 		Connection conn = null;
