@@ -66,6 +66,7 @@
 					<!-- 숫자 쉼표 표시 -->
 					<h3>전체 누적 : <fmt:formatNumber value="${totalPointsIn}" type="number" groupingUsed="true"/>p</h3>
 					<h3>사용 가능 : <span class="point-in"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h3>
+					<br>
 					<table>
 						<tr>
 							<th>날짜</th>
@@ -111,7 +112,11 @@
 						</c:forEach>
 					</table>
 					<br>
-					<div class="align-center">${page}</div>
+					<div class="align-center">
+						<div class="blog-pagination">
+							${page}
+						</div>
+					</div>
 					</c:if>
 					<!-- content 끝 -->
 					
