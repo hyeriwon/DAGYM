@@ -59,7 +59,7 @@
 								<h2 class="accordion-header" id="headingOne">
 									<button class="accordion-button" type="button" data-bs-toggle="collapse"
 										data-bs-target="#collapseOne">
-										1. DAGYM 피트니스 위치는 어디인가요?
+										1. [센터소개] DAGYM 피트니스 위치는 어디인가요?
 									</button>
 								</h2>
 								<div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
@@ -72,7 +72,7 @@
 								<h2 class="accordion-header" id="headingTwo">
 									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 										data-bs-target="#collapseTwo">
-										2. 회원권 요금이 궁금합니다.
+										2. [회원권] 회원권 요금이 궁금합니다.
 									</button>
 								</h2>
 								<div id="collapseTwo" class="accordion-collapse collapse" 
@@ -88,14 +88,14 @@
 								<h2 class="accordion-header" id="headingThree">
 									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 										data-bs-target="#collapseThree">
-										3. 운동기록, 식사기록 기능을 사용하고 싶습니다.
+										3. [운동기록] 운동기록 기능을 사용하고 싶습니다.
 									</button>
 								</h2>
 								<div id="collapseThree" class="accordion-collapse collapse" 
 								   data-bs-parent="#accordionExample">
 									<div class="accordion-body">
-										다짐피트니스는 회원제 서비스로 제공되고 있습니다. 운동기록, 식사기록을 사용하시려면 회원가입이 필요합니다.<br>
-										회원가입을 하시면 운동기록, 식사기록 뿐만 아니라 인바디, 1:1문의, PT신청 등 다양한 서비스를 이용할 수 있습니다.
+										다짐피트니스는 회원제 서비스로 제공되고 있습니다. 운동기록을 사용하시려면 회원가입이 필요합니다.<br>
+										회원가입을 하시면 운동기록 뿐만 아니라 인바디, 1:1문의, PT신청 등 다양한 서비스를 이용할 수 있습니다.
 									</div>
 								</div>
 							</div><!-- end of item -->
@@ -103,13 +103,15 @@
 								<h2 class="accordion-header" id="headingFour">
 									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 										data-bs-target="#collapseFour">
-										4. 포인트 적립 기준이 궁금합니다.
+										4. [PT신청] PT를 신청하고 싶은데 어떻게 해야 하나요?
 									</button>
 								</h2>
 								<div id="collapseFour" class="accordion-collapse collapse" 
 								   data-bs-parent="#accordionExample">
 									<div class="accordion-body">
-										출석체크, 회원권등록, PT후기 작성
+										회원권을 먼저 결제하신 후 보유하고 계시는 회원권 수량에 한해 PT 신청을 할 수 있습니다.<br>
+										수강신청방법<br>
+										[CLASS] - [PT 신청] - 스케줄 확인 후 원하는 날짜 클릭 - 시간 및 트레이너 이름 입력 후 수강신청 버튼
 									</div>
 								</div>
 							</div><!-- end of item -->
@@ -117,15 +119,42 @@
 								<h2 class="accordion-header" id="headingFive">
 									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
 										data-bs-target="#collapseFive">
-										5. PT 신청을 하고 싶은데 어떻게 해야 하죠?
+										5. [포인트] 포인트 적립 기준이 궁금합니다.
 									</button>
 								</h2>
 								<div id="collapseFive" class="accordion-collapse collapse" 
 								   data-bs-parent="#accordionExample">
 									<div class="accordion-body">
-										회원권을 먼저 결제하신 후 보유하고 계시는 회원권 수량에 한해 PT 신청을 할 수 있습니다.<br>
-										수강신청방법<br>
-										[CLASS] - [PT 신청] - 스케줄 확인 후 원하는 날짜 클릭 - 시간 및 트레이너 이름 입력 후 수강신청 버튼
+										출석 체크시 10p, 후기 작성시 100p, 
+										회원권 등록시 300p ~ 900p 범위 내 차등 지급됩니다.
+									</div>
+								</div>
+							</div><!-- end of item -->
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingSix">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#collapseSix">
+										6. [포인트] 포인트는 어디에 사용할 수 있나요?
+									</button>
+								</h2>
+								<div id="collapseSix" class="accordion-collapse collapse" 
+								   data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										포인트는 오프라인(센터)에서 직원 확인 후 사용 가능합니다.
+									</div>
+								</div>
+							</div><!-- end of item -->
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingSeven">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#collapseSeven">
+										7. [포인트] 포인트는 어떻게 사용할 수 있나요?
+									</button>
+								</h2>
+								<div id="collapseSeven" class="accordion-collapse collapse" 
+								   data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										센터 내 장비를 대여하거나 건강 식품, 위생 용품 등을 구매할 때 사용할 수 있습니다.
 									</div>
 								</div>
 							</div><!-- end of item -->
