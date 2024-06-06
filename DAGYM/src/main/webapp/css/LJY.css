@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 /* 버튼 스타일링 */
-input[type="button"] {
+/* input[type="button"] {
     background-color: #4CAF50;
     color: white;
     padding: 5px 10px;
@@ -27,7 +27,7 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #45a049;
-}
+} */
  .content-text {
         overflow: hidden;
         text-overflow: ellipsis;
