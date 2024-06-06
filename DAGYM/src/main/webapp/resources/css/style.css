@@ -162,6 +162,70 @@ input[type="button"]:disabled {
     cursor: not-allowed !important;
     opacity: 0.5 !important;
 }
+/* selectbox
+---------------------*/
+select {
+    width: 120px;
+    padding: 6px 13px 6px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-weight: 600;
+    appearance: none; /* 기본 화살표 제거 (모든 브라우저에서 일관되게 보이게 하기 위해) */
+    -webkit-appearance: none; /* 사파리/크롬 */
+    -moz-appearance: none; /* 파이어폭스 */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%204%205%22%3E%3Cpath%20fill%3D%22%23333%22%20d%3D%22M2%205L0%203h4zM2%200l2%202H0z%22/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px; /* 화살표 아이콘 크기 조절 */
+}
+
+select:hover {
+    border-color: #999;
+}
+
+select:focus {
+    border-color: #666;
+    outline: none; /* 기본 포커스 스타일 제거 */
+    box-shadow: 0 0 5px rgba(100, 100, 100, 0.5);
+}
+
+/* 검색창
+---------------------*/
+input[type="search"] {
+    width: 200px;
+    padding: 5px 13px 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    outline: none; /* 기본 포커스 스타일 제거 */
+}
+
+input[type="search"]:focus {
+    border-color: #f36100;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+}
+/* 웹킷 기반 브라우저의 검색창 clear 버튼 스타일링 */
+input[type="search"]::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    height: 12px;
+    width: 12px;
+    background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTJweCIgaGVpZ2h0PSIxMnB4IiB2aWV3Qm94PSIwIDAgMTIgMTIiIHZlcnNpb249IjEuMSIgdG9vbGJveD0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcigZmlsbD0iI2YzNjEwMCIgZmlsbC1vcGFjaXR5PSIwIiBzdHJva2U9IiNmMzYxMDAiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj4gPHBhdGggZD0iTTMwLDMwIEwwLDBNMzAsMCBMMzAsMzAiIHRyYW5zZm9ybT0icm90YXRlKDIxNSwgMTUgMTUpIj48L3BhdGg+PC9zdmc+');
+    background-size: 12px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+/* 파이어폭스에서 clear 버튼 숨기기 */
+input[type="search"]::-moz-search-cancel {
+    display: none;
+}
 /*----------------------------------------*/
 
 /* Template default CSS
