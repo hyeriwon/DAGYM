@@ -108,7 +108,7 @@ table th {
 }
 /* 버튼
 ---------------------*/
-input[type="button"] {
+input[type="submit"] {
 	display: inline-block;
 	font-size: 14px;
 	padding: 8px 15px 8px;
@@ -117,15 +117,46 @@ input[type="button"] {
 	line-height: normal;
 	letter-spacing: 1px;
 	text-transform: uppercase;
-	font-weight: 700;
-	border: none; /* 테두리를 제거하여 깔끔한 버튼 모양을 유지 */
-    border-radius: 5px; /* 라운드 모서리를 설정, 원하는 값으로 조절 가능 */
-    cursor: pointer; /* 호버 시 손가락 모양 아이콘 표시 */
-    transition: background-color 0.3s; /* 배경색 전환 애니메이션 */
+	font-weight: 600;
+	border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+input[type="submit"]:hover {
+    background: #e55600;
+}
+input[type="button"] {
+	display: inline-block;
+	font-size: 14px;
+	padding: 6px 13px 6px;
+	color: #ffffff;
+	background: transparent;
+	line-height: normal;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-weight: 600;
+	border: 2px solid #f36100;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 input[type="button"]:hover {
-    background: #e55600; /* 호버 시 배경색 변경 */
+	display: inline-block;
+	font-size: 14px;
+	padding: 6px 13px 6px;
+	color: #ffffff;
+	background: #f36100;
+	line-height: normal;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	font-weight: 600;
+	border: 2px solid #f36100;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
+
 /*----------------------------------------*/
 
 /* Template default CSS
@@ -2301,12 +2332,12 @@ div.chart-table h6 {
 
 .blog-pagination a {
 	display: inline-block;
-	font-size: 18px;
+	font-size: 14px;
 	color: #ffffff;
 	text-transform: uppercase;
-	padding: 10px 20px;
+	padding: 7px 14px;
 	font-weight: 500;
-	margin-right: 15px;
+	margin-right: 7px;
 	background: #252525;
 	font-family: "Oswald", sans-serif;
 	-webkit-transition: all 0.3s;
@@ -2320,6 +2351,21 @@ div.chart-table h6 {
 
 .blog-pagination a:hover {
 	background: #555555;
+}
+
+.blog-pagination span {
+	display: inline-block;
+	font-size: 14px;
+	color: #ffffff;
+	text-transform: uppercase;
+	padding: 7px 14px;
+	font-weight: 500;
+	margin-right: 7px;
+	background: #252525;
+	font-family: "Oswald", sans-serif;
+	-webkit-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
 }
 
 /*--------------------------

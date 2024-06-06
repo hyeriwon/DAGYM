@@ -142,6 +142,12 @@ window.onload=function(){
 							</tr>
 						</c:forEach>
 					</table>
+					<br>
+					<div class="align-center">
+						<div class="blog-pagination">
+							${page}
+						</div>
+					</div>
 				    </c:if>
 					<!-- content 끝 -->
 					

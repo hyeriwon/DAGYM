@@ -154,7 +154,11 @@ window.onload=function(){
 									</tr>
 								</c:forEach>
 							</table>
-							<div class="align-center">${page}</div>
+							<div class="align-center">
+								<div class="blog-pagination">
+									${page}
+								</div>
+							</div>
 						</c:if>
 						<!-- content 끝 -->
 

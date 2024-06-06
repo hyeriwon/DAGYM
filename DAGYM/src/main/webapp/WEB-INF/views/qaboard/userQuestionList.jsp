@@ -95,7 +95,11 @@
 							</c:forEach>
 						</table>
 						<hr class="fixed-divider" size="1" width="%" noshade="noshade">
-						<div class="align-center">${page}</div>
+						<div class="align-center">
+							<div class="blog-pagination">
+								${page}
+							</div>
+						</div>
 					</c:if>
 					<!-- content 끝 -->		
 		
