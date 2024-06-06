@@ -1831,17 +1831,16 @@ ol {
 }
 
 .class-timetable table thead tr th {
+	height: 50px;
 	font-size: 14px;
 	color: #ffffff;
 	background: #f36100;
 	border-right: 1px solid #363636;
-	padding: 15px 0;
 	font-weight: 400;
 }
 
 .class-timetable table tbody tr td {
 	width: 146px;
-	padding: 15px 0;
 }
 
 .class-timetable table tbody tr td.class-time {
@@ -1849,7 +1848,6 @@ ol {
 	color: #f36100;
 	background: #000000;
 	border: 1px solid #363636;
-	padding: 15px 0;
 }
 
 .class-timetable table tbody tr td.dark-bg {
