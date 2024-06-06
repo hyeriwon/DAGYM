@@ -16,8 +16,7 @@
 			<div class="align-center">
 				${result_msg}
 				<p>
-				<input type="button" value="확인"
-				   onclick="location.href='${result_url}'">
+				<input type="button" value="확인" onclick="location.href='${result_url}'">
 			</div>
 		</div>
 	</div>

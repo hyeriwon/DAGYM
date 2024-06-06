@@ -59,44 +59,46 @@
 					<!-- content 시작 -->		
 					<div class="result-display2">
 						<table>
-						<caption>${inb_date}일의 인바디 기록</caption>
-							<tr>
-								<th>항목</th>
-								<th>기록</th>
-							</tr>
-							<tr>
-								<td>키</td>
-								<td>${inbody.inb_hei}cm</td>
-							</tr>
-							<tr>
-								<td>몸무게</td>
-								<td>${inbody.inb_wei}kg</td>
-							</tr>
-							<tr>
-								<td>골격근량</td>
-								<td>${inbody.inb_mus}kg</td>
-							</tr>
-							<tr>
-								<td>bmi지수</td>
-								<td>${inb_bmi}%</td>
-							</tr>
-							<tr>
-							<td>상태</td>
-							<c:choose>
-							<c:when test="${inb_bmi < 18}">
-									<td>저체중</td>
-									</c:when>
-									<c:when test="${inb_bmi < 23}">
-									<td>정상</td>
-									</c:when>
-									<c:when test="${inb_bmi < 25}">
-									<td>과체중</td>
-									</c:when>
-									<c:otherwise>
-									<td>비만</td>
-									</c:otherwise>
-							</c:choose>
-							</tr>
+							<caption>${inb_date}일의 인바디 기록</caption>
+							<thead>
+								<tr>
+									<th>항목</th>
+									<th>기록</th>
+								</tr>
+							</thead>
+								<tr>
+									<td>키</td>
+									<td>${inbody.inb_hei}cm</td>
+								</tr>
+								<tr>
+									<td>몸무게</td>
+									<td>${inbody.inb_wei}kg</td>
+								</tr>
+								<tr>
+									<td>골격근량</td>
+									<td>${inbody.inb_mus}kg</td>
+								</tr>
+								<tr>
+									<td>bmi지수</td>
+									<td>${inb_bmi}%</td>
+								</tr>
+								<tr>
+								<td>상태</td>
+								<c:choose>
+								<c:when test="${inb_bmi < 18}">
+										<td>저체중</td>
+										</c:when>
+										<c:when test="${inb_bmi < 23}">
+										<td>정상</td>
+										</c:when>
+										<c:when test="${inb_bmi < 25}">
+										<td>과체중</td>
+										</c:when>
+										<c:otherwise>
+										<td>비만</td>
+										</c:otherwise>
+								</c:choose>
+								</tr>
 						</table>
 					</div>
 						<c:if test="${!empty inbody.inb_photo }">

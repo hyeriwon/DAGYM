@@ -125,19 +125,21 @@ window.onload=function(){
 						</ul>
 					</form>
 				    <table>
-						<tr>
-							<th>회원번호</th>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>가입일</th>
-						</tr>
+				    		<thead>
+							<tr>
+								<th>회원번호</th>
+								<th>아이디</th>
+								<th>이름</th>
+								<th>가입일</th>
+							</tr>
+						</thead>
 						<c:forEach var="member" items="${list}">
-						<tr>
-							<td><a href="${pageContext.request.contextPath}/meal/mealDetail.do?client_num=${member.mem_num}">${member.mem_num}</a></td>
-							<td>${member.mem_id}</td>
-							<td>${member.mem_name}</td>
-							<td>${member.mem_reg_date}</td>
-						</tr>
+							<tr>
+								<td><a href="${pageContext.request.contextPath}/meal/mealDetail.do?client_num=${member.mem_num}">${member.mem_num}</a></td>
+								<td>${member.mem_id}</td>
+								<td>${member.mem_name}</td>
+								<td>${member.mem_reg_date}</td>
+							</tr>
 						</c:forEach>
 					</table>
 				    </c:if>

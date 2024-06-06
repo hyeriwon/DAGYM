@@ -91,12 +91,14 @@ window.onload=function(){
 					</c:if>
 					<c:if test="${count>0}">
 						<table>
-							<tr>
-								<th>메뉴번호</th>
-								<th>메뉴이름</th>
-								<th>칼로리</th>
-								<th>식사분류</th>
-							</tr>
+							<thead>
+								<tr>
+									<th>메뉴번호</th>
+									<th>메뉴이름</th>
+									<th>칼로리</th>
+									<th>식사분류</th>
+								</tr>
+							</thead>
 							<c:forEach var = "tmenu" items="${list}">
 								<tr>
 								<td>${tmenu.tme_num}</td>

@@ -53,12 +53,14 @@
 						<div class="result-display2">
 							<table>
 								<caption>${exe_date}일의운동기록</caption>
-								<tr>
-									<th>운동부위</th>
-									<th>운동시간(분)</th>
-									<th>운동상세</th>
-									<th>수정</th>
-								</tr>
+								<thead>
+									<tr>
+										<th>운동부위</th>
+										<th>운동시간(분)</th>
+										<th>운동상세</th>
+										<th>수정</th>
+									</tr>
+								</thead>
 								<c:forEach var="exercise" items="${exerciselist}">
 									<tr>
 										<td>${exercise.exe_type}</td>

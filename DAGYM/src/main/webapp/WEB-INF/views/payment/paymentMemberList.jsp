@@ -93,28 +93,30 @@ window.onload=function(){
 					</c:if>
 					<c:if test="${count > 0}">
 					<table>
-						<tr>
-							<th>아이디</th>
-							<th>이름</th>
-							<th>전화번호</th>
-							<th>등급</th>
-						</tr>
+						<thead>
+							<tr>
+								<th>아이디</th>
+								<th>이름</th>
+								<th>전화번호</th>
+								<th>등급</th>
+							</tr>
+						</thead>
 						<c:forEach var="member" items="${list}">
-						<tr>
-							<td>
-							<c:if test="${member.mem_auth > 0}">
-							<a href="detailUserPaymentForm.do?mem_num=${member.mem_num}">${member.mem_id}</a>
-							</c:if>
-							<c:if test="${member.mem_auth == 0}">${member.mem_id}</c:if>
-							</td>
-							<td>${member.mem_name}</td>
-							<td>${member.mem_phone}</td>
-							<td>
-								<c:if test="${member.mem_auth == 0}">탈퇴</c:if>
-								<c:if test="${member.mem_auth == 1}">정지</c:if>
-								<c:if test="${member.mem_auth == 2}">일반</c:if>
-							</td>
-						</tr>
+							<tr>
+								<td>
+								<c:if test="${member.mem_auth > 0}">
+								<a href="detailUserPaymentForm.do?mem_num=${member.mem_num}">${member.mem_id}</a>
+								</c:if>
+								<c:if test="${member.mem_auth == 0}">${member.mem_id}</c:if>
+								</td>
+								<td>${member.mem_name}</td>
+								<td>${member.mem_phone}</td>
+								<td>
+									<c:if test="${member.mem_auth == 0}">탈퇴</c:if>
+									<c:if test="${member.mem_auth == 1}">정지</c:if>
+									<c:if test="${member.mem_auth == 2}">일반</c:if>
+								</td>
+							</tr>
 						</c:forEach>
 					</table>
 					<hr class="fixed-divider" size="1" width="%" noshade="noshade">

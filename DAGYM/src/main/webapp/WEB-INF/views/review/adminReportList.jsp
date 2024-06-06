@@ -117,13 +117,15 @@ $(function(){
 		</c:if>
 		<c:if test="${count > 0}">
 			<table>
-				<tr>
-					<th>원본 글번호</th>
-					<th>원본 제목</th>
-					<th>신고한 회원ID</th>
-					<th>신고사유</th>
-					<th>신고처리</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>원본 글번호</th>
+						<th>원본 제목</th>
+						<th>신고한 회원ID</th>
+						<th>신고사유</th>
+						<th>신고처리</th>
+					</tr>
+				</thead>
 				<c:forEach var="report" items="${list}" varStatus="sta">
 				<tr id="report${sta.index}">
 					<td>${report.rev_num}</td>

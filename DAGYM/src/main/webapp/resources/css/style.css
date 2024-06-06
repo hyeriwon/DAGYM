@@ -96,7 +96,15 @@ input[type="number"]{
 /* 임의 추가
 ---------------------*/
 table th {
+	background: #060606;
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: 500;
+	text-transform: uppercase;
+	border-right: 1px solid #363636;
+	padding: 14px 0;
 	text-align: center;
+	font-family: "NanumSquareNeo", sans-serif;
 }
 /* 버튼
 ---------------------*/

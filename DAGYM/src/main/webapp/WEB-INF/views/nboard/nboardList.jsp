@@ -81,6 +81,7 @@
 						</c:if>
 						<c:if test="${count > 0}">
 							<table>
+								<thead>
 								<tr>
 									<th>카테고리</th>
 									<th>제목</th>
@@ -88,6 +89,7 @@
 									<th>작성일</th>
 									<th>조회</th>
 								</tr>
+								</thead>
 								<c:forEach var="nboard" items="${list}">
 									<tr>
 										<td>

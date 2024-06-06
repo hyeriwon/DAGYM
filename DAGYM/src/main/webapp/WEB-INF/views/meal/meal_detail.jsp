@@ -104,6 +104,7 @@ window.onload=function(){
 						</c:if>
 						<c:if test="${count>0 }">
 							<table>
+							<thead>
 								<tr>
 									<th>식사일자</th>
 									<th>식사분류</th>
@@ -111,9 +112,10 @@ window.onload=function(){
 									<th>칼로리</th>
 									<th>삭제</th>
 								</tr>
-								<c:forEach var="meal" items="${meal}">
-									<tr>
-										<td>
+							</thead>
+							<c:forEach var="meal" items="${meal}">
+								<tr>
+									<td>
 										<c:if test="${user_auth ==2}">
 										<a href="listDateMeal.do?meal_date=${meal.meal_date}">${meal.meal_date}</a>
 										</c:if>
@@ -148,11 +150,9 @@ window.onload=function(){
 													onclick="confirmDelete('delete.do?meal_num=${meal.meal_num}&client_num=${param.client_num}')">
 											</c:if>
 											</div>
-
 										</td>
 									</tr>
 								</c:forEach>
-
 							</table>
 							<div class="align-center">${page}</div>
 						</c:if>

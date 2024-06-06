@@ -84,13 +84,15 @@ function confirmDelete(url) {
 						</c:if>
 						<c:if test="${count>0 }">
 							<table>
-								<tr>
-									<th>운동일자</th>
-									<th>운동부위</th>
-									<th>운동상세</th>
-									<th>운동시간(분)</th>
-									<th>삭제</th>
-								</tr>
+								<thead>
+									<tr>
+										<th>운동일자</th>
+										<th>운동부위</th>
+										<th>운동상세</th>
+										<th>운동시간(분)</th>
+										<th>삭제</th>
+									</tr>
+								</thead>
 								<c:forEach var="exercise" items="${list}">
 									<tr>
 									<c:if test="${user_auth ==2}">
@@ -114,7 +116,6 @@ function confirmDelete(url) {
 									</td>
 									</tr>
 								</c:forEach>
-							
 							</table>
 							<div class="align-center">${page}</div>
 						</c:if>

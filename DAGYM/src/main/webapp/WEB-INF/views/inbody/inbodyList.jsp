@@ -96,13 +96,15 @@ function confirmDelete(url) {
 						</c:if>
 						<c:if test="${count>0 }">
 							<table>
-								<tr>
-									<th>측정일자</th>
-									<th>키(cm)</th>
-									<th>몸무게(kg)</th>
-									<th>골격근량(kg)</th>
-									<th>삭제</th>
-								</tr>
+								<thead>
+									<tr>
+										<th>측정일자</th>
+										<th>키(cm)</th>
+										<th>몸무게(kg)</th>
+										<th>골격근량(kg)</th>
+										<th>삭제</th>
+									</tr>
+								</thead>
 								<c:forEach var="inbody" items="${list}">
 									<tr>
 									<c:if test="${user_auth>=8}">

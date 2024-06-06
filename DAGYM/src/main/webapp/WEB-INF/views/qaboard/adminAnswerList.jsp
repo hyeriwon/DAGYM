@@ -86,14 +86,16 @@
 					</c:if>
 					<c:if test="${count > 0}">
 						<table>
-							<tr>
-								<th>카테고리</th>
-								<th>제목</th>
-								<th>작성자</th>
-								<th>작성일</th>
-								<th>답변여부</th>
-								<th>삭제여부</th>
-							</tr>
+							<thead>
+								<tr>
+									<th>카테고리</th>
+									<th>제목</th>
+									<th>작성자</th>
+									<th>작성일</th>
+									<th>답변여부</th>
+									<th>삭제여부</th>
+								</tr>
+							</thead>
 							<c:forEach var="qaboard" items="${list}">
 								<tr>
 									<td>

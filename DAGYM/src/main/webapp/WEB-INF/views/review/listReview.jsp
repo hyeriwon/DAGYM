@@ -95,15 +95,17 @@ window.onload = function(){
 					</c:if>
 					<c:if test="${count > 0}">
 						<table>
-							<tr>
-								<th>제목</th>
-								<th>트레이너</th>
-								<th>수업일시</th>
-								<th>회원ID</th>
-								<th>별점</th>
-								<th>등록일</th>
-								<th>조회수</th>
-							</tr>
+							<thead>
+								<tr>
+									<th>제목</th>
+									<th>트레이너</th>
+									<th>수업일시</th>
+									<th>회원ID</th>
+									<th>별점</th>
+									<th>등록일</th>
+									<th>조회수</th>
+								</tr>
+							</thead>
 							<c:forEach var="review" items="${list}">
 								<tr>
 									<td><a href="detailReview.do?rev_num=${review.rev_num}">${review.rev_title}</a></td>

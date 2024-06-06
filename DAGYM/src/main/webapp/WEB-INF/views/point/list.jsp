@@ -68,47 +68,49 @@
 					<h3>사용 가능 : <span class="point-in"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h3>
 					<br>
 					<table>
-						<tr>
-							<th>날짜</th>
-							<th>적립 종류</th>
-							<th>포인트</th>
-						</tr>
+						<thead>
+							<tr>
+								<th>날짜</th>
+								<th>적립 종류</th>
+								<th>포인트</th>
+							</tr>
+						</thead>
 						<c:set var="previousDate" value=""/>
 						<c:forEach var="point" items="${list}">
-						<tr>
-							<!-- 적립일자, 사용일자 -> 일자 -->
-							<!-- 같은 날짜는 생략 -->
-							<!-- yyyy-mm-dd -> mm.dd -->
-		                    <td>
-		                        <c:choose>
-		                            <c:when test="${point.poi_in_date != null && not point.poi_in_date.toString().equals(previousDate)}">
-		                                <fmt:formatDate value="${point.poi_in_date}" pattern="MM.dd"/>
-		                                <c:set var="previousDate" value="${point.poi_in_date.toString()}"/>
-		                            </c:when>
-		                            <c:when test="${point.poi_out_date != null && not point.poi_out_date.toString().equals(previousDate)}">
-		                                <fmt:formatDate value="${point.poi_out_date}" pattern="MM.dd"/>
-		                                <c:set var="previousDate" value="${point.poi_out_date.toString()}"/>
-		                            </c:when>
-		                            <c:otherwise>
-		                                <!-- 빈 칸으로 둡니다 -->
-		                            </c:otherwise>
-		                        </c:choose>
-		                    </td>
-							<td>${point.poi_type}</td>
-							<!-- 적립포인트, 사용포인트 -> 포인트 -->
-							<!-- + 파란색, - 빨간색  -->
-							<!-- 숫자 쉼표 표시 -->
-							<td>
-								<c:choose>
-								    <c:when test="${point.poi_in > 0}">
-								        <span class="point-in">+<fmt:formatNumber value="${point.poi_in}" type="number" groupingUsed="true"/></span>
-								    </c:when>
-								    <c:otherwise>
-								        <span class="point-out">-<fmt:formatNumber value="${point.poi_out}" type="number" groupingUsed="true"/></span>
-								    </c:otherwise>
-								</c:choose>
-							</td>
-						</tr>
+							<tr>
+								<!-- 적립일자, 사용일자 -> 일자 -->
+								<!-- 같은 날짜는 생략 -->
+								<!-- yyyy-mm-dd -> mm.dd -->
+			                    <td>
+			                        <c:choose>
+			                            <c:when test="${point.poi_in_date != null && not point.poi_in_date.toString().equals(previousDate)}">
+			                                <fmt:formatDate value="${point.poi_in_date}" pattern="MM.dd"/>
+			                                <c:set var="previousDate" value="${point.poi_in_date.toString()}"/>
+			                            </c:when>
+			                            <c:when test="${point.poi_out_date != null && not point.poi_out_date.toString().equals(previousDate)}">
+			                                <fmt:formatDate value="${point.poi_out_date}" pattern="MM.dd"/>
+			                                <c:set var="previousDate" value="${point.poi_out_date.toString()}"/>
+			                            </c:when>
+			                            <c:otherwise>
+			                                <!-- 빈 칸으로 둡니다 -->
+			                            </c:otherwise>
+			                        </c:choose>
+			                    </td>
+								<td>${point.poi_type}</td>
+								<!-- 적립포인트, 사용포인트 -> 포인트 -->
+								<!-- + 파란색, - 빨간색  -->
+								<!-- 숫자 쉼표 표시 -->
+								<td>
+									<c:choose>
+									    <c:when test="${point.poi_in > 0}">
+									        <span class="point-in">+<fmt:formatNumber value="${point.poi_in}" type="number" groupingUsed="true"/></span>
+									    </c:when>
+									    <c:otherwise>
+									        <span class="point-out">-<fmt:formatNumber value="${point.poi_out}" type="number" groupingUsed="true"/></span>
+									    </c:otherwise>
+									</c:choose>
+								</td>
+							</tr>
 						</c:forEach>
 					</table>
 					<br>

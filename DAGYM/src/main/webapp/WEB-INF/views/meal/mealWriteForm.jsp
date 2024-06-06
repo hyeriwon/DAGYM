@@ -99,7 +99,7 @@ function selectMenu(tme_name) {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Meal</span>
-                            <h2>식사등록</h2>
+                         <h2>식사등록</h2>
                     	</div>
                  </div>
              </div>

@@ -90,7 +90,8 @@ $(function(){
 						</div>
 					</c:if>	
 					<c:if test="${count > 0}">
-						<table>
+					<table>
+						<thead>
 							<tr>
 								<th>결제번호</th>
 								<th>수강료</th>
@@ -100,6 +101,7 @@ $(function(){
 								<th>결제상태</th>
 								<td></td>
 							</tr>
+						</thead>
 						<c:forEach var="payment" items="${list}">
 							<tr>
 								<td>${payment.pay_num}</td>

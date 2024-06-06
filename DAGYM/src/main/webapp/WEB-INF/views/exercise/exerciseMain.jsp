@@ -120,20 +120,22 @@
 						</ul>
 					</form>
 				    <table>
+				    		<thead>
 							<tr>
 								<th>회원번호</th>
 								<th>아이디</th>
 								<th>이름</th>
 								<th>가입일</th>
 							</tr>
-							<c:forEach var="member" items="${list}">
+						</thead>
+						<c:forEach var="member" items="${list}">
 							<tr>
 								<td><a href="${pageContext.request.contextPath}/exercise/exerciseList.do?client_num=${member.mem_num}">${member.mem_num}</a></td>
 								<td>${member.mem_id}</td>
 								<td>${member.mem_name}</td>
 								<td>${member.mem_reg_date}</td>
 							</tr>
-							</c:forEach>
+						</c:forEach>
 						</table>
 				    </c:if>
 					<!-- content 끝 -->

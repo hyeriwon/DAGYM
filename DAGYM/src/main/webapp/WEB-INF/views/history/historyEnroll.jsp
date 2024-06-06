@@ -55,13 +55,15 @@ window.onload=function(){
 		</c:if>
 		<c:if test="${count > 0}">
 			<table>
-				<tr>
-					<th>수강신청번호</th>
-					<th>진행날짜</th>
-					<th>운동부위</th>
-					<th>담당트레이너이름</th>
-					<th>수강상태</th>
-				</tr>
+				<thead>
+					<tr>
+						<th>수강신청번호</th>
+						<th>진행날짜</th>
+						<th>운동부위</th>
+						<th>담당트레이너이름</th>
+						<th>수강상태</th>
+					</tr>
+				</thead>
 				<c:forEach var="history" items="${list}">
 					<tr>
 						<td>${history.his_num}</td>

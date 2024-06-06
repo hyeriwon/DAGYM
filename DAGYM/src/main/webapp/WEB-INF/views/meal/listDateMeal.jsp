@@ -51,38 +51,38 @@
 					<!-- content 시작 -->
 					<div class="result-display2">
 						<table>
-						<caption>${meal_date}일의 칼로리</caption>
-							<tr>
-								<th>식사분류</th>
-								<th>메뉴이름</th>
-								<th>칼로리</th>
-							</tr>
+							<caption>${meal_date}일의 칼로리</caption>
+							<thead>
+								<tr>
+									<th>식사분류</th>
+									<th>메뉴이름</th>
+									<th>칼로리</th>
+								</tr>
+							</thead>
 							<c:forEach var = "meal" items="${meal}">
-							<tr>
-								<c:choose>
-									<c:when test="${meal.meal_time == 0}">
-									<td>아침</td>
-									</c:when>
-									<c:when test="${meal.meal_time == 1}">
-									<td>점심</td>
-									</c:when>
-									<c:when test="${meal.meal_time == 2}">
-									<td>저녁</td>
-									</c:when>
-									<c:otherwise>
-									<td>간식</td>
-									</c:otherwise>
-								</c:choose>
-								<td>${meal.tme_name}</td>
-								<td><fmt:formatNumber value="${meal.tme_kcal}"/>Kcal</td>
-								
-							</tr>
-							</c:forEach>
-							<tr>
-								<td colspan="2" class="align-right">총칼로리</td>
-								<td class="align-center"><fmt:formatNumber value="${totalKcal}"/>Kcal</td>
-								
-							</tr>
+								<tr>
+									<c:choose>
+										<c:when test="${meal.meal_time == 0}">
+										<td>아침</td>
+										</c:when>
+										<c:when test="${meal.meal_time == 1}">
+										<td>점심</td>
+										</c:when>
+										<c:when test="${meal.meal_time == 2}">
+										<td>저녁</td>
+										</c:when>
+										<c:otherwise>
+										<td>간식</td>
+										</c:otherwise>
+									</c:choose>
+									<td>${meal.tme_name}</td>
+									<td><fmt:formatNumber value="${meal.tme_kcal}"/>Kcal</td>
+								</tr>
+								</c:forEach>
+								<tr>
+									<td colspan="2" class="align-right">총칼로리</td>
+									<td class="align-center"><fmt:formatNumber value="${totalKcal}"/>Kcal</td>
+								</tr>
 						</table>
 					</div>
 					<div class="align-center">
