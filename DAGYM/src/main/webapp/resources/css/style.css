@@ -156,7 +156,12 @@ input[type="button"]:hover {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
+input[type="button"]:disabled {
+    background-color: #ccc !important; /* !important로 우선순위 높이기 */
+    color: #666 !important; /* !important로 우선순위 높이기 */
+    cursor: not-allowed !important;
+    opacity: 0.5 !important;
+}
 /*----------------------------------------*/
 
 /* Template default CSS
