@@ -360,7 +360,7 @@ public class QABoardDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				qaboard = new QABoardVO();
-				qaboard.setMem_num(rs.getInt("mem_num"));
+				qaboard.setMem_num(rs.getInt("mem_num"));//답변 등록자의 mem_num
 				qaboard.setQab_type(rs.getInt("qab_type"));
 				qaboard.setQab_content(rs.getString("qab_content"));
 				qaboard.setQab_reg_date(rs.getDate("qab_reg_date"));
