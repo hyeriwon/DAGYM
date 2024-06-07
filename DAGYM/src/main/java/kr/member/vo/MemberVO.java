@@ -6,6 +6,7 @@ public class MemberVO {
 	private int mem_num;
 	private String mem_id;
 	private int mem_auth;
+	private Date mem_sus_date;
 	private String mem_name;
 	private String mem_pw;
 	private String mem_phone;
@@ -52,6 +53,14 @@ public class MemberVO {
 
 	public void setMem_auth(int mem_auth) {
 		this.mem_auth = mem_auth;
+	}
+	
+	public Date getMem_sus_date() {
+		return mem_sus_date;
+	}
+
+	public void setMem_sus_date(Date mem_sus_date) {
+		this.mem_sus_date = mem_sus_date;
 	}
 
 	public String getMem_name() {

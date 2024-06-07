@@ -52,6 +52,7 @@
 					<div class="result-display">
 						<div class="align-center">
 							정지된 회원 ID입니다.<p>
+							정지 해제 일자 : ${susDate}
 							<br>
 							<button onclick="location.href='${pageContext.request.contextPath}/main/main.do'">홈으로</button>
 						</div>

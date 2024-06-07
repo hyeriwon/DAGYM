@@ -89,6 +89,7 @@ public class MemberDAO {
 				member.setMem_num(rs.getInt("mem_num"));
 				member.setMem_id(rs.getString("mem_id"));
 				member.setMem_auth(rs.getInt("mem_auth"));
+				member.setMem_sus_date(rs.getDate("mem_sus_date"));
 				member.setMem_pw(rs.getString("mem_pw"));
 				member.setMem_photo(rs.getString("mem_photo"));
 				member.setMem_email(rs.getString("mem_email"));
@@ -379,7 +380,11 @@ public class MemberDAO {
 		String sql = null;
 		try {
 			conn = DBUtil.getConnection();
-			sql = "UPDATE member SET mem_auth=? WHERE mem_num=?";
+			if(mem_auth == 1) {
+				sql = "UPDATE member SET mem_auth=?,mem_sus_date=sysdate WHERE mem_num=?";
+			}else {
+				sql = "UPDATE member SET mem_auth=?,mem_sus_date=null WHERE mem_num=?";
+			}
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_auth);
 			pstmt.setInt(2, mem_num);

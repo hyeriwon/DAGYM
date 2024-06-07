@@ -41,9 +41,13 @@ public class ReportReviewFormAction implements Action{
 		ReviewDAO dao = ReviewDAO.getInstance();
 		RevReportVO db_revReport = dao.checkRevReport(revReport);
 
-		//신고 불가능(이미 신고한 이력이 있으며 신고가 승인되지 않은 상태)
-		if(db_revReport!=null && db_revReport.getReport_del()!=1) {
+		//신고 불가능
+		if(db_revReport!=null && db_revReport.getReport_del()==0) {//(이미 신고한 이력이 있으며 신고가 승인되지 않은 상태)
 			request.setAttribute("notice_msg", "신고 내역이 처리 중입니다.");
+			request.setAttribute("notice_url", "detailReview.do?rev_num="+rev_num);
+			return "/WEB-INF/views/common/alert_view.jsp";
+		}else if(db_revReport!=null && db_revReport.getReport_del()==1) {//(이미 신고한 이력이 있으며 신고가 승인된 상태)
+			request.setAttribute("notice_msg", "신고 접수는 글 1개당 1번만 가능합니다.");
 			request.setAttribute("notice_url", "detailReview.do?rev_num="+rev_num);
 			return "/WEB-INF/views/common/alert_view.jsp";
 		}

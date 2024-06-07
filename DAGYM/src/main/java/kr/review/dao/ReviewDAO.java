@@ -644,7 +644,7 @@ public class ReviewDAO {
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
 			
-			sql = "UPDATE member m SET mem_auth=1 WHERE m.mem_num "
+			sql = "UPDATE member m SET mem_auth=1,mem_sus_date=sysdate WHERE m.mem_num "
 					+ "IN (SELECT r.mem_num FROM review r WHERE r.rev_report>= 3)";
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.executeUpdate();
@@ -682,7 +682,7 @@ public class ReviewDAO {
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
 			
-			sql = "UPDATE member m SET mem_auth=2 WHERE m.mem_num "
+			sql = "UPDATE member m SET mem_auth=2,mem_sus_date=null WHERE m.mem_num "
 					+ "IN (SELECT r.mem_num FROM review r WHERE r.rev_report < 3)";
 			pstmt3 = conn.prepareStatement(sql);
 			pstmt3.executeUpdate();

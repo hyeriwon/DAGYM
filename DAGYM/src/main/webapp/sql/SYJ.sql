@@ -34,6 +34,8 @@ CREATE TABLE review_report(
 	rev_num number not null,
 	mem_num number not null, -- 신고를 한 사람
 	report_content clob not null,
+	report_del number default 0 not null,
+	report_date date default sysdate not null,
 	constraint revReport_fk1 foreign key (rev_num) references review (rev_num),
 	constraint revReport_fk2 foreign key (mem_num) references member (mem_num)
 );
