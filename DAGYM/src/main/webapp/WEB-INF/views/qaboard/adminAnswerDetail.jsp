@@ -100,7 +100,7 @@
 						<div id="answer-div">
 							<c:if test="${user_num == answerBoard.mem_num}">
 							<div class="align-right">
-								<input type="button" id="update_answer_btn" value="수정" data-num="${answerBoard.qab_num}">
+								<input type="button" id="update_answer_btn" value="수정" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">
 								<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}">
 							</div>
 							</c:if>

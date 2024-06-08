@@ -17,6 +17,7 @@ $(document).ready(function(){
 		//댓글 수정을 위한 form 생성
 		let modifyUI = '<form id="mre_form">';
 		modifyUI += '<input type="hidden" name="re_num" id="mre_num" value="' + $(this).attr("data-num") + '">';
+		modifyUI += '<input type="hidden" name="qab_ref" id="mre_num" value="' + $(this).attr("data-qnum") + '">';
 		modifyUI += '<textarea rows="3" cols="55" name="mre_content" id="mre_content" class="rep_content">'+answerContent+'</textarea>';
 		modifyUI += '<div id="mre_second" class="align-right">';
 		modifyUI += '<input type="submit" value="수정"> ';

@@ -346,7 +346,7 @@ public class QABoardDAO {
 		}
 	}
 	//답변상세
-	public QABoardVO getAdminBoard(int qab_num)throws Exception{
+	public QABoardVO getAdminBoard(int qab_ref)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -356,7 +356,7 @@ public class QABoardDAO {
 			conn = DBUtil.getConnection();
 			sql = "SELECT * FROM qaboard WHERE qab_ref=?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, qab_num);
+			pstmt.setInt(1, qab_ref);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				qaboard = new QABoardVO();

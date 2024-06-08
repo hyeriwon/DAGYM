@@ -77,8 +77,8 @@
 							<input type="button" value="목록" onclick="location.href='adminAnswerList.do'">
 						</div>
 					</div>
-					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					<c:if test="${count == 0}">
+						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 						<div class="result-display">
 							표시할 문의내역이 없습니다.
 						</div>
@@ -119,7 +119,6 @@
 								</tr>
 							</c:forEach>
 						</table>
-						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 						<div class="align-center">
 							<div class="blog-pagination">
 								${page}

@@ -83,9 +83,10 @@ window.onload=function(){
 					<div class="list-span align-right">
 						<input type="button" value="목록" onclick="location.href='adminTrainerList.do'">
 					</div>
-					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
+					<br>
 					<c:if test="${count == 0}">
-						<div class="result-display align-center">
+						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
+						<div class="result-display">
 							표시할 강사정보가 없습니다.
 						</div>
 						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
@@ -113,7 +114,6 @@ window.onload=function(){
 							</tr>
 						</c:forEach>
 					</table>
-					<hr class="fixed-divider" size="1" width="%" noshade="noshade">
 					<div class="align-center">
 						<div class="blog-pagination">
 							${page}
