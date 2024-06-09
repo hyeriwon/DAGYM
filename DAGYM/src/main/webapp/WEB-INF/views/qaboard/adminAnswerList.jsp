@@ -6,6 +6,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A</title>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/qaboard.inquiry.js"></script>
+<script type="text/javascript">
+window.onload=function(){
+	const myForm = document.getElementById('search_form');
+	myForm.onsubmit=function(){
+		const keyword = document.getElementById('keyword');
+		if(keyword.value.trim()==''){
+			alert('검색어를 입력하세요');
+			keyword.value = '';
+			keyword.focus();
+			return false;
+		}
+	};
+};
+</script>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 </head>
 <body>
@@ -66,17 +81,10 @@
 						</ul>
 					</form>
 					<%-- 목록 --%>
-					<div class="list-span">
-						<div class="align-left">
-							<%-- 필터링 처리 --%>
-							<select>
-								<option></option>
-							</select>
-						</div>
-						<div class="align-right">
-							<input type="button" value="목록" onclick="location.href='adminAnswerList.do'">
-						</div>
+					<div class="list-span align-right">
+						<input type="button" value="목록" onclick="location.href='adminAnswerList.do'">
 					</div>
+					<br>
 					<c:if test="${count == 0}">
 						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 						<div class="result-display">
