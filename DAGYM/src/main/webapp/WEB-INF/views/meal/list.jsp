@@ -71,7 +71,10 @@ window.onload=function(){
                         <h2>Meal</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">Mypage</a>
+                            <a href="#">
+	                            <c:if test="${user_auth == 2}">MyPage</c:if>
+	                            <c:if test="${user_auth >= 8}">Member</c:if>
+                            </a>
                             <span>Meal</span>
                         </div>
                     </div>
@@ -87,7 +90,8 @@ window.onload=function(){
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Meal</span>
-                            <h2>식사등록</h2>
+                    		<c:if test="${user_auth == 2}"><h2>식사등록</h2></c:if>
+	                     <c:if test="${user_auth >= 8}"><h2>식사기록</h2></c:if>
                     	</div>
                  </div>
              </div>
@@ -95,21 +99,22 @@ window.onload=function(){
           	<div class="row">
 				<div class="col-lg-12">    
 					
+					
 					<!-- content 시작 -->
-				    <div class="align-left">
-				    </div>
-				    <div class="align-right">
-					    <c:if test="${user_auth ==2}">
+					<c:if test="${user_auth ==2}">
+					<div class="align-right">    
 					    	<input type="button" value="목록보기" onclick="location.href='${pageContext.request.contextPath}/meal/mealDetail.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
-					    </c:if>
-				    </div>
+					</div>
+					</c:if>
+				    
 				    <c:if test="${user_auth ==2}">
-				    <div class="chart-table">
+				    <div class="class-timetable">
 				    		<div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
 				    </div>
 				    </c:if>
+				    
 				    <c:if test="${user_auth >=8}">
-				    <div class="class-timetable">
+				    <div class="chart-table">
 				    <form id="search_form" action="list.do" method="get">
 						<ul class="search">
 							<li>
@@ -163,7 +168,7 @@ window.onload=function(){
 					</div>
 				    </c:if>
 					<!-- content 끝 -->
-					
+
 				</div>
 			</div>
 	      </div>

@@ -132,7 +132,15 @@ document.addEventListener('DOMContentLoaded', function() {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Schedule</span>
+                         <c:if test="${user_auth == 2}">
                             <h2>스케줄</h2>
+                         </c:if>
+                         <c:if test="${user_auth == 8}">
+                            <h2>스케줄 등록</h2>
+                         </c:if>
+                         <c:if test="${user_auth == 9}">
+                            <h2>관리자(스케줄)</h2>
+                         </c:if>
                     	</div>
                  </div>
              </div>

@@ -28,7 +28,10 @@ function confirmDelete(url) {
                         <h2>Exercise</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">MyPage</a>
+                            <a href="#">
+	                            <c:if test="${user_auth == 2}">MyPage</c:if>
+	                            <c:if test="${user_auth >= 8}">Member</c:if>
+                            </a>
                             <span>Exercise</span>
                         </div>
                     </div>
@@ -44,7 +47,7 @@ function confirmDelete(url) {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Exercise</span>
-                            <h2><c:if test="${user_auth >=8 }">(관리자전용)</c:if>운동기록</h2>
+                            <h2>운동기록</h2>
                     	</div>
                  </div>	
              </div>

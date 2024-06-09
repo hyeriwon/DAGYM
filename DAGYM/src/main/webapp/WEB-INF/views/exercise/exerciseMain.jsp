@@ -67,7 +67,10 @@
                         <h2>Exercise</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">MyPage</a>
+                            <a href="#">
+	                            <c:if test="${user_auth == 2}">MyPage</c:if>
+	                            <c:if test="${user_auth >= 8}">Member</c:if>
+                            </a>
                             <span>Exercise</span>
                         </div>
                     </div>
@@ -84,7 +87,7 @@
                 		<div class="section-title">
                     		<span>Exercise</span>
                             <h2> <c:if test="${user_auth == 2}">운동등록</c:if></h2>
-                            <h2> <c:if test="${user_auth >= 8}">운동내역 확인</c:if></h2>
+                            <h2> <c:if test="${user_auth >= 8}">회원목록 (운동기록)</c:if></h2>
                     	</div>
                  </div>
              </div>
@@ -92,18 +95,19 @@
           	<div class="row">
 				<div class="col-lg-12">    
 					
-					
 					<!-- content 시작 -->	
-				    <div class="align-right">
 				    <c:if test="${user_auth == 2}">
+				    <div class="align-right">
 				    	<input type="button" value="목록보기" id ="view_List" onclick="location.href='${pageContext.request.contextPath}/exercise/exerciseList.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
-				    </c:if>
 				    </div>
+				    </c:if>
+				    
 				    <c:if test="${user_auth == 2}">
 				    <div class="class-timetable">
 				    		<div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
 				    </div>
 				    </c:if>
+				    
 				    <c:if test="${user_auth >= 8}">
 				    <div class="chart-table">
 				    <form id="search_form" action="exerciseMain.do" method="get">
@@ -149,7 +153,7 @@
 							</tr>
 						</c:forEach>
 						</table>
-						</div>
+					</div>
 				    </c:if>
 					<!-- content 끝 -->
 					

@@ -48,7 +48,10 @@ window.onload = function(){
                         <h2>Exercise</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">MyPage</a>
+                            <a href="#">
+	                            <c:if test="${user_auth == 2}">MyPage</c:if>
+	                            <c:if test="${user_auth >= 8}">Member</c:if>
+                            </a>
                             <span>Exercise</span>
                         </div>
                     </div>
@@ -64,7 +67,7 @@ window.onload = function(){
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Exercise</span>
-                            <h2>운동내역 수정</h2>
+                            <h2>운동수정</h2>
                     	</div>
                  </div>
              </div>

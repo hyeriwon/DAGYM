@@ -44,7 +44,11 @@ window.onload=function(){
 						<h2>Meal</h2>
 						<div class="bt-option">
 							<a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-							<a href="#">Mypage</a> <span>Meal</span>
+							 <a href="#">
+	                            <c:if test="${user_auth == 2}">MyPage</c:if>
+	                            <c:if test="${user_auth >= 8}">Member</c:if>
+                             </a>
+							<span>Meal</span>
 						</div>
 					</div>
 				</div>
@@ -69,7 +73,6 @@ window.onload=function(){
 					<div class="chart-table">
 
 						<!-- content 시작 -->
-						<h2><c:if test="${user_auth >=8}">(관리자 전용)</c:if></h2>
 						<form id="search_form" action="mealDetail.do" method="get">
 							<ul class="search">
 								<li><select name="keyfield">

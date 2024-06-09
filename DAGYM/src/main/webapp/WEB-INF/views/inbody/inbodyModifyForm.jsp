@@ -78,7 +78,10 @@ window.onload = function(){
                         <h2>Inbody</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">MyPage</a>
+							 <a href="#">
+	                            <c:if test="${user_auth == 2}">MyPage</c:if>
+	                            <c:if test="${user_auth >= 8}">Member</c:if>
+                             </a>
                             <span>Inbody</span>
                         </div>
                     </div>

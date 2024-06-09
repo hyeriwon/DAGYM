@@ -41,7 +41,10 @@ function confirmDelete(url) {
                         <h2>Inbody</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">MyPage</a>
+							 <a href="#">
+	                            <c:if test="${user_auth == 2}">MyPage</c:if>
+	                            <c:if test="${user_auth >= 8}">Member</c:if>
+                             </a>
                             <span>Inbody</span>
                         </div>
                     </div>
@@ -57,7 +60,7 @@ function confirmDelete(url) {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Inbody</span>
-                            <h2><c:if test="${user_auth >=8}">(관리자전용)</c:if>인바디</h2>
+                            <h2>인바디</h2>
                     	</div>
                  </div>	
              </div>
