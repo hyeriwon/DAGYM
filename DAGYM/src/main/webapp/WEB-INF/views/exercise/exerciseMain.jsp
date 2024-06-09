@@ -122,18 +122,27 @@
 				    <table>
 				    		<thead>
 							<tr>
-								<th>회원번호</th>
 								<th>아이디</th>
 								<th>이름</th>
-								<th>가입일</th>
+								<th>전화번호</th>
+								<th>등급</th>
 							</tr>
 						</thead>
 						<c:forEach var="member" items="${list}">
 							<tr>
-								<td><a href="${pageContext.request.contextPath}/exercise/exerciseList.do?client_num=${member.mem_num}">${member.mem_num}</a></td>
+								<c:if test="${member.mem_auth > 0}">
+								<td><a href="${pageContext.request.contextPath}/exercise/exerciseList.do?client_num=${member.mem_num}">${member.mem_id}</a></td>
+								</c:if>
+								<c:if test="${member.mem_auth == 0}">
 								<td>${member.mem_id}</td>
+								</c:if>
 								<td>${member.mem_name}</td>
-								<td>${member.mem_reg_date}</td>
+								<td>${member.mem_phone}</td>
+								<td>
+									<c:if test="${member.mem_auth == 0}">탈퇴</c:if>
+									<c:if test="${member.mem_auth == 1}">정지</c:if>
+									<c:if test="${member.mem_auth == 2}">일반</c:if>
+								</td>
 							</tr>
 						</c:forEach>
 						</table>

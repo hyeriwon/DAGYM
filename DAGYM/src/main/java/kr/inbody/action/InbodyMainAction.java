@@ -38,7 +38,7 @@ public class InbodyMainAction implements Action{
 		
 		List<MemberVO> list = null;
 		if(count > 0) {
-			list = dao.getListMemberByAdmin(page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			list = dao.getListMemberByAdmin2(page.getStartRow(), page.getEndRow(), keyfield, keyword);
 		}
 		
 		request.setAttribute("count", count);
