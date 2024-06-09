@@ -97,11 +97,9 @@ window.onload=function(){
 					</div>
 					<br>
 					<c:if test="${count == 0}">
-						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 						<div class="result-display">
 							표시할 문의내역이 없습니다
 						</div>
-						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					</c:if>
 					<c:if test="${count > 0}">
 						<table>
