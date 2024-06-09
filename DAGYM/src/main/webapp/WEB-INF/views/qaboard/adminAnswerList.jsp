@@ -85,7 +85,7 @@ window.onload=function(){
 						<div class="align-left">
 							<form action="adminAnswerList.do" method="get">
 								<select name="category" onchange="this.form.submit()">
-									<option value="" selected disabled>전체</option>
+									<option value="">전체</option>
 									<option value="1" <c:if test="${param.category==1}">selected</c:if>>PT</option>
 									<option value="2" <c:if test="${param.category==2}">selected</c:if>>다이어트</option>
 									<option value="3" <c:if test="${param.category==3}">selected</c:if>>상담</option>
@@ -102,7 +102,7 @@ window.onload=function(){
 					<c:if test="${count == 0}">
 						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 						<div class="result-display">
-							표시할 문의내역이 없습니다.
+							표시할 문의내역이 없습니다
 						</div>
 						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					</c:if>
