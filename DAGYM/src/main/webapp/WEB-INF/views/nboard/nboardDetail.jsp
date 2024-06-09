@@ -54,7 +54,7 @@
 						</p>
 						<h2>${nboard.nbo_title}</h2>
 						<p>조회수 : ${nboard.nbo_hit}</p>
-						<hr size="1" noshade="noshade" width="100%">
+						
 						<c:if test="${!empty nboard.nbo_filename}">
 						<div class="align-center">
 						<img src="${pageContext.request.contextPath}/upload/${nboard.nbo_filename}" class="detail-img">
@@ -63,10 +63,8 @@
 						<p>
 							${nboard.nbo_content}
 						</p>
-						<hr size="1" noshade="noshade" width="100%">
 						
 						<div class="align-right">
-							<%-- 작성자 관리자&nbsp;| --%>
 							<c:if test="${!empty nboard.nbo_modify_date}">
 							최근 수정일 ${nboard.nbo_reg_date}&nbsp;|
 							</c:if>

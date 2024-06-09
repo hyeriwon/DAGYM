@@ -84,12 +84,12 @@ window.onload=function(){
 					<div class="list-span align-right">
 						<input type="button" value="목록" onclick="location.href='paymentMemberList.do'">
 					</div>
-					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
+					<br>
 					<c:if test="${count == 0}">
 						<div class="result-display">
 							표시할 회원정보가 없습니다.
 						</div>
-						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
+						<br>
 					</c:if>
 					<c:if test="${count > 0}">
 					<table>
@@ -119,7 +119,7 @@ window.onload=function(){
 							</tr>
 						</c:forEach>
 					</table>
-					<hr class="fixed-divider" size="1" width="%" noshade="noshade">
+					<br>
 					<div class="align-center">
 						<div class="blog-pagination">
 							${page}
