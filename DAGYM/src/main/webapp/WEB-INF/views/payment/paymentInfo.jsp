@@ -57,7 +57,7 @@
                             <li>Personal trainer</li>
                             <li>Weight losing classes</li>
                             <li>Month to mouth</li>
-                            <li>No time restriction</li>
+                            <li>유효기한 : 결제 후 5개월</li>
                         </ul>
                     </div>
                 </div>
