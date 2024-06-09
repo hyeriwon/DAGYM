@@ -94,9 +94,6 @@ window.onload=function(){
 								</select>
 							</form>
 						</div>
-						<div class="align-right">
-							<input type="button" value="목록" onclick="location.href='adminAnswerList.do'">
-						</div>
 					</div>
 					<br>
 					<c:if test="${count == 0}">

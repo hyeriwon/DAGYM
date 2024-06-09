@@ -66,10 +66,8 @@
 						<br>
 						<div class="list-space align-right">
 							<c:if test="${user_auth == 9}">
-							<input type="button" value="글쓰기" onclick="location.href='nboardWriteForm.do'">
+							<input type="button" value="등록" onclick="location.href='nboardWriteForm.do'">
 							</c:if>
-							<input type="button" value="목록" onclick="location.href='nboardList.do'">
-							<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 						</div>
 						<br>
 						<c:if test="${count == 0}">

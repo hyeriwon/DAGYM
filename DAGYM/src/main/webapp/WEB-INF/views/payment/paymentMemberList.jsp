@@ -80,11 +80,9 @@ window.onload=function(){
 							</li>
 						</ul>
 					</form>
+					<br><br>
+					
 					<%-- 목록 --%>
-					<div class="list-span align-right">
-						<input type="button" value="목록" onclick="location.href='paymentMemberList.do'">
-					</div>
-					<br>
 					<c:if test="${count == 0}">
 						<div class="result-display">
 							표시할 회원정보가 없습니다.

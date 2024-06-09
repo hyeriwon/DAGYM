@@ -80,7 +80,6 @@ function confirmDelete(url) {
 						<c:if test="${user_auth==2}">
 						<input type="button" value="등록" onclick="location.href='exerciseMain.do'">
 						</c:if>
-						<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 						</div>
 						<br>
 						

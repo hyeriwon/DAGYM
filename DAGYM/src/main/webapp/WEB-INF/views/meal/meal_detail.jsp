@@ -99,8 +99,6 @@ window.onload=function(){
 								<input type="button" value="회원검색"
 									onclick="location.href='list.do'">
 							</c:if>
-							<input type="button" value="홈으로"
-								onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 						</div>
 						<br>
 						

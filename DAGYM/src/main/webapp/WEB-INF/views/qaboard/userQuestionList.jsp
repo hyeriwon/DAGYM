@@ -55,8 +55,7 @@
 							</select>
 						</div>
 						<div class="align-right">
-							<input type="button" value="글쓰기" onclick="location.href='userWriteForm.do'">
-							<input type="button" value="목록" onclick="location.href='userQuestionList.do'">
+							<input type="button" value="등록" onclick="location.href='userWriteForm.do'">
 						</div>
 					</div>
 					<br>

@@ -58,7 +58,6 @@
 					<div>
 						<div class="align-right">
 							<input type="button" value="수정하기" onclick="location.href='modifyUserForm.do'">
-							<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">	
 						</div>
 						<hr size="1" width="80%" noshade="noshade">
 						<ul>
