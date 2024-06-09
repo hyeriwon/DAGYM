@@ -49,14 +49,14 @@
                         <h3>10회권</h3>
                         <div class="pi-price">
                             <h2>&#8361;600,000</h2>
-                            <span>1:1 PT</span>
+                            <span>회당 60,000</span>
                         </div>
                         <ul>
-                            <li>Free riding</li>
-                            <li>Unlimited equipments</li>
-                            <li>Personal trainer</li>
-                            <li>Weight losing classes</li>
-                            <li>Month to mouth</li>
+                            <li>쾌적한 운동시설</li>
+                            <li>최고의 운동기구</li>
+                            <li>친절하고 전문적인 트레이너</li>
+                            <li>퍼스널 트레이닝</li>
+                            <li>다이어트/체력관리/실버트레이닝</li>
                             <li>유효기한 : 결제 후 5개월</li>
                         </ul>
                     </div>
@@ -66,15 +66,15 @@
                         <h3>20회권</h3>
                         <div class="pi-price">
                             <h2>&#8361;1,100,000</h2>
-                            <span>1:1 PT</span>
+                            <span>회당 55,000</span>
                         </div>
                         <ul>
-                            <li>Free riding</li>
-                            <li>Unlimited equipments</li>
-                            <li>Personal trainer</li>
-                            <li>Weight losing classes</li>
-                            <li>Month to mouth</li>
-                            <li>No time restriction</li>
+                            <li>쾌적한 운동시설</li>
+                            <li>최고의 운동기구</li>
+                            <li>친절하고 전문적인 트레이너</li>
+                            <li>퍼스널 트레이닝</li>
+                            <li>다이어트/체력관리/실버트레이닝</li>
+                            <li>유효기한 : 결제 후 10개월</li>
                         </ul>
                     </div>
                 </div>
@@ -82,16 +82,16 @@
                     <div class="ps-item">
                         <h3>30회권</h3>
                         <div class="pi-price">
-                            <h2>&#8361;1,600,000</h2>
-                            <span>1:1 PT</span>
+                            <h2>&#8361;1,500,000</h2>
+                            <span>회당 50,000</span>
                         </div>
                         <ul>
-                            <li>Free riding</li>
-                            <li>Unlimited equipments</li>
-                            <li>Personal trainer</li>
-                            <li>Weight losing classes</li>
-                            <li>Month to mouth</li>
-                            <li>No time restriction</li>
+                        	<li>쾌적한 운동시설</li>
+                            <li>최고의 운동기구</li>
+                            <li>친절하고 전문적인 트레이너</li>
+                            <li>퍼스널 트레이닝</li>
+                            <li>다이어트/체력관리/실버트레이닝</li>
+                            <li>유효기한 : 결제 후 15개월</li>
                         </ul>
                     </div>
                 </div>
