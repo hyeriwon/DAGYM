@@ -1,22 +1,19 @@
 @charset "UTF-8";
 /*========관리자 1:1문의 댓글========*/
 #answer-div {
-    margin-top: 20px;
+    margin-top: 5px;
+    margin-bottom: 20px;
     padding: 15px;
-    border: 1px solid #ccc;
-    background-color: #f9f9f9;
     border-radius: 5px;
+}
+
+#answer-div p{
+	padding-left: 20px;		
 }
 
 .answer-title {
     font-size: 18px;
-    font-weight: bold;
     margin-bottom: 10px;
-}
-
-#answer_form {
-    display: flex;
-    flex-direction: column;
 }
 
 #answer_form textarea {
@@ -31,7 +28,6 @@
 }
 
 #answer_form input[type="submit"] {
-    align-self: flex-end;
     padding: 10px 20px;
     border: none;
     font-size: 14px;
@@ -39,6 +35,17 @@
     cursor: pointer;
 }
 
-#answer_form input[type="submit"]:hover {
-    background-color: #0056b3;
+.content{
+	 margin-top: 100px;
+	 margin-bottom: 200px;
+}
+.content p{
+	 padding-left: 20px;
+}
+/*========사용자 1:1문의 내용========*/
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }

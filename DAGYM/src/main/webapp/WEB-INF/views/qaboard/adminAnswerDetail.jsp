@@ -39,7 +39,7 @@
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Q&A</span>
-                            <h2>문의상세</h2>
+                            <h2>문의내역</h2>
                     	</div>
                  </div>
              </div>
@@ -58,25 +58,26 @@
 						<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
 						<c:if test="${qaboard.qab_type==5}">기타</c:if>]
 					</p>
-					<h2>${qaboard.qab_title}</h2>
+					<h3>${qaboard.qab_title}</h3><br>
+					<div class="align-left">
+						작성자 &nbsp;${qaboard.mem_id} &nbsp;&nbsp;&nbsp;&nbsp; 작성일 &nbsp;${qaboard.qab_reg_date} &nbsp;&nbsp;&nbsp;&nbsp;
+						<c:if test="${!empty qaboard.qab_modify_date}">
+							최근 수정일 &nbsp;${qaboard.qab_modify_date}
+						</c:if>
+					</div>
 					<hr size="1" noshade="noshade" width="100%">
 					<%-- 내용 --%>
-					<p>${qaboard.qab_content}</p><br>
-					<%-- 첨부파일이 있을 경우 --%>	
-					<c:if test="${!empty qaboard.qab_filename}">
-					<div class="align-left">
-						<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" class="detail-img">
-					</div>
-					</c:if>
-					<hr size="1" noshade="noshade" width="100%">
-					<%-- 등록일, 수정일 --%>
-					<div class="align-right">
-						작성자 ${qaboard.mem_id}&nbsp;|
-						<c:if test="${!empty qaboard.qab_modify_date}">
-							최근 수정일 &nbsp;${qaboard.qab_modify_date}&nbsp;|
+					<div class="content">
+						<p>${qaboard.qab_content}</p>
+						<br>
+						<%-- 첨부파일이 있을 경우 --%>	
+						<c:if test="${!empty qaboard.qab_filename}">
+						<div class="align-left">
+							<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" class="detail-img">
+						</div>
 						</c:if>
-						작성일 &nbsp;${qaboard.qab_reg_date}
-					</div>
+					</div><br>
+					<hr size="1" noshade="noshade" width="100%">
 					<%-- 질문 끝 --%>
 					<br>
 					
@@ -84,34 +85,30 @@
 					<%-- 문의미답변, 답변등록 --%>
 					<c:if test="${answerBoard==null}">
 						<div id="answer-div">
-						<hr size="1" noshade="noshade" width="80%">
-							<span class="answer-title">답변 등록</span>
+						<span class="answer-title">답변 등록</span>
 							<form id="answer_form" action="adminWriteAnswer.do" method="post">
 								<input type="hidden" name="qab_num" value="${qaboard.qab_num}" id="qab_num"><!-- 문의글 번호 -->
 								<input type="hidden" name="qab_type" value="${qaboard.qab_type}" id="qab_type"><!-- 문의글 타입 -->
-									<textarea rows="10" cols="50" name="answer_content" id="answer_content"></textarea>
+									<textarea rows="5" name="answer_content" id="answer_content"></textarea>
 								<input type="submit" value="등록">				
 							</form>
-						<hr size="1" noshade="noshade" width="80%">
+						<hr size="1" noshade="noshade" width="100%">
 						</div>
 					</c:if>
 					<%-- 문의답변 완료 --%>
 					<c:if test="${answerBoard!=null}">
 						<div id="answer-div">
-							<c:if test="${user_num == answerBoard.mem_num}">
-							<div class="align-right">
-								<input type="button" id="update_answer_btn" value="수정" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">
-								<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}">
-							</div>
-							</c:if>
-							<hr size="1" noshade="noshade" width="100%">
 							<p id="answer_content">${answerBoard.qab_content}</p><br>
 							<hr size="1" noshade="noshade" width="100%">
 							<div class="align-right">
 								<c:if test="${!empty answerBoard.qab_modify_date}">
-									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;|
+									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;&nbsp;&nbsp;&nbsp;
 								</c:if>
-								작성일 &nbsp;${answerBoard.qab_reg_date}
+								작성일 &nbsp;${answerBoard.qab_reg_date}&nbsp;&nbsp;&nbsp;&nbsp;
+								<c:if test="${user_num == answerBoard.mem_num}">
+									<input type="button" id="update_answer_btn" value="수정" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">&nbsp;
+									<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}">
+								</c:if>
 							</div>
 						</div>
 					</c:if>

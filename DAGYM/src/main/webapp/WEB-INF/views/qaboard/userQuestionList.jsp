@@ -49,21 +49,29 @@
 					<!-- content 시작 -->		
 					<%-- 목록 --%>
 					<div class="list-span">
-						<div class="align-left">
-							<select>
-								<option></option>
+					<div class="align-left">
+						<form action="userQuestionList.do" method="get">
+							<select name="category" onchange="this.form.submit()">
+								<option value="">전체</option>
+								<option value="1" <c:if test="${param.category==1}">selected</c:if>>PT</option>
+								<option value="2" <c:if test="${param.category==2}">selected</c:if>>다이어트</option>
+								<option value="3" <c:if test="${param.category==3}">selected</c:if>>상담</option>
+								<option value="4" <c:if test="${param.category==4}">selected</c:if>>회원권 상담</option>
+								<option value="5" <c:if test="${param.category==5}">selected</c:if>>기타</option>
 							</select>
-						</div>
-						<div class="align-right">
-							<input type="button" value="등록" onclick="location.href='userWriteForm.do'">
-						</div>
+						</form>
 					</div>
-					<br>
+					<div class="align-right">
+						<input type="button" value="등록" onclick="location.href='userWriteForm.do'">
+					</div>
+				</div><br>
 					
 					<c:if test="${count == 0}">
-						<div class="result-display align-center">
+						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
+						<div class="result-display">
 							표시할 문의내역이 없습니다.
 						</div>
+						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					</c:if>
 					<c:if test="${count > 0}">
 						<table>
@@ -94,7 +102,6 @@
 							</c:forEach>
 						</table>
 						<br>
-						
 						<div class="align-center">
 							<div class="blog-pagination">
 								${page}
