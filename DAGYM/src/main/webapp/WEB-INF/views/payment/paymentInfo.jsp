@@ -48,8 +48,8 @@
                     <div class="ps-item">
                         <h3>10회권</h3>
                         <div class="pi-price">
-                            <h2>600,000</h2>
-                            <span>PT10회</span>
+                            <h2>&#8361;600,000</h2>
+                            <span>1:1 PT</span>
                         </div>
                         <ul>
                             <li>Free riding</li>
@@ -63,10 +63,10 @@
                 </div>
                 <div class="col-lg-4 col-md-8">
                     <div class="ps-item">
-                        <h3>12 Month unlimited</h3>
+                        <h3>20회권</h3>
                         <div class="pi-price">
-                            <h2>$ 99.0</h2>
-                            <span>SINGLE CLASS</span>
+                            <h2>&#8361;1,100,000</h2>
+                            <span>1:1 PT</span>
                         </div>
                         <ul>
                             <li>Free riding</li>
@@ -80,10 +80,10 @@
                 </div>
                 <div class="col-lg-4 col-md-8">
                     <div class="ps-item">
-                        <h3>6 Month unlimited</h3>
+                        <h3>30회권</h3>
                         <div class="pi-price">
-                            <h2>$ 59.0</h2>
-                            <span>SINGLE CLASS</span>
+                            <h2>&#8361;1,600,000</h2>
+                            <span>1:1 PT</span>
                         </div>
                         <ul>
                             <li>Free riding</li>
