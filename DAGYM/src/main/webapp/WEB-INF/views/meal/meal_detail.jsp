@@ -69,8 +69,7 @@ window.onload=function(){
 					<div class="chart-table">
 
 						<!-- content 시작 -->
-						<h2>
-							<c:if test="${user_auth >=8}">(관리자 전용)</c:if>${mem_name}님</h2>
+						<h2><c:if test="${user_auth >=8}">(관리자 전용)</c:if></h2>
 						<form id="search_form" action="mealDetail.do" method="get">
 							<ul class="search">
 								<li><select name="keyfield">

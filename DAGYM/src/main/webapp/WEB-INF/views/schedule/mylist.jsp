@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>PT 수강 내역</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
 

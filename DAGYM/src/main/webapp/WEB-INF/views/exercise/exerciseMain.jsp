@@ -20,9 +20,9 @@
 	    height: 'auto', // 캘린더 높이 자동 조절
 	    width: 'auto', // 캘린더 너비 자동 조절
 	    headerToolbar: { // 캘린더 헤더 설정
-	      left: 'prev,next today', // 왼쪽에 이전, 다음, 오늘 버튼 배치
+	      left: 'prev,next', // 왼쪽에 이전, 다음, 오늘 버튼 배치
 	      center: 'title', // 중앙에 타이틀 배치
-	      right: 'dayGridMonth' // 오른쪽에 월별 보기 버튼 배치
+	      right: 'today' // 오른쪽에 월별 보기 버튼 배치
 	    },
 	    dateClick: function(info) {
 	      var today = new Date();
@@ -83,7 +83,7 @@
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Exercise</span>
-                            <h2> <c:if test="${user_auth == 2}">운동내역 등록</c:if></h2>
+                            <h2> <c:if test="${user_auth == 2}">운동등록</c:if></h2>
                             <h2> <c:if test="${user_auth >= 8}">운동내역 확인</c:if></h2>
                     	</div>
                  </div>
@@ -91,7 +91,7 @@
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					
 					
 					<!-- content 시작 -->	
 				    <div class="align-right">
@@ -99,10 +99,13 @@
 				    	<input type="button" value="목록보기" id ="view_List" onclick="location.href='${pageContext.request.contextPath}/exercise/exerciseList.do'"><!-- 목록보기 버튼 클릭 시 목록 페이지로 이동 -->
 				    </c:if>
 				    </div>
-				      <c:if test="${user_auth == 2}">
-				    <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
+				    <c:if test="${user_auth == 2}">
+				    <div class="class-timetable">
+				    		<div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
+				    </div>
 				    </c:if>
 				    <c:if test="${user_auth >= 8}">
+				    <div class="chart-table">
 				    <form id="search_form" action="exerciseMain.do" method="get">
 						<ul class="search">
 							<li>
@@ -146,6 +149,7 @@
 							</tr>
 						</c:forEach>
 						</table>
+						</div>
 				    </c:if>
 					<!-- content 끝 -->
 					

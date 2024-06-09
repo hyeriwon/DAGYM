@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', function() {
     height: 'auto', // 캘린더 높이 자동 조절
     width:'auto', // 캘린더 너비 자동 조절
     headerToolbar: { // 캘린더 헤더 설정
-      left: 'prev,next today', // 왼쪽에 이전, 다음, 오늘 버튼 배치
+      left: 'prev,next', // 왼쪽에 이전, 다음, 오늘 버튼 배치
       center: 'title', // 중앙에 타이틀 배치
-      right: 'dayGridMonth' // 오른쪽에 월별 보기 버튼 배치
+      right: 'today' // 오른쪽에 월별 보기 버튼 배치
     },
     selectAllow: function(selectInfo) {
         var today = new Date().toISOString().split('T')[0];
@@ -94,7 +94,6 @@ window.onload=function(){
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
 					
 					<!-- content 시작 -->
 				    <div class="align-left">
@@ -105,9 +104,12 @@ window.onload=function(){
 					    </c:if>
 				    </div>
 				    <c:if test="${user_auth ==2}">
-				    <div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
+				    <div class="chart-table">
+				    		<div id="calendar"></div><!-- 캘린더를 표시할 div 요소 -->
+				    </div>
 				    </c:if>
 				    <c:if test="${user_auth >=8}">
+				    <div class="class-timetable">
 				    <form id="search_form" action="list.do" method="get">
 						<ul class="search">
 							<li>
@@ -158,10 +160,10 @@ window.onload=function(){
 							${page}
 						</div>
 					</div>
+					</div>
 				    </c:if>
 					<!-- content 끝 -->
 					
-					</div>
 				</div>
 			</div>
 	      </div>

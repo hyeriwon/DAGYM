@@ -37,7 +37,15 @@
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Mypage</span>
+                    		<c:if test="${user_auth == 2}">
                             <h2>회원상세</h2>
+                         </c:if>
+                         <c:if test="${user_auth == 8}">
+                            <h2>강사상세</h2>
+                         </c:if>
+                         <c:if test="${user_auth == 9}">
+                            <h2>관리자상세</h2>
+                         </c:if>
                     	</div>
                  </div>
              </div>

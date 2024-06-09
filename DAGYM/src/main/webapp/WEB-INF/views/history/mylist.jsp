@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>HISTORY</title>
-
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
@@ -24,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         width: 'auto',
         height: 'auto',
         headerToolbar: {
-            left: 'prev,next today',
+            left: 'prev,next',
             center: 'title',
-            right: 'dayGridMonth'
+            right: 'today'
         },
         initialView: 'dayGridMonth',
         events: [
@@ -124,11 +123,11 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="class-timetable">
 					
 					<!-- content 시작 -->
 			        <div class="align-right">
-			            <input type="button" value="PT등록" onclick="location.href='list.do'">
+			            <input type="button" value="PT신청" onclick="location.href='list.do'">
 			        </div>
 			        <div id="his_calendar"></div>
 			        <input type="hidden" value="" name="date" id="date" maxlength="30">

@@ -92,7 +92,7 @@ table tr:nth-of-type(even) {
 
 .align-center {
     text-align: center;
-    margin-top: 20px;
+/*     margin-top: 20px; */
 }
 
 /* 버튼 스타일링 */

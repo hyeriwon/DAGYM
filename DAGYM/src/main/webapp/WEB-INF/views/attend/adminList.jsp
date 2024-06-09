@@ -24,15 +24,18 @@
 	    function updateCalendarTitle(date) {
 	        var year = date.getFullYear();
 	        var month = date.getMonth() + 1; // 월은 0부터 시작하므로 +1
-	        var formattedTitle = year + '년 ' + month + '월';
-	        document.querySelector('.fc-toolbar-title').innerText = formattedTitle;
-	    }
+/* 	        var formattedTitle = year + '년 ' + month + '월';  //영어 -> 한글
+	        document.querySelector('.fc-toolbar-title').innerText = formattedTitle; */
+    		} 
 	    
 		var calendar = new FullCalendar.Calendar(calendarEl, {
+		    selectable: true, // 날짜 선택 가능
+		    height: 'auto', // 캘린더 높이 자동 조절
+		    width: 'auto', // 캘린더 너비 자동 조절
 	    		headerToolbar: {
 		        left: 'prev,next',
 		        center: 'title',
-		        right: 'dayGridMonth'
+		        right: 'today'
 	    		},
 			initialDate: new Date().toISOString().slice(0, 10), //오늘 날짜로 설정
 			navLinks: true, //can click day/week names to navigate views
@@ -79,28 +82,24 @@
 
 </script>
 <style>
-	#calendar {
-		margin: 40px 10px;
-	    padding: 0;
-	    font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
-	    font-size: 14px;
-	    max-width: 1100px;
-	    margin: 0 auto;
-	}
+
+	/* 수직 스크롤바 숨기기 */
 	.fc-scroller::-webkit-scrollbar {
 	    display: none;
 	}
 	.fc-scroller {
-	    -ms-overflow-style: none;
-	    scrollbar-width: none;
+	    -ms-overflow-style: none;  /* IE and Edge */
+	    scrollbar-width: none;  /* Firefox */
 	}
+	/* 이벤트 동그라미 스타일 */
 	.event-circle {
-	    width: 25px;
-	    height: 25px;
-	    background-color: #3788d8;
+	    width: 15px;
+	    height: 15px;
+	    background-color: white; /* 이벤트 색상 */
 	    border-radius: 50%;
-	    margin: 0 auto;
+
 	}
+
 </style>
 </head>
 <body>
@@ -139,7 +138,7 @@
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="class-timetable">
 					
 					<!-- content 시작 -->
 		            <h4 id="monthHeader" style="text-align: right;"></h4>			

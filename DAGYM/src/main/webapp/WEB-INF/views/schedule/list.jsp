@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         width: 'auto',
         height: 'auto',
         headerToolbar: {
-            left: 'prev,next today',
+            left: 'prev,next',
             center: 'title',
-            right: 'dayGridMonth'
+            right: 'today'
         },
         initialView: 'dayGridMonth',
         events: [
@@ -132,18 +132,18 @@ document.addEventListener('DOMContentLoaded', function() {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Schedule</span>
-                            <h2>스케줄 등록</h2>
+                            <h2>스케줄</h2>
                     	</div>
                  </div>
              </div>
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="class-timetable">
 					
 					<!-- content 시작 -->
 			        <div class="align-right">
-			        	<input type="button" value="PT 수강 내역" onclick="location.href='${pageContext.request.contextPath}/schedule/mylist.do'">
+			        	<input type="button" value="회원수강내역" onclick="location.href='${pageContext.request.contextPath}/schedule/mylist.do'">
 			        </div>
 			        <div id="sch_calendar"></div>
 			        <input type="hidden" value="" name="date" id="date" maxlength="30">

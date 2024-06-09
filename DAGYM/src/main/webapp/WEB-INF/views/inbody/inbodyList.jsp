@@ -57,7 +57,7 @@ function confirmDelete(url) {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Inbody</span>
-                            <h2><c:if test="${user_auth >=8}">(관리자전용)</c:if>${mem_name}님의 인바디</h2>
+                            <h2><c:if test="${user_auth >=8}">(관리자전용)</c:if>인바디</h2>
                     	</div>
                  </div>	
              </div>

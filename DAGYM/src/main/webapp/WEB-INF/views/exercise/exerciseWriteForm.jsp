@@ -65,7 +65,7 @@ window.onload = function(){
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Exercise</span>
-                            <h2>운동내역 등록</h2>
+                            <h2>운동등록</h2>
                     	</div>
                  </div>
              </div>

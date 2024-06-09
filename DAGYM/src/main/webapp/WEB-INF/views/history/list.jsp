@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
         width: 'auto',
         height: 'auto',
         headerToolbar: {
-            left: 'prev,next today',
+            left: 'prev,next',
             center: 'title',
-            right: 'dayGridMonth'
+            right: 'today'
         },
         initialView: 'dayGridMonth',
         events: [
@@ -167,16 +167,17 @@ document.addEventListener('DOMContentLoaded', function() {
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="class-timetable">
 					
 					<!-- content 시작 -->
-			        <div class="align-right">
-			        	<input type="button" value="MyList" onclick="location.href='${pageContext.request.contextPath}/history/mylist.do'">
+					<div class="align-right">
+			        	<input type="button" value="수강내역" onclick="location.href='${pageContext.request.contextPath}/history/mylist.do'">
 			        </div>
 			        <div id="his_calendar"></div>
 			        <input type="hidden" value="" name="date" id="date" maxlength="30">
+					<br>
 					<!-- content 끝 -->
-					
+
 					</div>
 				</div>
 			</div>
