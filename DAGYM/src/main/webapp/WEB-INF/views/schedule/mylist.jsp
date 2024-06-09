@@ -6,7 +6,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>PT 수강 내역</title>
+<title>HISTORY</title>
+<jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
@@ -22,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         width: 'auto',
         height: 'auto',
         headerToolbar: {
-            left: 'prev,next today',
+            left: 'prev,next',
             center: 'title',
-            right: 'dayGridMonth'
+            right: 'today'
         },
         initialView: 'dayGridMonth',
         events: [
@@ -144,20 +145,59 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </head>
 <body>
-<div class="page-main">
-    <jsp:include page="/WEB-INF/views/common/header.jsp"/>
-    <div class="content-main">
-        <h2 align="center">PT 수강 내역</h2>
-        
-        <div class="align-right">
-            <input type="button" value="스케줄 등록" onclick="location.href='list.do'">
-        </div>
 
-        <div id="his_calendar"></div>
-       
-        <input type="hidden" value="" name="date" id="date" maxlength="30">
-        
-    </div>
-</div>
+	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
+	
+	<!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb-text">
+                        <h2>History</h2>
+                        <div class="bt-option">
+                            <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
+                            <a href="#">Member</a>
+                            <span>History</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+ <section class="team-section team-page spad">
+      <div class="container">
+          <div class="row">
+          	 <div class="col-lg-12">
+          		<div class="team-title">
+                		<div class="section-title">
+                    		<span>History</span>
+                            <h2>회원목록 (수강내역)</h2>
+                    	</div>
+                 </div>
+             </div>
+          </div>
+          	<div class="row">
+				<div class="col-lg-12">    
+					<div class="class-timetable">
+					
+					<!-- content 시작 -->
+			        <div class="align-right">
+			            <input type="button" value="스케줄 등록" onclick="location.href='list.do'">
+			        </div>
+			        <div id="his_calendar"></div>
+			        <input type="hidden" value="" name="date" id="date" maxlength="30">
+					<!-- content 끝 -->
+					
+					</div>
+				</div>
+			</div>
+	      </div>
+	  </section>
+	  
+	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
+	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
+
 </body>
 </html>

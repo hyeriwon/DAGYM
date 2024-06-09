@@ -116,7 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h2>Schedule</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">Mypage</a>
+                            <a href="#">
+	                            <c:if test="${user_auth == 8}">MyPage</c:if>
+	                            <c:if test="${user_auth == 9}">Trainer</c:if>
+                            </a>
                             <span>Schedule</span>
                         </div>
                     </div>
@@ -135,11 +138,8 @@ document.addEventListener('DOMContentLoaded', function() {
                          <c:if test="${user_auth == 2}">
                             <h2>스케줄</h2>
                          </c:if>
-                         <c:if test="${user_auth == 8}">
+                         <c:if test="${user_auth >= 8}">
                             <h2>스케줄 등록</h2>
-                         </c:if>
-                         <c:if test="${user_auth == 9}">
-                            <h2>관리자(스케줄)</h2>
                          </c:if>
                     	</div>
                  </div>
@@ -151,7 +151,9 @@ document.addEventListener('DOMContentLoaded', function() {
 					
 					<!-- content 시작 -->
 			        <div class="align-right">
-			        	<input type="button" value="회원수강내역" onclick="location.href='${pageContext.request.contextPath}/schedule/mylist.do'">
+			        <c:if test="${user_auth == 8}">
+			        		<input type="button" value="회원 수강내역" onclick="location.href='${pageContext.request.contextPath}/schedule/mylist.do'">
+			        	</c:if>
 			        </div>
 			        <div id="sch_calendar"></div>
 			        <input type="hidden" value="" name="date" id="date" maxlength="30">

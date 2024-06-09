@@ -68,12 +68,10 @@
 					<div class="list-span align-right">
 						<input type="button" value="목록" onclick="location.href='adminMemberList.do'">
 					</div>
-					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					<c:if test="${count == 0}">
 						<div class="result-display">
 							표시할 회원정보가 없습니다.
 						</div>
-						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					</c:if>
 					<c:if test="${count > 0}">
 					<table>

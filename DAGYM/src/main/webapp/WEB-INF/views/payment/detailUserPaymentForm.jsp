@@ -99,7 +99,7 @@ $(function(){
 								<th>결제일</th>
 								<th>만료일</th>
 								<th>결제상태</th>
-								<td></td>
+								<th>취소</th>
 							</tr>
 						</thead>
 						<c:forEach var="payment" items="${list}">
