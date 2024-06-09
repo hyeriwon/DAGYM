@@ -126,6 +126,8 @@
 							</li>
 						</ul>
 					</form>
+					<br><br>
+					
 				    <table>
 				    		<thead>
 							<tr>
@@ -152,7 +154,14 @@
 								</td>
 							</tr>
 						</c:forEach>
-						</table>
+					</table>
+					</div>
+					<br>
+					
+					<div class="align-center">
+						<div class="blog-pagination">
+							${page}
+						</div>
 					</div>
 				    </c:if>
 					<!-- content 끝 -->

@@ -79,11 +79,9 @@ window.onload=function(){
 							</li>
 						</ul>
 					</form>
+					<br><br>
+					
 					<%-- 목록 --%>
-					<div class="list-span align-right">
-						<input type="button" value="목록" onclick="location.href='adminTrainerList.do'">
-					</div>
-					<br>
 					<c:if test="${count == 0}">
 						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 						<div class="result-display">
@@ -114,6 +112,8 @@ window.onload=function(){
 							</tr>
 						</c:forEach>
 					</table>
+					<br>
+					
 					<div class="align-center">
 						<div class="blog-pagination">
 							${page}

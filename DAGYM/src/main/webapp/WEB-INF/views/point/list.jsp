@@ -56,7 +56,6 @@
 					<div class="chart-table">
 					
 					<!-- content 시작 -->
-					<br>
 					<c:if test="${count == 0}">
 					<div class="result-display">
 						표시할 게시물이 없습니다.
@@ -64,8 +63,8 @@
 					</c:if>
 					<c:if test="${count > 0}">
 					<!-- 숫자 쉼표 표시 -->
-					<h3>전체 누적 : <fmt:formatNumber value="${totalPointsIn}" type="number" groupingUsed="true"/>p</h3>
-					<h3>사용 가능 : <span class="point-in"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h3>
+					<h4>전체 누적 : <fmt:formatNumber value="${totalPointsIn}" type="number" groupingUsed="true"/>p</h4>
+					<h4>사용 가능 : <span class="point-in"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h4>
 					<br>
 					<table>
 						<thead>

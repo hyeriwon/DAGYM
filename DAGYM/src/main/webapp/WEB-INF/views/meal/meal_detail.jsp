@@ -88,6 +88,7 @@ window.onload=function(){
 							<input type="hidden" name="client_num"
 								value="${param.client_num}">
 						</form>
+						<br>
 
 						<div class="list-space align-right">
 							<c:if test="${ user_auth ==2}">
@@ -101,6 +102,8 @@ window.onload=function(){
 							<input type="button" value="홈으로"
 								onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 						</div>
+						<br>
+						
 						<c:if test="${count==0 }">
 							<div class="result-display">표시할 게시물이 없습니다.</div>
 						</c:if>
@@ -156,6 +159,8 @@ window.onload=function(){
 									</tr>
 								</c:forEach>
 							</table>
+							<br>
+							
 							<div class="align-center">
 								<div class="blog-pagination">
 									${page}

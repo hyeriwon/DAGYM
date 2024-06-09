@@ -59,12 +59,12 @@
 							<input type="button" value="목록" onclick="location.href='userQuestionList.do'">
 						</div>
 					</div>
-					<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
+					<br>
+					
 					<c:if test="${count == 0}">
 						<div class="result-display align-center">
 							표시할 문의내역이 없습니다.
 						</div>
-						<hr class="fixed-divider" size="1" width="100%" noshade="noshade">
 					</c:if>
 					<c:if test="${count > 0}">
 						<table>
@@ -94,7 +94,8 @@
 							</tr>
 							</c:forEach>
 						</table>
-						<hr class="fixed-divider" size="1" width="%" noshade="noshade">
+						<br>
+						
 						<div class="align-center">
 							<div class="blog-pagination">
 								${page}

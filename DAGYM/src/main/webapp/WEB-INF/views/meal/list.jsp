@@ -131,6 +131,8 @@ window.onload=function(){
 							</li>
 						</ul>
 					</form>
+					<br><br>
+					
 				    <table>
 				    		<thead>
 							<tr>

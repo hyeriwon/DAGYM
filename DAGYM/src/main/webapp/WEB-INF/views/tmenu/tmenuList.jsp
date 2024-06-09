@@ -78,12 +78,15 @@ window.onload=function(){
 					</li>
 					</ul>
 					</form>
+					<br>
 					
 					<div class= "list-space align-right">
 					<input type="button" value="등록" onclick="location.href='tmenuWriteForm.do'">
 					<input type="button" value="목록" onclick="location.href='tmenuList.do'">
 					<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 					</div>
+					<br>
+					
 					<c:if test="${count==0 }">
 						<div class="result-display">
 							표시할 게시물이 없습니다.
@@ -122,10 +125,10 @@ window.onload=function(){
 									</c:otherwise>
 								</c:choose>
 								</tr>
-							
 							</c:forEach>
-						
 						</table>
+						<br>
+						
 						<div class="align-center">
 							<div class="blog-pagination">
 								${page}

@@ -85,31 +85,35 @@ function confirmDelete(url) {
 							<input type="submit" value="검색">
 						</li>
 						</ul>
-						</form>
-						<div class= "list-space align-right">
+					</form>
+					<br>
+					
+					<div class= "list-space align-right">
 						<c:if test="${user_auth==2}">
 						<input type="button" value="등록" onclick="location.href='inbodyMain.do'">
 						</c:if>
 						<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
-						</div>
+					</div>
+					<br>
+					
 						<c:if test="${count==0 }">
 							<div class="result-display">
 								표시할 게시물이 없습니다.
 							</div>
 						</c:if>
 						<c:if test="${count>0 }">
-							<table>
-								<thead>
-									<tr>
-										<th>측정일자</th>
-										<th>키(cm)</th>
-										<th>몸무게(kg)</th>
-										<th>골격근량(kg)</th>
-										<th>삭제</th>
-									</tr>
-								</thead>
-								<c:forEach var="inbody" items="${list}">
-									<tr>
+						<table>
+							<thead>
+								<tr>
+									<th>측정일자</th>
+									<th>키(cm)</th>
+									<th>몸무게(kg)</th>
+									<th>골격근량(kg)</th>
+									<th>삭제</th>
+								</tr>
+							</thead>
+							<c:forEach var="inbody" items="${list}">
+								<tr>
 									<c:if test="${user_auth>=8}">
 									<td><a href="inbodyDetail.do?inb_date=${inbody.inb_date}&client_num=${param.client_num}">${inbody.inb_date}</a></td>
 									</c:if>
@@ -121,24 +125,25 @@ function confirmDelete(url) {
 									<td>${inbody.inb_mus}</td>
 									<td>
 									<div class="align-center">
-									<c:if test="${user_auth==2}">
-									<input type="button" value="삭제" onclick="confirmDelete('deleteInbody.do?inb_num=${inbody.inb_num}')">
-									</c:if>
-									<c:if test="${user_auth>=8}">
-									<input type="button" value="삭제" onclick="confirmDelete('deleteInbody.do?inb_num=${inbody.inb_num}&client_num=${param.client_num}')">
-									</c:if>
+										<c:if test="${user_auth==2}">
+										<input type="button" value="삭제" onclick="confirmDelete('deleteInbody.do?inb_num=${inbody.inb_num}')">
+										</c:if>
+										<c:if test="${user_auth>=8}">
+										<input type="button" value="삭제" onclick="confirmDelete('deleteInbody.do?inb_num=${inbody.inb_num}&client_num=${param.client_num}')">
+										</c:if>
 									</div>
 									</td>
-									</tr>
-								</c:forEach>
-							
-							</table>
-							<div class="align-center">
-								<div class="blog-pagination">
-									${page}
-								</div>
+								</tr>
+							</c:forEach>
+						</table>
+						<br>
+						
+						<div class="align-center">
+							<div class="blog-pagination">
+								${page}
 							</div>
-						</c:if>
+						</div>
+					</c:if>
 					<!-- content 끝 -->
 					
 					</div>

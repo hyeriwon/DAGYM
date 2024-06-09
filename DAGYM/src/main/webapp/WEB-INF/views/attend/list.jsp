@@ -187,6 +187,7 @@
 					
 					<!-- content 시작 -->
 		            <h4 id="monthHeader" style="text-align: right;"></h4>
+		            <br>
 					<div id="calendar"></div>
 					<br>
 					<!-- content 끝 -->

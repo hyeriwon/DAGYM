@@ -226,7 +226,11 @@ input[type="search"]::-webkit-search-cancel-button {
 input[type="search"]::-moz-search-cancel {
     display: none;
 }
-
+/* 이번달 출석일수
+---------------------*/
+#monthHeader{
+	font-family: "NanumSquareNeo", sans-serif;
+}
 /*----------------------------------------*/
 
 /* Template default CSS
