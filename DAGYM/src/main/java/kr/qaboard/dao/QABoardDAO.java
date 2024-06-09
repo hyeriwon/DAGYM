@@ -210,13 +210,14 @@ public class QABoardDAO {
 	
 	/*--------------------관리자--------------------*/
 	//총 글의 개수, 검색 개수
-	public int getAnswerCount(String keyfield, String keyword)throws Exception{
+	public int getAnswerCount(String keyfield, String keyword, String category)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = null;
 		String sub_sql = "";
 		int count = 0;
+		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
 			if(keyword!=null && !"".equals(keyword)) {
@@ -224,11 +225,20 @@ public class QABoardDAO {
 				else if(keyfield.equals("2")) sub_sql += "AND qab_title LIKE '%' || ? || '%'";
 				else if(keyfield.equals("3")) sub_sql += "AND qab_content LIKE '%' || ? || '%'";
 			}
+			
+			if(category!=null && !"".equals(category)) {
+				sub_sql += "AND qab_type=?";
+			}
 			sql = "SELECT count(*) FROM qaboard JOIN member USING(mem_num) WHERE qab_ref=0 " + sub_sql;
 			pstmt = conn.prepareStatement(sql);
+			
 			if(keyword!=null && !"".equals(keyword)) {
-				pstmt.setString(1, keyword);
+				pstmt.setString(++cnt, keyword);
 			}
+			if(category!=null && !"".equals(category)) {
+				pstmt.setString(++cnt, category);
+			}
+			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -241,7 +251,7 @@ public class QABoardDAO {
 		return count;
 	}
 	//글 목록, 검색 글 목록
-	public List<QABoardVO> getAnswerList(int startRow, int endRow, String keyfield, String keyword)throws Exception{
+	public List<QABoardVO> getAnswerList(int startRow, int endRow, String keyfield, String keyword, String category)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -255,6 +265,8 @@ public class QABoardDAO {
 				if(keyfield.equals("1")) sub_sql += "AND m.mem_id LIKE '%' || ? || '%'";
 				else if(keyfield.equals("2")) sub_sql += "AND q.qab_title LIKE '%' || ? || '%'";
 				else if(keyfield.equals("3")) sub_sql += "AND q.qab_content LIKE '%' || ? || '%'";
+			}			if(category!=null && !"".equals(category)) {
+				sub_sql += "AND q.qab_type=?";
 			}
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT q.qab_num, q.mem_num, q.qab_type,q.qab_title, q.qab_content, "
 				+ "q.qab_reg_date, a.qab_ref,m.mem_id,q.qab_remove FROM qaboard q LEFT OUTER JOIN qaboard a ON q.qab_num = a.qab_ref "
@@ -263,6 +275,9 @@ public class QABoardDAO {
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(++cnt, keyword);
+			}
+			if(category!=null && !"".equals(category)) {
+				pstmt.setString(++cnt, category);
 			}
 			pstmt.setInt(++cnt, startRow);
 			pstmt.setInt(++cnt, endRow);

@@ -38,15 +38,16 @@ public class AdminAnswerListAction implements Action{
 		//검색
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
+		String category = request.getParameter("category");
 		
 		QABoardDAO dao = QABoardDAO.getInstance();
-		int count = dao.getAnswerCount(keyfield, keyword);
+		int count = dao.getAnswerCount(keyfield, keyword,category);
 		
 		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20, 10, "adminAnswerList.do");
 		
 		List<QABoardVO> list = null;
 		if(count > 0) {
-			list = dao.getAnswerList(page.getStartRow(), page.getEndRow(), keyfield, keyword);
+			list = dao.getAnswerList(page.getStartRow(), page.getEndRow(), keyfield, keyword, category);
 		}
 		System.out.println(count);
 		System.out.println(list);
