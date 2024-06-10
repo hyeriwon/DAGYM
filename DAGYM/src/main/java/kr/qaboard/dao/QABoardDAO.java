@@ -18,7 +18,7 @@ public class QABoardDAO {
 	private QABoardDAO() {}
 	
 	/*--------------------사용자--------------------*/
-	//총 글의 개수, 검색 개수
+	//총 글의 개수, 검색 개수//
 	public int getInquiryCount(int mem_num, String category)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
