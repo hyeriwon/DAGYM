@@ -1,4 +1,30 @@
 @charset "UTF-8";
+/*========회원가입========*/
+.chart-table2 {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+}
+#register_form table tr{
+	height:70px;
+}
+#register_form table tr td span{
+	padding:5px;
+}
+/* Increase the spacing between td elements */
+.re-title{
+   padding: 10px 25px;
+   vertical-align: top;
+}
+.re-content{
+   padding: 5px 100px;
+   vertical-align: top;
+}
+.address-input {
+   margin-bottom: 10px;
+}
+
 /*========관리자 1:1문의 댓글========*/
 #answer-div {
     margin-top: 5px;

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>REGISTER</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/WHR.css" type="text/css">
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
@@ -27,7 +28,7 @@ $(function(){
 			success:function(param){
 				if(param.result == 'idNotFound'){
 					idChecked = 1;
-					$('#message_id').css('color','black').text('사용 가능한 아이디입니다');
+					$('#message_id').css('color','#a9a9a9').text('사용 가능한 아이디입니다');
 				}else if(param.result == 'idDuplicated'){
 					idChecked = 0;
 					$('#message_id').css('color','red').text('이미 사용중인 아이디입니다');
@@ -67,7 +68,7 @@ $(function(){
 			success:function(param){
 				if(param.result == 'emailNotFound'){
 					emailChecked = 1;
-					$('#message_email').css('color','black').text('사용 가능한 이메일입니다');
+					$('#message_email').css('color','#a9a9a9').text('사용 가능한 이메일입니다');
 				}else if(param.result == 'emailDuplicated'){
 					emailChecked = 0;
 					$('#message_email').css('color','red').text('이미 사용중인 이메일입니다');
@@ -169,63 +170,70 @@ $(function(){
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="chart-table2">
 					
 					<!-- content 시작 -->
 					<form id="register_form" action="registerUser.do" method="post">
-						<ul>
-							<li>
-								* <label for="id"> 아이디</label>
-								<input type="text" name="id" id="id" maxlength="12" autocomplete="off" class="input-check">
-								<input type="button" value="ID중복체크" id="id_check">
-								<span id="message_id"></span>
-								<div class="form-notice">* 영문 숫자 혼합(6자~12자)</div>
-							</li>
-							<li>
-								* <label for="name">이름</label>
-								<input type="text" name="name" id="name" maxlength="10" class="input-check">
-							</li>
-							<li>
-								* <label for="passwd">비밀번호</label>
-								<input type="password" name="passwd" id="passwd" maxlength="12" class="input-check">
-								<div class = "form-notice">* 영문 숫자 혼합(8자~12자)</div>
-							</li>
-							<li>
-								* <label for="phone">전화번호</label>
-								<input type="text" name="phone" id="phone" maxlength="13" class="input-check">
-								<div class = "form-notice">* 000-0000-0000 형식으로 입력</div>
-							</li>
-							<li>
-								* <label for="email">이메일</label>
-								<input type="email" name="email" id="email" maxlength="50" class="input-check">
-								<input type="button" value="이메일 중복체크" id="email_check">
-								<span id="message_email"></span>
-								<div class="form-notice">* 이메일 중복사용 불가</div>
-								
-							</li>
-							<li>
-								* <label for="gender">성별</label>
-								남자<input type="radio" id="male" name="gender" value="0" class="input-check">
-								여자<input type="radio" id="female" name="gender" value="1" class="input-check">
-							</li>
-							<li>
-								<label for="birth">생년월일</label>
-								<input type="date" name="birth" id="birth" maxlength="30" class="input-noncheck">
-							</li>
-							<li>
-								<label for="zipcode">우편번호</label>
-								<input type="text" name="zipcode" id="zipcode" maxlength="5" autocomplete="off" class="input-noncheck">
-								<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
-							</li>
-							<li>
-								<label for="address1">주소</label>
-								<input type="text" name="address1" id="address1" maxlength="30" class="input-noncheck">
-							</li>
-							<li>
-								<label for="address2">상세주소</label>
-								<input type="text" name="address2" id="address2" maxlength="30" class="input-noncheck">
-							</li>
-						</ul>
+						<table>
+							<tr>
+								<td class="re-title">* <label for="id">아이디</label></td>
+								<td class="re-content">
+									<input type="text" name="id" id="id" maxlength="12" autocomplete="off" class="input-check">&nbsp;
+									<input type="button" value="ID중복체크" id="id_check"> &nbsp;* 영문 숫자 혼합(6자~12자)
+									<br><span id="message_id"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="re-title">* <label for="name">이름</label></td>
+								<td class="re-content">
+									<input type="text" name="name" id="name" maxlength="10" class="input-check">
+								</td>
+							</tr>
+							<tr>
+								<td class="re-title">* <label for="passwd">비밀번호</label></td>
+								<td class="re-content">
+									<input type="password" name="passwd" id="passwd" maxlength="12" class="input-check">
+									&nbsp;* 영문 숫자 혼합(8자~12자)
+								</td>
+							</tr>
+							<tr>
+								<td class="re-title">* <label for="phone">전화번호</label></td>
+								<td class="re-content">
+									<input type="text" name="phone" id="phone" maxlength="13" class="input-check">
+									&nbsp;* 000-0000-0000 형식으로 입력
+								</td>
+							</tr>
+							<tr>
+								<td class="re-title">* <label for="email">이메일</label></td>
+								<td class="re-content">
+									<input type="email" name="email" id="email" maxlength="50" class="input-check">&nbsp;
+									<input type="button" value="이메일 중복체크" id="email_check"> &nbsp;* 이메일 중복사용 불가
+									<br><span id="message_email"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="re-title">* <label for="gender">성별</label></td>
+								<td class="re-content">
+									<input type="radio" id="male" name="gender" value="0" class="input-check">&nbsp;남자&nbsp;&nbsp;
+									<input type="radio" id="female" name="gender" value="1" class="input-check">&nbsp;여자
+								</td>
+							</tr>
+							<tr>
+								<td class="re-title">&nbsp;&nbsp;<label for="birth">생년월일</label></td>
+								<td class="re-content">
+									<input type="date" name="birth" id="birth" maxlength="30" class="input-noncheck">
+								</td>
+							</tr>
+							<tr>
+								<td class="re-title">&nbsp;&nbsp;<label for="zipcode">주소</label></td>
+								<td class="re-content">
+									<input type="text" name="zipcode" id="zipcode" maxlength="5" autocomplete="off" class="input-noncheck address-input">
+									&nbsp;<input type="button" value="우편번호 찾기" onclick="execDaumPostcode()">
+									<br><input type="text" name="address1" id="address1" maxlength="30" class="input-noncheck address-input">
+									<br><input type="text" name="address2" id="address2" maxlength="30" class="input-noncheck address-input">
+								</td>
+							</tr>
+						</table>
 						<br>
 						<div class="align-center">
 							<input type="submit" value="회원가입">
