@@ -369,7 +369,7 @@ public class QABoardDAO {
 		String sql = null;
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT * FROM qaboard WHERE qab_ref=?";
+			sql = "SELECT * FROM qaboard JOIN member USING(mem_num) WHERE qab_ref=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, qab_ref);
 			rs = pstmt.executeQuery();
@@ -381,7 +381,8 @@ public class QABoardDAO {
 				qaboard.setQab_reg_date(rs.getDate("qab_reg_date"));
 				qaboard.setQab_modify_date(rs.getDate("qab_modify_date"));
 				qaboard.setQab_num(rs.getInt("qab_num"));
-				qaboard.setQab_ref(rs.getInt("qab_ref"));
+				qaboard.setQab_ref(rs.getInt("qab_ref"));//답변 게시글의 qab_num
+				qaboard.setMem_id(rs.getString("mem_id"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);

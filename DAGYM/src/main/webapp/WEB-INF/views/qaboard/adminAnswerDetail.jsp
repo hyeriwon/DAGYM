@@ -68,12 +68,15 @@
 					<hr size="1" noshade="noshade" width="100%">
 					<%-- 내용 --%>
 					<div class="content">
-						<p>${qaboard.qab_content}</p>
-						<br>
+						<div class="content-text">
+							<br>${qaboard.qab_content}<br>
+						</div>
 						<%-- 첨부파일이 있을 경우 --%>	
 						<c:if test="${!empty qaboard.qab_filename}">
-						<div class="align-left">
-							<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" class="detail-img">
+						<div class="content-img align-left">
+							<br>
+							<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" class="detail-img" width="500">
+							<br>
 						</div>
 						</c:if>
 					</div><br>
@@ -99,15 +102,14 @@
 					<c:if test="${answerBoard!=null}">
 						<div id="answer-div">
 							<p id="answer_content">${answerBoard.qab_content}</p><br>
-							<hr size="1" noshade="noshade" width="100%">
 							<div class="align-right">
 								<c:if test="${!empty answerBoard.qab_modify_date}">
 									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;&nbsp;&nbsp;&nbsp;
 								</c:if>
-								작성일 &nbsp;${answerBoard.qab_reg_date}&nbsp;&nbsp;&nbsp;&nbsp;
+								작성일 &nbsp;${answerBoard.qab_reg_date}&nbsp;&nbsp;&nbsp;&nbsp; 작성자 &nbsp; ${answerBoard.mem_id}
 								<c:if test="${user_num == answerBoard.mem_num}">
 									<input type="button" id="update_answer_btn" value="수정" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">&nbsp;
-									<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}">
+									<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">
 								</c:if>
 							</div>
 						</div>

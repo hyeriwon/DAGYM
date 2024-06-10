@@ -79,11 +79,12 @@ $(document).ready(function(){
 	/*----------댓글 삭제----------*/
 	$(document).on('click','#delete_answer_btn', function(){
 		let qab_num = $(this).attr('data-num');
+		let qab_ref = $(this).attr('data-qnum');
 		//AJAX 요청
 	 	$.ajax({
 	      url:'adminDeleteAnswer.do',
 	      type:'post',
-	      data:{qab_num:qab_num},
+	      data:{qab_num:qab_num,qab_ref:qab_ref},
 	      dataType:'json',
 	      success: function(param) {
 	          if(param.result == 'logout') {

@@ -34,6 +34,8 @@ public class AdminUpdateAnswerAction implements Action{
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		if(user_num==null) {
 			mapAjax.put("result", "logout");
+		}else if(user_auth < 8) {
+			mapAjax.put("result", "wrongAccess");
 		}else if(user_num!=null && user_num==db_reply.getMem_num()){//로그인한 사람이 작성자와 일치하는지 체크
 			QABoardVO qaboard = new QABoardVO();
 			qaboard.setMem_num(user_num);//댓글 작성자 mem_num

@@ -35,12 +35,13 @@
     cursor: pointer;
 }
 
-.content{
-	 margin-top: 100px;
-	 margin-bottom: 200px;
-}
-.content p{
+.content-text{
 	 padding-left: 20px;
+	 margin-top: 50px;
+	 margin-bottom:100px;
+}
+.content-img{
+	padding-left: 20px;
 }
 /*========사용자 1:1문의 내용========*/
 .content-header {

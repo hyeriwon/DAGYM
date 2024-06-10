@@ -11,6 +11,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import kr.controller.Action;
 import kr.qaboard.dao.QABoardDAO;
+import kr.qaboard.vo.QABoardVO;
 
 public class AdminDeleteAnswerAction implements Action{
 
@@ -20,6 +21,7 @@ public class AdminDeleteAnswerAction implements Action{
 		
 		HttpSession session = request.getSession();
 		int qab_num = Integer.parseInt(request.getParameter("qab_num"));//댓글번호
+		int qab_ref = Integer.parseInt(request.getParameter("qab_ref"));//댓글의 게시글 번호
 		
 		Map<String, String> mapAjax = new HashMap<String, String>();
 		
@@ -27,10 +29,13 @@ public class AdminDeleteAnswerAction implements Action{
 		Integer user_num = (Integer)session.getAttribute("user_num");
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
 		QABoardDAO dao = QABoardDAO.getInstance();
+		QABoardVO db_reply = dao.getAdminBoard(qab_ref);
 		
 		if(user_num==null) {
 			mapAjax.put("result", "logout");
-		}else if(user_auth >= 8 && user_num!=null) {
+		}else if(user_auth < 8) {
+			mapAjax.put("result", "wrongAccess");
+		}else if(user_num!=null && user_num==db_reply.getMem_num()) {
 			dao.deleteAdminBoard(qab_num);
 			mapAjax.put("result", "success");
 		}else {
