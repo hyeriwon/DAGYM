@@ -265,6 +265,13 @@ input[type="search"]::-moz-search-cancel {
 #monthHeader{
 	font-family: "NanumSquareNeo", sans-serif;
 }
+/* 강제 오른쪽 정렬
+---------------------*/
+.align-right {
+    width: 100%; /* 전체 너비 사용 */
+    display: flex;
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
 /*----------------------------------------*/
 
 /* Template default CSS
