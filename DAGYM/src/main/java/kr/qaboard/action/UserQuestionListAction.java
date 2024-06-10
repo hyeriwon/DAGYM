@@ -29,14 +29,16 @@ public class UserQuestionListAction implements Action{
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		
+		String category = request.getParameter("category");
+		
 		QABoardDAO qaboardDAO = QABoardDAO.getInstance();
-		int count = qaboardDAO.getInquiryCount(user_num);
+		int count = qaboardDAO.getInquiryCount(user_num,category);
 		
 		PagingUtil page = new PagingUtil(Integer.parseInt(pageNum), count, 20,10,"userQuestionList.do");
 		
 		List<QABoardVO> list = null;
 		if(count > 0) {
-			list = qaboardDAO.getInquiryList(user_num, page.getStartRow(), page.getEndRow());
+			list = qaboardDAO.getInquiryList(user_num, page.getStartRow(), page.getEndRow(), category);
 		}
 		
 		request.setAttribute("count", count);

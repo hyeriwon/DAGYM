@@ -49,6 +49,7 @@
 					<!-- content 시작 -->		
 					<%-- 목록 --%>
 					<div class="list-span">
+					<c:if test="${count > 0}">
 					<div class="align-left">
 						<form action="userQuestionList.do" method="get">
 							<select name="category" onchange="this.form.submit()">
@@ -61,6 +62,7 @@
 							</select>
 						</form>
 					</div>
+					</c:if>
 					<div class="align-right">
 						<input type="button" value="등록" onclick="location.href='userWriteForm.do'">
 					</div>

@@ -19,7 +19,7 @@ public class QABoardDAO {
 	
 	/*--------------------사용자--------------------*/
 	//총 글의 개수, 검색 개수
-	public int getInquiryCount(int mem_num)throws Exception{
+	public int getInquiryCount(int mem_num, String category)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -28,15 +28,16 @@ public class QABoardDAO {
 		int count = 0;
 		try {
 			conn = DBUtil.getConnection();
-			/* 필터링, 인자에 String qabtype 추가
-			 if(qabtype!=null && !"".equals(qabtype)) {
-				if(qabtype.equals("1")) sub_sql += "AND qab_type = ?";
-			 }
-			*/
+			if(category!=null && !"".equals(category)) {
+				sub_sql += "AND qab_type=?";
+			}
 			
 			sql = "SELECT count(*) FROM qaboard JOIN member USING(mem_num) WHERE mem_num=? AND qab_remove=0 AND qab_ref=0" + sub_sql;
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
+			if(category!=null && !"".equals(category)) {
+				pstmt.setString(2, category);
+			}
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				count = rs.getInt(1);
@@ -49,7 +50,7 @@ public class QABoardDAO {
 		return count;
 	}
 	//글 목록, 검색 글 목록
-	public List<QABoardVO> getInquiryList(int mem_num, int startRow, int endRow)throws Exception{
+	public List<QABoardVO> getInquiryList(int mem_num, int startRow, int endRow, String category)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -59,14 +60,19 @@ public class QABoardDAO {
 		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
-			
+			if(category!=null && !"".equals(category)) {
+				sub_sql += "AND q.qab_type=?";
+			}
 			sql = "SELECT * FROM (SELECT a.*, rownum rnum FROM (SELECT q.qab_num, q.mem_num, q.qab_type,q.qab_title, "
 				+ "q.qab_content, q.qab_reg_date, a.qab_ref,m.mem_id,q.qab_remove FROM qaboard q LEFT OUTER JOIN "
 				+ "qaboard a ON q.qab_num = a.qab_ref JOIN member m ON q.mem_num = m.mem_num WHERE m.mem_num=? AND q.qab_remove=0 "
-				+ "AND q.qab_ref=0 ORDER BY q.qab_reg_date DESC) a) WHERE rnum >= ? AND rnum <= ?";
+				+ "AND q.qab_ref=0 " +sub_sql+ " ORDER BY q.qab_reg_date DESC) a) WHERE rnum >= ? AND rnum <= ?";
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(++cnt, mem_num);
+			if(category!=null && !"".equals(category)) {
+				pstmt.setString(++cnt, category);
+			}
 			pstmt.setInt(++cnt, startRow);
 			pstmt.setInt(++cnt, endRow);
 			rs = pstmt.executeQuery();
