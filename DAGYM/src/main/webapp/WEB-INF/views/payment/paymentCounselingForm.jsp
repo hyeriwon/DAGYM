@@ -18,6 +18,13 @@ window.onload=function(){
 			title.focus();
 			return false;
 		}
+		const contact = document.getElementById('contact');
+		if(contact.value.trim()==''){
+			alert('연락처를 입력하세요');
+			contact.value = '';
+			contact.focus();
+			return false;
+		}
 		const content = document.getElementById('qab_content');
 		if(content.value.trim()==''){
 			alert('내용을 입력하세요');
@@ -25,6 +32,8 @@ window.onload=function(){
 			content.focus();
 			return false;
 		}
+		// 연락처와 내용을 합쳐서 qab_content에 저장
+		content.value = '연락처: ' + contact.value + ' \n내용: ' + content.value;
 	};
 };
 </script>
@@ -76,6 +85,10 @@ window.onload=function(){
 							<li>
 								<label for="qab_title">제목</label>
 								<input type="text" name="qab_title" id="qab_title" maxlength="50">
+							</li>
+							<li>
+								<label for="contact">연락처</label>
+								<input type="text" name="contact" id="contact">
 							</li>
 							<li>
 								<label for="qab_content">내용</label>
