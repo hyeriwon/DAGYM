@@ -95,7 +95,7 @@ input{
 	margin-top:4px;
 	font-family: "NanumSquareNeo", sans-serif;
 }
-input[type="text"],input[type="password"]{
+input[type="text"],input[type="password"],input[type="email"],input[type="date"]{
 	font-size: 13px;
 	height:35px;
 	width:310px;	
