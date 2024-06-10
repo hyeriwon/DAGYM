@@ -71,7 +71,7 @@ $(function(){
 					                        <input type="text" class="form-input" placeholder="아이디" name="id" id="id" maxlength="12" autocomplete="off" class="w-100 mb-2">
 					                        <input type="password" class="form-input" placeholder="비밀번호" name="passwd" id="passwd" maxlength="12" class="w-100 mb-2">
 					                        <button type="submit" value="로그인" class="btn btn-primary w-100">LOGIN</button>
-					                        <br><br><br>
+					                        <br><br><br><br>
 					                        <div class="text-center">
 					                            <a href="${pageContext.request.contextPath}/member/registerUserForm.do">회원가입 | </a>
 					                            <a href="${pageContext.request.contextPath}/find/idFindForm.do">아이디 찾기 | </a>

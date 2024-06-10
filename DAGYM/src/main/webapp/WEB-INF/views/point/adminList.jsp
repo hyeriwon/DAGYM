@@ -9,11 +9,17 @@
 <title>POINT</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <style>
+    .point-gray {
+        color: #C4C4C4;
+    }
+    .point-blue {
+        color: #3497DB;
+    }
     .point-in {
-        color: blue;
+        color: #2E7FBE;
     }
     .point-out {
-        color: red;
+        color: #E63F2B;
     }
 </style>
 </head>
@@ -56,16 +62,18 @@
 					<div class="chart-table">
 					
 					<!-- content 시작 -->
-					<br>
 					<c:if test="${count == 0}">
 					<div class="result-display">
 						표시할 게시물이 없습니다.
 					</div>
 					</c:if>
 					<c:if test="${count > 0}">
-					<h3>전체 누적 : <fmt:formatNumber value="${totalPointsIn}" type="number" groupingUsed="true"/>p</h3>
-					<h3>사용 가능 : <span class="point-in"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h3>
-					<input type="button" value="포인트 사용" onclick="location.href='outForm.do?mem_num=${mem_num}'">
+					<h4><span class="point-gray">전체 누적</span>&emsp;<fmt:formatNumber value="${totalPointsIn}" type="number" groupingUsed="true"/>p</h4>
+					<h4><span class="point-gray">사용 가능</span>&emsp;<span class="point-blue"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h4>
+					<div class="align-right">
+						<input type="button" value="포인트 사용" onclick="location.href='outForm.do?mem_num=${mem_num}'">
+					</div>
+					<br>
 					<table>
 						<thead>
 							<tr>

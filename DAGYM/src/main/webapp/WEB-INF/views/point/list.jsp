@@ -9,11 +9,17 @@
 <title>POINT</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <style>
+    .point-gray {
+        color: #C4C4C4;
+    }
+    .point-blue {
+        color: #3497DB;
+    }
     .point-in {
-        color: blue;
+        color: #2E7FBE;
     }
     .point-out {
-        color: red;
+        color: #E63F2B;
     }
 </style>
 </head>
@@ -63,8 +69,8 @@
 					</c:if>
 					<c:if test="${count > 0}">
 					<!-- 숫자 쉼표 표시 -->
-					<h4>전체 누적 : <fmt:formatNumber value="${totalPointsIn}" type="number" groupingUsed="true"/>p</h4>
-					<h4>사용 가능 : <span class="point-in"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h4>
+					<h4><span class="point-gray">전체 누적</span>&emsp;<fmt:formatNumber value="${totalPointsIn}" type="number" groupingUsed="true"/>p</h4>
+					<h4><span class="point-gray">사용 가능</span>&emsp;<span class="point-blue"><fmt:formatNumber value="${totalPointsInOut}" type="number" groupingUsed="true"/>p</span></h4>
 					<br>
 					<table>
 						<thead>
