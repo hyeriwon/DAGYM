@@ -223,6 +223,32 @@ public class ExerciseDAO {
 		}
 		return exercise;
 	}
+	//날짜별 총 운동시간 구하기
+	public int calExetime(String exe_date, int mem_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		int total_exetime=0;
+		try {
+			conn=DBUtil.getConnection();
+			sql="SELECT SUM(exe_time) AS total_exetime FROM exercise WHERE exe_date= ?  AND mem_num = ? GROUP BY exe_date";
+			pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, exe_date);
+            pstmt.setInt(2, mem_num);
+            rs = pstmt.executeQuery();
+            if(rs.next()) {
+            	total_exetime =rs.getInt("total_exetime");
+            }
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		
+		return total_exetime;
+	}
+	
 
 
 }

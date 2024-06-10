@@ -8,6 +8,7 @@ import java.util.List;
 
 import kr.tmenu.vo.TmenuVO;
 import kr.util.DBUtil;
+import kr.util.StringUtil;
 
 public class TmenuDAO {
 	
@@ -229,7 +230,7 @@ public class TmenuDAO {
 			list = new ArrayList<TmenuVO>();
 			while(rs.next()) {
 				TmenuVO item = new TmenuVO();
-				item.setTme_content(rs.getString("tme_content"));
+				item.setTme_content(StringUtil.useBrHtml(rs.getString("tme_content")));
 				item.setTme_num(rs.getInt("tme_num"));
 				item.setTme_crabs(rs.getInt("tme_crabs"));
 				item.setTme_kcal(rs.getInt("tme_kcal"));

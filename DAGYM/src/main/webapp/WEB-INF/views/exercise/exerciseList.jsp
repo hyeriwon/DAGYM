@@ -81,7 +81,10 @@ function confirmDelete(url) {
 						<input type="button" value="등록" onclick="location.href='exerciseMain.do'">
 						</c:if>
 						<c:if test="${ user_auth >=8}">
-							<input type="button" value="회원검색" onclick="location.href='exerciseMain.do'">
+							<input type="button" value="회원목록" onclick="location.href='exerciseMain.do'">
+						</c:if>
+						<c:if test="${ user_auth ==2}">
+							<input type="button" value="목록" onclick="location.href='exerciseMain.do'">
 						</c:if>
 						</div>
 						<br>

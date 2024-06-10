@@ -49,10 +49,10 @@ window.onload=function(){
 			data: {tmenu_name:$('#tmenu_name').val()}, // 데이터를 객체로 전달
 			dataType:'json',
 			success:function(param){
-				let tableContent ='<tr><th>메뉴</th><th>칼로리</th>선택<th></th></tr>';
+				let tableContent ='<tr><th>메뉴</th><th>칼로리</th><th>선택</th></tr>';
 				$(param.tmenuList).each(function(index,item){
-					tableContent += '<tr><td>'+item.tme_name+'</td>';
-					tableContent +='<td>'+item.tme_kcal+'</td><td><button type="button" onclick="selectMenu(\''+item.tme_name+'\')">선택</button></td></tr>';
+					tableContent += '<tr><td class="align-center">'+item.tme_name+'</td>';
+					tableContent +='<td class="align-center">'+item.tme_kcal+'</td><td class="align-center"><input type="button" value="선택" onclick="selectMenu(\''+item.tme_name+'\')"></td></tr>';
 				});
 				$('#table_menu').html(tableContent);
 			},	

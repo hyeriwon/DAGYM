@@ -4,8 +4,6 @@
 	display:flex;
 	justify-content:center;/*가로 정렬*/
 }
-
-
 .dialog {
   display:none;
   position: fixed;
@@ -52,7 +50,7 @@
   overflow-y: auto;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  background-color: #fff;
+  background-color: rgb(0, 0, 0);
 }
 
 table caption {

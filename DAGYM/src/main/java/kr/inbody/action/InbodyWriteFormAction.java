@@ -29,7 +29,7 @@ public class InbodyWriteFormAction implements Action{
 				//해당날짜에 작성된 기록 있으면 작성된 기록으로 이동 
 				if(inb_date.equals(inbody.getInb_date())) { 
 					request.setAttribute("notice_msg", "인바디 등록된 내역이 있습니다.");
-					request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyList.do");
+					request.setAttribute("notice_url", request.getContextPath()+"/inbody/inbodyDetail.do?inb_date="+inb_date);
 					return "/WEB-INF/views/common/alert_view.jsp";				
 				}
 			}

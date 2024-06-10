@@ -8,6 +8,7 @@ import kr.controller.Action;
 import kr.tmenu.dao.TmenuDAO;
 import kr.tmenu.vo.TmenuVO;
 import kr.util.FileUtil;
+import kr.util.StringUtil;
 
 public class TmenuWriteAction implements Action{
 
@@ -24,7 +25,7 @@ public class TmenuWriteAction implements Action{
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		TmenuVO tmenu = new TmenuVO();
-		tmenu.setTme_name(request.getParameter("menu_name"));
+		tmenu.setTme_name(StringUtil.useNoHTML(request.getParameter("menu_name")));
 		tmenu.setTme_content(request.getParameter("menu_content"));
 		tmenu.setTme_kcal(Integer.parseInt(request.getParameter("menu_kcal")));
 		tmenu.setTme_crabs(Integer.parseInt(request.getParameter("menu_crabs")));

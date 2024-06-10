@@ -84,7 +84,11 @@
 										</td>
 									</tr>
 								</c:forEach>
+								<tr>
+								<td colspan="4">총 운동시간 &ensp;:&ensp; ${total_exetime}분</td>
+								</tr>
 							</table>
+							
 						</div>
 						<div class="align-center">
 							<input type="button" value="확인"

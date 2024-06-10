@@ -96,7 +96,11 @@ window.onload=function(){
 									onclick="location.href='list.do'">
 							</c:if>
 							<c:if test="${ user_auth >=8}">
-								<input type="button" value="회원검색"
+								<input type="button" value="회원목록"
+									onclick="location.href='list.do'">
+							</c:if>
+							<c:if test="${ user_auth ==2}">
+								<input type="button" value="목록"
 									onclick="location.href='list.do'">
 							</c:if>
 						</div>

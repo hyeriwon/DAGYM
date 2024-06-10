@@ -60,7 +60,7 @@ function confirmDelete(url) {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Inbody</span>
-                            <h2><c:if test="${ user_auth >=8}">관리자전용</c:if>인바디</h2>
+                            <h2><c:if test="${ user_auth >=8}">(관리자전용)</c:if>인바디</h2>
                     	</div>
                  </div>	
              </div>
@@ -92,6 +92,14 @@ function confirmDelete(url) {
 						<c:if test="${user_auth==2}">
 						<input type="button" value="등록" onclick="location.href='inbodyMain.do'">
 						</c:if>
+							<c:if test="${ user_auth >=8}">
+								<input type="button" value="회원목록"
+									onclick="location.href='inbodyList.do'">
+							</c:if>
+							<c:if test="${ user_auth ==2}">
+								<input type="button" value="목록"
+									onclick="location.href='inbodyList.do'">
+							</c:if>
 					</div>
 					<br>
 					
@@ -107,11 +115,13 @@ function confirmDelete(url) {
 									<th>측정일자</th>
 									<th>키(cm)</th>
 									<th>몸무게(kg)</th>
+									<th>몸무게 변화량(kg)</th>
 									<th>골격근량(kg)</th>
+									<th>골격근 변화량(kg)</th>
 									<th>삭제</th>
 								</tr>
 							</thead>
-							<c:forEach var="inbody" items="${list}">
+							<c:forEach var="inbody" items="${list}"  varStatus="status">
 								<tr>
 									<c:if test="${user_auth>=8}">
 									<td><a href="inbodyDetail.do?inb_date=${inbody.inb_date}&client_num=${param.client_num}">${inbody.inb_date}</a></td>
@@ -121,7 +131,11 @@ function confirmDelete(url) {
 									</c:if>
 									<td>${inbody.inb_hei }</td>
 									<td>${inbody.inb_wei}</td>
+									<td>${inbody.inb_wei- list[status.index + 1].inb_wei}
+									</td>
 									<td>${inbody.inb_mus}</td>
+									<td>${inbody.inb_mus- list[status.index + 1].inb_mus}
+									</td>
 									<td>
 									<div class="align-center">
 										<c:if test="${user_auth==2}">

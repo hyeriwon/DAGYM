@@ -48,23 +48,23 @@
 					
 					<!-- content 시작 -->
 					<div class="align-center">
-						<h2>${tmenu.tme_name}</h2>
+						<h4>${tmenu.tme_name}</h4>
 					</div>
 					<br>
 					<div style="overflow: auto;">
 						<div class="align-left" style="width:600px; float: left;">
-							<img src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="600px">
+							<img src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="500px">
 						</div >
 						<div class="align-right" style="width:300px; float: right;">
-							<h2>음식정보</h2>
 							<ul>
+								<li>음식정보</li>
 								<li>칼로리 : ${tmenu.tme_kcal} Kcal</li>
 								<li>탄수화물 : ${tmenu.tme_crabs} g</li>
 								<li>단백질 : ${tmenu.tme_protein} g</li>
 								<li>지방: ${tmenu.tme_lipid} g</li>
 							</ul>
 						</div>
-						<div class="align-right content-text" style="width:300px; float: right;">
+						<div class="content-text" style="width:300px; float: right;">
 							${tmenu.tme_content}
 						</div>
 						<br>

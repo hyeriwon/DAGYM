@@ -28,6 +28,8 @@ public class ExerciseDetailAction  implements Action{
 			String exe_date = request.getParameter("exe_date");
 			ExerciseDAO exercisedao = ExerciseDAO.getInstance();
 			List<ExerciseVO> exerciselist = exercisedao.getDetailExercise(exe_date, user_num);
+			int total_exetime = exercisedao.calExetime(exe_date, user_num);
+			request.setAttribute("total_exetime", total_exetime);
 			request.setAttribute("exerciselist",exerciselist );
 			request.setAttribute("exe_date", exe_date);
 			return "/WEB-INF/views/exercise/exerciseDetail.jsp";
@@ -35,6 +37,8 @@ public class ExerciseDetailAction  implements Action{
 		String exe_date = request.getParameter("exe_date");
 		ExerciseDAO exercisedao = ExerciseDAO.getInstance();
 		List<ExerciseVO> exerciselist = exercisedao.getDetailExercise(exe_date, user_num);
+		int total_exetime = exercisedao.calExetime(exe_date, user_num);
+		request.setAttribute("total_exetime", total_exetime);
 		request.setAttribute("exerciselist",exerciselist );
 		request.setAttribute("exe_date", exe_date);
 		

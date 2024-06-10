@@ -83,8 +83,8 @@
 								</tr>
 								</c:forEach>
 								<tr>
-									<td colspan="2" class="align-right">총칼로리</td>
-									<td class="align-center"><fmt:formatNumber value="${totalKcal}"/>Kcal</td>
+									<td colspan="2">총칼로리</td>
+									<td><fmt:formatNumber value="${totalKcal}"/>Kcal</td>
 								</tr>
 						</table>
 					</div>
