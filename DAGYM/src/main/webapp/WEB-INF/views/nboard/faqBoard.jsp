@@ -8,7 +8,7 @@
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<style>
+<style type="text/css">
 body{/*전체적인 스타일*/
 	color:white;
 }
@@ -21,7 +21,7 @@ div.chart-table h2 {
 }
 .accordion-button.collapsed{/*아코디언 항목이 닫혀있을 때*/
 	color:black;
-	background-color:white;
+	background-color:#f0f0f0;
 }
 .accordion-button:not(.collapsed){/* 아코디언 항목이 열렸을 때 */
 	color: black;
@@ -38,7 +38,9 @@ accordion-body{/*특정한 컴포넌트인 아코디언의 내용 부분*/
 a {
   text-decoration: none;
 }
-  
+input[type="button"].payinfo {
+	color:#b5b5b5;
+}
 </style>
 </head>
 <body>
@@ -106,7 +108,7 @@ a {
 									<div class="accordion-body">
 										다짐피트니스에서는 좀 더 자세한 회원권 안내를 위해서 상담 후 회원권을 등록해드리고 있습니다.<br>
 										회원권 안내 페이지에서 이용 요금 확인 후 상담을 신청해주세요.<br>
-										<input type="button" value="회원권안내페이지" onclick="location.href='${pageContext.request.contextPath}/payment/paymentInfo.do'">
+										<input type="button" class="payinfo" value="회원권안내페이지" onclick="location.href='${pageContext.request.contextPath}/payment/paymentInfo.do'">
 									</div>
 								</div>
 							</div><!-- end of item -->
@@ -122,7 +124,7 @@ a {
 									<div class="accordion-body">
 										회원권은 사용하지 않았을 경우 7일 이내 환불이 가능합니다.<br>
 										또한 회원권당 만료일이 다르므로 자세한 내용은 회원권 안내 페이지를 참고해주세요.<br>
-										<input type="button" value="회원권안내페이지" onclick="location.href='${pageContext.request.contextPath}/payment/paymentInfo.do'">
+										<input type="button" class="payinfo" value="회원권안내페이지" onclick="location.href='${pageContext.request.contextPath}/payment/paymentInfo.do'">
 									</div>
 								</div>
 							</div><!-- end of item -->

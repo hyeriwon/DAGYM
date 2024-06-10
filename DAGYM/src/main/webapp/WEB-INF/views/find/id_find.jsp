@@ -47,10 +47,12 @@
 					<!-- content 시작 -->
 					<div class="result-display">
 						<div class="align-center">
-							일치하는 회원정보가 있습니다.<p>
+							일치하는 회원정보가 있습니다.<br>
 							회원님의 아이디 : ${foundId}
+							<br><br>
+							<input type="button" value="로그인" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'">
 							<br>
-							<button onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'">로그인</button>
+							<a href="${pageContext.request.contextPath}/find/pwFindForm.do">비밀번호 찾기</a>
 						</div>
 					</div>
 					<!-- content 끝 -->
