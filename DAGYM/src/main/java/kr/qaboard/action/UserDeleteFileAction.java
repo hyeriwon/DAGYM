@@ -29,7 +29,7 @@ public class UserDeleteFileAction implements Action{
 			int qab_num = Integer.parseInt(request.getParameter("qab_num"));
 			
 			QABoardDAO dao = QABoardDAO.getInstance();
-			QABoardVO qaboard = dao.getUserBoard(qab_num,user_num);
+			QABoardVO qaboard = dao.getUserBoard(qab_num);
 			
 			//로그인한 회원번호와 작성자 회원번호 일치 여부 체크
 			if(user_num!=qaboard.getMem_num()) {

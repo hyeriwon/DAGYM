@@ -23,9 +23,9 @@ public class UserUpdateFormAction implements Action{
 		int qab_num = Integer.parseInt(request.getParameter("qab_num"));
 		
 		QABoardDAO dao = QABoardDAO.getInstance();
-		QABoardVO qaboard = dao.getUserBoard(qab_num,user_num);
+		QABoardVO qaboard = dao.getUserBoard(qab_num);
 		
-		if(user_num!=qaboard.getMem_num()) {
+		if(user_num!=qaboard.getMem_num()) {//작성자와 일치하는지 확인
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
