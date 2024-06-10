@@ -169,7 +169,7 @@ public class QABoardDAO {
 		int cnt = 0;
 		try {
 			conn = DBUtil.getConnection();
-			if(qaboard.getQab_filename()!=null&&"".equals(qaboard.getQab_filename())) {
+			if(qaboard.getQab_filename()!=null&&!"".equals(qaboard.getQab_filename())) {
 				sub_sql =",qab_filename=?";
 			}
 			sql = "UPDATE qaboard SET qab_type=?,qab_title=?,qab_content=?,qab_ip=?,qab_modify_date=SYSDATE" + sub_sql + " WHERE qab_num=?";
@@ -178,7 +178,7 @@ public class QABoardDAO {
 			pstmt.setString(++cnt, qaboard.getQab_title());
 			pstmt.setString(++cnt, qaboard.getQab_content());
 			pstmt.setString(++cnt, qaboard.getQab_ip());
-			if(qaboard.getQab_filename()!=null&&"".equals(qaboard.getQab_filename())) {
+			if(qaboard.getQab_filename()!=null&&!"".equals(qaboard.getQab_filename())) {
 				pstmt.setString(++cnt, qaboard.getQab_filename());
 			}
 			pstmt.setInt(++cnt, qaboard.getQab_num());
