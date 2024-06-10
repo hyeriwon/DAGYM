@@ -33,8 +33,8 @@ public class ExerciseModifyAction implements Action{
 		exercise.setExe_content(request.getParameter("exe_content"));
 		ExerciseDAO exercisedao = ExerciseDAO.getInstance();
 		exercisedao.updateExercise(exercise);
-		Integer client_num = Integer.parseInt(request.getParameter("client_num"));
 		if(user_auth >= 8) {
+			Integer client_num = Integer.parseInt(request.getParameter("client_num"));
 			request.setAttribute("notice_msg", "(관리자)운동기록이 수정되었습니다.");
 			request.setAttribute("notice_url", request.getContextPath()+"/exercise/exerciseDetail.do?exe_date="+exercise.getExe_date()+"&client_num="+client_num);
 			return "/WEB-INF/views/common/alert_view.jsp";

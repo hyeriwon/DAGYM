@@ -142,9 +142,6 @@
 								<c:if test="${member.mem_auth > 0}">
 								<td><a href="${pageContext.request.contextPath}/exercise/exerciseList.do?client_num=${member.mem_num}">${member.mem_id}</a></td>
 								</c:if>
-								<c:if test="${member.mem_auth == 0}">
-								<td>${member.mem_id}</td>
-								</c:if>
 								<td>${member.mem_name}</td>
 								<td>${member.mem_phone}</td>
 								<td>

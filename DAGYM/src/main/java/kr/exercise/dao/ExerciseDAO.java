@@ -128,7 +128,7 @@ public class ExerciseDAO {
 				execise.setExe_type(rs.getString("exe_type"));
 				execise.setExe_time(rs.getInt("exe_time"));
 				execise.setExe_date(rs.getString("exe_date"));
-				execise.setExe_content(StringUtil.useBrNoHTML(rs.getString("exe_content")));
+				execise.setExe_content(StringUtil.useNoHTML(rs.getString("exe_content")));
 				list.add(execise);
 			}
 		}catch(Exception e) {
@@ -214,7 +214,7 @@ public class ExerciseDAO {
 				exercise.setExe_type(rs.getString("exe_type"));
 				exercise.setExe_time(rs.getInt("exe_time"));
 				exercise.setExe_date(rs.getString("exe_date"));
-				exercise.setExe_content(StringUtil.useBrNoHTML(rs.getString("exe_content")));
+				exercise.setExe_content(rs.getString("exe_content"));
 			}
 		}catch(Exception e){
 			throw new Exception(e);

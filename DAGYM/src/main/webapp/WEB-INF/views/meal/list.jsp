@@ -91,7 +91,7 @@ window.onload=function(){
                 		<div class="section-title">
                     		<span>Meal</span>
                     		<c:if test="${user_auth == 2}"><h2>식사등록</h2></c:if>
-	                     <c:if test="${user_auth >= 8}"><h2>회원목록 (식사기록)</h2></c:if>
+	                     <c:if test="${user_auth >= 8}"><h2>회원목록(식사기록)</h2></c:if>
                     	</div>
                  </div>
              </div>

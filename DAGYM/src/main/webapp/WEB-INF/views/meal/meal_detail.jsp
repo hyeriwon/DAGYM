@@ -63,7 +63,7 @@ window.onload=function(){
 					<div class="team-title">
 						<div class="section-title">
 							<span>Meal</span>
-							<h2>식사기록</h2>
+							<h2><c:if test="${user_auth >=8}">(관리자전용)</c:if>식사기록</h2>
 						</div>
 					</div>
 				</div>
@@ -91,7 +91,7 @@ window.onload=function(){
 						<br>
 
 						<div class="list-space align-right">
-							<c:if test="${ user_auth ==2}">
+							<c:if test="${user_auth ==2}">
 								<input type="button" value="등록"
 									onclick="location.href='list.do'">
 							</c:if>
@@ -103,7 +103,10 @@ window.onload=function(){
 						<br>
 						
 						<c:if test="${count==0 }">
-							<div class="result-display">표시할 게시물이 없습니다.</div>
+							<div class="result-display">
+							<div class="align-center" >표시할 게시물이 없습니다.</div>
+							<br>
+							</div>
 						</c:if>
 						<c:if test="${count>0 }">
 							<table>
