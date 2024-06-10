@@ -12,6 +12,7 @@ public class PaymentVO {
 	
 	private String mem_name;
 	private Date pay_exp;
+	private int points;
 
 	public int getPay_num() {
 		return pay_num;
@@ -75,5 +76,13 @@ public class PaymentVO {
 
 	public void setPay_exp(Date pay_exp) {
 		this.pay_exp = pay_exp;
+	}
+
+	public int getPoints() {
+		return points;
+	}
+
+	public void setPoints(int points) {
+		this.points = points;
 	}
 }

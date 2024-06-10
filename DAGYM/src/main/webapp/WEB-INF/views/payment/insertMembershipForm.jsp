@@ -22,23 +22,28 @@ $(function() {
         var payEnroll;
         var payFee;
         var formatted_fee;
+        var points;
 
         if (membershipType == "10회권") {
             payEnroll = 10;
             payFee = 600000;
+            points = 300;
             formatted_fee = payFee.toLocaleString();
         } else if (membershipType == "20회권") {
             payEnroll = 20;
             payFee = 1100000;
+            points = 500;
             formatted_fee = payFee.toLocaleString();
         } else if (membershipType == "30회권") {
             payEnroll = 30;
             payFee = 1500000;
+            points = 700;
             formatted_fee = payFee.toLocaleString();
         }
 
         $('#pay_enroll').val(payEnroll);
         $('#pay_fee').val(payFee);
+        $('#points').val(points);
         $('#formatted_fee').val(formatted_fee);
     }
 
@@ -113,6 +118,9 @@ $(function() {
 			                    <input type="text" id="formatted_fee" name="formatted_fee" readonly>
 			                    <input type="hidden" name="pay_fee" id="pay_fee">
 			                </li>
+			                <li>
+                                <input type="hidden" name="points" id="points">
+                            </li>
 						</ul>
 						<div class="align-center">
 							<input type="submit" value="등록">

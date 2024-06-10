@@ -185,46 +185,47 @@ public class PaymentDAO {
 	}
 	
 	//회원권 등록(관리자)
-		public void insertMembership(PaymentVO payment)throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			PreparedStatement pstmt2 = null;
-			String sql = null;
-			
-			try {
-				//커넥션 풀로부터 커넥션 할당
-				conn = DBUtil.getConnection();
-	            //오토커밋 해제
-				conn.setAutoCommit(false);
+			public void insertMembership(PaymentVO payment)throws Exception{
+				Connection conn = null;
+				PreparedStatement pstmt = null;
+				PreparedStatement pstmt2 = null;
+				String sql = null;
 				
-				//SQL문 작성
-				sql = "INSERT INTO payment (pay_num, pay_fee, pay_enroll, mem_num) VALUES (payment_seq.nextval, ?, ?, ?)";
-				//PreparedStatement 객체 생성
-				pstmt = conn.prepareStatement(sql);
-				//?에 데이터 바인딩
-				pstmt.setInt(1, payment.getPay_fee());
-				pstmt.setInt(2, payment.getPay_enroll());
-				pstmt.setInt(3, payment.getMem_num());
-				//SQL문 실행
-				pstmt.executeUpdate();
+				try {
+					//커넥션 풀로부터 커넥션 할당
+					conn = DBUtil.getConnection();
+		            //오토커밋 해제
+					conn.setAutoCommit(false);
+					
+					//SQL문 작성
+					sql = "INSERT INTO payment (pay_num, pay_fee, pay_enroll, mem_num) VALUES (payment_seq.nextval, ?, ?, ?)";
+					//PreparedStatement 객체 생성
+					pstmt = conn.prepareStatement(sql);
+					//?에 데이터 바인딩
+					pstmt.setInt(1, payment.getPay_fee());
+					pstmt.setInt(2, payment.getPay_enroll());
+					pstmt.setInt(3, payment.getMem_num());
+					//SQL문 실행
+					pstmt.executeUpdate();
+					
+		            //SQL문 작성 (포인트 +300p)
+		            sql = "INSERT INTO point (poi_num, mem_num, poi_type, poi_in, poi_in_date) "
+		                + "VALUES (point_seq.nextval, ?, '회원권 등록', ?, sysdate)";
+		            pstmt2 = conn.prepareStatement(sql);
+		            pstmt2.setInt(1, payment.getMem_num());
+		            pstmt2.setInt(2, payment.getPoints());
+					pstmt2.executeUpdate();
 				
-	            //SQL문 작성 (포인트 +300p)
-	            sql = "INSERT INTO point (poi_num, mem_num, poi_type, poi_in, poi_in_date) "
-	                + "VALUES (point_seq.nextval, ?, '회원권 등록', 300, sysdate)";
-	            pstmt2 = conn.prepareStatement(sql);
-	            pstmt2.setInt(1, payment.getMem_num());
-				pstmt2.executeUpdate();
-			
-				conn.commit();
-				
-			}catch(Exception e) {
-				conn.rollback();
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(null, pstmt2, null);
-				DBUtil.executeClose(null, pstmt, conn);
+					conn.commit();
+					
+				}catch(Exception e) {
+					conn.rollback();
+					throw new Exception(e);
+				}finally {
+					DBUtil.executeClose(null, pstmt2, null);
+					DBUtil.executeClose(null, pstmt, conn);
+				}
 			}
-		}
 	
 	//회원권 결제취소(관리자)
 		public void updateMembership(int pay_num, int mem_num)throws Exception{

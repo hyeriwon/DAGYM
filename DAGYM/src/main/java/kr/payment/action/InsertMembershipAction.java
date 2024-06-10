@@ -30,6 +30,7 @@ public class InsertMembershipAction implements Action{
 		PaymentVO payment = new PaymentVO();
 		payment.setPay_fee(Integer.parseInt(request.getParameter("pay_fee")));
         payment.setPay_enroll(Integer.parseInt(request.getParameter("pay_enroll")));
+        payment.setPoints(Integer.parseInt(request.getParameter("points")));
         payment.setMem_num(mem_num);
 		
         PaymentDAO dao = PaymentDAO.getInstance();
