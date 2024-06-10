@@ -12,7 +12,6 @@
 
 <body>
 
-	<div class="result-display">
 		<div class="align-center">
 			<c:if test="${!empty accessMsg}">
 			${accessMsg}
@@ -429,7 +428,6 @@
 			<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 			</c:if>
 		</div>
-	</div>
 	
 </body>
 </html>

@@ -43,7 +43,8 @@ public class AdminListAction implements Action {
 		
 		//페이지 처리
 		//PagingUtil page = new PagingUtil(Integer.parseInt(pageNum),count,7,10,"list.do");
-        // 페이지 처리
+		
+        //페이지 처리
         String addKey = "mem_num=" + mem_num;
         PagingUtil page = new PagingUtil(null, null, Integer.parseInt(pageNum), count, 7, 10, "adminList.do", addKey);
 

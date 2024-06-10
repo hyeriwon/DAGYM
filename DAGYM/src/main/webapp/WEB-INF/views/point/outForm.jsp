@@ -126,6 +126,8 @@
 		                        <input type="text" name="poi_out" id="poi_out" maxlength="30">
 		                    </li>          
 		                </ul>
+		                <br>
+		                
 		                <div class="align-center">
 		                    <input type="submit" value="확인">
 		                    <input type="button" value="취소" onclick="location.href='adminList.do?mem_num=${param.mem_num}'">
