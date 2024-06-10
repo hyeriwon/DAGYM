@@ -118,7 +118,7 @@ public class QABoardDAO {
 		}
 	}
 	//글 상세
-	public QABoardVO getUserBoard(int qab_num, int mem_num)throws Exception{
+	public QABoardVO getUserBoard(int qab_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -126,10 +126,9 @@ public class QABoardDAO {
 		String sql = null;
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT * FROM qaboard WHERE qab_num=? AND mem_num=?";
+			sql = "SELECT * FROM qaboard WHERE qab_num=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, qab_num);
-			pstmt.setInt(2, mem_num);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				qaboard = new QABoardVO();

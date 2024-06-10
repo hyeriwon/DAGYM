@@ -25,9 +25,9 @@ public class UserUpdateAction implements Action{
 		request.setCharacterEncoding("utf-8");
 		int qab_num = Integer.parseInt(request.getParameter("qab_num"));
 		QABoardDAO dao = QABoardDAO.getInstance();
-		QABoardVO db_qaboard = dao.getUserBoard(qab_num, user_num);
+		QABoardVO db_qaboard = dao.getUserBoard(qab_num);
 		
-		if(user_num!=db_qaboard.getMem_num()) {
+		if(user_num!=db_qaboard.getMem_num()) {//작성자와 일치하는지 확인
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		
