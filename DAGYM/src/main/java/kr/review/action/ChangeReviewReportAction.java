@@ -58,7 +58,7 @@ public class ChangeReviewReportAction implements Action{
 				}else {//회원정지 기간이 만료된 신고내역 처리(report_del=3)
 					mapAjax.put("count", "move");
 				}
-			}
+			} 
 						
 		}
 		//JSON 문자열 만들기

@@ -374,7 +374,7 @@ public class MemberDAO {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
 		return list;
-	}
+	} 
 	//관리자 - 회원등급 수정
 	public void updateMemberByAdmin(int mem_auth, int mem_num) throws Exception{
 		Connection conn = null;

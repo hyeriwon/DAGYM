@@ -15,7 +15,7 @@ public class LoginAction implements Action{
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8"); 
 		String id = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
 		

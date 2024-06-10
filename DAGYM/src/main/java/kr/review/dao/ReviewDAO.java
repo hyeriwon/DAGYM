@@ -679,7 +679,7 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
-		String sql = null;
+		String sql = null; 
 		
 		try {
 			conn = DBUtil.getConnection();
