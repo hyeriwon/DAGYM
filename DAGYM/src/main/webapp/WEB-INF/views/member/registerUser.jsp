@@ -49,7 +49,7 @@
 						<div class="align-center">
 							회원가입을 완료했습니다.<p>
 							<br>
-							<button onclick="location.href='${pageContext.request.contextPath}/main/main.do'">홈으로</button>
+							<button onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'">로그인</button>
 						</div>
 					</div>
 					<!-- content 끝 -->
