@@ -77,7 +77,7 @@ a {
 	          </div>
 	          	<div class="row">
 					<div class="col-lg-12">    
-						<div class="chart-table">
+						<div class="chart-table2">
 						
 						<!-- content 시작 -->
 						<div class="accordion" id="accordionExample">
@@ -336,8 +336,12 @@ a {
 							</div><!-- end of item -->
 						</div>
 						<br>
-						다른 질문이 있으면 02-3482-4632로 전화주시거나 1:1문의를 이용해주세요<br>
-						<input type="button" value="1:1문의" onclick="location.href='${pageContext.request.contextPath}/qaboard/userQuestionList.do'">
+						<div class="align-right">
+							다른 질문이 있으면 02-3482-4632로 전화주시거나 1:1문의를 이용해주세요<br>
+						</div>
+						<div class="align-right">	
+							<input type="button" value="1:1문의" onclick="location.href='${pageContext.request.contextPath}/qaboard/userQuestionList.do'">
+						</div>
 						<!-- content 끝 -->
 						
 						</div>

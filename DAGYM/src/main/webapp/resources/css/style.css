@@ -66,6 +66,7 @@ form {
     box-sizing: border-box; /* padding과 border를 포함한 크기를 설정 */
     width: fit-content; /* 내용에 맞게 자동으로 너비 설정 */
     max-width: 100%; /* 최대 너비 설정 */
+    border-radius: 10px;
 }
 form#login_form {
 	display: flex;
