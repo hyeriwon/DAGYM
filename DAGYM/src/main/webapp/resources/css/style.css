@@ -104,7 +104,6 @@ input[type="text"],input[type="password"]{
 	padding-left: 15px;
 	padding-right: 5px;
 	background: #f9f9f9;
-	margin-bottom: 20px;
 }
 #register_form input[id="id"]{
 	width:223px;

@@ -62,7 +62,7 @@ public class WriteReviewAction implements Action{
 
 		//DB에 review 기록하기
 		ReviewDAO dao = ReviewDAO.getInstance();
-		dao.insertReview(review);
+		dao.insertReview(review,mem_num);
 
 		request.setAttribute("notice_msg", "수강후기 작성을 완료했습니다.");
 		request.setAttribute("notice_url", request.getContextPath()+"/review/listReview.do");

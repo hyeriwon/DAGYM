@@ -37,7 +37,7 @@ public class DeleteReviewAction implements Action{
 			if(db_review.getMem_num()!=user_num) {
 				mapAjax.put("result", "wrongAccess");
 			}else {
-				dao.deleteReview(db_review);
+				dao.deleteReview(db_review, user_num);
 				
 				//서버의 파일 삭제
 				FileUtil.removeFile(request, db_review.getRev_filename1());

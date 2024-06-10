@@ -24,7 +24,7 @@ public class ReviewDAO {
 
 	/*        사용자        */
 	//수강후기 등록
-	public void insertReview(ReviewVO review) throws Exception{
+	public void insertReview(ReviewVO review, int mem_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -53,7 +53,12 @@ public class ReviewDAO {
 			//SQL문 실행
 			pstmt.executeUpdate();
 
-			//포인트 추가
+            //SQL문 작성 (포인트 +100p)
+            sql = "INSERT INTO point (poi_num, mem_num, poi_type, poi_in, poi_in_date) "
+                + "VALUES (point_seq.nextval, ?, '후기 작성', 100, sysdate)";
+            pstmt2 = conn.prepareStatement(sql);
+            pstmt2.setInt(1, mem_num);
+			pstmt2.executeUpdate();
 
 			conn.commit();
 		}catch(Exception e) {
@@ -308,7 +313,7 @@ public class ReviewDAO {
 		}
 	}
 	//수강후기 삭제	
-	public void deleteReview(ReviewVO review) throws Exception{
+	public void deleteReview(ReviewVO review, int mem_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -320,22 +325,28 @@ public class ReviewDAO {
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
 
+			//포인트 회수 (먼저 실행해야 rev_num을 받아올 수 있다)
+			sql = "DELETE FROM point WHERE mem_num=? AND poi_type='후기 작성' "
+				+ "AND poi_in_date=(SELECT rev_reg_date FROM review WHERE rev_num=?)";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1, mem_num);
+	        pstmt.setInt(2, review.getRev_num());
+			pstmt.executeUpdate();			
+			
 			//글 블라인드 처리
 			sql = "UPDATE review SET rev_del=1 WHERE rev_num=?";
-			pstmt = conn.prepareStatement(sql);			
-			pstmt.setInt(1, review.getRev_num());
-			pstmt.executeUpdate();
-
-			//좋아요 삭제
-			sql = "DELETE FROM review_like WHERE rev_num=?";
-			pstmt2 = conn.prepareStatement(sql);
+			pstmt2 = conn.prepareStatement(sql);			
 			pstmt2.setInt(1, review.getRev_num());
 			pstmt2.executeUpdate();
 
+			//좋아요 삭제
+			sql = "DELETE FROM review_like WHERE rev_num=?";
+			pstmt3 = conn.prepareStatement(sql);
+			pstmt3.setInt(1, review.getRev_num());
+			pstmt3.executeUpdate();
+
 			//신고 삭제
-
-			//포인트 차감
-
+				
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
