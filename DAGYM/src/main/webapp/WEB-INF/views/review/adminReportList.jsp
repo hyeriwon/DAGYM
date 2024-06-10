@@ -96,7 +96,7 @@ $(function(){
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
 	
-	<!-- Breadcrumb Section Begin --> 
+	<!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-section set-bg" data-setbg="${pageContext.request.contextPath}/resources/img/breadcrumb-bg.jpg">
         <div class="container">
             <div class="row">
