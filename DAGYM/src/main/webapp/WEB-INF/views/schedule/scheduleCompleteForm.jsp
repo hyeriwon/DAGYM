@@ -59,7 +59,7 @@
                         </div>
                         <ul>
                             <li>
-                                <label for="tra_name">PT 진행 시간</label>
+                                <label for="tra_time">PT 진행 시간</label>
                                 <c:set var="sch_time" value="${param.sch_time}" />
                                 <c:choose>
                                     <c:when test="${sch_time < 12}">
@@ -70,7 +70,10 @@
                                         <input type="text" name="sch_time_display" id="sch_time" value="오후 ${pm_time == 0 ? 12 : pm_time}시" readonly>
                                     </c:otherwise>
                                 </c:choose>
-                                <label for="tra_name">회원ID</label>
+                               
+                            </li>
+                            <li>
+                            	<label for="tra_name">회원ID</label>
                                 <input type="text" name="tra_name" id="tra_name" value="${param.mem_name}" readonly>
                             </li>
                             <li>

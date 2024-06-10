@@ -44,7 +44,7 @@ public class HistoryDAO {
 			pstmt.setInt(1, history.getMem_num());
 			pstmt.setInt(2, history.getSch_num());
 			pstmt.setInt(3, history.getTra_num());
-			pstmt.setInt(4, 0); // 0 : 예약됨, 1: 취소, 2 : 완료
+			pstmt.setInt(4, 0); // 0 : 예약가능, 1: 예약됨, 2 : 완료
 			pstmt.setString(5, history.getHis_part());
 
 			// SQL문 실행
@@ -168,6 +168,45 @@ public class HistoryDAO {
 		return list;
 
 	}
+	// 관리자 - 모든 PT 내역을 가져오는 메소드
+		public List<ScheduleVO> getHistoryListByAdmin() throws Exception {
+			List<ScheduleVO> list = null;
+		    Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    ResultSet rs = null;
+		    String sql = "SELECT s.*, h.*, m.mem_id AS mi, m.mem_num AS mn " +
+		                 "FROM schedule s " +
+		                 "LEFT OUTER JOIN history h ON s.sch_num = h.sch_num " +
+		                 "LEFT OUTER JOIN member m ON h.mem_num = m.mem_num";
+
+		    try {
+		        conn = DBUtil.getConnection();
+		        pstmt = conn.prepareStatement(sql);
+		        rs = pstmt.executeQuery();
+		        list = new ArrayList<ScheduleVO>();
+		        while (rs.next()) {
+		        	ScheduleVO schedule = new ScheduleVO();
+		            schedule.setSch_num(rs.getInt("sch_num"));
+		            schedule.setSch_date(rs.getString("sch_date"));
+		            schedule.setSch_time(rs.getInt("sch_time"));
+		            schedule.setMem_id(rs.getString("mem_id")); // 트레이너 ID
+		            schedule.setMem_num(rs.getInt("mem_num"));
+		            schedule.setSch_status(rs.getInt("sch_status"));
+		            schedule.setHis_status(rs.getInt("his_status")); // 추가된 코드
+		            schedule.setTrainerId(rs.getString("mem_id")); // 트레이너 ID
+		            schedule.setMemberId(rs.getString("mi")); // 회원 ID
+		            list.add(schedule);
+
+		        }
+		    } catch (Exception e) {
+		        throw new Exception(e);
+		    } finally {
+		        DBUtil.executeClose(rs, pstmt, conn);
+		    }
+	        return list;
+		}
+	
+	
 	
 	// 중복된 시간인지 확인하는 메서드
     public boolean isDuplicateSchedule(String his_date, int sch_time) throws Exception {
@@ -198,7 +237,7 @@ public class HistoryDAO {
 	
     
     
-    // PT 취소(스케줄 status도 추가로 수정 필요함)
+    // 사용자 - PT 취소
  	public void deleteHistory(int sch_num, int mem_num) throws Exception {
  		Connection conn = null;
  		PreparedStatement pstmt = null;
@@ -222,7 +261,7 @@ public class HistoryDAO {
  			// SQL문 실행
  			pstmt.executeUpdate();
 
- 			// PT 취소 시 schedule 테이블 sch_status 0로 변경
+ 			// PT 취소 시 schedule 테이블 sch_status 0으로 변경
  			sql = "UPDATE schedule SET sch_status = 0 WHERE sch_num=?";
  			pstmt2 = conn.prepareStatement(sql);
  			pstmt2.setInt(1, sch_num);
@@ -239,6 +278,47 @@ public class HistoryDAO {
  			DBUtil.executeClose(null, pstmt, conn);
  		}
  	}
+ 	
+ // 관리자 - PT 취소
+  	public void deleteHistoryByAdmin(int sch_num) throws Exception {
+  		Connection conn = null;
+  		PreparedStatement pstmt = null;
+  		PreparedStatement pstmt2 = null;
+  		String sql = null;
+
+  		try {
+  			conn = DBUtil.getConnection();
+  			conn.setAutoCommit(false);
+
+  			// PT 취소
+  			sql = "DELETE FROM history WHERE sch_num =?";
+
+  			// PreparedStatement 생성
+  			pstmt = conn.prepareStatement(sql);
+
+  			// ?에 데이터 바인딩
+  			pstmt.setInt(1, sch_num);
+
+  			// SQL문 실행
+  			pstmt.executeUpdate();
+
+  			// PT 취소 시 schedule 테이블 sch_status 0으로 변경
+  			sql = "UPDATE schedule SET sch_status = 0 WHERE sch_num=?";
+  			pstmt2 = conn.prepareStatement(sql);
+  			pstmt2.setInt(1, sch_num);
+
+  			pstmt2.executeUpdate();
+
+  			conn.commit();
+
+  		} catch (Exception e) {
+  			conn.rollback();
+  			throw new Exception(e);
+  		} finally {
+  			DBUtil.executeClose(null, pstmt2, conn);
+  			DBUtil.executeClose(null, pstmt, conn);
+  		}
+  	}
     
     
   

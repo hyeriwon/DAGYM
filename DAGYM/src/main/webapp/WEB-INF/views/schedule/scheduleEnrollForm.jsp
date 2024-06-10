@@ -125,8 +125,10 @@
 						            </label>
 				                </div>
 			                </div>
-			                <br><button type="submit">등록</button>
-			            		<input type="button" value="목록" onclick="location.href='list.do'">
+			                <div class="align-center">
+			                	<button type="submit">등록</button>
+			            			<input type="button" value="목록" onclick="location.href='list.do'">
+		            		</div>
 			            </form>
 			        </div>
 			        

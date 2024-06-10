@@ -73,14 +73,14 @@
 										<li><a href="${pageContext.request.contextPath}/exercise/exerciseMain.do">운동기록</a></li>
 										<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
 										<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
-										<li><a href="${pageContext.request.contextPath}/schedule/mylist.do">수강내역</a></li>
+										<li><a href="${pageContext.request.contextPath}/history/adminHistoryList.do">수강내역</a></li>
 										<li><a href="${pageContext.request.contextPath}/qaboard/adminAnswerList.do">문의내역</a></li>
                                  	</ul>
                         		</li>					
                         		<li><a href="#">TRAINER</a>
                         			<ul class="dropdown">
                                      	<li><a href="${pageContext.request.contextPath}/member/adminTrainerList.do">강사상세</a></li>
-                                     	<li><a href="${pageContext.request.contextPath}/schedule/list.do">스케줄</a></li>
+                                     	<li><a href="${pageContext.request.contextPath}/schedule/adminScheduleList.do">스케줄</a></li>
                                  	</ul>
                         		<li>		                    							
 							</c:if>

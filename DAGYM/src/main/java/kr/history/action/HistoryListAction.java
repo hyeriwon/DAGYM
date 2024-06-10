@@ -19,8 +19,7 @@ public class HistoryListAction implements Action {
 
         if (user_num == null) { // 로그인이 되지 않은 경우 
             return "redirect:/member/loginForm.do";
-        }
-        
+        }      
         
         // HistoryDAO를 사용하여 스케줄 데이터를 가져옴
         HistoryDAO dao = HistoryDAO.getInstance();

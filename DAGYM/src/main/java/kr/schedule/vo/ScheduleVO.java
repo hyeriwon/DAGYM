@@ -16,6 +16,8 @@ public class ScheduleVO {
     private HistoryVO history;
     private String his_part;
     private int his_num;
+    private String trainerId; // 트레이너 ID
+    private String memberId; // 회원 ID
 
 	
 	public int getSch_num() {
@@ -84,6 +86,17 @@ public class ScheduleVO {
 	public void setHis_num(int his_num) {
 		this.his_num = his_num;
 	}
-	
-	
+	public String getTrainerId() {
+		return trainerId;
+	}
+	public void setTrainerId(String trainerId) {
+		this.trainerId = trainerId;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+
 }

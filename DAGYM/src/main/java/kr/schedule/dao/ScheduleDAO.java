@@ -148,6 +148,33 @@ public class ScheduleDAO {
 
         return success;
     }
+    
+    
+ // 관리자 - 스케줄 삭제
+    public boolean deleteScheduleByAdmin(int schNum) throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        boolean success = false;
+
+        try {
+            conn = DBUtil.getConnection();
+
+            String sql = "DELETE FROM schedule WHERE sch_num = ?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, schNum);
+
+            int rowsAffected = pstmt.executeUpdate();
+            if (rowsAffected > 0) {
+                success = true;
+            }
+        } catch (Exception e) {
+            throw new Exception(e);
+        } finally {
+            DBUtil.executeClose(null, pstmt, conn);
+        }
+
+        return success;
+    }
 
     
     // 스케줄 조회

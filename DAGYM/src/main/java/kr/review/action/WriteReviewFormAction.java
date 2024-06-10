@@ -19,6 +19,8 @@ public class WriteReviewFormAction implements Action{
 		//로그인 여부 확인하기
 		HttpSession session = request.getSession();
 		Integer mem_num = (Integer) session.getAttribute("user_num");
+        Integer user_auth = (Integer)session.getAttribute("user_auth");
+
 		
 		if(mem_num==null) {
 			return "redirect:/member/loginForm.do";
@@ -34,10 +36,11 @@ public class WriteReviewFormAction implements Action{
 			return "redirect:/history/히스토리목록보는 페이지";
 		}
 		
-		//로그인한 사람과 수강한 사람의 일치 여부 확인
-		if(mem_num != history.getMem_num()) {
+		//로그인한 사람과 수강한 사람의 일치 여부 확인, 관리자 조건 추가
+		if(mem_num != history.getMem_num() && user_auth != 9) {
 			return "/WEB-INF/views/common/notice.jsp";
 		}
+		
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
 		MemberVO trainer = memDAO.getMember(history.getTra_num());
