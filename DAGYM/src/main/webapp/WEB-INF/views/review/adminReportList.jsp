@@ -20,8 +20,12 @@ $(function(){
 			dataType:'json',
 			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
 			success:function(param){
-				toggleButton(param,index);
-				toggleRow(param,selectedRevNum);
+				if(param == 'notExistReport'){
+					alert('해당 글에 존재하는 신고 내역이 없습니다.');
+				}else{
+					toggleButton(param,index);
+					toggleRow(param,selectedRevNum);
+				}
 			},
 			error:function(){
 				alert('네트워크 오류 발생');
@@ -188,6 +192,7 @@ $(function(){
 							</div>
 						</div>
 					</c:if>
+					<div class="expiredReport"></div>
 					<!-- content 끝 -->
 					
 					</div>

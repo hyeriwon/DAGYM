@@ -3,6 +3,7 @@ package kr.member.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -152,6 +153,7 @@ public class MemberDAO {
 				member.setMem_id(rs.getString("mem_id"));
 				member.setMem_pw(rs.getString("mem_pw"));
 				member.setMem_auth(rs.getInt("mem_auth"));
+				member.setMem_sus_date(rs.getDate("mem_sus_date"));
 				member.setMem_name(rs.getString("mem_name"));				
 				member.setMem_phone(rs.getString("mem_phone"));
 				member.setMem_email(rs.getString("mem_email"));
@@ -377,21 +379,45 @@ public class MemberDAO {
 	public void updateMemberByAdmin(int mem_auth, int mem_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		String sql = null;
+		String sub_sql = "";
 		try {
 			conn = DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			MemberDAO dao = MemberDAO.getInstance();
+			MemberVO db_member = dao.getMember(mem_num);
 			if(mem_auth == 1) {
-				sql = "UPDATE member SET mem_auth=?,mem_sus_date=sysdate WHERE mem_num=?";
-			}else {
-				sql = "UPDATE member SET mem_auth=?,mem_sus_date=null WHERE mem_num=?";
+				if(db_member.getMem_sus_date()==null) sub_sql = "sysdate+5";
+				else sub_sql = "mem_sus_date+5";
+				sql = "UPDATE member SET mem_auth=?,mem_sus_date="+sub_sql+" WHERE mem_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mem_auth);
+				pstmt.setInt(2, mem_num);
+				pstmt.executeUpdate();
+								
+			}else if(mem_auth==2) {
+				if(db_member.getMem_sus_date().toLocalDate()== LocalDate.now()) sub_sql = "null";
+				else sub_sql = "mem_sus_date-5";
+				sql = "UPDATE member SET mem_auth=?,mem_sus_date="+sub_sql+" WHERE mem_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mem_auth);
+				pstmt.setInt(2, mem_num);
+				pstmt.executeUpdate();
+				
+				sql = "UPDATE review SET report_del=3 WHERE rev_num "
+						+ "IN(SELECT rev_num FROM review WHERE mem_num=? AND rev_report>=3)";
+				pstmt2 = conn.prepareStatement(sql);
+				pstmt2.setInt(1, mem_num);
+				pstmt2.executeUpdate();
 			}
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, mem_auth);
-			pstmt.setInt(2, mem_num);
-			pstmt.executeUpdate();
+			
+			conn.commit();
 		}catch(Exception e) {
+			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}

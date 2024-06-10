@@ -49,14 +49,17 @@ public class ChangeReviewReportAction implements Action{
 					if(dao.totalRevReport(rev_num) >= 3) {
 						mapAjax.put("count", "blind");
 					}
-				}else {
+				}else if(db_report.getReport_del()==1) {
 					dao.AdminReportNo(db_report);
 					mapAjax.put("status", "reportNo");
 					if(dao.totalRevReport(rev_num) == 2) {
 						mapAjax.put("count", "clearBlind");
 					}
+				}else {//회원정지 기간이 만료된 신고내역 처리(report_del=3)
+					mapAjax.put("count", "move");
 				}
 			}
+						
 		}
 		//JSON 문자열 만들기
 		ObjectMapper mapper = new ObjectMapper();

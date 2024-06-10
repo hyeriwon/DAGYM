@@ -3,9 +3,12 @@ package kr.review.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import kr.member.dao.MemberDAO;
+import kr.member.vo.MemberVO;
 import kr.review.vo.RevLikeVO;
 import kr.review.vo.RevReportVO;
 import kr.review.vo.ReviewVO;
@@ -639,6 +642,7 @@ public class ReviewDAO {
 		PreparedStatement pstmt2 = null;
 		PreparedStatement pstmt3 = null;
 		String sql = null;
+		String sub_sql = "";
 		
 		try {
 			conn = DBUtil.getConnection();
@@ -655,10 +659,9 @@ public class ReviewDAO {
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
 			
-			sql = "UPDATE member m SET mem_auth=1,mem_sus_date=sysdate WHERE m.mem_num "
-					+ "IN (SELECT r.mem_num FROM review r WHERE r.rev_report>= 3)";
-			pstmt3 = conn.prepareStatement(sql);
-			pstmt3.executeUpdate();
+			MemberDAO memDAO = MemberDAO.getInstance();
+			MemberVO member = memDAO.getMember(revReport.getMem_num());
+			
 			
 			conn.commit();
 		}catch(Exception e) {
@@ -692,11 +695,6 @@ public class ReviewDAO {
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
-			
-			sql = "UPDATE member m SET mem_auth=2,mem_sus_date=null WHERE m.mem_num "
-					+ "IN (SELECT r.mem_num FROM review r WHERE r.rev_report < 3)";
-			pstmt3 = conn.prepareStatement(sql);
-			pstmt3.executeUpdate();
 			
 			conn.commit();
 		}catch(Exception e) {

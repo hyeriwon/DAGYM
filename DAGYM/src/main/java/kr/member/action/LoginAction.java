@@ -26,13 +26,12 @@ public class LoginAction implements Action{
 		if(member!=null) {//동일한 id 존재
 			check = member.isCheckedPassword(passwd);
 			if(member.getMem_auth()==1) {
-				System.out.println(member.getMem_sus_date());
 				LocalDate susDate = member.getMem_sus_date().toLocalDate();
-				if(LocalDate.now().isAfter(susDate.plusDays(5))) {
+				if(LocalDate.now() ==susDate) {
 					dao.updateMemberByAdmin(2, member.getMem_num());					
 					check = true;
 				}
-				request.setAttribute("susDate", susDate.plusDays(5));
+				request.setAttribute("susDate", susDate);
 			}
 			//정지 회원 상태 표시
 			request.setAttribute("auth", member.getMem_auth());
