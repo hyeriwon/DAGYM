@@ -68,6 +68,7 @@ window.onload=function(){
 					<li>
 					<select name = "keyfield">
 						<option value="1"<c:if test="${param.keyfield ==1}">selected</c:if>>메뉴이름</option>
+						<option value="2"<c:if test="${param.keyfield ==2}">selected</c:if>>식사분류</option>
 					</select>
 					</li>
 					<li>
@@ -82,6 +83,7 @@ window.onload=function(){
 					
 					<div class= "list-space align-right">
 					<input type="button" value="등록" onclick="location.href='tmenuWriteForm.do'">
+					<input type="button" value="목록" onclick="location.href='tmenuList.do'">
 					</div>
 					<br>
 					

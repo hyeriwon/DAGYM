@@ -87,6 +87,7 @@ public class TmenuDAO {
 			conn = DBUtil.getConnection();
 			if(keyword!=null && !"".equals(keyword)) {
 				if(keyfield.equals("1")) sub_sql +=" WHERE tme_name LIKE '%' || ? ||'%'";
+				if(keyfield.equals("2")) sub_sql +=" WHERE tme_type = ? ";
 			}
 			sql= "SELECT COUNT(*) FROM t_menu" + sub_sql;
 			pstmt =conn.prepareStatement(sql);
@@ -118,7 +119,7 @@ public class TmenuDAO {
 			if(keyword != null && !"".equals(keyword)) {
 				//검색 처리
 				if(keyfield.equals("1")) sub_sql += " WHERE tme_name LIKE '%'||?||'%'";
-				//if(keyfield.equals("2")) sub_sql += " WHERE tme_type = ? ";
+				else if(keyfield.equals("2")) sub_sql += " WHERE tme_type= ?";
 			}
 			sql="SELECT * FROM (SELECT a.*,rownum rnum FROM "
 					+ "(SELECT * FROM t_menu "+ sub_sql +")a) WHERE rnum >=? AND rnum <=? ORDER BY tme_name ASC";
@@ -221,7 +222,7 @@ public class TmenuDAO {
 		String sql = null;
 		try {
 			conn=DBUtil.getConnection();
-			sql="SELECT * FROM t_menu WHERE tme_type= ? ORDER BY tme_name ASC";
+			sql="SELECT * FROM t_menu WHERE tme_type= ? ORDER BY tme_num DESC";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1,tme_type);
 			rs=pstmt.executeQuery();

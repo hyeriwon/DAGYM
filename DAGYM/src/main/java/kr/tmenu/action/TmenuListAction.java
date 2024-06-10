@@ -18,6 +18,17 @@ public class TmenuListAction implements Action{
 		if(pageNum == null) pageNum = "1";
 		String keyfield = request.getParameter("keyfield");
 		String keyword = request.getParameter("keyword");
+		if("2".equals(keyfield)) {
+			if("아침".equals(keyword)) {
+				keyword = "0";
+			}else if("점심".equals(keyword)) {
+				keyword = "1";
+			}else if ("저녁".equals(keyword)) {
+				keyword = "2";
+			}else if("간식".equals(keyword)) {
+				keyword = "3";
+			}
+		}
 		TmenuDAO dao = TmenuDAO.getInstance();
 		int count = dao.getCountTmenu(keyfield, keyword);
 		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum),count, 20, 10,"tmenuList.do");

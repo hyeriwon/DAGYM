@@ -52,12 +52,7 @@
 				<div class="col-lg-12">    
 					<div class="chart-table">
 					<div class="align-right">
-					<c:if test="${user_auth==2}">
-					<input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyModifyForm.do?inb_date=${inb_date}'">
-					</c:if>
-					<c:if test="${user_auth>=8}">
-					<input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyModifyForm.do?inb_date=${inb_date}&client_num=${param.client_num}'">
-					</c:if>
+				
 					</div>
 					<!-- content 시작 -->		
 					<div class="result-display2">
@@ -112,6 +107,12 @@
 					
 						</c:if>
 					<div class="align-center">
+					<c:if test="${user_auth==2}">
+					<input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyModifyForm.do?inb_date=${inb_date}'">
+					</c:if>
+					<c:if test="${user_auth>=8}">
+					<input type="button" value="수정" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyModifyForm.do?inb_date=${inb_date}&client_num=${param.client_num}'">
+					</c:if>
 					<c:if test="${user_auth==2}">
 						<input type="button" value="확인" onclick="location.href='${pageContext.request.contextPath}/inbody/inbodyList.do'">
 					</c:if>

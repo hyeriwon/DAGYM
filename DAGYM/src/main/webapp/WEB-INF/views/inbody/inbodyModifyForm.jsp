@@ -40,21 +40,22 @@ window.onload = function(){
 		};
 	});
 	const delete_photo = document.getElementById('delete_photo');
-	/* delete_photo.onclick = function(){
+	 delete_photo.onclick = function(){
 		const client_num =$('#client_num').val();
-		const inb_num = $('#inb_num').val();
+		const inb_date = $('#inb_date').val();
 		$.ajax({
 			url:'${pageContext.request.contextPath}/inbody/deletePhoto.do',
-			data:{client_num:client_num,inb_num:inb_num},
-			dataType:'post',
+			data:{client_num:client_num,inb_date:inb_date},
+			type:'post',
+			dataType:'json',
 			success:function(param){
-				if(param.result ==success){
-					  $('.my-photo').attr('src', '${pageContext.request.contextPath}/images/face.png');
-					alert('삭제처리 완료');
-				}else if(param.result == logout){
+				if(param.result == 'success'){
+					$('.my-photo').attr('src', '${pageContext.request.contextPath}/images/face.png');
+					alert('인바디 사진 삭제처리 되었습니다.');
+				}else if(param.result == 'logout'){
 					alert('로그인을 해야합니다.');
 					location.href= '${pageContext.request.contextPath}/member/loginForm.do';
-				}else{
+				}else if(param.result == 'fail'){
 					alert('사진 삭제에 실패했습니다.');
 				}
 			},
@@ -62,7 +63,7 @@ window.onload = function(){
 				alert('서버 오류로 사진 삭제에 실패했습니다.');	
 			}
 		});
-	} */
+	} 
 };
 </script>
 </head>

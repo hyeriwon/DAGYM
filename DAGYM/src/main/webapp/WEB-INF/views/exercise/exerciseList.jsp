@@ -47,7 +47,7 @@ function confirmDelete(url) {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Exercise</span>
-                            <h2>운동기록</h2>
+                            <h2><c:if test="${user_auth >=8}">(관리자전용)</c:if>운동기록</h2>
                     	</div>
                  </div>	
              </div>
@@ -79,6 +79,9 @@ function confirmDelete(url) {
 						<div class= "list-space align-right">
 						<c:if test="${user_auth==2}">
 						<input type="button" value="등록" onclick="location.href='exerciseMain.do'">
+						</c:if>
+						<c:if test="${ user_auth >=8}">
+							<input type="button" value="회원검색" onclick="location.href='exerciseMain.do'">
 						</c:if>
 						</div>
 						<br>
@@ -141,6 +144,6 @@ function confirmDelete(url) {
   	
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>
-
+	
 </body>	
 </html>
