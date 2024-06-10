@@ -25,7 +25,7 @@ public class UserQuestionListAction implements Action{
 		
 		request.setCharacterEncoding("utf-8");
 		
-		//페이지처리//
+		//페이지처리
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) pageNum = "1";
 		

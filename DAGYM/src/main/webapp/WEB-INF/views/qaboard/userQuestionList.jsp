@@ -47,7 +47,7 @@
 					<div class="chart-table">
 					
 					<!-- content 시작 -->		
-					<%-- 목록, --%>
+					<%-- 목록 --%>
 					<div class="list-span">
 					<c:if test="${count > 0}">
 					<div class="align-left">
