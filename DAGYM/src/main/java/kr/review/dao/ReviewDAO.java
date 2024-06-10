@@ -24,7 +24,7 @@ public class ReviewDAO {
 
 	/*        사용자        */
 	//수강후기 등록
-	public void insertReview(ReviewVO review, int mem_num) throws Exception{
+	public void insertReview(ReviewVO review) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -57,7 +57,7 @@ public class ReviewDAO {
             sql = "INSERT INTO point (poi_num, mem_num, poi_type, poi_in, poi_in_date) "
                 + "VALUES (point_seq.nextval, ?, '후기 작성', 100, sysdate)";
             pstmt2 = conn.prepareStatement(sql);
-            pstmt2.setInt(1, mem_num);
+            pstmt2.setInt(1, review.getMem_num());
 			pstmt2.executeUpdate();
 
 			conn.commit();
@@ -313,7 +313,7 @@ public class ReviewDAO {
 		}
 	}
 	//수강후기 삭제	
-	public void deleteReview(ReviewVO review, int mem_num) throws Exception{
+	public void deleteReview(ReviewVO review) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
@@ -329,7 +329,7 @@ public class ReviewDAO {
 			sql = "DELETE FROM point WHERE mem_num=? AND poi_type='후기 작성' "
 				+ "AND poi_in_date=(SELECT rev_reg_date FROM review WHERE rev_num=?)";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setInt(1, mem_num);
+	        pstmt.setInt(1, review.getMem_num());
 	        pstmt.setInt(2, review.getRev_num());
 			pstmt.executeUpdate();			
 			

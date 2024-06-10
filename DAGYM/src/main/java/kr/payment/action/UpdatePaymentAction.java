@@ -26,9 +26,11 @@ public class UpdatePaymentAction implements Action{
 			mapAjax.put("result", "wrongAccess");
 		}else {
 			request.setCharacterEncoding("utf-8");
+			
+			int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 			int pay_num = Integer.parseInt(request.getParameter("pay_num"));
 			PaymentDAO dao = PaymentDAO.getInstance();
-			dao.updateMembership(pay_num);
+			dao.updateMembership(pay_num, mem_num);
 			mapAjax.put("result", "success");
 		}
 		

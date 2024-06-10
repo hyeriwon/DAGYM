@@ -12,12 +12,16 @@
 $(function(){
     $('.cancel-btn').on('click', function() {
         var pay_num = $(this).data('paynum');
+        var mem_num = $(this).data('memnum'); // mem_num 데이터를 가져옴
         var choice = confirm('회원권을 취소하시겠습니까?');
         if(choice){
         	$.ajax({
             type: 'POST',
             url:'updatePayment.do',
-            data: {pay_num: pay_num},
+            data: {
+                pay_num: pay_num,
+                mem_num: mem_num // mem_num도 데이터에 추가
+            },
             dataType: 'json',
             success: function(param) {
                 if(param.result === 'success') {
@@ -136,7 +140,7 @@ $(function(){
 								</td>
 								<td>
 									<c:if test="${payment.pay_status == 0}">
-									<input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}">
+									<input type="button" class="cancel-btn" value="취소" data-paynum="${payment.pay_num}" data-memnum="${mem_num}">
 								</c:if>
 								</td>
 							</tr>

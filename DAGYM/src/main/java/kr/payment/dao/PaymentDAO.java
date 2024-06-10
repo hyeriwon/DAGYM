@@ -188,10 +188,15 @@ public class PaymentDAO {
 		public void insertMembership(PaymentVO payment)throws Exception{
 			Connection conn = null;
 			PreparedStatement pstmt = null;
+			PreparedStatement pstmt2 = null;
 			String sql = null;
+			
 			try {
 				//커넥션 풀로부터 커넥션 할당
 				conn = DBUtil.getConnection();
+	            //오토커밋 해제
+				conn.setAutoCommit(false);
+				
 				//SQL문 작성
 				sql = "INSERT INTO payment (pay_num, pay_fee, pay_enroll, mem_num) VALUES (payment_seq.nextval, ?, ?, ?)";
 				//PreparedStatement 객체 생성
@@ -202,32 +207,62 @@ public class PaymentDAO {
 				pstmt.setInt(3, payment.getMem_num());
 				//SQL문 실행
 				pstmt.executeUpdate();
+				
+	            //SQL문 작성 (포인트 +300p)
+	            sql = "INSERT INTO point (poi_num, mem_num, poi_type, poi_in, poi_in_date) "
+	                + "VALUES (point_seq.nextval, ?, '회원권 등록', 300, sysdate)";
+	            pstmt2 = conn.prepareStatement(sql);
+	            pstmt2.setInt(1, payment.getMem_num());
+				pstmt2.executeUpdate();
+			
+				conn.commit();
+				
 			}catch(Exception e) {
+				conn.rollback();
 				throw new Exception(e);
 			}finally {
+				DBUtil.executeClose(null, pstmt2, null);
 				DBUtil.executeClose(null, pstmt, conn);
 			}
 		}
 	
 	//회원권 결제취소(관리자)
-		public void updateMembership(int pay_num)throws Exception{
+		public void updateMembership(int pay_num, int mem_num)throws Exception{
 			Connection conn = null;
-			PreparedStatement pstmt = null;
+	        PreparedStatement pstmt = null;
+	        PreparedStatement pstmt2 = null;
 			String sql = null;
+			
 			try {
 				//커넥션 풀로부터 커넥션 할당
 				conn = DBUtil.getConnection();
+	            //오토커밋 해제
+				conn.setAutoCommit(false);
+				
+	            //1. 포인트 회수 (먼저 실행해야 att_num을 받아올 수 있다)
+				sql = "DELETE FROM point WHERE mem_num=? AND poi_type='회원권 등록' "
+					+ "AND poi_in_date=(SELECT pay_reg_date FROM payment WHERE pay_num=?)";
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setInt(1, mem_num);
+	            pstmt.setInt(2, pay_num);
+				pstmt.executeUpdate();
+				
 				//SQL문 작성
 				sql = "UPDATE payment SET pay_status = 1 WHERE pay_num = ?";
 				//PreparedStatement 객체 생성
-				pstmt = conn.prepareStatement(sql);
+				pstmt2 = conn.prepareStatement(sql);
 				//?에 데이터 바인딩
-				pstmt.setInt(1, pay_num);
+				pstmt2.setInt(1, pay_num);
 				//SQL문 실행
-				pstmt.executeUpdate();
+				pstmt2.executeUpdate();
+				
+				conn.commit();
+				
 			}catch(Exception e) {
+				conn.rollback();
 				throw new Exception(e);
 			}finally {
+				DBUtil.executeClose(null, pstmt2, null);
 				DBUtil.executeClose(null, pstmt, conn);
 			}
 		}
