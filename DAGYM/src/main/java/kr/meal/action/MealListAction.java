@@ -32,7 +32,7 @@ public class MealListAction implements Action {
 		String keyword = request.getParameter("keyword");
 		
 		MemberDAO dao = MemberDAO.getInstance();
-		int count = dao.getMemberCountByAdmin(keyfield, keyword);
+		int count = dao.getMemberCountByAdmin2(keyfield, keyword);
 		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(keyfield, keyword, Integer.parseInt(pageNum), count, 20,10,"adminMemberList.do");

@@ -87,15 +87,15 @@ window.onload = function(){
 					<ul>
 						<li>
 							<label for="inb_hei">키(cm)</label>
-							<input type="number" id="inb_hei" name="inb_hei">
+							<input type="number" id="inb_hei" name="inb_hei" min = "0">
 						</li>
 						<li>
 							<label for="inb_wei">몸무게(kg)</label>
-							<input type="number" id="inb_wei" name="inb_wei">
+							<input type="number" id="inb_wei" name="inb_wei" min = "0">
 						</li>
 						<li>
 							<label for="inb_mus">골격근량(kg)</label>
-							<input type="number" id="inb_mus" name="inb_mus">
+							<input type="number" id="inb_mus" name="inb_mus" min = "0">
 						</li>
 						<li>
 								<label for="inb_photo">인바디 사진</label>
