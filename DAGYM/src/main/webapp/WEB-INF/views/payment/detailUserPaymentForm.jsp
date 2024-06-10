@@ -84,7 +84,7 @@ $(function(){
 					
 					<!-- content 시작 -->
 					<input type="hidden" name="mem_num" value="${mem_num}">
-					<h4>[${mem_name}]님</h4>
+					<h3>[${mem_name}]님</h3>
 					<p>
 						보유한 회원권 : <span style="color:red;">${remain}</span>회
 						

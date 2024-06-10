@@ -66,7 +66,7 @@ window.onload = function() {
 	          		<div class="team-title">
 	                		<div class="section-title">
 	                    		<span>Notice</span>
-	                            <h2>공지작성</h2>
+	                            <h2>공지등록</h2>
 	                    	</div>
 	                 </div>
 	             </div>

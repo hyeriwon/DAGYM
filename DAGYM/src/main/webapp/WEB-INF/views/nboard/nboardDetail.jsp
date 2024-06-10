@@ -53,22 +53,24 @@
 							<c:if test="${nboard.nbo_type==2}">기타</c:if>]
 						</p>
 						<h2>${nboard.nbo_title}</h2>
-						<p>조회수 : ${nboard.nbo_hit}</p>
+						<div class="align-right">조회수 : ${nboard.nbo_hit}</div>
+						<br>
 						
 						<c:if test="${!empty nboard.nbo_filename}">
 						<div class="align-center">
 						<img src="${pageContext.request.contextPath}/upload/${nboard.nbo_filename}" class="detail-img">
 						</div>
+						<br>
 						</c:if>
 						<p>
 							${nboard.nbo_content}
 						</p>
 						
 						<div class="align-right">
+							작성일 ${nboard.nbo_reg_date}&nbsp;&nbsp;
 							<c:if test="${!empty nboard.nbo_modify_date}">
-							최근 수정일 ${nboard.nbo_reg_date}&nbsp;|
+							|&nbsp;&nbsp; 최근 수정일 ${nboard.nbo_modify_date}&nbsp;&nbsp;
 							</c:if>
-							작성일 &nbsp;${nboard.nbo_reg_date}
 						</div>
 						<div class="align-center">
 							<c:if test="${user_num == nboard.mem_num}">
