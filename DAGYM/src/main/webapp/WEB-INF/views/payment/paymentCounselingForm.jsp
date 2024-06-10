@@ -77,7 +77,6 @@ window.onload=function(){
 								<label for="qab_title">제목</label>
 								<input type="text" name="qab_title" id="qab_title" maxlength="50">
 							</li>
-							
 							<li>
 								<label for="qab_content">내용</label>
 								<textarea rows="10" cols="50" name="qab_content" id="qab_content"></textarea>

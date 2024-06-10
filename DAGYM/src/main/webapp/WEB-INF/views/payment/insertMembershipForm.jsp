@@ -33,7 +33,7 @@ $(function() {
             formatted_fee = payFee.toLocaleString();
         } else if (membershipType == "30회권") {
             payEnroll = 30;
-            payFee = 1600000;
+            payFee = 1500000;
             formatted_fee = payFee.toLocaleString();
         }
 

@@ -95,7 +95,7 @@ public class PaymentDAO {
 					+ "(SELECT mem_num,mem_name,pay_num,pay_fee,pay_enroll,pay_reg_date,pay_status,"
 					+ "CASE WHEN pay_enroll = 10 THEN ADD_MONTHS(pay_reg_date,5) "
 					+ "WHEN pay_enroll = 20 THEN ADD_MONTHS(pay_reg_date,10) "
-					+ "WHEN pay_enroll = 30 THEN ADD_MONTHS(pay_reg_date,18) "
+					+ "WHEN pay_enroll = 30 THEN ADD_MONTHS(pay_reg_date,15) "
 					+ "END pay_exp FROM payment JOIN member_detail "
 					+ "USING(mem_num) WHERE mem_num=? ORDER BY pay_num DESC)a) "
 					+ "WHERE rnum >= ? AND rnum <= ?";
