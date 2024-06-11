@@ -78,6 +78,7 @@ window.onload=function(){
 						<input type="hidden" name="qab_num" value="${qaboard.qab_num}">
 						<ul>
 							<li>
+								<label for="qab_type">카테고리</label>
 								<select name="qab_type" id="qab_type">
 									<option value="" selected disabled>-질문 유형-</option>
 									<option value="1" <c:if test="${qaboard.qab_type == 1}">selected</c:if>>PT</option>
@@ -102,7 +103,7 @@ window.onload=function(){
 								<%-- 점부이미지가 있는 경우 --%>
 								<c:if test="${!empty qaboard.qab_filename}">
 									<div id="file_detail">
-									<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" width="150"><br>
+									<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" width="150" class="my-photo2">
 									<input type="button" value="파일 삭제" id="file_del">
 									</div>
 									<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
@@ -138,6 +139,7 @@ window.onload=function(){
 								</c:if>
 							</li>
 						</ul>
+						<br>
 						<div class="align-center">
 							<input type="submit" value="등록">
 							<input type="button" value="목록" onclick="location.href='userQuestionList.do'">

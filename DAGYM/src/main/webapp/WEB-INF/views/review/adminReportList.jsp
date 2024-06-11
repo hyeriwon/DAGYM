@@ -20,11 +20,17 @@ $(function(){
 			dataType:'json',
 			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
 			success:function(param){
-				if(param == 'notExistReport'){
-					alert('해당 글에 존재하는 신고 내역이 없습니다.');
-				}else{
+				if(param.result=='logout'){
+					alert('로그인 후 이용가능합니다.');
+				}else if(param.result=='notAuthority'){
+					alert('권한이 없습니다.');
+				}else if(param.result=='notExistReport'){
+					alert('신고할 후기가 존재하지 않습니다.');
+				}else if(param.result == 'success'){
 					toggleButton(param,index);
 					toggleRow(param,selectedRevNum);
+				}else{
+					alert('신고 처리 오류');
 				}
 			},
 			error:function(){
@@ -43,16 +49,16 @@ $(function(){
 			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
 			success:function(param){
 				if(param.result=='logout'){
-					alert('1');
-				}else if(param.result=='notAutority'){
-					alert('2');
+					alert('로그인 후 이용가능합니다.');
+				}else if(param.result=='notAuthority'){
+					alert('권한이 없습니다.');
 				}else if(param.result=='notExistReport'){
-					alert('3');
+					alert('신고할 후기가 존재하지 않습니다.');
 				}else if(param.result == 'success'){
 					toggleButton(param,index);
 					toggleRow(param,selectedRevNum);
 				}else{
-					alert('4');
+					alert('신고 처리 오류');
 				}
 			},
 			error:function(){
@@ -85,23 +91,22 @@ $(function(){
 				var row = $(this);
 				var revNum = row.find('[data-rev]').data('rev');
 				if(revNum == selectedRevNum && row.find('input[type="button"][id^=recoverRev]').is(':disabled')){
-          row.hide();
-        }
+          			row.hide();
+        		}
 			});
 		}else{
 			$('tr').each(function(){
 				var row = $(this);
 				var revNum = row.find('[data-rev]').data('rev');
 				if(revNum == selectedRevNum){
-	      	row.show();
-	      }
+	      			row.show();
+	      		}
 			});
 		}
  	}
 });
 </script>
 </head>
-<body>
 <body>
 
 	<jsp:include page="/WEB-INF/views/common/header.jsp"/>
@@ -131,9 +136,10 @@ $(function(){
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Review</span>
-                            <h2>신고내역</h2>
-                    	</div>
-                 </div> 
+                            <h2>신고내역</h2>                     
+                    	</div>                    	
+                </div>
+                 
              </div>
           </div>
           	<div class="row">
@@ -158,6 +164,9 @@ $(function(){
 							</li>
 						</ul>
 					</form>
+					<div class="align-right">
+                		<input type="button" value="만료된 신고내역" onclick="location.href='adminExpiredReportList.do'">
+                	</div>
 					<c:if test="${count == 0}">
 						<div class="result-display">
 							표시할 신고 내역이 없습니다.
@@ -202,7 +211,6 @@ $(function(){
 							</div>
 						</div>
 					</c:if>
-					<div class="expiredReport"></div>
 					<!-- content 끝 -->
 					
 					</div>

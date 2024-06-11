@@ -95,6 +95,7 @@ window.onload=function(){
 								<textarea rows="10" cols="50" name="qab_content" id="qab_content"></textarea>
 							</li>
 						</ul>
+						<br>
 						<div class="align-center">
 							<input type="submit" value="등록">
 							<input type="button" value="취소" onclick="location.href='paymentInfo.do'">

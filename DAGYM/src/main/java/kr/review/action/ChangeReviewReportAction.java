@@ -29,7 +29,7 @@ public class ChangeReviewReportAction implements Action{
 		if(user_num==null) {
 			mapAjax.put("result", "logout");
 		}else if(user_num!=null && user_auth!=9) {
-			mapAjax.put("result","notAutority");
+			mapAjax.put("result","notAuthority");
 		}else {
 			request.setCharacterEncoding("utf-8");
 			
@@ -67,8 +67,6 @@ public class ChangeReviewReportAction implements Action{
 						memDAO.updateMemberByAdmin(2, db_review.getMem_num());
 						mapAjax.put("count", "clearBlind");
 					}
-				}else {//회원정지 기간이 만료된 신고내역 처리(report_del=3)
-					mapAjax.put("count", "move");
 				}
 				mapAjax.put("result", "success");
 			} 
