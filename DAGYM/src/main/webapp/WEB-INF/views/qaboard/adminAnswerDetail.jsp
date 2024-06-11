@@ -117,7 +117,6 @@
 									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;&nbsp;&nbsp;&nbsp;
 								</c:if>
 								작성일 &nbsp;${answerBoard.qab_reg_date}
-								
 							</div>
 						</div>
 					</c:if>

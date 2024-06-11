@@ -54,40 +54,45 @@ $(function(){
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="chart-table2 line">
 					
 					<!-- content 시작 -->			
 					<%-- 질문시작 --%>	
-					<p>[
-						<c:if test="${qaboard.qab_type==1}">PT</c:if>
-						<c:if test="${qaboard.qab_type==2}">다이어트</c:if>
-						<c:if test="${qaboard.qab_type==3}">상담</c:if>
-						<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
-						<c:if test="${qaboard.qab_type==5}">기타</c:if>]
-					</p>	
-					<h3>${qaboard.qab_title}</h3><br>
-					<div class="content-header">
-						<div class="align-left">
-							<c:if test="${!empty qaboard.qab_modify_date}">
-								최근 수정일 &nbsp;${qaboard.qab_modify_date} &nbsp;&nbsp;&nbsp;&nbsp;
-							</c:if>
-							작성일 &nbsp;${qaboard.qab_reg_date}
+					<div class="question-header">
+						<p class="qab_type">[
+							<c:if test="${qaboard.qab_type==1}">PT</c:if>
+							<c:if test="${qaboard.qab_type==2}">다이어트</c:if>
+							<c:if test="${qaboard.qab_type==3}">상담</c:if>
+							<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
+							<c:if test="${qaboard.qab_type==5}">기타</c:if>]
+						</p>	
+						<h3>${qaboard.qab_title}</h3><br>
+						<div class="content-header">
+							<div class="align-left">
+								<c:if test="${!empty qaboard.qab_modify_date}">
+									최근 수정일 &nbsp;${qaboard.qab_modify_date} &nbsp;&nbsp;&nbsp;&nbsp;
+								</c:if>
+								작성일 &nbsp;${qaboard.qab_reg_date}
+							</div>
+							<div class="align-right">
+								<c:if test="${empty answerBoard}">
+									<input type="button" value="수정" onclick="location.href='userUpdateForm.do?qab_num=${qaboard.qab_num}'">
+								</c:if>
+								<input type="button" value="삭제" id="delete">
+							</div>
 						</div>
-						<div class="align-right">
-							<c:if test="${empty answerBoard}">
-								<input type="button" value="수정" onclick="location.href='userUpdateForm.do?qab_num=${qaboard.qab_num}'">
-							</c:if>
-							<input type="button" value="삭제" id="delete">
-						</div>
+						<hr size="1" noshade="noshade" width="100%">
 					</div>
-					<hr size="1" noshade="noshade" width="100%">
 					<%-- 내용 --%>
-					<div class="content">
-						<p>${qaboard.qab_content}</p><br>
+					<div class="question-content">
+						<div class="content-text">
+							${qaboard.qab_content}<br>
+						</div>
 						<%-- 첨부파일이 있을 경우 --%>	
 						<c:if test="${!empty qaboard.qab_filename}">
 						<div class="align-left">
-							<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" class="detail-img">
+							<br>
+							<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" class="detail-img" width="400">
 						</div>
 						</c:if>
 					</div><br>
@@ -106,11 +111,10 @@ $(function(){
 							</div>
 						</div>
 					</c:if>
+					<!-- content 끝 -->
+					</div>
 					<div class="align-center">
 						<input type="button" value="목록" onclick="location.href='userQuestionList.do'">
-					</div>
-					<!-- content 끝 -->
-					
 					</div>
 				</div>
 			</div>
