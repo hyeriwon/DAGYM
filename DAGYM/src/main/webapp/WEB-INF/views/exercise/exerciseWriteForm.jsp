@@ -98,7 +98,7 @@ window.onload = function(){
 							<label for="exe_content">운동내역(상세)</label>
 							<textarea rows="5" cols="20"id="exe_content" name="exe_content"></textarea>
 						</li>
-						
+						<br>
 						<li>
 						<div class="align-center">
 						<input type="submit" value="등록">
