@@ -13,7 +13,6 @@
 /* 전체적인 스타일 */
 body {
     color: white;
- 	font-family: "NanumSquareNeo", sans-serif;
 }
 /* 링크의 밑줄 제거 */
 a {
