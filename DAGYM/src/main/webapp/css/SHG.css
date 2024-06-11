@@ -1,1 +1,35 @@
 @charset "UTF-8";
+div.chart-table h2 {
+    border: none;
+    width: 100%;
+}
+.accordion-item {
+    width: 70%;
+    margin: 0 auto; /* 가운데 정렬 */
+    border: 2px solid #666665;
+}
+/*아코디언 항목이 열렸을 때와 닫혔을 때 모두 적용*/
+.accordion-button{
+	width: 100%;
+	font-family: "NanumSquareNeo", sans-serif;
+	font-weight: 400;
+}
+/*아코디언 항목이 닫혀있을 때*/
+.accordion-button.collapsed{
+	color:#f7f6f5;
+	background-color:#151515;
+}
+/* 아코디언 항목이 열렸을 때 */
+.accordion-button:not(.collapsed){
+	color: #f7f6f5;
+	background-color:#ff9721;
+}
+/* 포커스가 있을 때 */
+.accordion-button:focus {
+    box-shadow: 0 0 0 0.25rem rgba(253, 129, 13, 0.25);
+}
+/*특정한 컴포넌트인 아코디언의 내용 부분*/
+.accordion-body{
+	color:#292928;
+	background-color:#f5f5f5;
+}

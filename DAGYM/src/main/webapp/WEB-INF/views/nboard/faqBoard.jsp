@@ -8,41 +8,12 @@
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SHG.css" type="text/css">
 <style type="text/css">
+/* 전체적인 스타일 */
 body {
-    /* 전체적인 스타일 */
     color: white;
  	font-family: "NanumSquareNeo", sans-serif;
-}
-div.chart-table h2 {
-    border: none;
-    width: 100%;
-}
-.accordion-button{/*아코디언 항목이 열렸을 때와 닫혔을 때 모두 적용*/
-	color:black;
-	width: 100%;
-	font-family: "NanumSquareNeo", sans-serif;
-	font-weight: 400;
-}
-.accordion-item {
-    width: 70%;
-    margin: 0 auto; /* 가운데 정렬 */
-    border: 2px solid #666665;
-}
-.accordion-button.collapsed{/*아코디언 항목이 닫혀있을 때*/
-	color:#f7f6f5;
-	background-color:#151515;
-}
-.accordion-button:not(.collapsed){/* 아코디언 항목이 열렸을 때 */
-	color: #f7f6f5;
-	background-color:#ff8800de;
-}
-.accordion-button:focus { /* 포커스가 있을 때 */
-    box-shadow: 0 0 0 0.25rem rgba(253, 129, 13, 0.25);
-}
-accordion-body{/*특정한 컴포넌트인 아코디언의 내용 부분*/
-	color:black;
-	background-color:white;
 }
 /* 링크의 밑줄 제거 */
 a {
