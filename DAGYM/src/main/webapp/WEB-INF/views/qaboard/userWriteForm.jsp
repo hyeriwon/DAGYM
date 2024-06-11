@@ -78,6 +78,7 @@ window.onload=function(){
 					<form id="write_form" action="userWrite.do" method = "post" enctype="multipart/form-data">
 						<ul>
 							<li>
+								<label for="qab_type">카테고리</label>
 								<select name="qab_type" id="qab_type">
 									<option value="" selected disabled>-질문 유형-</option>
 									<option value="1">PT</option>
@@ -100,6 +101,7 @@ window.onload=function(){
 								<input type="file" name="qab_filename" id="qab_filename" accept="image/gif,image/png,image/jpeng">
 							</li>
 						</ul>
+						<br>
 						<div class="align-center">
 							<input type="submit" value="등록">
 							<input type="button" value="목록" onclick="location.href='userQuestionList.do'">
