@@ -46,7 +46,7 @@
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="chart-table2 line">
 					
 					<!-- content 시작 -->	
 					<%-- 질문 시작 --%>
@@ -61,7 +61,7 @@
 						</p>
 						<h3>${qaboard.qab_title}</h3><br>
 						<div class="align-left">
-							<span style="color:#e8e8e8">${qaboard.mem_id}</span> &nbsp;&nbsp;&nbsp;&nbsp; 작성일 &nbsp;${qaboard.qab_reg_date} &nbsp;&nbsp;&nbsp;&nbsp;
+							<span style="color:#e0e0e0">${qaboard.mem_id}</span> &nbsp;&nbsp;&nbsp;&nbsp; 작성일 &nbsp;${qaboard.qab_reg_date} &nbsp;&nbsp;&nbsp;&nbsp;
 							<c:if test="${!empty qaboard.qab_modify_date}">
 								최근 수정일 &nbsp;${qaboard.qab_modify_date}
 							</c:if>
@@ -92,7 +92,7 @@
 					<%-- 문의미답변, 답변등록 --%>
 					<c:if test="${answerBoard==null}">
 						<div id="answerForm-div">
-						<span class="answer-title">답변 등록</span>
+						<span class="answer-title">답변 등록</span><br><br>
 							<form id="answer_form" action="adminWriteAnswer.do" method="post">
 								<input type="hidden" name="qab_num" value="${qaboard.qab_num}" id="qab_num"><!-- 문의글 번호 -->
 								<input type="hidden" name="qab_type" value="${qaboard.qab_type}" id="qab_type"><!-- 문의글 타입 -->
@@ -110,12 +110,13 @@
 								<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">
 							</div>
 							</c:if>
+							<span style="color:white;padding-left: 25px;">${answerBoard.mem_id}</span>
 							<p id="answer_content">${answerBoard.qab_content}</p><br>
 							<div class="align-right">
 								<c:if test="${!empty answerBoard.qab_modify_date}">
 									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;&nbsp;&nbsp;&nbsp;
 								</c:if>
-								작성일 &nbsp;${answerBoard.qab_reg_date}&nbsp;&nbsp;&nbsp;&nbsp; 작성자 &nbsp; ${answerBoard.mem_id}
+								작성일 &nbsp;${answerBoard.qab_reg_date}
 								
 							</div>
 						</div>
@@ -123,10 +124,10 @@
 					<!-- 답변 끝 -->
 					<%-- 질문리스트 목록 --%>
 					<br>
+					<!-- content 끝 -->	
+					</div>
 					<div class="align-center">
 						<input type="button" value="목록" onclick="location.href='adminAnswerList.do'">
-					</div>
-					<!-- content 끝 -->	
 					</div>
 				</div>
 			</div>

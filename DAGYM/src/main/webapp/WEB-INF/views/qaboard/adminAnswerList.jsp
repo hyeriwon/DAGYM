@@ -6,18 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A</title>
-<style type="text/css">
-
-.list-span {
-    text-align: left; /* 목록 부분 왼쪽 정렬 */
-}
-#category{
-	 display: flex;
-    justify-content: flex-start; /* 왼쪽 정렬 */
-    align-items: center;         /* 세로 가운데 정렬 */
-    gap: 10px;
-}
-</style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/qaboard.inquiry.js"></script>
 <script type="text/javascript">
 window.onload=function(){
