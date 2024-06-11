@@ -43,6 +43,7 @@
 ---------------------*/
 form#search_form{
 	border:none;
+	padding:30px;
 }
 ul.search{
 	width:400px;
