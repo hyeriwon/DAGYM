@@ -10,8 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import kr.controller.Action;
+import kr.member.dao.MemberDAO;
 import kr.review.dao.ReviewDAO;
 import kr.review.vo.RevReportVO;
+import kr.review.vo.ReviewVO;
 
 public class ChangeReviewReportAction implements Action{
 
@@ -23,9 +25,11 @@ public class ChangeReviewReportAction implements Action{
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer) session.getAttribute("user_num");
 		Integer user_auth = (Integer) session.getAttribute("user_auth");
-		
-		if(user_num==null && user_auth!=9) {
-			return "/WEB-INF/views/common/notice.jsp";
+
+		if(user_num==null) {
+			mapAjax.put("result", "logout");
+		}else if(user_num!=null && user_auth!=9) {
+			mapAjax.put("result","notAutority");
 		}else {
 			request.setCharacterEncoding("utf-8");
 			
@@ -45,26 +49,34 @@ public class ChangeReviewReportAction implements Action{
 			}else {
 				if(db_report.getReport_del()==0) {
 					dao.AdminReportYes(db_report);
+					
 					mapAjax.put("status", "reportYes");
 					if(dao.totalRevReport(rev_num) >= 3) {
+						ReviewVO db_review = dao.getReview(db_report.getRev_num());
+						MemberDAO memDAO = MemberDAO.getInstance();
+						memDAO.updateMemberByAdmin(1, db_review.getMem_num());
 						mapAjax.put("count", "blind");
 					}
 				}else if(db_report.getReport_del()==1) {
 					dao.AdminReportNo(db_report);
+				
 					mapAjax.put("status", "reportNo");
 					if(dao.totalRevReport(rev_num) == 2) {
+						ReviewVO db_review = dao.getReview(db_report.getRev_num());
+						MemberDAO memDAO = MemberDAO.getInstance();
+						memDAO.updateMemberByAdmin(2, db_review.getMem_num());
 						mapAjax.put("count", "clearBlind");
 					}
 				}else {//회원정지 기간이 만료된 신고내역 처리(report_del=3)
 					mapAjax.put("count", "move");
 				}
+				mapAjax.put("result", "success");
 			} 
 						
 		}
 		//JSON 문자열 만들기
 		ObjectMapper mapper = new ObjectMapper();
 		String ajaxData = mapper.writeValueAsString(mapAjax);
-		
 		request.setAttribute("ajaxData", ajaxData);
 		
 		return "/WEB-INF/views/common/ajax_view.jsp";

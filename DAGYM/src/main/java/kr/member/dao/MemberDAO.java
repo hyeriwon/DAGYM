@@ -376,6 +376,7 @@ public class MemberDAO {
 		return list;
 	} 
 	//관리자 - 회원등급 수정
+	//관리자 - 회원등급 수정
 	public void updateMemberByAdmin(int mem_auth, int mem_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -405,7 +406,7 @@ public class MemberDAO {
 				pstmt.setInt(2, mem_num);
 				pstmt.executeUpdate();
 				
-				sql = "UPDATE review SET report_del=3 WHERE rev_num "
+				sql = "UPDATE review SET rev_del=3 WHERE rev_num "
 						+ "IN(SELECT rev_num FROM review WHERE mem_num=? AND rev_report>=3)";
 				pstmt2 = conn.prepareStatement(sql);
 				pstmt2.setInt(1, mem_num);

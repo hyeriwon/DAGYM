@@ -183,7 +183,7 @@ $(function(){
 															alert('잘못된 접근입니다.');
 														}else if(param.result == 'success'){
 															alert('삭제되었습니다');
-															location.href('listReview.do');
+															location.replace('listReview.do');
 														}else{
 															alert('후기 삭제 오류');
 														}

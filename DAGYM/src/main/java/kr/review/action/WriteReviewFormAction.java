@@ -28,9 +28,10 @@ public class WriteReviewFormAction implements Action{
 				
 		//수강 완료 여부 확인하기 -> 수강후기 작성 버튼을 <a>태그에 작성하여 get방식으로 sch_num 넘겨주기		
 		int sch_num = Integer.parseInt(request.getParameter("sch_num"));
-				
+		
 		HistoryDAO dao = HistoryDAO.getInstance();
 		HistoryVO history = dao.getHistory(sch_num);
+		
 		
 		if(history.getHis_status()!=2) {
 			return "redirect:/history/히스토리목록보는 페이지";
@@ -43,6 +44,7 @@ public class WriteReviewFormAction implements Action{
 		
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
+		
 		MemberVO trainer = memDAO.getMember(history.getTra_num());
 		
 		//해당 PT에 대해 이미 후기가 작성되었는지 확인

@@ -252,7 +252,7 @@ public class ReviewDAO {
 
 		try {
 			conn = DBUtil.getConnection();
-			sql = "SELECT * FROM review WHERE sch_num=?";
+			sql = "SELECT * FROM review WHERE sch_num=? AND rev_del=0";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, sch_num);
 			rs = pstmt.executeQuery();
@@ -640,9 +640,7 @@ public class ReviewDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
-		PreparedStatement pstmt3 = null;
 		String sql = null;
-		String sub_sql = "";
 		
 		try {
 			conn = DBUtil.getConnection();
@@ -659,16 +657,11 @@ public class ReviewDAO {
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
 			
-			MemberDAO memDAO = MemberDAO.getInstance();
-			MemberVO member = memDAO.getMember(revReport.getMem_num());
-			
-			
 			conn.commit();
 		}catch(Exception e) {
 			conn.rollback();
 			throw new Exception(e);
 		}finally {
-			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}

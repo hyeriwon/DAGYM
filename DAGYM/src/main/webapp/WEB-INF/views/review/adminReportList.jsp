@@ -42,8 +42,18 @@ $(function(){
 			dataType:'json',
 			data:{rev_num:$(this).attr('data-rev'),mem_num:$(this).attr('data-mem')},
 			success:function(param){
-				toggleButton(param,index);
-				toggleRow(param,selectedRevNum);
+				if(param.result=='logout'){
+					alert('1');
+				}else if(param.result=='notAutority'){
+					alert('2');
+				}else if(param.result=='notExistReport'){
+					alert('3');
+				}else if(param.result == 'success'){
+					toggleButton(param,index);
+					toggleRow(param,selectedRevNum);
+				}else{
+					alert('4');
+				}
 			},
 			error:function(){
 				alert('네트워크 오류 발생');

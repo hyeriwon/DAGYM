@@ -33,6 +33,7 @@ public class DeleteReviewAction implements Action{
 			//db_review의 mem_num 값과 비교하기
 			ReviewDAO dao = ReviewDAO.getInstance();
 			ReviewVO db_review = dao.getReview(rev_num);
+			System.out.println(db_review);
 			
 			if(db_review.getMem_num()!=user_num) {
 				mapAjax.put("result", "wrongAccess");
@@ -48,7 +49,7 @@ public class DeleteReviewAction implements Action{
 		}
 		
 		ObjectMapper mapper = new ObjectMapper();
-		String ajaxData = mapper.writeValueAsString(mapper);
+		String ajaxData = mapper.writeValueAsString(mapAjax);
 		
 		request.setAttribute("ajaxData", ajaxData);
 		
