@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>NOTICE</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SHG.css" type="text/css">
 </head>
 <body>
 
@@ -44,27 +45,36 @@
 	          </div>
 	          	<div class="row">
 					<div class="col-lg-12">    
-						<div class="chart-table">
+						<div class="chart-table3">
 						
 						<!-- content 시작 -->
-						<p>[
+						<%-- 글 헤더--%>
+						<div class="nbo-header">
+						<p class="nbo_type">[
 							<c:if test="${nboard.nbo_type==0}">공지</c:if>
 							<c:if test="${nboard.nbo_type==1}">이벤트</c:if>
 							<c:if test="${nboard.nbo_type==2}">기타</c:if>]
 						</p>
 						<h2>${nboard.nbo_title}</h2>
 						<div class="align-right">조회수 : ${nboard.nbo_hit}</div>
-						<br>
+						<hr size="1" noshade="noshade" width="100%">
+						</div>
 						
+						<%-- 내용 --%>
+						<div class="nbo-content">
+						<div class="content-img">
 						<c:if test="${!empty nboard.nbo_filename}">
 						<div class="align-center">
 						<img src="${pageContext.request.contextPath}/upload/${nboard.nbo_filename}" class="detail-img">
 						</div>
 						<br>
 						</c:if>
-						<p>
-							${nboard.nbo_content}
-						</p>
+						</div>
+						<div class="content-text">
+							<br>${nboard.nbo_content}<br>
+						</div>
+						</div>
+						<hr size="1" noshade="noshade" width="100%">
 						
 						<div class="align-right">
 							작성일 ${nboard.nbo_reg_date}&nbsp;&nbsp;
@@ -73,6 +83,7 @@
 							</c:if>
 						</div>
 						<div class="align-center">
+							<input type="button" value="목록" onclick="location.href='nboardList.do'">
 							<c:if test="${user_num == nboard.mem_num}">
 								<input type="button" value="수정" onclick="location.href='nboardUpdateForm.do?nbo_num=${nboard.nbo_num}'">
 								<input type="button" value="삭제" id="delete_btn">
@@ -87,7 +98,6 @@
 								};
 								</script>
 							</c:if>
-							<input type="button" value="목록" onclick="location.href='nboardList.do'">
 						</div>
 						
 						<!-- content 끝 -->

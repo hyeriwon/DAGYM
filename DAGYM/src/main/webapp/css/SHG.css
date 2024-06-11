@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+/*=======자주하는 질문=======*/
 .accordion{
 	margin-top:30px;
 }
@@ -43,4 +43,49 @@ input[type="button"].payinfo {
     width: 70px; /* 원하는 너비로 조정 */
     height: 30px; /* 원하는 높이로 조정 */
     font-size: 12px; /* 원하는 글꼴 크기로 조정 */
+}
+/*=======자주하는 질문=======*/
+/*공지글 헤더*/
+.nbo-header{
+	float:left;
+	width:100%;
+}
+/*공지 유형*/
+.nbo_type{
+	color:#ff9721;
+}
+/*공지내용*/
+.nbo_content{
+	float:left;
+ 	width:100%;
+}
+/*공지내용 글*/
+.content-text{
+	 padding-left: 20px;
+	 margin-top: 30px;
+	 margin-bottom:100px;
+}
+.content-img{
+	margin-top:30px;
+}
+div.chart-table3 {
+	border: 1px solid white;
+	width: 100%;
+	font-family: "NanumSquareNeo", sans-serif;
+    align-items: center; /* 내부 요소 수직 가운데 정렬  */
+	padding: 30px; /* 내부 패딩 */
+	box-sizing: border-box; /* 패딩과 테두리를 포함한 크기를 설정 */
+	display: grid;
+	justify-items: center;
+}
+
+div.chart-table3 p {
+	
+	width: 100%;
+	font-family: "NanumSquareNeo", sans-serif;
+}
+div.chart-table3 h2 {
+	
+	width: 100%;
+	font-family: "NanumSquareNeo", sans-serif;
 }
