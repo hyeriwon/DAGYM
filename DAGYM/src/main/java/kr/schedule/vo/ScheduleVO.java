@@ -18,7 +18,7 @@ public class ScheduleVO {
     private int his_num;
     private String trainerId; // 트레이너 ID
     private String memberId; // 회원 ID
-
+    
 	
 	public int getSch_num() {
 		return sch_num;
