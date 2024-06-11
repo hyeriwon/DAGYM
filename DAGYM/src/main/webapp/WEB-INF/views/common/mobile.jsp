@@ -72,10 +72,10 @@
 		                	<li><a href="${pageContext.request.contextPath}/member/myPage.do">회원상세</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/attend/list.do">출석체크</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/point/list.do">포인트</a></li>
-		                    <li><a href="${pageContext.request.contextPath}/exercise/exerciseMain.do">운동기록</a></li>
+		                    <li><a href="${pageContext.request.contextPath}/exercise/exerciseList.do">운동기록</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/meal/mealDetail.do">식사기록</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/inbody/inbodyList.do">인바디</a></li>
-		                    <li><a href="#">수강내역</a></li>
+		                    <li><a href="${pageContext.request.contextPath}/history/mylist.do">수강내역</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/qaboard/userQuestionList.do">문의내역</a></li>
 	                    </ul>
 	                </li>	                
@@ -122,7 +122,7 @@
 							<li><a href="${pageContext.request.contextPath}/exercise/exerciseMain.do">운동기록</a></li>
 							<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
 							<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
-							<li><a href="#">수강내역</a></li>
+							<li><a href="${pageContext.request.contextPath}/schedule/mylist.do">수강내역</a></li>
 							<li><a href="${pageContext.request.contextPath}/qaboard/adminAnswerList.do">문의내역</a></li>
                         </ul>
                     </li>
@@ -172,10 +172,10 @@
                         	<li><a href="${pageContext.request.contextPath}/member/adminMemberList.do">회원상세</a></li>
                             <li><a href="${pageContext.request.contextPath}/attend/adminMemberList.do">출석체크</a></li>
                             <li><a href="${pageContext.request.contextPath}/point/adminMemberList.do">포인트</a></li>
-							<li><a href="#">운동기록</a></li>
+							<li><a href="${pageContext.request.contextPath}/exercise/exerciseMain.do">운동기록</a></li>
 							<li><a href="${pageContext.request.contextPath}/meal/list.do">식사기록</a></li>
 							<li><a href="${pageContext.request.contextPath}/inbody/inbodyMain.do">인바디</a></li>
-							<li><a href="#">수강내역</a></li>
+							<li><a href="${pageContext.request.contextPath}/history/adminHistoryList.do">수강내역</a></li>
 							<li><a href="${pageContext.request.contextPath}/qaboard/adminAnswerList.do">문의내역</a></li>
                         </ul>
                      <li>					
@@ -187,8 +187,10 @@
                      <li>	
                      <li><a href="#">Mypage</a>
                         <ul class="dropdown">
-                            <li><a href="${pageContext.request.contextPath}/payment/paymentMemberList.do">회원권등록</a></li>
+		                	<li><a href="${pageContext.request.contextPath}/member/myPage.do">관리자상세</a></li>
+		                    <li><a href="${pageContext.request.contextPath}/payment/paymentMemberList.do">회원권등록</a></li>
 		                    <li><a href="${pageContext.request.contextPath}/tmenu/tmenuList.do">메뉴등록</a></li>
+		                    <li><a href="${pageContext.request.contextPath}/review/adminReportList.do">신고관리</a></li>
                         </ul>
                      <li>	                
 	            </ul>
