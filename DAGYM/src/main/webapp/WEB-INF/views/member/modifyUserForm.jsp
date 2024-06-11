@@ -127,7 +127,20 @@ $(function(){
 		$('#email_reset').hide();
 	});
 });
-</script> 
+</script>
+<style>
+	form#modify_form {
+		display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    padding: 40px;
+	    border: 2px solid #363636;
+	    box-sizing: border-box;
+	    width: fit-content;
+	    max-width: 100%;
+	    border-radius: 10px;
+	}
+</style> 
 </head>
 <body>
 
@@ -176,12 +189,12 @@ $(function(){
 					
 					<!-- content 시작 -->
 					<form id="modify_form" action="modifyUser.do" method="post" enctype="multipart/form-data">
-						<h4>현재 비밀번호를 입력해야 수정가능합니다.</h4>
 						<ul>
 							<li>
 								<label for="nowPw" style="color:red;">*현재 비밀번호</label>
 								<input type="password" maxlength="12" name="mem_nowPw" id="nowPw" class="input-check">
 							</li>
+							<br>
 							<li>
 								<label for="name">이름</label>
 								<input type="text" name="mem_name" id="name" class="input-check"
@@ -190,13 +203,16 @@ $(function(){
 							<li>
 								<label for="photo">프로필 사진</label>
 								<input type="file" name="mem_photo" id="photo" accept="image/gif,image/png,image/jpeg"><br>
-								<c:if test="${empty member.mem_photo}">
-									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
-								</c:if>
-								<c:if test="${!empty member.mem_photo}">
-									<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="200" height="200" class="my-photo">
-								</c:if>				
+								<div class="photo-container">
+									<c:if test="${empty member.mem_photo}">
+										<img src="${pageContext.request.contextPath}/images/face.png" width="100" height="100" class="my-photo">
+									</c:if>
+									<c:if test="${!empty member.mem_photo}">
+										<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="100" height="100" class="my-photo">
+									</c:if>	
+								</div>		
 							</li>
+							<br>
 							<li>
 								<label>새 비밀번호</label>
 								<input type="password" maxlength="12" name="mem_newPw" id="newPw" maxlength="12">
@@ -217,10 +233,11 @@ $(function(){
 								<input type="button" value="초기화" id="email_reset" style="display:none;">
 								<span id="email_msg"></span>
 							</li>
+							<br>
 							<li>
 								<label>성별</label>
-								<input type="radio" name="mem_gender" value="0" <c:if test="${member.mem_gender == 0}">checked</c:if>>남성
-								<input type="radio" name="mem_gender" value="1" <c:if test="${member.mem_gender == 1}">checked</c:if>>여성
+								<input type="radio" name="mem_gender" value="0" <c:if test="${member.mem_gender == 0}">checked</c:if>> 남성
+								<input type="radio" name="mem_gender" value="1" <c:if test="${member.mem_gender == 1}">checked</c:if>> 여성
 							</li>
 							<li>
 								<label>생년월일</label>
@@ -240,6 +257,7 @@ $(function(){
 								<input type="text" name="mem_address2" id="address2" value="${member.mem_address2}" maxlength="30">
 							</li>
 						</ul>
+						<br>
 						<div class="align-center">
 							<input type="submit" value="수정">
 							<input type="button" value="취소" onclick="location.href='myPage.do'">

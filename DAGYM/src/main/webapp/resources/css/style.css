@@ -119,8 +119,8 @@ input[type="number"] {
 #register_form input[id="id"]{
 	width:223px;
 }
-input[id="zipcode"],input[type="email"]{
-	width:205px;
+input[id="zipcode"]{
+	width:185px;
 }
 .form-notice{
 	margin-left:130px;
@@ -314,6 +314,19 @@ textarea {
     padding-left: 15px;
     padding-right: 5px;
     background: #f9f9f9;
+}
+/* 사진
+---------------------*/
+.photo-container {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.my-photo {
+    margin-left: 135px;
+    border-radius: 15px;
+    border: 2px solid #363636;
 }
 /*----------------------------------------*/
 
