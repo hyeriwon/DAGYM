@@ -22,6 +22,19 @@ window.onload = function(){
 	}
 };
 </script>
+<style>
+	.review {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    padding: 0px;
+	    border: 0px solid #363636;
+	    box-sizing: border-box;
+	    width: fit-content;
+	    max-width: 100%;
+	    border-radius: 10px;
+	}
+</style>
 </head>
 <body>
 
@@ -79,21 +92,21 @@ window.onload = function(){
 							</li>
 						</ul>
 					</form>
-					<div class="align-right">
-						<form action="listReview.do" method="get">
+					<div class="align-left">
+						<form class="review" action="listReview.do" method="get">
 							<select name="keyfield2" onchange="this.form.submit()">
 								<option value="1" id="key1" <c:if test="${param.keyfield2 == 1}">selected</c:if>>최신순</option>
 								<option value="2" id="key2" <c:if test="${param.keyfield2 == 2}">selected</c:if>>좋아요순</option>
 							</select>
 						</form>
 					</div>
-					<br><br>
 					<c:if test="${count == 0}">
 						<div class="result-display">
 							표시할 게시물이 없습니다.
 						</div>
 					</c:if>
 					<c:if test="${count > 0}">
+					<br>
 						<table>
 							<thead>
 								<tr>
