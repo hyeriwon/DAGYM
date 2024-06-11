@@ -9,6 +9,7 @@
 <title>REVIEW</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SYJ.css" type="text/css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SHG.css" type="text/css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 $(function(){
@@ -99,11 +100,11 @@ $(function(){
           </div>
           	<div class="row">
 				<div class="col-lg-12">    
-					<div class="chart-table">
+					<div class="chart-table3">
 					
 					<!-- content 시작 -->
-					<div>
-						<ul>
+					
+						<ul class="detailReview">
 							<li>
 								<h2>${review.rev_title}</h2>
 								<div class="align-right">
@@ -211,7 +212,7 @@ $(function(){
 					</div>
 				</div>
 			</div>
-	      </div>
+	      
 	  </section>
 	  
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

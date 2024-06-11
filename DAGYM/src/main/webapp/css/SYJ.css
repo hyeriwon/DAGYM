@@ -36,3 +36,7 @@ ul li{
 	color:#ddd;
 	cursor:pointer;
 }
+/*review 상세*/
+.detailReview{
+	width:900px;
+}
