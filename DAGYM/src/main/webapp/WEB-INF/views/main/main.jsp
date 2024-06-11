@@ -132,7 +132,7 @@
                     <div class="bs-text">
                         <h3>지금 등록하고 더 많은 혜택을 받아보세요</h3>
                         <div class="bt-tips">Where health, beauty and fitness meet.</div>
-                        <a href="${pageContext.request.contextPath}/payment/paymentCounselingForm.do" class="primary-btn  btn-normal">Membership</a>
+                        <a href="${pageContext.request.contextPath}/payment/paymentInfo.do" class="primary-btn  btn-normal">Membership</a>
                     </div>
                 </div>
             </div>
