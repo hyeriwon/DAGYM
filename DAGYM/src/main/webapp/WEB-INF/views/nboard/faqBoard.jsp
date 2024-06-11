@@ -18,6 +18,10 @@ div.chart-table h2 {
 }
 .accordion-button{/*아코디언 항목이 열렸을 때와 닫혔을 때 모두 적용*/
 	color:black;
+	width: 100%;
+}
+.accordion-item{
+	width: 50%;
 }
 .accordion-button.collapsed{/*아코디언 항목이 닫혀있을 때*/
 	color:black;
