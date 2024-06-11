@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>MYPAGE</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+
 </head>
 <body>
 
@@ -56,32 +57,27 @@
 						<ul>
 							<li>
 								<label>등급</label>
-								<!-- 9가 아닌 경우에는 등급 변경 가능 -->
-								<c:if test="${member.mem_auth!=9}">
+									<!-- 9가 아닌 경우에는 등급 변경 가능 -->
+									<c:if test="${member.mem_auth!=9}">
 									<input type="radio" name="auth" value="1"id="auth1" 
-										<c:if test="${member.mem_auth == 1}">checked</c:if>>정지
+										<c:if test="${member.mem_auth == 1}">checked</c:if>> 정지 
 									<input type="radio" name="auth" value="2"id="auth2" 
-										<c:if test="${member.mem_auth == 2}">checked</c:if>>일반
+										<c:if test="${member.mem_auth == 2}">checked</c:if>> 일반 
 										<input type="radio" name="auth" value="8"id="auth8" 
-										<c:if test="${member.mem_auth == 8}">checked</c:if>>강사
-								</c:if>
-								<!-- 9가 아닌 경우에는 회원등급 변경 불가능 -->
-								<c:if test="${member.mem_auth==9}">
-									<input type="radio" name="auth" value="9" id="auth9" 
-										checked>관리자
-								</c:if>
+										<c:if test="${member.mem_auth == 8}">checked</c:if>> 강사 
+										&nbsp;
+										<!-- 관리자가 아닌 경우에만 회원등급 수정 버튼 등장 -->
+										<c:if test="${member.mem_auth!=9}">
+											<input type="submit" value="수정">
+										</c:if>
+									</c:if>
+									<!-- 9가 아닌 경우에는 회원등급 변경 불가능 -->
+									<c:if test="${member.mem_auth==9}">
+										<input type="radio" name="auth" value="9" id="auth9" checked>관리자
+									</c:if>
 							</li>
-						</ul>
-						<div class="align-center">
-							<!-- 관리자가 아닌 경우에만 회원등급 수정 버튼 등장 -->
-							<c:if test="${member.mem_auth!=9}">
-								<input type="submit" value="수정">
-							</c:if>
-							<input type="button" value="목록"
-								onclick="location.href='adminMemberList.do'">
-						</div>
 						</c:if>
-						<ul>
+						<br>
 							<li>
 								<label>아이디</label>${member.mem_id}
 							</li>
@@ -130,6 +126,8 @@
 							</c:if>		
 						</ul>
 					</form>
+					<br>
+					<input type="button" value="목록" onclick="location.href='adminMemberList.do'">
 					<!-- content 끝 -->
 					
 					</div>

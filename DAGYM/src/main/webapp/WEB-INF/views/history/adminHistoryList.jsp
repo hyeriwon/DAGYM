@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>HISTORY</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<link rel="stylesheet"	href="${pageContext.request.contextPath}/css/LJY.css" type="text/css">
 <script src="${pageContext.request.contextPath}/js/index.global.min.js"></script>
 <script>
 
@@ -78,11 +79,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 info.el.style.cursor = 'pointer';
                 info.el.style.transform = 'scale(1.1)';
                 info.el.style.transition = 'transform 0.2s';
+                info.el.style.color = 'black';
             }
         },
         eventMouseLeave: function(info) {
             if (info.event.extendedProps.his_status) {
                 info.el.style.transform = 'scale(1)';
+                info.el.style.color = '';
             }
         },
         eventClick: function(info) {

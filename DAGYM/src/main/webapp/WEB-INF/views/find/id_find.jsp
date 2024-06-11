@@ -6,6 +6,11 @@
 <meta charset="UTF-8">
 <title>FIND</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<style type="text/css">
+.logbt{
+	margin-bottom:15px;
+}
+</style>
 </head>
 <body>
 
@@ -50,7 +55,7 @@
 							일치하는 회원정보가 있습니다.<br>
 							회원님의 아이디 : ${foundId}
 							<br><br>
-							<input type="button" value="로그인" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'">
+							<input type="button" value="로그인" class="logbt" onclick="location.href='${pageContext.request.contextPath}/member/loginForm.do'">
 							<br>
 							<a href="${pageContext.request.contextPath}/find/pwFindForm.do">비밀번호 찾기</a>
 						</div>

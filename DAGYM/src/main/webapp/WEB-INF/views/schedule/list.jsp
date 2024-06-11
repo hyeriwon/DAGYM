@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (info.event.extendedProps.mem_id !== currentUserId) {
                 info.el.style.backgroundColor = 'red';
                 info.el.style.cursor = 'default'; // 커서를 기본 화살표로 설정
+
             } else {
             	// 마우스를 올리면 포인터로 변경
                 info.el.style.cursor = 'pointer';
@@ -152,8 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
 					<!-- content 시작 -->
 			        <div class="align-right">
 			        <c:if test="${user_auth == 8}">
-			        		<input type="button" value="회원 수강내역" onclick="location.href='${pageContext.request.contextPath}/schedule/mylist.do'">
-			        	</c:if>
+			        	<input type="button" value="회원 수강내역" onclick="location.href='${pageContext.request.contextPath}/schedule/mylist.do'">
+			        </c:if>
 			        </div>
 			        <div id="sch_calendar"></div>
 			        <input type="hidden" value="" name="date" id="date" maxlength="30">

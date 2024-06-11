@@ -67,6 +67,7 @@ input[type="button"].payinfo {
 }
 .content-img{
 	margin-top:30px;
+	width:900px;
 }
 div.chart-table3 {
 	border: 2px solid #C4C4C4;
@@ -83,12 +84,10 @@ div.chart-table3 {
 }
 
 div.chart-table3 p {
-	
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
 div.chart-table3 h2 {
-	
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
