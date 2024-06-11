@@ -329,6 +329,12 @@ textarea {
 }
 
 .my-photo {
+    margin-left: 0px;
+    border-radius: 15px;
+    border: 2px solid #363636;
+    margin-bottom: 4px;
+}
+.my-photo2 {
     margin-left: 135px;
     border-radius: 15px;
     border: 2px solid #363636;

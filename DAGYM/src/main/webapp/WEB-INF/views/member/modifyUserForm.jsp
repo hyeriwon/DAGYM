@@ -205,10 +205,10 @@ $(function(){
 								<input type="file" name="mem_photo" id="photo" accept="image/gif,image/png,image/jpeg"><br>
 								<div class="photo-container">
 									<c:if test="${empty member.mem_photo}">
-										<img src="${pageContext.request.contextPath}/images/face.png" width="100" height="100" class="my-photo">
+										<img src="${pageContext.request.contextPath}/images/face.png" width="100" height="100" class="my-photo2">
 									</c:if>
 									<c:if test="${!empty member.mem_photo}">
-										<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="100" height="100" class="my-photo">
+										<img src="${pageContext.request.contextPath}/upload/${member.mem_photo}" width="100" height="100" class="my-photo2">
 									</c:if>	
 								</div>		
 							</li>

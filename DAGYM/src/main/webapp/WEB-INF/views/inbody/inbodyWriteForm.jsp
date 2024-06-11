@@ -101,10 +101,10 @@ window.onload = function(){
 								<label for="inb_photo">인바디 사진</label>
 								<input type="file" name="inb_photo" id="inb_photo" accept="image/gif,image/png,image/jpeg"><br>
 								<c:if test="${empty inbody.inb_photo}">
-									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
+									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo2">
 								</c:if>
 								<c:if test="${!empty inbody.inb_photo}">
-									<img src="${pageContext.request.contextPath}/upload/${inbody.inb_photo}" width="200" height="200" class="my-photo">
+									<img src="${pageContext.request.contextPath}/upload/${inbody.inb_photo}" width="200" height="200" class="my-photo2">
 								</c:if>				
 							</li>
 						<li>
