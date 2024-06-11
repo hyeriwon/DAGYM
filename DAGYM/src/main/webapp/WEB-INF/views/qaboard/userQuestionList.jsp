@@ -7,19 +7,6 @@
 <meta charset="UTF-8">
 <title>Q&A</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
-<style>
-	.userQuestion {
-		display: flex;
-	    flex-direction: column;
-	    align-items: center;
-	    padding: 0px;
-	    border: 0px solid #363636;
-	    box-sizing: border-box;
-	    width: fit-content;
-	    max-width: 100%;
-	    border-radius: 10px;
-	}
-</style>
 </head>
 <body>
 

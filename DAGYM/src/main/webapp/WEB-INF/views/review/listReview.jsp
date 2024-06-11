@@ -84,15 +84,15 @@ window.onload = function(){
 							</li>
 						</ul>
 					</form>
-					<div class="align-right">
-						<form action="listReview.do" method="get">
+					<div class="align-left">
+						<form class="userQuestion" action="listReview.do" method="get">
 							<select name="keyfield2" onchange="this.form.submit()">
 								<option value="1" id="key1" <c:if test="${param.keyfield2 == 1}">selected</c:if>>최신순</option>
 								<option value="2" id="key2" <c:if test="${param.keyfield2 == 2}">selected</c:if>>좋아요순</option>
 							</select>
 						</form>
 					</div>
-					<br><br>
+					<br>
 					<c:if test="${count == 0}">
 						<div class="result-display">
 							표시할 게시물이 없습니다.
