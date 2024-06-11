@@ -22,6 +22,19 @@ window.onload=function(){
 };
 </script>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<style>
+	.userQuestion {
+		display: flex;
+	    flex-direction: column;
+	    align-items: center;
+	    padding: 0px;
+	    border: 0px solid #363636;
+	    box-sizing: border-box;
+	    width: fit-content;
+	    max-width: 100%;
+	    border-radius: 10px;
+	}
+</style>
 </head>
 <body>
 
@@ -82,7 +95,7 @@ window.onload=function(){
 					</form>
 					<%-- 목록 --%>
 					<div class="align-left">
-						<form id="category" action="adminAnswerList.do" method="get">
+						<form class="userQuestion" id="category" action="adminAnswerList.do" method="get">
 							<select name="category" onchange="this.form.submit()">
 								<option value="">전체</option>
 								<option value="1" <c:if test="${param.category==1}">selected</c:if>>PT</option>
