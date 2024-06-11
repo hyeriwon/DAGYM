@@ -11,8 +11,9 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/SHG.css" type="text/css">
 <style type="text/css">
 /* 전체적인 스타일 */
-body {
-    color: white;
+#contactinfo {
+    color: #fff;
+    font-family: "NanumSquareNeo", sans-serif;
 }
 /* 링크의 밑줄 제거 */
 a {
@@ -318,7 +319,7 @@ input[type="button"].payinfo {
 							</div><!-- end of item -->
 						</div>
 						<br>
-						<div class="align-right">
+						<div class="align-right" id="contactinfo">
 							다른 질문이 있으면 02-3482-4632로 전화주시거나 1:1문의를 이용해주세요<br>
 						</div>
 						<div class="align-right">	
