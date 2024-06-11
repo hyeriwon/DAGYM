@@ -53,8 +53,8 @@
 					<br>
 						<input type="hidden" name="mem_num" value="${member.mem_num}">
 						<%-- 회원등급 변경 --%>
-						<c:if test="${user_auth==9}"><!-- user_auth가 9일때만 등급 변경 가능 -->
 						<ul>
+						<c:if test="${user_auth==9}"><!-- user_auth가 9일때만 등급 변경 가능 -->
 							<li>
 								<label>등급</label>
 									<!-- 9가 아닌 경우에는 등급 변경 가능 -->

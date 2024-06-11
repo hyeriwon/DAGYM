@@ -190,7 +190,10 @@ document.addEventListener('DOMContentLoaded', function() {
                         <h2>History</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">Mypage</a>
+                            	<a href="#">
+	                            <c:if test="${user_auth == 2}">MyPage</c:if>
+	                            <c:if test="${user_auth >= 8}">Member</c:if>
+                             </a>
                             <span>History</span>
                         </div>
                     </div>
@@ -206,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="team-title">
                         <div class="section-title">
                             <span>History</span>
-                            <h2>수강내역(관리자)</h2>
+                            <h2>수강내역 (관리자)</h2>
                         </div>
                  </div>
              </div>

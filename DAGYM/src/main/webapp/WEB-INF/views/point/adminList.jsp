@@ -52,7 +52,7 @@
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Point</span>
-                            <h2>포인트 내역</h2>
+                          <h2>포인트<c:if test="${ user_auth >=8}"> (관리자)</c:if></h2>
                     	</div>
                  </div>
              </div>

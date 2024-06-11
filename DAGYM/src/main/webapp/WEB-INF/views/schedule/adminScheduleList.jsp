@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Schedule</span>
-                            <h2>스케줄(관리자)</h2>
+                            <h2>스케줄 (관리자)</h2>
                     	</div>
                  </div>
              </div>
