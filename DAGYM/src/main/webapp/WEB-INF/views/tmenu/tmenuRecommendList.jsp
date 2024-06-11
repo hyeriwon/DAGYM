@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MEMBERSHIP</title>
+<title>recommendMenu</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
 </head>
 <body>

@@ -126,8 +126,10 @@ window.onload=function(){
 									</c:otherwise>
 								</c:choose>
 								<td>
+									<c:if test="${tmenu.tme_type <= 2 }">
 									<input type="button" value="추천" onclick="location.href='${pageContext.request.contextPath}/tmenu/tmenuRecommend.do?tme_num=${tmenu.tme_num}'">								
-									</td>
+									</c:if>
+								</td>
 								</tr>
 							</c:forEach>
 							

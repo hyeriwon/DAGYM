@@ -214,7 +214,7 @@ public class TmenuDAO {
 		}
 	}
 	
-	//식사별 추천메뉴 보기
+	//식사분류 별 추천메뉴 보기
 	public TmenuVO searchRecommendByTmetype(int tme_type)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
