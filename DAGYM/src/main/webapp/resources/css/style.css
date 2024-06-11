@@ -288,6 +288,18 @@ input[type="search"]::-moz-search-cancel {
     display: flex;
     justify-content: flex-end; /* 오른쪽 정렬 */
 }
+/* textarea
+---------------------*/
+textarea {
+	font-size: 13px;
+	width: 310px;
+    border-radius: 5px;
+    border: 1px solid #363636;
+    padding-top: 10px;
+    padding-left: 15px;
+    padding-right: 5px;
+    background: #f9f9f9;
+}
 /*----------------------------------------*/
 
 /* Template default CSS
