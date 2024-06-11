@@ -21,9 +21,9 @@ window.onload = function(){
 		}
 	}
 	
-	const rows = document.querySelectorAll('tr[data-del="1"]');
-	rows.forEach(function(){
-		var 
+	const rows = document.querySelectorAll('tr[data-del="1"], tr[data-del="3"]');
+	rows.forEach(function(row){
+		row.style.backgroundColor = '#5A5A5A';
 	});
 };
 </script>
@@ -111,8 +111,8 @@ window.onload = function(){
 									<th>조회수</th>
 								</tr>
 							</thead>
-							<c:forEach var="review" items="${list}" varStatus="status">
-								<tr id="report${status.index}" data-del="${review.rev_del}">
+							<c:forEach var="review" items="${list}">
+								<tr data-del="${review.rev_del}">
 									<td><a href="detailReview.do?rev_num=${review.rev_num}">${review.rev_title}</a></td>
 									<td>${review.tra_name}</td>
 									<td>${review.sch_date}시</td>
