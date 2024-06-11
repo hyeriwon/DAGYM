@@ -116,6 +116,9 @@ input[type="number"] {
 	padding-right: 5px;
 	background: #f9f9f9;
 }
+input[type="file"] {
+	margin-bottom:4px;
+}
 
 #register_form input[id="id"]{
 	width:223px;
