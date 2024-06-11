@@ -434,10 +434,10 @@ public class MemberDAO {
 		try {
 			conn = DBUtil.getConnection();
 			if(keyword!=null && !"".equals(keyword)) {
-				if(keyfield.equals("1")) sub_sql += "WHERE mem_name LIKE '%' || ? || '%'";
-				else if(keyfield.equals("2")) sub_sql += "WHERE mem_id LIKE '%' || ? || '%'";
+				if(keyfield.equals("1")) sub_sql += "AND mem_name LIKE '%' || ? || '%'";
+				else if(keyfield.equals("2")) sub_sql += "AND mem_id LIKE '%' || ? || '%'";
 			}
-			sql = "SELECT COUNT(*) FROM member LEFT OUTER JOIN member_detail USING(mem_num) " + sub_sql;
+			sql = "SELECT COUNT(*) FROM member LEFT OUTER JOIN member_detail USING(mem_num) WHERE (mem_auth=1 OR mem_auth=2) " + sub_sql;
 			pstmt = conn.prepareStatement(sql);
 			if(keyword!=null && !"".equals(keyword)) {
 				pstmt.setString(1, keyword);

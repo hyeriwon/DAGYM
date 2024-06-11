@@ -38,6 +38,7 @@ import kr.util.FileUtil;
 				InbodyVO inbody = inbodydao.getInbody(inb_date, user_num);
 				if(inbody != null && inbody.getInb_photo() != null) {
 					inbodydao.updateMyInbodyPhoto(inbody.getInb_num());
+					FileUtil.removeFile(request, inbody.getInb_photo());
 					mapAjax.put("result", "success");
 				}else {
 					mapAjax.put("result", "fail");

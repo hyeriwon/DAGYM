@@ -48,7 +48,7 @@
 					
 					<!-- content 시작 -->
 					<div class="align-center">
-						<h4>${tmenu.tme_name}</h4>
+						<span style="font-size:20pt"><b>${tmenu.tme_name}</b></span>
 					</div>
 					<br>
 					<div style="overflow: auto;">
@@ -57,7 +57,7 @@
 						</div >
 						<div class="align-right" style="width:300px; float: right;">
 							<ul>
-								<li>음식정보</li>
+								<li>음식 영양 정보</li>
 								<li>칼로리 : ${tmenu.tme_kcal} Kcal</li>
 								<li>탄수화물 : ${tmenu.tme_crabs} g</li>
 								<li>단백질 : ${tmenu.tme_protein} g</li>

@@ -228,7 +228,7 @@ public class InbodyDAO {
 		return inbody;
 	}
 	
-	//인바디 사진 수정
+	//인바디 사진 수정	
 	public void updateMyInbodyPhoto(int inb_num)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;

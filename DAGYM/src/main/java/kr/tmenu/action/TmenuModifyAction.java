@@ -8,6 +8,7 @@ import kr.controller.Action;
 import kr.tmenu.dao.TmenuDAO;
 import kr.tmenu.vo.TmenuVO;
 import kr.util.FileUtil;
+import kr.util.StringUtil;
 
 public class TmenuModifyAction implements Action {
 
