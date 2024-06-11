@@ -190,11 +190,13 @@ public class HistoryDAO {
 		            schedule.setSch_date(rs.getString("sch_date"));
 		            schedule.setSch_time(rs.getInt("sch_time"));
 		            schedule.setMem_id(rs.getString("mem_id")); // 트레이너 ID
-		            schedule.setMem_num(rs.getInt("mem_num"));
+		            schedule.setMem_num(rs.getInt("mn"));
 		            schedule.setSch_status(rs.getInt("sch_status"));
 		            schedule.setHis_status(rs.getInt("his_status")); // 추가된 코드
 		            schedule.setTrainerId(rs.getString("mem_id")); // 트레이너 ID
 		            schedule.setMemberId(rs.getString("mi")); // 회원 ID
+		            schedule.setHis_part(rs.getString("his_part")); // 추가된 코드
+		            schedule.setHis_num(rs.getInt("his_num"));
 		            list.add(schedule);
 
 		        }
