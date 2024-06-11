@@ -33,3 +33,14 @@ div.chart-table h2 {
 	color:#292928;
 	background-color:#f5f5f5;
 }
+input[type="button"].payinfo {
+	color:#bababa;
+}
+#contactinfo {
+    font-size:10pt;
+}
+.btn-qa input[type="button"] {
+    width: 70px; /* 원하는 너비로 조정 */
+    height: 30px; /* 원하는 높이로 조정 */
+    font-size: 12px; /* 원하는 글꼴 크기로 조정 */
+}
