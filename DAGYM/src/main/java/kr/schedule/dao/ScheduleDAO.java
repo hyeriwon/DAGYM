@@ -3,6 +3,7 @@ package kr.schedule.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,7 +123,7 @@ public class ScheduleDAO {
         return schedules;
     }
     
-    // 스케줄 삭제
+    // 트레이너 - 스케줄 삭제
     public boolean deleteSchedule(int schNum, int userNum) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -140,7 +141,7 @@ public class ScheduleDAO {
             if (rowsAffected > 0) {
                 success = true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new Exception(e);
         } finally {
             DBUtil.executeClose(null, pstmt, conn);
@@ -167,7 +168,7 @@ public class ScheduleDAO {
             if (rowsAffected > 0) {
                 success = true;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             throw new Exception(e);
         } finally {
             DBUtil.executeClose(null, pstmt, conn);
