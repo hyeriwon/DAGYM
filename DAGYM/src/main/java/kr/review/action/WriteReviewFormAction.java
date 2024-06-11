@@ -34,13 +34,19 @@ public class WriteReviewFormAction implements Action{
 		
 		
 		if(history.getHis_status()!=2) {
-			return "redirect:/history/히스토리목록보는 페이지";
+			// 관리자일 경우
+			if (user_auth == 9) return "redirect:/history/adminHistory.jsp";
+			// 트레이너일 경우
+			if (user_auth == 8) return "redirect:/history/mylist.jsp";
+			
+			return "redirect:/history/mylist.jsp";
 		}
 		
-		//로그인한 사람과 수강한 사람의 일치 여부 확인, 관리자 조건 추가
-		if(mem_num != history.getMem_num() && user_auth != 9) {
+		//로그인한 사람과 수강한 사람의 일치 여부 확인
+		if(mem_num != history.getMem_num()) {
 			return "/WEB-INF/views/common/notice.jsp";
 		}
+		
 		
 		
 		MemberDAO memDAO = MemberDAO.getInstance();
