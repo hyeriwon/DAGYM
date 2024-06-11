@@ -54,7 +54,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <span>Our Classes</span>
-                        <h2>WHAT WE CAN OFFER</h2>
+                        <h2>프로그램 소개</h2>
                     </div>
                 </div>
             </div>
@@ -65,8 +65,8 @@
                             <img src="${pageContext.request.contextPath}/resources/img/classes/class-1.jpg" alt="">
                         </div>
                         <div class="ci-text">
-                            <span>STRENGTH</span>
-                            <h5>Weightlifting</h5>
+                            <span>HEALTH</span>
+                            <h5>식단 관리</h5>
                             <a href="#"><i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
@@ -77,8 +77,8 @@
                             <img src="${pageContext.request.contextPath}/resources/img/classes/class-2.jpg" alt="">
                         </div>
                         <div class="ci-text">
-                            <span>Cardio</span>
-                            <h5>Indoor cycling</h5>
+                            <span>TRAINING</span>
+                            <h5>실내 스트레칭</h5>
                             <a href="#"><i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                         </div>
                         <div class="ci-text">
                             <span>STRENGTH</span>
-                            <h5>Kettlebell power</h5>
+                            <h5>케틀벨 운동</h5>
                             <a href="#"><i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
@@ -101,8 +101,8 @@
                             <img src="${pageContext.request.contextPath}/resources/img/classes/class-4.jpg" alt="">
                         </div>
                         <div class="ci-text">
-                            <span>Cardio</span>
-                            <h4>Indoor cycling</h4>
+                            <span>STRENGTH</span>
+                            <h4>데드리프트</h4>
                             <a href="#"><i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
@@ -110,11 +110,11 @@
                 <div class="col-lg-6">
                     <div class="class-item">
                         <div class="ci-pic">
-                            <img src="${pageContext.request.contextPath}/resources/img/classes/class-5.jpg" alt="">
+                            <img src="${pageContext.request.contextPath}/resources/img/blog/details/details-hero.jpg" alt="">
                         </div>
                         <div class="ci-text">
-                            <span>Training</span>
-                            <h4>Boxing</h4>
+                            <span>HEALTH</span>
+                            <h4>메뉴 추천</h4>
                             <a href="#"><i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="bs-text">
-                        <h2>registration now to get more deals</h2>
+                        <h3>지금 등록하고 더 많은 혜택을 받아보세요</h3>
                         <div class="bt-tips">Where health, beauty and fitness meet.</div>
                         <a href="${pageContext.request.contextPath}/payment/paymentCounselingForm.do" class="primary-btn  btn-normal">Membership</a>
                     </div>

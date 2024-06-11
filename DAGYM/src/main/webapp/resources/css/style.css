@@ -992,6 +992,13 @@ ol {
 	text-transform: uppercase;
 	margin-bottom: 25px;
 }
+.bs-text h3 {
+	font-size: 35px;
+	color: #ffffff;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin-bottom: 25px;
+}
 
 .bs-text .bt-tips {
 	font-size: 20px;
