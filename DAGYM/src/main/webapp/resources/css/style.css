@@ -105,14 +105,22 @@ input[type="text"],input[type="password"],input[type="email"],input[type="date"]
 	padding-right: 5px;
 	background: #f9f9f9;
 }
+input[type="number"] {
+	font-size: 13px;
+	height:35px;
+	width:120px;	
+	border-radius: 5px;
+	border: 1px solid #363636;
+	padding-left: 15px;
+	padding-right: 5px;
+	background: #f9f9f9;
+}
+
 #register_form input[id="id"]{
 	width:223px;
 }
 input[id="zipcode"],input[type="email"]{
 	width:205px;
-}
-input[type="number"]{
-	width:100px;
 }
 .form-notice{
 	margin-left:130px;
