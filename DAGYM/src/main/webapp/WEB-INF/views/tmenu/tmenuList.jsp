@@ -80,8 +80,8 @@ window.onload=function(){
 					</ul>
 					</form>
 					<br>
-					
 					<div class= "list-space align-right">
+					<input type="button" value="추천메뉴목록" onclick="location.href='tmenuRecommendCheck.do'">
 					<input type="button" value="등록" onclick="location.href='tmenuWriteForm.do'">
 					<input type="button" value="목록" onclick="location.href='tmenuList.do'">
 					</div>

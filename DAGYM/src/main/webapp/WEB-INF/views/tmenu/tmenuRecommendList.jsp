@@ -46,7 +46,7 @@
                 <div class="col-lg-4 col-md-8">
                     <div > <div class= "align-center">오늘의 아침</div>
                     <a href="${pageContext.request.contextPath}/tmenu/tmenuDetail.do?tme_num=${breakfast.tme_num}">
-                       <img class="menu-image" src="${pageContext.request.contextPath}/upload/${breakfast.tme_photo}">
+                       <img class="menu-image2" src="${pageContext.request.contextPath}/upload/${breakfast.tme_photo}">
                     </a>
                     </div>
                 </div>
@@ -54,30 +54,25 @@
                     <div > 
 					<div class= "align-center">오늘의 점심</div>
                          <a href="${pageContext.request.contextPath}/tmenu/tmenuDetail.do?tme_num=${lunch.tme_num}">
-                       <img class="menu-image" src="${pageContext.request.contextPath}/upload/${lunch.tme_photo}">
+                       <img class="menu-image2" src="${pageContext.request.contextPath}/upload/${lunch.tme_photo}">
                     </a>
-
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-8">
                     <div >
                     	<div class= "align-center">오늘의 저녁</div>
                     	 <a href="${pageContext.request.contextPath}/tmenu/tmenuDetail.do?tme_num=${dinner.tme_num}">
-                       <img  class="menu-image" src="${pageContext.request.contextPath}/upload/${dinner.tme_photo}">
+                       <img class="menu-image2" src="${pageContext.request.contextPath}/upload/${dinner.tme_photo}">
                     </a>
-                        
                     </div>
                 </div>
-                <!-- content 시작 -->
 				<div class="align-center">
 					<br>
 					<input type="button" value="홈으로" onclick="location.href='${pageContext.request.contextPath}/main/main.do'">
 				</div>
-				<!-- content 끝 -->
             </div>
         </div>
     </section>
-    <!-- Pricing Section End -->
 	  
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>
 	<jsp:include page="/WEB-INF/views/common/js_plugins.jsp"/>

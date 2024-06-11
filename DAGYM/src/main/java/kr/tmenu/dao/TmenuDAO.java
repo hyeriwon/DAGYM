@@ -214,7 +214,7 @@ public class TmenuDAO {
 		}
 	}
 	
-	//식사분류 별 추천메뉴 보기
+	//식사분류별 추천메뉴 보기
 	public TmenuVO searchRecommendByTmetype(int tme_type)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -272,7 +272,67 @@ public class TmenuDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	//추천메뉴 보기
+	//추천메뉴 리스트 갯수 구하기
+		public int getCountRecommendTmenu() throws Exception{
+			Connection conn= null;
+			PreparedStatement pstmt=null;
+			ResultSet rs =null;
+			String sql = null;
+			int count= 0;
+			try {
+				conn = DBUtil.getConnection();
+			
+				sql= "SELECT COUNT(*) FROM t_menu WHERE tme_recom = 1";
+				pstmt =conn.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			return count;
+		}
+		//오늘의 메뉴 목록
+		public List<TmenuVO> getListRecommendTmenu(int start,int end)throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs =null;
+			List<TmenuVO> list = null;
+			String sql = null;
+			String sub_sql = "";
+			int cnt = 0;
+			try {
+				conn=DBUtil.getConnection();
+				sql="SELECT * FROM (SELECT a.*,rownum rnum FROM "
+						+ "(SELECT * FROM t_menu WHERE tme_recom =1)a) WHERE rnum >=? AND rnum <=? ORDER BY tme_type ASC";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(++cnt,start);
+				pstmt.setInt(++cnt,end);
+				rs=pstmt.executeQuery();
+				list = new ArrayList<TmenuVO>();
+				while(rs.next()) {
+					TmenuVO item = new TmenuVO();
+					item.setTme_content(rs.getString("tme_content"));
+					item.setTme_num(rs.getInt("tme_num"));
+					item.setTme_crabs(rs.getInt("tme_crabs"));
+					item.setTme_kcal(rs.getInt("tme_kcal"));
+					item.setTme_lipid(rs.getInt("tme_lipid"));
+					item.setTme_name(rs.getString("tme_name"));
+					item.setTme_photo(rs.getString("tme_photo"));
+					item.setTme_protein(rs.getInt("tme_protein"));
+					item.setTme_type(rs.getInt("tme_type"));
+					list.add(item);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}
+			return list;
+		}
 	
 	//사진파일 수정미리보기
 	public void updateMyPhoto(String tme_photo, int tme_num) throws Exception{
