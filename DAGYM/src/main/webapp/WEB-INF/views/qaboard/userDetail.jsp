@@ -76,7 +76,7 @@ $(function(){
 							</div>
 							<div class="align-right">
 								<c:if test="${empty answerBoard}">
-									<input type="button" value="수정" onclick="location.href='userUpdateForm.do?qab_num=${qaboard.qab_num}'">
+									<input type="button" value="수정" onclick="location.href='userUpdateForm.do?qab_num=${qaboard.qab_num}'">&nbsp;&nbsp;
 								</c:if>
 								<input type="button" value="삭제" id="delete">
 							</div>
@@ -104,10 +104,10 @@ $(function(){
 							<p id="answer_content">${answerBoard.qab_content}</p><br>
 							<hr size="1" noshade="noshade" width="100%">
 							<div class="align-right">
+								작성일 &nbsp;${answerBoard.qab_reg_date}
 								<c:if test="${!empty answerBoard.qab_modify_date}">
 									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;|
 								</c:if>
-								작성일 &nbsp;${answerBoard.qab_reg_date}
 							</div>
 						</div>
 					</c:if>
