@@ -1,42 +1,108 @@
 @charset "UTF-8";
 
-ul li{
-	clear:both;
+ul li {
+	clear: both;
 }
-.mem_detail li label{
-	padding-top:2px;
-	width:130px;
+
+.mem_detail li label {
+	padding-top: 2px;
+	width: 130px;
 	display: inline-block; /*태그를 왼쪽으로 정렬*/
 }
 
 /*수강후기 별점 부여*/
 .star-rating {
-    direction:rtl; 
-    display: inline-block;
+	direction: rtl;
+	display: inline-block;
 }
 
-.star-rating input[type="radio"]{
-	display:none;
+.star-rating input[type="radio"] {
+	display: none;
 }
-.star-rating label{
-	width:15px;
-	font-size:1em;
+
+.star-rating label {
+	width: 15px;
+	font-size: 1em;
 	color: #ddd;
 	cursor: pointer;
 }
-.star-rating input[type="radio"]:checked ~ label{
-	color:#ff5500;
+
+.star-rating input[type="radio"]:checked ~ label {
+	color: #ff5500;
 }
-.star-rating input[type="radio"]:hover ~ label{
-	color:#ff5500;
+
+.star-rating input[type="radio"]:hover ~ label {
+	color: #ff5500;
 }
 
 /* 좋아요 */
-.like_img{
-	color:#ddd;
-	cursor:pointer;
+.like_img {
+	color: #ddd 1px solid;
+	cursor: pointer;
 }
 /*review 상세*/
-.detailReview{
-	width:900px;
+div.chart-table3 {
+	border: 2px solid #C4C4C4;
+	border-radius: 10px;
+	width: 85%;
+	font-family: "NanumSquareNeo", sans-serif;
+	align-items: center; /* 내부 요소 수직 가운데 정렬  */
+	padding: 30px; /* 내부 패딩 */
+	box-sizing: border-box; /* 패딩과 테두리를 포함한 크기를 설정 */
+	display: grid;
+	justify-items: center;
+	margin-bottom: 30px;
+	background-color: #000000;
+}
+
+div.chart-table3 h2 {
+	width: 100%;
+	font-family: "NanumSquareNeo", sans-serif;
+}
+
+.detailReview {
+	width: 900px;
+}
+
+.align-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 15px;
+}
+
+.ctn1 {
+	display: flex;
+	justify-content: center; /* 수평 중앙 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+}
+
+.ctn2 {
+	display: flex;
+	justify-content: flex-end;
+	gap: 0.5em;
+}
+
+.divider1 {
+	padding: 5px 0 20px 0;
+}
+
+.divider2 {
+	padding: 20px 0 20px 0;
+}
+.exeImg{
+	display:flex;
+	justify-content: center; /* 수평 중앙 정렬 */
+}
+#beforeImg {
+	padding-right:50px;
+}
+#beforeImg label, #afterImg label{
+	display: center;
+}
+#before, #after, #newFile1, #newFile2  {
+	max-width: 400px;
+	max-height: 600px;
+	width: auto;
+	height: auto;
 }
