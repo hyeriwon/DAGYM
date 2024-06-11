@@ -56,7 +56,7 @@
 						<!-- content 시작 -->
 						<div class="result-display2">
 							<table>
-								<caption>${exe_date}일의운동기록</caption>
+								<caption>${exe_date}일의 운동기록</caption>
 								<thead>
 									<tr>
 										<th>운동부위</th>
