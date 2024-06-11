@@ -2862,7 +2862,7 @@ div.chart-table h6 {
 .leave-comment form input {
 	font-size: 13px;
 	color: #c4c4c4;
-	width: 100%;
+	width: 400px;
 	height: 46px;
 	border: 1px solid #363636;
 	border-radius: 5px;
@@ -2931,7 +2931,7 @@ div.chart-table h6 {
 	color: #ffffff;
 	text-transform: uppercase;
 	font-weight: 700;
-	width: 100%;
+	width: 400px;
 	border: none;
 	padding: 14px 0 12px;
 	background: #f36100;

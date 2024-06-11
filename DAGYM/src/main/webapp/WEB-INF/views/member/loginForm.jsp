@@ -23,6 +23,11 @@ $(function(){
 	});
 });
 </script>
+<style>
+	.form-input {
+		width: 400px;
+	}
+</style>
 </head>
 <body>
 
