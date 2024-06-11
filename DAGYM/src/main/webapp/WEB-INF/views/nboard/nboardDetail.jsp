@@ -82,6 +82,9 @@
 							|&nbsp;&nbsp; 최근 수정일 ${nboard.nbo_modify_date}&nbsp;&nbsp;
 							</c:if>
 						</div>
+						</div>
+						<%-- chart-table3 끝 --%>
+						
 						<div class="align-center">
 							<input type="button" value="목록" onclick="location.href='nboardList.do'">
 							<c:if test="${user_num == nboard.mem_num}">
@@ -99,10 +102,8 @@
 								</script>
 							</c:if>
 						</div>
-						
 						<!-- content 끝 -->
 						
-						</div>
 					</div>
 				</div>
 		      </div>

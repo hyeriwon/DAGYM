@@ -69,7 +69,8 @@ input[type="button"].payinfo {
 	margin-top:30px;
 }
 div.chart-table3 {
-	border: 1px solid white;
+	border: 1px solid #e0e0e0;
+	border-radius: 10px;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
     align-items: center; /* 내부 요소 수직 가운데 정렬  */
@@ -77,6 +78,7 @@ div.chart-table3 {
 	box-sizing: border-box; /* 패딩과 테두리를 포함한 크기를 설정 */
 	display: grid;
 	justify-items: center;
+	margin-bottom:30px;
 }
 
 div.chart-table3 p {
