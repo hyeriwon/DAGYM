@@ -539,7 +539,7 @@ public class ReviewDAO {
 		}
 	}
 	/*       관리자        */
-	//수강후기 신고 개수, 검색 개수
+	//수강후기 신고 개수, 검색 개수(만료되지 않은 후기)
 	public int getReportCount(String keyfield,String keyword) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -577,7 +577,7 @@ public class ReviewDAO {
 		}		
 		return count;
 	}
-	//수강후기 신고 내역 목록 및 검색
+	//수강후기 신고 내역 목록 및 검색(만료되지 않은 후기)
 	public List<RevReportVO> getAdminListReport(int start,int end,String keyfield,String keyword) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -634,7 +634,100 @@ public class ReviewDAO {
 		}
 		return list;
 	}
-	
+	//수강후기 신고 개수, 검색 개수(만료된 후기)
+		public int getExpiredReportCount(String keyfield,String keyword) throws Exception{
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = null;
+			String sub_sql = "";
+			int count = 0;
+			
+			try {
+				conn = DBUtil.getConnection();
+				
+				//sub_sql 작성
+				if(keyword!=null && !"".equals(keyword)) {
+					if(keyfield.equals("1")) sub_sql += "AND rev_title LIKE '%'|| ? ||'%'";
+					else if(keyfield.equals("2")) sub_sql += "AND report_content LIKE '%'|| ? ||'%'";
+					else if(keyfield.equals("3")) sub_sql += "AND rp.rev_num=?";
+				}
+				sql = "SELECT COUNT(*) FROM review_report rp " 
+					  + "JOIN review rev ON rp.rev_num = rev.rev_num WHERE rev_del=3 "
+					  + sub_sql;
+				
+				pstmt = conn.prepareStatement(sql);
+				if(keyword!=null && !"".equals(keyword)) {
+					if(keyfield.equals("3")) pstmt.setInt(1, Integer.parseInt(keyword));
+					else pstmt.setString(1, keyword);
+				}
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					count = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				throw new Exception(e);
+			}finally {
+				DBUtil.executeClose(rs, pstmt, conn);
+			}		
+			return count;
+		}
+	//수강후기 신고 내역 목록 및 검색(만료된 후기)
+	public List<RevReportVO> getAdminExpiredListReport(int start,int end,String keyfield,String keyword) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<RevReportVO> list = null;
+		String sql = null;
+		String sub_sql = "";
+		int cnt=0;
+
+		try {
+			conn = DBUtil.getConnection();
+			//sub_sql문 작성
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("1")) sub_sql += "AND rev_title LIKE '%'|| ? ||'%'";	  //수강후기 글 제목
+				else if(keyfield.equals("2")) sub_sql += "AND report_content LIKE '%'|| ? ||'%'";	  //신고사유
+				else if(keyfield.equals("3")) sub_sql += "AND rp.rev_num=?"; //수강후기 글번호
+			}		
+			//SQL문 작성
+			sql = "SELECT * FROM "
+					+ "(SELECT rp.*,mb.mem_id,rev.rev_title,rownum rnum "
+					+ "FROM review_report rp "
+					+ "JOIN member mb ON rp.mem_num = mb.mem_num "
+					+ "JOIN review rev ON rp.rev_num = rev.rev_num WHERE rev_del=3 "
+					+ sub_sql + " ORDER BY report_date DESC) "
+					+ "WHERE rnum >= ? AND rnum <= ?";
+			//PreparedStatement 객체 생성
+			pstmt = conn.prepareStatement(sql);
+			//?에 데이터 바인딩
+			if(keyword!=null && !"".equals(keyword)) {
+				if(keyfield.equals("3")) pstmt.setInt(++cnt, Integer.parseInt(keyword));
+				else pstmt.setString(++cnt, keyword);
+			}
+			pstmt.setInt(++cnt, start);
+			pstmt.setInt(++cnt, end);
+			//SQL문 실행
+			rs = pstmt.executeQuery();
+			list = new ArrayList<RevReportVO>();
+			while(rs.next()) {
+				RevReportVO report = new RevReportVO();
+				report.setRev_num(rs.getInt("rev_num"));
+				report.setMem_num(rs.getInt("mem_num"));
+				report.setReport_content(StringUtil.useNoHTML(rs.getString("report_content")));
+				report.setReport_del(rs.getInt("report_del"));
+				report.setMem_id(rs.getString("mem_id"));
+				report.setRev_title(StringUtil.useNoHTML(rs.getString("rev_title")));
+
+				list.add(report);
+			}
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(rs, pstmt, conn);
+		}
+		return list;
+	}
 	//수강후기 신고처리
 	public void AdminReportYes(RevReportVO revReport) throws Exception{
 		Connection conn = null;

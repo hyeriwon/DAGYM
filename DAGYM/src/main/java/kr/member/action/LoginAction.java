@@ -27,7 +27,7 @@ public class LoginAction implements Action{
 			check = member.isCheckedPassword(passwd);
 			if(member.getMem_auth()==1) {
 				LocalDate susDate = member.getMem_sus_date().toLocalDate();
-				if(LocalDate.now() ==susDate) {
+				if(LocalDate.now().isAfter(susDate)) {
 					dao.updateMemberByAdmin(2, member.getMem_num());					
 					check = true;
 				}

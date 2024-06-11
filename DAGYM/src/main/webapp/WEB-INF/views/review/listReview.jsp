@@ -20,21 +20,13 @@ window.onload = function(){
 			return false;
 		}
 	}
+	
+	const rows = document.querySelectorAll('tr[data-del="1"]');
+	rows.forEach(function(){
+		var 
+	});
 };
 </script>
-<style>
-	.review {
-	    display: flex;
-	    flex-direction: column;
-	    align-items: center;
-	    padding: 0px;
-	    border: 0px solid #363636;
-	    box-sizing: border-box;
-	    width: fit-content;
-	    max-width: 100%;
-	    border-radius: 10px;
-	}
-</style>
 </head>
 <body>
 
@@ -92,21 +84,21 @@ window.onload = function(){
 							</li>
 						</ul>
 					</form>
-					<div class="align-left">
-						<form class="review" action="listReview.do" method="get">
+					<div class="align-right">
+						<form action="listReview.do" method="get">
 							<select name="keyfield2" onchange="this.form.submit()">
 								<option value="1" id="key1" <c:if test="${param.keyfield2 == 1}">selected</c:if>>최신순</option>
 								<option value="2" id="key2" <c:if test="${param.keyfield2 == 2}">selected</c:if>>좋아요순</option>
 							</select>
 						</form>
 					</div>
+					<br><br>
 					<c:if test="${count == 0}">
 						<div class="result-display">
 							표시할 게시물이 없습니다.
 						</div>
 					</c:if>
 					<c:if test="${count > 0}">
-					<br>
 						<table>
 							<thead>
 								<tr>
@@ -119,8 +111,8 @@ window.onload = function(){
 									<th>조회수</th>
 								</tr>
 							</thead>
-							<c:forEach var="review" items="${list}">
-								<tr>
+							<c:forEach var="review" items="${list}" varStatus="status">
+								<tr id="report${status.index}" data-del="${review.rev_del}">
 									<td><a href="detailReview.do?rev_num=${review.rev_num}">${review.rev_title}</a></td>
 									<td>${review.tra_name}</td>
 									<td>${review.sch_date}시</td>
