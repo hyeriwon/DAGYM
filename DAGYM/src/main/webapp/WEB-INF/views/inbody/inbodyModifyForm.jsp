@@ -133,14 +133,16 @@ window.onload = function(){
 								<input type="button" value="사진 삭제" id="delete_photo">
 								</div>
 								</c:if>
+								<br>
 								<c:if test="${empty inbody.inb_photo}">
-									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
+									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo2">
 								</c:if>
 								<c:if test="${!empty inbody.inb_photo}">
-									<img src="${pageContext.request.contextPath}/upload/${inbody.inb_photo}" width="200" height="200" class="my-photo">
+									<img src="${pageContext.request.contextPath}/upload/${inbody.inb_photo}" width="200" height="200" class="my-photo2">
 								</c:if>				
 							</li>
 						<li>
+						<br>
 						<div class="align-center">
 						<input type="submit" value="수정">
 						<c:if test="${user_auth ==2}">
