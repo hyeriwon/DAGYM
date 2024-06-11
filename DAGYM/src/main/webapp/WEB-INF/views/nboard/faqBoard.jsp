@@ -312,7 +312,7 @@ a {
 						</div>
 						<br>
 						<div class="align-center" id="contactinfo">
-							다른 질문이 있으면 02-3482-4632로 전화주시거나 1:1문의를 이용해주세요<br>
+							다른 질문이 있으면 02-3482-4632로 전화주시거나 1:1문의를 이용해주세요<br><br>
 						</div>
 						<div class="align-center btn-qa">	
 							<input type="button" value="1:1문의" onclick="location.href='${pageContext.request.contextPath}/qaboard/userQuestionList.do'">
