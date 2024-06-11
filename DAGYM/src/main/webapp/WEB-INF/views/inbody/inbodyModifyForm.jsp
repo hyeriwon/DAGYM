@@ -51,6 +51,7 @@ window.onload = function(){
 			success:function(param){
 				if(param.result == 'success'){
 					$('.my-photo').attr('src', '${pageContext.request.contextPath}/images/face.png');
+					$('#delete_photo').hide(); 
 					alert('인바디 사진 삭제처리 되었습니다.');
 				}else if(param.result == 'logout'){
 					alert('로그인을 해야합니다.');
