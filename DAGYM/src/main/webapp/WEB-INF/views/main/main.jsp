@@ -115,7 +115,7 @@
                         <div class="ci-text">
                             <span>HEALTH</span>
                             <h4>메뉴 추천</h4>
-                            <a href="#"><i class="fa fa-angle-right"></i></a>
+                            <a href="${pageContext.request.contextPath}/tmenu/tmenuRecommendList.do"><i class="fa fa-angle-right"></i></a>
                         </div>
                     </div>
                 </div>

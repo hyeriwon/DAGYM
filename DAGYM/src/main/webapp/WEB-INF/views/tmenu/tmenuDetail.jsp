@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,16 +66,25 @@
 							</ul>
 						</div>
 						<div class="content-text" style="width:300px; float: right;">
+						<div>음식상세</div>
 							${tmenu.tme_content}
 						</div>
 						<br>
 						<div id="output"></div>
 					</div>
+					<c:if test="${user_auth <8 || user_num == null}">
+					<div class="align-center">
+							<input type="button" value="목록" onclick="location.href='tmenuRecommendList.do'">
+					</div>
+					</c:if>
 					<div class="align-right">
 						<div>
+						<c:if test="${user_auth >=8}">
 							 <input type="button" value="수정" onclick="location.href='tmenuModifyForm.do?tme_num=${tmenu.tme_num}'">
 							 <input type="button" value="삭제" onclick="location.href='tmenuDelete.do?tme_num=${tmenu.tme_num}'">
 							 <input type="button" value="목록" onclick="location.href='tmenuList.do'">
+						</c:if>
+						
 						</div>
 					</div>
 					<!-- content 끝 -->

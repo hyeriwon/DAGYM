@@ -16,7 +16,7 @@ public class TmenuWriteFormAction implements Action {
 			return "redirect:/member/loginForm.do";
 		}
 		Integer user_auth = (Integer)session.getAttribute("user_auth");
-		if(user_auth == null) {
+		if(user_auth < 8) {
 			return "/WEB-INF/views/common/notice.jsp";
 		}
 		return "/WEB-INF/views/tmenu/writeTmenuForm.jsp";

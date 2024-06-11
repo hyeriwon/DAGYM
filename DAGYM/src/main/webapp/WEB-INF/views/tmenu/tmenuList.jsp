@@ -100,6 +100,7 @@ window.onload=function(){
 									<th>메뉴이름</th>
 									<th>칼로리</th>
 									<th>식사분류</th>
+									<th>메뉴추천</th>
 								</tr>
 							</thead>
 							<c:forEach var = "tmenu" items="${list}">
@@ -124,8 +125,12 @@ window.onload=function(){
 									<td>검색용 메뉴</td>
 									</c:otherwise>
 								</c:choose>
+								<td>
+									<input type="button" value="추천" onclick="location.href='${pageContext.request.contextPath}/tmenu/tmenuRecommend.do?tme_num=${tmenu.tme_num}'">								
+									</td>
 								</tr>
 							</c:forEach>
+							
 						</table>
 						<br>
 						

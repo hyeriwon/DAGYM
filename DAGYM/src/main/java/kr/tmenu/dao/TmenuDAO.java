@@ -214,22 +214,21 @@ public class TmenuDAO {
 		}
 	}
 	
-	//메뉴 타입별 분류하기
-	public List<TmenuVO> searchTmenuByTmetype(int tme_type)throws Exception{
+	//식사별 추천메뉴 보기
+	public TmenuVO searchRecommendByTmetype(int tme_type)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs =null;
-		List<TmenuVO> list = null;
 		String sql = null;
+		TmenuVO item =null;
 		try {
 			conn=DBUtil.getConnection();
-			sql="SELECT * FROM t_menu WHERE tme_type= ? ORDER BY tme_num DESC";
+			sql="SELECT * FROM t_menu WHERE tme_type= ? AND tme_recom = 1";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1,tme_type);
 			rs=pstmt.executeQuery();
-			list = new ArrayList<TmenuVO>();
-			while(rs.next()) {
-				TmenuVO item = new TmenuVO();
+			if(rs.next()) {
+				item = new TmenuVO();
 				item.setTme_content(rs.getString("tme_content"));
 				item.setTme_num(rs.getInt("tme_num"));
 				item.setTme_crabs(rs.getInt("tme_crabs"));
@@ -239,15 +238,42 @@ public class TmenuDAO {
 				item.setTme_photo(rs.getString("tme_photo"));
 				item.setTme_protein(rs.getInt("tme_protein"));
 				item.setTme_type(tme_type);
-				list.add(item);
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
 		}finally {
 			DBUtil.executeClose(rs, pstmt, conn);
 		}
-		return list;
+		return item;
 	}
+	// 추천메뉴 설정하기
+	public void recommendTmenu(int tme_type, int tme_num)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
+		String sql = null;
+		try {
+			conn= DBUtil.getConnection();
+			conn.setAutoCommit(false);
+			sql="UPDATE t_menu SET tme_recom = 0 WHERE tme_type = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, tme_type);
+			pstmt.executeUpdate();
+			sql="UPDATE t_menu SET tme_recom = 1 WHERE tme_num = ?";
+			pstmt2=conn.prepareStatement(sql);
+			pstmt2.setInt(1, tme_num);
+			pstmt2.executeUpdate();
+			conn.commit();
+		}catch(Exception e) {
+			conn.rollback();
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//추천메뉴 보기
+	
 	//사진파일 수정미리보기
 	public void updateMyPhoto(String tme_photo, int tme_num) throws Exception{
 		Connection conn =null;
