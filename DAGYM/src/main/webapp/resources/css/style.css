@@ -87,6 +87,7 @@ form ul li label{
 	/* padding-top:2px; -> 상의 후 간격 결정하기 */
 	width:130px;
 	display:inline-block;
+	vertical-align: top; /* 수직 정렬 */
 }
 ul {
 	list-style:none;
@@ -314,6 +315,7 @@ textarea {
     padding-left: 15px;
     padding-right: 5px;
     background: #f9f9f9;
+    margin: 4px 0px 0px;
 }
 /* 사진
 ---------------------*/
