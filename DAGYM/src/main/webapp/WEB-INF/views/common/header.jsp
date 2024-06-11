@@ -123,6 +123,7 @@
 		                        			 <li><a href="${pageContext.request.contextPath}/member/myPage.do">관리자상세</a></li>
 		                                     <li><a href="${pageContext.request.contextPath}/payment/paymentMemberList.do">회원권등록</a></li>
 		                                     <li><a href="${pageContext.request.contextPath}/tmenu/tmenuList.do">메뉴등록</a></li>
+		                                     <li><a href="${pageContext.request.contextPath}/review/adminReportList.do">신고관리</a></li>
 		                                 </ul>
 		                        		<li>                        							
 									</c:if>

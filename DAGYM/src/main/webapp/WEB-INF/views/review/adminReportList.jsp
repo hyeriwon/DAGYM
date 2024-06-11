@@ -105,7 +105,7 @@ $(function(){
                         <h2>Review</h2>
                         <div class="bt-option">
                             <a href="${pageContext.request.contextPath}/main/main.do">Home</a>
-                            <a href="#">About</a>
+                            <a href="#">Mypage</a>
                             <span>Review</span>
                         </div>
                     </div>
