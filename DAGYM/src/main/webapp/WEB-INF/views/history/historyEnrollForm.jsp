@@ -56,6 +56,7 @@
 		                <div class="align-center">
 		                    <h4>선택한 날짜 : ${param.sch_date}</h4>
 		                </div>
+		                <br>
 		                <ul>
 		                    <li>
 		                        <label for="tra_name">선택한 시간</label>
@@ -69,9 +70,12 @@
 		                                <input type="text" name="sch_time_display" id="sch_time" value="오후 ${pm_time == 0 ? 12 : pm_time}시" readonly>
 		                            </c:otherwise>
 		                        </c:choose>
+		                    </li>
+		                    <li>
 		                        <label for="tra_name">트레이너</label>
 		                        <input type="text" name="tra_name" id="tra_name" value="${param.tra_name}" readonly>
 		                    </li>
+		                    <br>
 		                    <li>
 		                        <label for="his_part">운동 부위(희망)</label>
 		                        <select name="his_part">
@@ -88,6 +92,7 @@
 		                        <input type="text" name="remainingPT" value="${remainingPT}" readonly>
 		                    </li>
 		                </ul>
+		                <br>
 		                <div class="align-center">
 		                    <input type="submit" value="신청">
 		                    <input type="button" value="취소" onclick="location.href='list.do'">
