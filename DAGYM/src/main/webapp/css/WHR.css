@@ -26,49 +26,81 @@
 }
 
 /*========관리자 1:1문의 댓글========*/
+/*---문의내용---*/
+.question-header{
+ 	float:left;
+  	width:100%;
+}
+.qab_type{
+	color:#ff9721
+}
+.question-content{
+	float:left;
+ 	width:100%;
+}
 #answer-div {
     margin-top: 5px;
     margin-bottom: 20px;
     padding: 15px;
     border-radius: 5px;
 }
-
-#answer-div p{
-	padding-left: 20px;		
+.content-text{/*질문내용*/
+	 padding-left: 20px;
+	 margin-top: 50px;
+	 margin-bottom:100px;
 }
-
+.content-img{/*질문내용 사진*/
+	padding-left: 20px;
+}
+/*---답변폼---*/
+#answerForm-div{
+	float:left;
+  	width:100%;
+}
+#answerForm-div textarea{
+	width: 100%;
+}
 .answer-title {
     font-size: 18px;
     margin-bottom: 10px;
 }
-
-#answer_form textarea {
-    resize: none;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    width: 100%;
-    box-sizing: border-box;
+#answer_form{
+    width:100%;
+    height:250px;
 }
-
+#answer_form textarea {
+	border-radius: 5px;	/*모서리 둥글게*/
+	padding: 10px;
+}
 #answer_form input[type="submit"] {
+	align-self:flex-end; /*아이템 플렉스를 끝 부분에 정렬*/
+	margin:10px;
     padding: 10px 20px;
     border: none;
     font-size: 14px;
     border-radius: 5px;
     cursor: pointer;
 }
-
-.content-text{
-	 padding-left: 20px;
-	 margin-top: 50px;
-	 margin-bottom:100px;
+/*---답변완료--*/
+#answer-div{
+	float:left;
+  	width:100%;
+  	border:0.5px solid white;
 }
-.content-img{
+.answer-btn{
+	float: right;
+}
+#answer-div p{/*답변내용*/
 	padding-left: 20px;
+	padding:15px;
+	margin:10px;
 }
+
+/*---???--*/
+
+
+
+
 /*========사용자 1:1문의 내용========*/
 .content-header {
     display: flex;

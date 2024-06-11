@@ -6,6 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Q&A</title>
+<style type="text/css">
+
+.list-span {
+    text-align: left; /* 목록 부분 왼쪽 정렬 */
+}
+#category{
+	 display: flex;
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    align-items: center;         /* 세로 가운데 정렬 */
+    gap: 10px;
+}
+</style>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/qaboard.inquiry.js"></script>
 <script type="text/javascript">
 window.onload=function(){
@@ -83,7 +95,7 @@ window.onload=function(){
 					<%-- 목록 --%>
 					<div class="list-span">
 						<div class="align-left">
-							<form action="adminAnswerList.do" method="get">
+							<form id="category" action="adminAnswerList.do" method="get">
 								<select name="category" onchange="this.form.submit()">
 									<option value="">전체</option>
 									<option value="1" <c:if test="${param.category==1}">selected</c:if>>PT</option>

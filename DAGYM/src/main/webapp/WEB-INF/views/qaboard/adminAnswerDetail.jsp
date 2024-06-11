@@ -51,23 +51,27 @@
 					<!-- content 시작 -->	
 					<%-- 질문 시작 --%>
 					<input type="hidden" value="${qaboard.qab_num}" name="qab_num">
-					<p>[
-						<c:if test="${qaboard.qab_type==1}">PT</c:if>
-						<c:if test="${qaboard.qab_type==2}">다이어트</c:if>
-						<c:if test="${qaboard.qab_type==3}">상담</c:if>
-						<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
-						<c:if test="${qaboard.qab_type==5}">기타</c:if>]
-					</p>
-					<h3>${qaboard.qab_title}</h3><br>
-					<div class="align-left">
-						작성자 &nbsp;${qaboard.mem_id} &nbsp;&nbsp;&nbsp;&nbsp; 작성일 &nbsp;${qaboard.qab_reg_date} &nbsp;&nbsp;&nbsp;&nbsp;
-						<c:if test="${!empty qaboard.qab_modify_date}">
-							최근 수정일 &nbsp;${qaboard.qab_modify_date}
-						</c:if>
-					</div>
+					<div class="question-header">
+						<p class="qab_type">[
+							<c:if test="${qaboard.qab_type==1}">PT</c:if>
+							<c:if test="${qaboard.qab_type==2}">다이어트</c:if>
+							<c:if test="${qaboard.qab_type==3}">상담</c:if>
+							<c:if test="${qaboard.qab_type==4}">회원권 상담</c:if>
+							<c:if test="${qaboard.qab_type==5}">기타</c:if>]
+						</p>
+						<h3>${qaboard.qab_title}</h3><br>
+						<div class="align-left">
+							<span style="color:#e8e8e8">${qaboard.mem_id}</span> &nbsp;&nbsp;&nbsp;&nbsp; 작성일 &nbsp;${qaboard.qab_reg_date} &nbsp;&nbsp;&nbsp;&nbsp;
+							<c:if test="${!empty qaboard.qab_modify_date}">
+								최근 수정일 &nbsp;${qaboard.qab_modify_date}
+							</c:if>
+						</div>
 					<hr size="1" noshade="noshade" width="100%">
+					</div>
+					
+					
 					<%-- 내용 --%>
-					<div class="content">
+					<div class="question-content">
 						<div class="content-text">
 							<br>${qaboard.qab_content}<br>
 						</div>
@@ -75,7 +79,7 @@
 						<c:if test="${!empty qaboard.qab_filename}">
 						<div class="content-img align-left">
 							<br>
-							<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" class="detail-img" width="500">
+							<img src="${pageContext.request.contextPath}/upload/${qaboard.qab_filename}" class="detail-img" width="300">
 							<br>
 						</div>
 						</c:if>
@@ -87,7 +91,7 @@
 					<!-- 답변시작 -->
 					<%-- 문의미답변, 답변등록 --%>
 					<c:if test="${answerBoard==null}">
-						<div id="answer-div">
+						<div id="answerForm-div">
 						<span class="answer-title">답변 등록</span>
 							<form id="answer_form" action="adminWriteAnswer.do" method="post">
 								<input type="hidden" name="qab_num" value="${qaboard.qab_num}" id="qab_num"><!-- 문의글 번호 -->
@@ -95,22 +99,24 @@
 									<textarea rows="5" name="answer_content" id="answer_content"></textarea>
 								<input type="submit" value="등록">				
 							</form>
-						<hr size="1" noshade="noshade" width="100%">
 						</div>
 					</c:if>
 					<%-- 문의답변 완료 --%>
 					<c:if test="${answerBoard!=null}">
 						<div id="answer-div">
+							<c:if test="${user_num == answerBoard.mem_num}">
+							<div class="align-right">
+								<input type="button" id="update_answer_btn" value="수정" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">&nbsp;
+								<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">
+							</div>
+							</c:if>
 							<p id="answer_content">${answerBoard.qab_content}</p><br>
 							<div class="align-right">
 								<c:if test="${!empty answerBoard.qab_modify_date}">
 									최근 수정일 &nbsp;${answerBoard.qab_modify_date}&nbsp;&nbsp;&nbsp;&nbsp;
 								</c:if>
 								작성일 &nbsp;${answerBoard.qab_reg_date}&nbsp;&nbsp;&nbsp;&nbsp; 작성자 &nbsp; ${answerBoard.mem_id}
-								<c:if test="${user_num == answerBoard.mem_num}">
-									<input type="button" id="update_answer_btn" value="수정" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">&nbsp;
-									<input type="button" id="delete_answer_btn" value="삭제" data-num="${answerBoard.qab_num}" data-qnum="${answerBoard.qab_ref}">
-								</c:if>
+								
 							</div>
 						</div>
 					</c:if>
