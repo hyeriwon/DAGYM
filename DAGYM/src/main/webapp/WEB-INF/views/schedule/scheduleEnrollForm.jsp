@@ -13,9 +13,12 @@
         alert("${message}");
         window.location.href = "${pageContext.request.contextPath}/schedule/list.do";
     </c:if>
+    
     <c:if test="${not empty error}">
         alert("${error}");
+        window.location.href = "${pageContext.request.contextPath}/schedule/list.do";
     </c:if>
+    
 </script>
 </head>
 <body>
