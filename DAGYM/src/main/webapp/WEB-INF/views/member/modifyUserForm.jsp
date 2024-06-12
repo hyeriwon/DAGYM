@@ -220,7 +220,7 @@ $(function(){
 							<li>
 								<label>새 비밀번호 확인</label>
 								<input type="password" id="newCpw" maxlength="12"><br>
-								<span id="check-msg"></span>
+								<span id="check-msg" style="padding-left:130px;"></span>
 							</li>
 							<li>
 								<label for="phone">전화번호</label>
