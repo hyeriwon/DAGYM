@@ -52,8 +52,12 @@ $(function(){
 			let file = this.files[0];
 			
 			//사진 미업로드시, 이전 상태로 되돌리기
-			if(!file){				
-				$(newFileId).attr('src',now_path);
+			if(!file){	
+				if(!now_path){
+					$(newFileId).attr('src','');					
+				}else{
+					$(newFileId).attr('src',now_path);
+				}				
 				$(fileExistId).attr('value','0');
 				return;
 			}	

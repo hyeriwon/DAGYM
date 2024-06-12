@@ -278,7 +278,7 @@ public class PaymentDAO {
 				conn = DBUtil.getConnection();
 				//SQL문 작성
 				 sql = "UPDATE payment "
-			                + "SET pay_enroll = 0, pay_status = 2 "
+			                + "SET pay_status = 2 "
 			                + "WHERE mem_num = ? AND CASE "
 			                + "WHEN pay_enroll = 10 THEN ADD_MONTHS(pay_reg_date, 5) "
 			                + "WHEN pay_enroll = 20 THEN ADD_MONTHS(pay_reg_date, 10) "
