@@ -376,7 +376,6 @@ public class MemberDAO {
 		return list;
 	} 
 	//관리자 - 회원등급 수정
-	//관리자 - 회원등급 수정
 	public void updateMemberByAdmin(int mem_auth, int mem_num) throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -431,7 +430,25 @@ public class MemberDAO {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}
-	
+	//관리자 - 회원등급 수정(신고내역 취소)
+	public void updateMemberByCancel(int mem_auth, int mem_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE member SET mem_auth=?,mem_sus_date=null WHERE mem_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mem_auth);
+			pstmt.setInt(2, mem_num);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
 	/*-------------------관리자(활동회원 목록)------------------*/
 	//전체 내용 개수, 검색 내용 개수
 	public int getMemberCountByAdmin2(String keyfield, String keyword)throws Exception{

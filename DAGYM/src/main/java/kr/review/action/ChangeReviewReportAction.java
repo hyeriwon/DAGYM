@@ -64,7 +64,7 @@ public class ChangeReviewReportAction implements Action{
 						dao.cancelBlindReview(rev_num);
 						ReviewVO db_review = dao.getReview(db_report.getRev_num());
 						MemberDAO memDAO = MemberDAO.getInstance();
-						memDAO.updateMemberByAdmin(2, db_review.getMem_num());
+						memDAO.updateMemberByCancel(2, db_review.getMem_num());
 						mapAjax.put("count", "clearBlind");
 					}
 				}
