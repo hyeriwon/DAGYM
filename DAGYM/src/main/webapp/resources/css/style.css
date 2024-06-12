@@ -2321,7 +2321,7 @@ ol {
 }
 
 div.chart-table {
-	border: 1px solid #363636;
+	border-top: 1px solid #363636;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
     align-items: center; /* 내부 요소 수직 가운데 정렬  */
