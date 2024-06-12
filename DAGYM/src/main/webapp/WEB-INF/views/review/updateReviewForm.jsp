@@ -43,32 +43,26 @@ $(function(){
 	
 	//파일 미리보기
 	let file_pathB = $('#before').attr('src');
-	showImage(file_pathB,'#filename1','#output1','newFile1','#fileExist1');
+	showImage('#before',file_pathB,'#filename1','#fileExist1');
 	let file_pathA = $('#after').attr('src');
-	showImage(file_pathA,'#filename2','#output2','newFile2','#fileExist2');
+	showImage('#after',file_pathA,'#filename2','#fileExist2');
 	
-	function showImage(now_path,filenameId,outputId,newFileId,fileExistId){	
+	function showImage(newFileId,now_path,filenameId,fileExistId){	
 		$(filenameId).change(function(){		
 			let file = this.files[0];
 			
 			//사진 미업로드시, 이전 상태로 되돌리기
-			if(!file){
+			if(!file){				
 				$(newFileId).attr('src',now_path);
 				$(fileExistId).attr('value','0');
 				return;
-			}
+			}	
 			
-			//기존 파일 이미지 삭제
-			$(outputId).empty();	
-			
-			//새로 선택한 파일 업로드
-			let newPhoto = $('<img>');
-			$(outputId).append(newPhoto);		
+			//새로 선택한 파일 업로드		
 			const reader = new FileReader();
 			reader.readAsDataURL(file);
 			reader.onload = function(){
-				newPhoto.attr('src',reader.result);
-				newPhoto.attr('id',newFileId);
+				$(newFileId).attr('src',reader.result);
 				$(fileExistId).attr('value','1');
 			};
 		});
@@ -164,6 +158,9 @@ $(function(){
 									<c:if test="${!empty review.rev_filename1}">
 										<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" id="before">
 									</c:if>
+									<c:if test="${empty review.rev_filename1}">
+										<img id="before">
+									</c:if>
 								</div>		
 								<input type="hidden" name="rev_fileExist1" id="fileExist1" value="1">
 							</li>
@@ -174,6 +171,9 @@ $(function(){
 								<div id="output2">
 									<c:if test="${!empty review.rev_filename2}">
 										<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" id="after" class="my_photo">
+									</c:if>
+									<c:if test="${empty review.rev_filename2}">
+										<img id="after">
 									</c:if>
 								</div>
 								<input type="hidden" name="rev_fileExist2" id="fileExist2" value="1">	

@@ -58,6 +58,7 @@ $(function(){
 		//선택된 사진이 없을 때 마지막으로 수정된 이미지로 되돌리기
 		if(!photo){
 			$('.my-photo2').attr('src',photo_path);
+			return;
 		}
 		const reader = new FileReader();
 		reader.readAsDataURL(photo);
