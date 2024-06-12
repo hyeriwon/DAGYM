@@ -179,7 +179,7 @@ $(function(){
 								<td class="re-title">* <label for="id">아이디</label></td>
 								<td class="re-content">
 									<input type="text" name="id" id="id" maxlength="12" autocomplete="off" class="input-check">&nbsp;
-									<input type="button" value="ID중복체크" id="id_check"> &nbsp;* 영문 숫자 혼합(6자~12자)
+									<input type="button" value="ID 중복체크" id="id_check"> &nbsp;* <span style="font-size: 13px;">영문 숫자 혼합(6자~12자)</span>
 									<br><span id="message_id"></span>
 								</td>
 							</tr>
@@ -192,22 +192,22 @@ $(function(){
 							<tr>
 								<td class="re-title">* <label for="passwd">비밀번호</label></td>
 								<td class="re-content">
-									<input type="password" name="passwd" id="passwd" maxlength="12" class="input-check">
-									&nbsp;* 영문 숫자 혼합(8자~12자)
+									<input type="password" name="passwd" id="passwd" maxlength="14" class="input-check">
+									&nbsp;<span style="font-size: 13px;">* 영문 숫자 혼합(8자~12자)</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="re-title">* <label for="phone">전화번호</label></td>
 								<td class="re-content">
 									<input type="text" name="phone" id="phone" maxlength="13" class="input-check">
-									&nbsp;* 000-0000-0000 형식으로 입력
+									&nbsp;<span style="font-size: 13px;">* 000-0000-0000 형식으로 입력</span>
 								</td>
 							</tr>
 							<tr>
 								<td class="re-title">* <label for="email">이메일</label></td>
 								<td class="re-content">
 									<input type="email" name="email" id="email" maxlength="50" class="input-check">&nbsp;
-									<input type="button" value="이메일 중복체크" id="email_check"> &nbsp;* 이메일 중복사용 불가
+									<input type="button" value="이메일 중복체크" id="email_check"> &nbsp;<span style="font-size: 13px;">* 이메일 중복사용 불가</span>
 									<br><span id="message_email"></span>
 								</td>
 							</tr>

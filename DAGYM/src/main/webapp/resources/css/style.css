@@ -126,9 +126,6 @@ input[type="radio"] {
 label {
 	margin-top:2px;
 }
-#register_form input[id="id"]{
-	width:223px;
-}
 input[id="zipcode"]{
 	width:185px;
 }
