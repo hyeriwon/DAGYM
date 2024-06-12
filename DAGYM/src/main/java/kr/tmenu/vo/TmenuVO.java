@@ -11,6 +11,13 @@ public class TmenuVO {
 	private int tme_lipid;
 	private String tme_photo;
 	private int tme_type;
+	private int tme_recom;
+	public int getTme_recom() {
+		return tme_recom;
+	}
+	public void setTme_recom(int tme_recom) {
+		this.tme_recom = tme_recom;
+	}
 	public int getTme_num() {
 		return tme_num;
 	}

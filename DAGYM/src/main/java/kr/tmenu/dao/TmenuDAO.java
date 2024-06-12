@@ -143,6 +143,7 @@ public class TmenuDAO {
 				item.setTme_photo(rs.getString("tme_photo"));
 				item.setTme_protein(rs.getInt("tme_protein"));
 				item.setTme_type(rs.getInt("tme_type"));
+				item.setTme_recom(rs.getInt("tme_recom"));
 				list.add(item);
 			}
 		}catch(Exception e) {
@@ -176,6 +177,7 @@ public class TmenuDAO {
 				item.setTme_photo(rs.getString("tme_photo"));
 				item.setTme_protein(rs.getInt("tme_protein"));
 				item.setTme_type(rs.getInt("tme_type"));
+				item.setTme_recom(rs.getInt("tme_recom"));
 			}
 		}catch(Exception e) {
 			throw new Exception(e);
@@ -237,6 +239,7 @@ public class TmenuDAO {
 				item.setTme_name(rs.getString("tme_name"));
 				item.setTme_photo(rs.getString("tme_photo"));
 				item.setTme_protein(rs.getInt("tme_protein"));
+				item.setTme_recom(rs.getInt("tme_recom"));
 				item.setTme_type(tme_type);
 			}
 		}catch(Exception e) {
@@ -324,6 +327,7 @@ public class TmenuDAO {
 					item.setTme_photo(rs.getString("tme_photo"));
 					item.setTme_protein(rs.getInt("tme_protein"));
 					item.setTme_type(rs.getInt("tme_type"));
+					item.setTme_recom(rs.getInt("tme_recom"));
 					list.add(item);
 				}
 			}catch(Exception e) {

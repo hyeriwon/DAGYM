@@ -126,13 +126,12 @@ window.onload=function(){
 									</c:otherwise>
 								</c:choose>
 								<td>
-									<c:if test="${tmenu.tme_type <= 2 }">
+									<c:if test="${tmenu.tme_type <= 2  && tmenu.tme_recom != 1}">
 									<input type="button" value="추천" onclick="location.href='${pageContext.request.contextPath}/tmenu/tmenuRecommend.do?tme_num=${tmenu.tme_num}'">								
 									</c:if>
 								</td>
 								</tr>
 							</c:forEach>
-							
 						</table>
 						<br>
 						
