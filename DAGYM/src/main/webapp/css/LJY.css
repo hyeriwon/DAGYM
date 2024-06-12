@@ -16,7 +16,7 @@
 }
 
 .pending-event {
-	background-color: #CC9966; /* 밤양갱색 */
+	background-color: #5b5b5b; /* 회색 */
 	color: white;
 	border: none; /* 테두리 제거 */
 }

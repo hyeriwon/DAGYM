@@ -290,6 +290,8 @@ public class ScheduleDAO {
             pstmt2 = conn.prepareStatement(sql2);
             pstmt2.setInt(1, his_num);
             pstmt2.executeUpdate();
+            
+            
 
             conn.commit(); // 트랜잭션 커밋
 

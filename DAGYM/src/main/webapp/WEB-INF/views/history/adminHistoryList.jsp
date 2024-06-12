@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
             	// 도트 색상 변경
 	        	var dotEl2 = info.el.getElementsByClassName('fc-list-event-dot')[0];
 		        if (dotEl2) {
-		            dotEl2.style.setProperty('--fc-event-border-color', '#CC9966');
+		            dotEl2.style.setProperty('--fc-event-border-color', '#5b5b5b');
 		        }
             }
         },
@@ -91,7 +91,8 @@ document.addEventListener('DOMContentLoaded', function() {
         eventClick: function(info) {
             // 완료된 PT 일정일 경우 후기 등록으로 이동
             if (info.event.extendedProps.his_status == '2') {
-                var redirectUrl = '${pageContext.request.contextPath}/review/writeReviewForm.do?sch_num=' + encodeURIComponent(info.event.extendedProps.sch_num);
+            	var redirectUrl = '${pageContext.request.contextPath}/review/listReview.do';
+                /* var redirectUrl = '${pageContext.request.contextPath}/review/writeReviewForm.do?sch_num=' + encodeURIComponent(info.event.extendedProps.sch_num); */
                 window.location.href = redirectUrl;
             }
             
