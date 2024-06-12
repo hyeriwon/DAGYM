@@ -733,6 +733,7 @@ public class ReviewDAO {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
+		PreparedStatement pstmt3 = null;
 		String sql = null;
 		
 		try {
@@ -745,7 +746,7 @@ public class ReviewDAO {
 			pstmt.setInt(2, revReport.getMem_num());
 			pstmt.executeUpdate();
 			
-			sql = "UPDATE review SET rev_del=1,rev_report=rev_report+1 WHERE rev_num=?";
+			sql = "UPDATE review SET rev_report=rev_report+1 WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
@@ -755,6 +756,7 @@ public class ReviewDAO {
 			conn.rollback();
 			throw new Exception(e);
 		}finally {
+			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
 			DBUtil.executeClose(null, pstmt, conn);
 		}
@@ -777,7 +779,7 @@ public class ReviewDAO {
 			pstmt.setInt(2, revReport.getMem_num());
 			pstmt.executeUpdate();
 			
-			sql = "UPDATE review SET rev_del=0,rev_report=rev_report-1 WHERE rev_num=?";
+			sql = "UPDATE review SET rev_report=rev_report-1 WHERE rev_num=?";
 			pstmt2 = conn.prepareStatement(sql);
 			pstmt2.setInt(1, revReport.getRev_num());
 			pstmt2.executeUpdate();
@@ -789,6 +791,42 @@ public class ReviewDAO {
 		}finally {
 			DBUtil.executeClose(null, pstmt3, null);
 			DBUtil.executeClose(null, pstmt2, null);
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//수강후기 블라인드 처리
+	public void blindReview(int rev_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE review SET rev_del=1 WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rev_num);
+			pstmt.executeUpdate();			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
+			DBUtil.executeClose(null, pstmt, conn);
+		}
+	}
+	//수강후기 블라인드 처리 취소
+	public void cancelBlindReview(int rev_num) throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = null;
+		
+		try {
+			conn = DBUtil.getConnection();
+			sql = "UPDATE review SET rev_del=0 WHERE rev_num=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, rev_num);
+			pstmt.executeUpdate();			
+		}catch(Exception e) {
+			throw new Exception(e);
+		}finally {
 			DBUtil.executeClose(null, pstmt, conn);
 		}
 	}

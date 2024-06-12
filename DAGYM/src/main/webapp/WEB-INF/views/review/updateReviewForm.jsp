@@ -133,26 +133,26 @@ $(function(){
 					<form id="updateForm" action="updateReview.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="rev_num" value="${review.rev_num}">
 						<ul>
-							<li>
+							<li class="align">
 								<label for="title">제목</label>
 								<input type="text" name="rev_title" id="title" maxlength="20" class="input-check" value="${review.rev_title}">
 							</li>
-							<li>
+							<li class="align">
 								<label for="reg_date">진행 날짜</label>${history.sch_date}시
 								<input type="hidden" name="sch_num" value="${review.sch_num}">
 							</li>
-							<li>
+							<li class="align">
 								<label>트레이너</label>${trainer.mem_name}
 								<input type="hidden" name="tra_num" value="${history.tra_num}">
 							</li>
-							<li>
+							<li class="align">
 								<label for="star">별점</label> 
 								<div class="star-rating" id="star">
 									<input type="radio" name="rev_grade" value="5" id="star5"><label for="star5">★</label>
 									<input type="radio" name="rev_grade" value="4" id="star4"><label for="star4">★</label>
 									<input type="radio" name="rev_grade" value="3" id="star3"><label for="star3">★</label>
 									<input type="radio" name="rev_grade" value="2" id="star2"><label for="star2">★</label>
-									<input type="radio" name="rev_grade" value="1" id="star1"><label for="star1">★</label>					
+									<input type="radio" name="rev_grade" value="1" id="star1"><label for="star1">★</label>														
 								</div>
 								<span id="grade">${review.rev_grade}점</span>	
 							</li>

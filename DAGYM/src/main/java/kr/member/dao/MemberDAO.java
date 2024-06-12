@@ -411,6 +411,12 @@ public class MemberDAO {
 				pstmt2 = conn.prepareStatement(sql);
 				pstmt2.setInt(1, mem_num);
 				pstmt2.executeUpdate();
+			}else if(mem_auth==8) {
+				sql = "UPDATE member SET mem_auth=? WHERE mem_num=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1, mem_auth);
+				pstmt.setInt(2, mem_num);
+				pstmt.executeUpdate();
 			}
 			
 			conn.commit();

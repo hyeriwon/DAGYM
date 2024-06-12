@@ -48,20 +48,20 @@ public class ChangeReviewReportAction implements Action{
 				mapAjax.put("result", "notExistReport");
 			}else {
 				if(db_report.getReport_del()==0) {
-					dao.AdminReportYes(db_report);
-					
+					dao.AdminReportYes(db_report);					
 					mapAjax.put("status", "reportYes");
 					if(dao.totalRevReport(rev_num) >= 3) {
+						dao.blindReview(rev_num);
 						ReviewVO db_review = dao.getReview(db_report.getRev_num());
 						MemberDAO memDAO = MemberDAO.getInstance();
 						memDAO.updateMemberByAdmin(1, db_review.getMem_num());
 						mapAjax.put("count", "blind");
 					}
 				}else if(db_report.getReport_del()==1) {
-					dao.AdminReportNo(db_report);
-				
+					dao.AdminReportNo(db_report);				
 					mapAjax.put("status", "reportNo");
 					if(dao.totalRevReport(rev_num) == 2) {
+						dao.cancelBlindReview(rev_num);
 						ReviewVO db_review = dao.getReview(db_report.getRev_num());
 						MemberDAO memDAO = MemberDAO.getInstance();
 						memDAO.updateMemberByAdmin(2, db_review.getMem_num());
