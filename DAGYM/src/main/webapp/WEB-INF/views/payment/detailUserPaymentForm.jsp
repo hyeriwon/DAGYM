@@ -90,16 +90,18 @@ $(function(){
 						보유한 회원권 : <span style="color:red;">${remain}</span>회
 						
 					<c:if test="${count == 0}">
+						<div class="align-right">
+						<input type="button" value="회원권등록" onclick="location.href='insertMembershipForm.do?mem_num=${mem_num}'">&nbsp;
+						<input type="button" value="목록" onclick="location.href='paymentMemberList.do'">
+						</div>
+						<br>
 						<div class="result-display">
 							표시할 회원권 결제내역이 없습니다.
 						</div>
 					</c:if>	
 					<c:if test="${count > 0}">
 					<div class="align-right">
-						<!-- 관리자가 아닌 경우에만 수정 버튼 -->
-						<c:if test="${member.mem_auth!=9}">
-							<input type="button" value="회원권등록" onclick="location.href='insertMembershipForm.do?mem_num=${mem_num}'">
-						</c:if>
+						<input type="button" value="회원권등록" onclick="location.href='insertMembershipForm.do?mem_num=${mem_num}'">&nbsp;
 						<input type="button" value="목록" onclick="location.href='paymentMemberList.do'">
 					</div>
 					<br>
