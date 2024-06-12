@@ -74,8 +74,9 @@ document.addEventListener('DOMContentLoaded', function() {
         eventClick: function(info) {
             if (info.event.extendedProps.his_status == '2') {
                 // 완료된 PT 일정일 경우 후기 등록으로 이동
-                var redirectUrl = '${pageContext.request.contextPath}/review/writeReviewForm.do?sch_num=' + encodeURIComponent(info.event.extendedProps.sch_num);
-                window.location.href = redirectUrl;
+				/* var redirectUrl = '${pageContext.request.contextPath}/review/writeReviewForm.do?sch_num=' + encodeURIComponent(info.event.extendedProps.sch_num); */
+				var redirectUrl = '${pageContext.request.contextPath}/review/listReview.do';
+				window.location.href = redirectUrl;
             } else if (info.event.extendedProps.sch_status == '1') {
                 // 진행 중인 PT 일정일 경우 일정 완료 폼으로 이동
                 var sch_time = parseInt(info.event.extendedProps.sch_time);

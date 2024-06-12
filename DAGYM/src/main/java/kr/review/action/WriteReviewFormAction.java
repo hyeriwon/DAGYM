@@ -37,7 +37,7 @@ public class WriteReviewFormAction implements Action{
 			// 관리자일 경우
 			if (user_auth == 9) return "redirect:/history/adminHistory.jsp";
 			// 트레이너일 경우
-			if (user_auth == 8) return "redirect:/history/mylist.jsp";
+			if (user_auth == 8) return "redirect:/schedule/mylist.jsp";
 			
 			return "redirect:/history/mylist.jsp";
 		}

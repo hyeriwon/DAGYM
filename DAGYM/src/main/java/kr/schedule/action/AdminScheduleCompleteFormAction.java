@@ -14,14 +14,20 @@ public class AdminScheduleCompleteFormAction implements Action {
 
 		HttpSession session = request.getSession();
 		Integer user_num = (Integer) session.getAttribute("user_num");
-        Integer user_auth = (Integer)session.getAttribute("user_auth");
+		Integer user_auth = (Integer) session.getAttribute("user_auth");
 
+		if (user_num == null) {
+			// // 로그인 되지 않은 경우
+			return "redirect:/member/loginForm.do";
+		}
 
-		if(user_num == null || user_auth != 9) {
-            //로그인이 안되었거나 관리자가 아닌 경우
-            return "redirect:/member/loginForm.do";
-        }
-
+		if (user_auth != 9) { 
+			// 관리자로 로그인하지 않은 경우
+			return "/WEB-INF/views/common/notice.jsp";
+		}
+		// 관리자로 로그인 된 경우
+		// 전송된 데이터 인코딩 타입 지정
+		request.setCharacterEncoding("utf-8");
 		try {
 			// 전달받은 날짜와 mem_num을 request에서 가져오기
 			String sch_date = request.getParameter("sch_date");
@@ -37,7 +43,7 @@ public class AdminScheduleCompleteFormAction implements Action {
 			// JavaScript로 alert 표시 후 새로고침
 			request.setAttribute("error", "비정상적인 접근입니다.");
 			request.setAttribute("redirectMain", true);
-			
+
 			return "/WEB-INF/views/history/adminHistoryList.jsp";
 		}
 		return "/WEB-INF/views/schedule/adminScheduleCompleteForm.jsp";

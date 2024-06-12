@@ -12,20 +12,24 @@ import kr.history.vo.HistoryVO;
 import kr.schedule.vo.ScheduleVO;
 import kr.util.PagingUtil;
 
-public class AdminHistoryListAction implements Action{
+public class AdminHistoryListAction implements Action {
 
 	@Override
 	public String execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
-		Integer user_num = (Integer)session.getAttribute("user_num");
-        Integer user_auth = (Integer)session.getAttribute("user_auth");
+		Integer user_num = (Integer) session.getAttribute("user_num");
+		Integer user_auth = (Integer) session.getAttribute("user_auth");
 
-		if(user_num == null || user_auth != 9) {
-            //로그인이 안되었거나 관리자가 아닌 경우
-            return "redirect:/member/loginForm.do";
-        }
-		
-		//관리자로 로그인한 경우
+		if (user_num == null) {
+			// 로그인이 안되었거나 관리자가 아닌 경우
+			return "redirect:/member/loginForm.do";
+		}
+		if (user_auth != 9) {
+			// 관리자로 로그인하지 않은 경우
+			return "/WEB-INF/views/common/notice.jsp";
+		}
+
+		// 관리자로 로그인한 경우
 		/*
 		 * String pageNum = request.getParameter("pageNum"); if(pageNum == null) pageNum
 		 * = "1";
@@ -45,16 +49,14 @@ public class AdminHistoryListAction implements Action{
 		 * request.setAttribute("count", count); request.setAttribute("list", list);
 		 * request.setAttribute("page", page.getPage());
 		 */
-		
+
 		// HistoryDAO를 사용하여 스케줄 데이터를 가져옴
 		HistoryDAO dao = HistoryDAO.getInstance();
-        List<ScheduleVO> schedules = dao.getHistoryListByAdmin();
+		List<ScheduleVO> schedules = dao.getHistoryListByAdmin();
 
+		// request에 스케줄 데이터를 저장
+		request.setAttribute("schedules", schedules);
 
-        // request에 스케줄 데이터를 저장
-        request.setAttribute("schedules", schedules);
-		
-		
 		return "/WEB-INF/views/history/adminHistoryList.jsp";
 	}
 
