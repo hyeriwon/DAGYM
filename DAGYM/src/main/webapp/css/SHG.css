@@ -91,3 +91,11 @@ div.chart-table3 h2 {
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
+#nbo_title{
+	width:600px;
+	
+}
+#nbo_content{
+	width:600px;
+	height:200px;
+}

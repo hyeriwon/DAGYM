@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>NOTICE</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SHG.css" type="text/css">
 <script type="text/javascript">
 window.onload=function(){
 	const myForm = document.getElementById('update_form');
@@ -79,6 +80,7 @@ window.onload=function(){
 						<input type="hidden" name="nbo_num" value="${nboard.nbo_num}">
 							<ul>
 								<li>
+								<label for="nbo_type">게시글 종류</label>
 								<select name="nbo_type" id="nbo_type">
 									<option value="" selected disabled>--선택--</option>
 									<option value="0" <c:if test="${nboard.nbo_type == 0}">selected</c:if>>공지</option>
