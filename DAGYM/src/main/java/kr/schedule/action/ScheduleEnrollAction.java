@@ -81,6 +81,7 @@ public class ScheduleEnrollAction implements Action {
 					request.setAttribute("error", "이미 등록된 시간입니다.");
 				} else {
 					schedules.add(createSchedule(userNum, memId, schDate, hour));
+					request.setAttribute("error", "스케줄이 성공적으로 등록되었지만, 일부 시간대는 이미 등록된 시간입니다.");
 				}
 			}
 		}
