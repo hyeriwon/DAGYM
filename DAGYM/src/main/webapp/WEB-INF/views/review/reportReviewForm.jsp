@@ -63,13 +63,14 @@ window.onload = function(){
 					<form id="reportForm" action="reportReview.do" method="post">
 						<input type="hidden" name="rev_num" value="${rev_num}">
 						<input type="hidden" name="mem_num" value="${user_num}">
-						<h4>신고 사유를 작성해주세요.</h4>
+						<h4>신고사유</h4>
 						<div class="align-center">
 							<ul>
 								<li>
-									<textarea rows="5" cols="50" name="report_content" id="content"></textarea>
+									<textarea rows="5" cols="50" name="report_content" id="content" placeholder="신고할 내용을 입력해주세요."></textarea>
 								</li>
 							</ul>		
+							<br>
 							<input type="submit" value="신고">
 							<input type="button" value="취소" onclick="history.go(-1)">
 						</div>
