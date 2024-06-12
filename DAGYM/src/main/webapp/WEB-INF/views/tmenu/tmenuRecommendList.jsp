@@ -45,30 +45,36 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-4 col-md-8">
-                     <div class= "align-center">오늘의 아침</div>
+                     <div class= "align-center"><h4>오늘의 아침</h4></div>
+                     <br>
                      <div class="image-box">
                     <a href="${pageContext.request.contextPath}/tmenu/tmenuDetail.do?tme_num=${breakfast.tme_num}">
                        <img class="menu-image2"  src="${pageContext.request.contextPath}/upload/${breakfast.tme_photo}">
                     </a>
+                    <br><br>
                     	<div class= "align-center"><b>${breakfast.tme_name}</b></div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-8">
-					<div class= "align-center">오늘의 점심</div>
+					<div class= "align-center"><h4>오늘의 점심</h4></div>
+					<br>
 					<div class="image-box">
                          <a href="${pageContext.request.contextPath}/tmenu/tmenuDetail.do?tme_num=${lunch.tme_num}">
                        <img class="menu-image2" src="${pageContext.request.contextPath}/upload/${lunch.tme_photo}">
                     </a>
 					</div>
+					<br>
 					<div class= "align-center"><b>${lunch.tme_name}</b></div>
                 </div>
                 <div class="col-lg-4 col-md-8">
-                    	<div class= "align-center">오늘의 저녁</div>
+                    	<div class= "align-center"><h4>오늘의 저녁</h4></div>
+                    	<br>
                     	<div class="image-box">
                     	 <a href="${pageContext.request.contextPath}/tmenu/tmenuDetail.do?tme_num=${dinner.tme_num}">
                        <img class="menu-image2" src="${pageContext.request.contextPath}/upload/${dinner.tme_photo}">
                     </a>
                     </div>
+                    <br>
                     	<div class= "align-center"><b>${dinner.tme_name}</b></div>
                 </div>
 				<div class="align-center">
