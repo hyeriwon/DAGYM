@@ -42,19 +42,19 @@ $(function(){
   }
 	
 	//파일 미리보기
-	showImage('#before','#filename1','#output1','newFile1','#fileExist1');
-	showImage('#after','#filename2','#output2','newFile2','#fileExist2');
+	let file_pathB = $('#before').attr('src');
+	showImage(file_pathB,'#filename1','#output1','newFile1','#fileExist1');
+	let file_pathA = $('#after').attr('src');
+	showImage(file_pathA,'#filename2','#output2','newFile2','#fileExist2');
 	
-	function showImage(oldFileId,filenameId,outputId,newFileId,fileExistId){
-		let file_path1 = $(oldFileId).attr('src');
-		let file_path2 = $(newFileId).attr('src');
+	function showImage(now_path,filenameId,outputId,newFileId,fileExistId){	
 		$(filenameId).change(function(){		
 			let file = this.files[0];
 			
 			//사진 미업로드시, 이전 상태로 되돌리기
 			if(!file){
-				$(oldfileId).attr('src',file_path1);
-				$(newfileId).attr('src',file_path2);
+				$(newFileId).attr('src',now_path);
+				$(fileExistId).attr('value','0');
 				return;
 			}
 			

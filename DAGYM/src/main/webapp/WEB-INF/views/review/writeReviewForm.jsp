@@ -41,19 +41,17 @@ window.onload = function(){
   	}
 	
 	//파일 미리보기
-	showImage('#before','#filename1','#output1','#newFile1','#fileExist1');
-	showImage('#after','#filename2','#output2','#newFile2','#fileExist2');
+	showImage('#filename1','#output1','newFile1','#fileExist1');
+	showImage('#filename2','#output2','newFile2','#fileExist2');
 	
-	function showImage(oldFileId,filenameId,outputId,newFileId,fileExistId){
-		let file_path1 = $(oldFileId).attr('src');
-		let file_path2 = $(newFileId).attr('src');
+	function showImage(filenameId,outputId,newFileId,fileExistId){
+		//let file_path1 = $(newFileId).attr('src');
 		$(filenameId).change(function(){		
 			let file = this.files[0];
 			
 			//사진 미업로드시, 이전 상태로 되돌리기
 			if(!file){
-				$(oldfileId).attr('src',file_path1);
-				$(newfileId).attr('src',file_path2);
+				$(outputId).empty();
 				return;
 			}
 			

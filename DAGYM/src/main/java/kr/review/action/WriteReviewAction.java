@@ -49,17 +49,9 @@ public class WriteReviewAction implements Action{
 		review.setMem_num(mem_num);		
 		review.setRev_grade(Integer.parseInt(request.getParameter("rev_grade")));
 		review.setRev_title(request.getParameter("rev_title"));
-		review.setRev_content(request.getParameter("rev_content"));
-		String filename1 = null;
-		String filename2 = null;
-		if(request.getPart("filename1")!=null) {
-			filename1 = FileUtil.createFile(request, "filename1");
-			review.setRev_filename1(filename1);
-		}
-		if(request.getPart("filename2")!=null) {
-			filename2 = FileUtil.createFile(request, "filename2");
-			review.setRev_filename2(filename2);
-		}
+		review.setRev_content(request.getParameter("rev_content"));	
+		review.setRev_filename1(FileUtil.createFile(request, "rev_filename1"));
+		review.setRev_filename2(FileUtil.createFile(request, "rev_filename2"));
 		review.setRev_ip(request.getRemoteAddr());
 
 

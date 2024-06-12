@@ -32,12 +32,13 @@ public class ReviewDAO {
 		PreparedStatement pstmt = null;
 		PreparedStatement pstmt2 = null;
 		String sql = null;
+		int cnt = 0;
 
 		try {
 			//커넥션 풀로부터 커넥션 할당
 			conn = DBUtil.getConnection();
 			conn.setAutoCommit(false);
-
+			
 			//SQL문 작성
 			sql = "INSERT INTO review(rev_num,mem_num,sch_num,rev_grade,rev_title,"
 					+ "rev_content,rev_filename1,rev_filename2,rev_ip) "
@@ -45,14 +46,22 @@ public class ReviewDAO {
 			//PreparedStatement 객체 생성
 			pstmt = conn.prepareStatement(sql);
 			//?에 데이터 바인딩
-			pstmt.setInt(1, review.getMem_num());
-			pstmt.setInt(2, review.getSch_num());
-			pstmt.setInt(3, review.getRev_grade());
-			pstmt.setString(4, review.getRev_title());
-			pstmt.setString(5, review.getRev_content());
-			pstmt.setString(6, review.getRev_filename1());
-			pstmt.setString(7, review.getRev_filename2());
-			pstmt.setString(8, review.getRev_ip());
+			pstmt.setInt(++cnt, review.getMem_num());
+			pstmt.setInt(++cnt, review.getSch_num());
+			pstmt.setInt(++cnt, review.getRev_grade());
+			pstmt.setString(++cnt, review.getRev_title());
+			pstmt.setString(++cnt, review.getRev_content());
+			if(review.getRev_filename1()!=null && !"".equals(review.getRev_filename1())) {
+				pstmt.setString(++cnt, review.getRev_filename1());
+			}else {
+				pstmt.setString(++cnt, null);
+			}
+			if(review.getRev_filename2()!=null && !"".equals(review.getRev_filename2())) {
+				pstmt.setString(++cnt, review.getRev_filename2());
+			}else {
+				pstmt.setString(++cnt, null);
+			}
+			pstmt.setString(++cnt, review.getRev_ip());
 			//SQL문 실행
 			pstmt.executeUpdate();
 
