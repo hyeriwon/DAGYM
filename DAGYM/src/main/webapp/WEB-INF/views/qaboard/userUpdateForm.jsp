@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Q&A</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/WHR.css" type="text/css">
 <script type="text/javascript">
 window.onload=function(){
 	const myForm = document.getElementById('write_form');
