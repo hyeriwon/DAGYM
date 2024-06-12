@@ -42,7 +42,7 @@ $(function(){
 	//새 비밀번호와 새 비밀번호 확인 일치 여부
 	$('#newCpw').keyup(function(){
 		if($('#newPw').val() == $('#newCpw').val()){
-			$('#check-msg').text('새 비밀번호와 새 비밀번호 확인이 일치합니다.').css('color','blue');
+			$('#check-msg').text('새 비밀번호와 새 비밀번호 확인이 일치합니다.').css('color','yellow');
 		}else{
 			$('#check-msg').text('');
 		}		
@@ -104,7 +104,7 @@ $(function(){
 							<li>
 								<label>새 비밀번호 확인</label>
 								<input type="password" id="newCpw" maxlength="12"><br>
-								<span id="check-msg"></span>
+								<span id="check-msg" style="padding:10px 0 0 130px;"></span>
 							</li>
 						</ul>
 						<br>
