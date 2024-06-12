@@ -78,8 +78,14 @@ label, input[type="radio"] {
 }
 .menu-image2 {
 	width: 100%; /* 이미지 너비를 100%로 설정하여 부모 요소에 맞춤 */
+	height: 100%;
 	object-fit: cover; /* 이미지가 부모 요소를 채우도록 설정 */
+	border-radius: 10px;
 }
 .margin-10{
 	 margin-left: 20px;
+}
+.image-box{
+	width: 350px; 
+	height: 340px;
 }

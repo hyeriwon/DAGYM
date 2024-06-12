@@ -26,17 +26,17 @@ window.onload = function(){
 		}
 	};
 	//인바디 사진 미리보기
-	let photo_path = $('.my-photo').attr('src');
+	let photo_path = $('.my-photo2').attr('src');
 	$('#inb_photo').change(function(){
 		let photo = this.files[0];
 		//선택된 사진이 없을 때 마지막으로 수정된 이미지로 되돌리기
 		if(!photo){
-			$('.my-photo').attr('src',photo_path);
+			$('.my-photo2').attr('src',photo_path);
 		}
 		const reader = new FileReader();
 		reader.readAsDataURL(photo);
 		reader.onload = function(){
-			$('.my-photo').attr('src',reader.result);
+			$('.my-photo2').attr('src',reader.result);
 		};
 	});
 	const delete_photo = document.getElementById('delete_photo');
@@ -50,7 +50,7 @@ window.onload = function(){
 			dataType:'json',
 			success:function(param){
 				if(param.result == 'success'){
-					$('.my-photo').attr('src', '${pageContext.request.contextPath}/images/face.png');
+					$('.my-photo2').attr('src', '${pageContext.request.contextPath}/images/face.png');
 					$('#delete_photo').hide(); 
 					alert('인바디 사진 삭제처리 되었습니다.');
 				}else if(param.result == 'logout'){
