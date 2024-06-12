@@ -41,19 +41,17 @@ window.onload = function(){
   	}
 	
 	//파일 미리보기
-	showImage('#oldFile1','#filename1','#output1','#newFile1','#fileExist1');
-	showImage('#oldFile2','#filename2','#output2','#newFile2','#fileExist2');
+	showImage('#filename1','#output1','newFile1','#fileExist1');
+	showImage('#filename2','#output2','newFile2','#fileExist2');
 	
-	function showImage(oldFileId,filenameId,outputId,newFileId,fileExistId){
-		let file_path1 = $(oldFileId).attr('src');
-		let file_path2 = $(newFileId).attr('src');
+	function showImage(filenameId,outputId,newFileId,fileExistId){
+		//let file_path1 = $(newFileId).attr('src');
 		$(filenameId).change(function(){		
 			let file = this.files[0];
 			
 			//사진 미업로드시, 이전 상태로 되돌리기
 			if(!file){
-				$(oldfileId).attr('src',file_path1);
-				$(newfileId).attr('src',file_path2);
+				$(outputId).empty();
 				return;
 			}
 			
@@ -67,8 +65,6 @@ window.onload = function(){
 			reader.readAsDataURL(file);
 			reader.onload = function(){
 				newPhoto.attr('src',reader.result);
-				newPhoto.attr('width','200');
-				newPhoto.attr('height','200');
 				newPhoto.attr('id',newFileId);
 				$(fileExistId).attr('value','1');
 			};
@@ -134,19 +130,19 @@ window.onload = function(){
 					<form id="writeForm" action="writeReview.do" method="post" enctype="multipart/form-data">
 						<input type="hidden" name="mem_num" value="${history.mem_num}">
 						<ul>
-							<li>
+							<li class="align">
 								<label for="title">제목</label>
 								<input type="text" name="rev_title" id="title" maxlength="20" class="input-check">
 							</li>
-							<li>
+							<li class="align">
 								<label for="reg_date">진행 날짜</label> ${history.sch_date}시
 								<input type="hidden" name="sch_num" value="${history.sch_num}">
 							</li>
-							<li>
+							<li class="align">
 								<label>트레이너</label> ${trainer.mem_name}
 								<input type="hidden" name="tra_num" value="${history.tra_num}">
 							</li>
-							<li>
+							<li class="align">
 								<label for="star">별점</label> 
 								<div class="star-rating" id="star">
 									<input type="radio" name="rev_grade" value="5" id="star5"><label for="star5">★</label>
@@ -173,7 +169,7 @@ window.onload = function(){
 							</li>
 							<p>
 							<li>
-							    <label for="content">수강후기</label><br><br>
+							    <label for="content">수강후기</label><br>
 								<textarea cols="50" rows="5" id="content" name="rev_content" class="input-check"></textarea>
 							</li>
 						</ul>

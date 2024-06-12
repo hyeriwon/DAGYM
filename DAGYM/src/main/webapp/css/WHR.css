@@ -143,3 +143,10 @@
     align-items: center;
     margin-bottom: 20px;
 }
+#qab_title{
+	width:600px;
+}
+#qab_content{
+	width:600px;
+	height:200px;
+}

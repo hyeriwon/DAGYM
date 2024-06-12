@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>NOTICE</title>
 <jsp:include page="/WEB-INF/views/common/font_css.jsp"/>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/SHG.css" type="text/css">
 <script type="text/javascript">
 window.onload = function() {
 	const myForm = document.getElementById('write_form');

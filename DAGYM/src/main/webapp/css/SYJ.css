@@ -14,6 +14,7 @@ ul li {
 .star-rating {
 	direction: rtl;
 	display: inline-block;
+	margin-right:0.5rem;
 }
 
 .star-rating input[type="radio"] {
@@ -70,7 +71,6 @@ div.chart-table3 h2 {
 	align-items: center;
 	padding-top: 15px;
 }
-
 .ctn1 {
 	display: flex;
 	justify-content: center; /* 수평 중앙 정렬 */
@@ -80,6 +80,7 @@ div.chart-table3 h2 {
 .ctn2 {
 	display: flex;
 	justify-content: flex-end;
+	align-items: center; /* 수직 중앙 정렬 */
 	gap: 0.5em;
 }
 
@@ -105,4 +106,26 @@ div.chart-table3 h2 {
 	max-height: 600px;
 	width: auto;
 	height: auto;
+}
+/*리뷰 버튼 위치 조정하기*/
+.align-container2 {
+	width:950px;
+	margin:0 auto;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+.right-button{
+	position: absolute;
+    right: 0; /* 오른쪽 끝에 위치 */
+}
+/*리뷰 작성/수정폼 label,input 높낮이 맞추기*/
+.align{
+	display: flex;
+	align-items: center; /* 수직 중앙 정렬 */
+	margin:10px 0;
+}
+.align label{
+	margin:0;
 }

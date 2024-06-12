@@ -110,36 +110,35 @@ $(function(){
 							<li>							
 								<div class="align-container">		
 									<div class="left-element">
-										<span class="like_img" data-num="${review.rev_num}">♡</span> 
-										<label>좋아요</label>
-										<span class="rev_like">${review.rev_like}</span>
+										<c:if test="${user_num != member.mem_num && user_auth!=9}">
+										<c:set var="len" value="${fn:length(member.mem_id)}"/>
+										<c:set var="maskedId" value="${fn:substring(member.mem_id, 0, 4)}"/>
+										<c:set var="maskedId" value="${maskedId}${fn:substring('********', 0, len-4)}"/>									
+											${maskedId}님
+										</c:if>
+										<c:if test="${user_num == member.mem_num || user_auth==9}">
+											${member.mem_id}님
+										</c:if>
+										${review.rev_reg_date}
+										<c:if test="${!empty review.rev_modify_date}">
+											(수정일 ${review.rev_modify_date})
+										</c:if>	
 									</div>	
 									<div class="right-element">
 										<label>조회수</label>
-										<span>${review.rev_hit}</span>																			
+										<span>${review.rev_hit}</span>																												
 									</div>																	
 								</div>
 							</li>
 							<hr size="1" noshade="noshade" width="100%">
-							<li class="divider1">
-								<c:if test="${user_num != member.mem_num && user_auth!=9}">
-									<c:set var="len" value="${fn:length(member.mem_id)}"/>
-									<c:set var="maskedId" value="${fn:substring(member.mem_id, 0, 4)}"/>
-									<c:set var="maskedId" value="${maskedId}${fn:substring('********', 0, len-4)}"/>
-									${maskedId} 님 
-								</c:if>
-								<c:if test="${user_num == member.mem_num || user_auth==9}">
-									${member.mem_id} 님
-								</c:if>
+							<li>
+								<label><b>진행 날짜</b></label> ${history.sch_date}시								
 							</li>
 							<li>
-								<label>진행 날짜</label> ${history.sch_date}시								
+								<label><b>트레이너</b></label> ${trainer.mem_name}
 							</li>
 							<li>
-								<label>트레이너</label> ${trainer.mem_name}
-							</li>
-							<li>
-								<label>별점</label>
+								<label><b>별점</b></label>
 								<c:forEach var="i" begin="1" end="5">
 									<c:if test="${i <= review.rev_grade}">
 										<span style="color:#ff5500;">★</span>
@@ -167,11 +166,10 @@ $(function(){
 								${review.rev_content}
 							</li>
 							<hr size="1" noshade="noshade" width="100%">	
-							<li class="ctn2">
-								<label>작성일</label> ${review.rev_reg_date}
-								<c:if test="${!empty review.rev_modify_date}">
-									<label>수정일</label> ${review.rev_modify_date}
-								</c:if>
+							<li class="ctn2">							
+								<span class="like_img" data-num="${review.rev_num}">♡</span> 
+								<span>좋아요</span>
+								<span class="rev_like">${review.rev_like}</span>																										
 							</li>
 						</ul>
 					<!-- content 끝 -->
@@ -179,7 +177,8 @@ $(function(){
 					</div>
 				</div>
 			</div>
-						<div class="align-center">
+						<div class="align-container2">
+							<div class="center-button">
 							<c:if test="${member.mem_num == user_num}">
 								<input type="button" value="수정" onclick="location.href='updateReviewForm.do?rev_num=${review.rev_num}'">
 								<input type="button" value="삭제" id="delReview">
@@ -216,7 +215,8 @@ $(function(){
 								</script>
 							</c:if>
 							<input type="button" value="목록" onclick="location.href='listReview.do'">
-							<div class="align-right">
+							</div>
+							<div class="right-button">
 							<c:if test="${user_auth==2 && member.mem_num != user_num}">
 								<input type="button" value="🚨신고하기" 
 								onclick="location.href='reportReviewForm.do?rev_num=${review.rev_num}'">
