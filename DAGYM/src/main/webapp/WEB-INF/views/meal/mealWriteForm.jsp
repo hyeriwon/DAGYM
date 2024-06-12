@@ -112,20 +112,22 @@ function selectMenu(tme_name) {
 					<form id="write_form" action="mealWrite.do" method="post">
 						<input type="hidden" id="meal_date" name="meal_date" value="${param.meal_date}">
 						<h3>${param.meal_date}</h3>
+						<br>
 						<ul>
 							<li><label for="menu_name">메뉴 검색</label>
 							
 							<input type="text" name="menu_name" id="menu_name" value="${menu_name}"  readonly>
 							<input type="button" id="modal-btn" value="검색">
 							</li>
-							
+							<br>
 							<li><label for="menu_type">식사분류</label>
-							<input type="radio" name="meal_time" value="0" id="meal_time0">아침 
-							<input type="radio" name="meal_time" value="1" id="meal_time1">점심 
-							<input type="radio" name="meal_time" value="2" id="meal_time2">저녁 
-							<input type="radio" name="meal_time" value="3" id="meal_time3">간식
+							<input type="radio" name="meal_time" value="0" id="meal_time0"> 아침 
+							<input type="radio" name="meal_time" value="1" id="meal_time1"> 점심 
+							<input type="radio" name="meal_time" value="2" id="meal_time2"> 저녁 
+							<input type="radio" name="meal_time" value="3" id="meal_time3"> 간식
 							</li>
 						</ul>
+						<br>
 						<div class="align-center">
 							<input type="submit" value="등록"> <input type="button" value="취소" onclick="location.href='list.do'">
 						</div>
