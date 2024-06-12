@@ -21,6 +21,7 @@ create table t_menu(
  tme_lipid number not null,		--메뉴 지방
  tme_photo varchar2(400) not null,	--메뉴 사진
  tme_type number not null,			--메뉴 식사 분류(아침:0,점심1,저녁:2,간식:3)
+ tme_recom number default 0 not null,
  constraint t_menu_pk primary key(tme_num)
 
 );
