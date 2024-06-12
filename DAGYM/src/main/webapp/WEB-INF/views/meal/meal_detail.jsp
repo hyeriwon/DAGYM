@@ -63,7 +63,7 @@ window.onload=function(){
 					<div class="team-title">
 						<div class="section-title">
 							<span>Meal</span>
-							<h2><c:if test="${user_auth >=8}">(관리자전용)</c:if>식사기록</h2>
+							<h2>식사기록<c:if test="${user_auth >=8}"> (관리자)</c:if></h2>
 						</div>
 					</div>
 				</div>

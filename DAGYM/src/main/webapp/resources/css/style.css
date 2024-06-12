@@ -43,6 +43,7 @@
 ---------------------*/
 form#search_form{
 	border:none;
+	padding:30px;
 }
 ul.search{
 	width:400px;
@@ -119,7 +120,12 @@ input[type="number"] {
 input[type="file"] {
 	margin-bottom:4px;
 }
-
+input[type="radio"] {
+	vertical-align: middle;
+}
+label {
+	margin-top:2px;
+}
 #register_form input[id="id"]{
 	width:223px;
 }
@@ -354,7 +360,6 @@ textarea {
 	max-width: 100%;
 	border-radius: 10px;
 }
-
 /*----------------------------------------*/
 
 /* Template default CSS
@@ -2327,43 +2332,43 @@ div.chart-table {
 }
 
 div.chart-table p {
-	border: 1px solid #363636;
+	border: 0px solid #363636;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
 
 div.chart-table h1 {
-	border: 1px solid #363636;
+	border: 0px solid #363636;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
 
 div.chart-table h2 {
-	border: 1px solid #363636;
+	border: 0px solid #363636;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
 
 div.chart-table h3 {
-	border: 1px solid #363636;
+	border: 0px solid #363636;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
 
 div.chart-table h4 {
-	border: 1px solid #363636;
+	border: 0px solid #363636;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
 
 div.chart-table h5 {
-	border: 1px solid #363636;
+	border: 0px solid #363636;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }
 
 div.chart-table h6 {
-	border: 1px solid #363636;
+	border: 0px solid #363636;
 	width: 100%;
 	font-family: "NanumSquareNeo", sans-serif;
 }

@@ -87,7 +87,7 @@
                 		<div class="section-title">
                     		<span>Inbody</span>
                             <h2> <c:if test="${user_auth == 2}">인바디 등록</c:if></h2>
-                            <h2> <c:if test="${user_auth >= 8}">회원목록(인바디)</c:if></h2>
+                            <h2> <c:if test="${user_auth >= 8}">회원목록 (인바디)</c:if></h2>
                     	</div>
                  </div>
              </div>

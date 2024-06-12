@@ -76,7 +76,6 @@ table caption {
 label, input[type="radio"] {
 	color: white;
 }
-
 .menu-image2 {
 	width: 100%; /* 이미지 너비를 100%로 설정하여 부모 요소에 맞춤 */
 	object-fit: cover; /* 이미지가 부모 요소를 채우도록 설정 */

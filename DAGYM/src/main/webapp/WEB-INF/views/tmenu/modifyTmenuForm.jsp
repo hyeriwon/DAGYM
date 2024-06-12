@@ -101,10 +101,10 @@ $('#filename').change(function(){
 								<label for="filename">메뉴 사진</label>
 								<input type="file" name="filename" id="filename" accept="image/gif,image/png,image/jpeg"><br>
 								<c:if test="${empty tmenu.tme_photo}">
-									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo">
+									<img src="${pageContext.request.contextPath}/images/face.png" width="200" height="200" class="my-photo2">
 								</c:if>
 								<c:if test="${!empty tmenu.tme_photo}">
-									<img src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="200" height="200" class="my-photo">
+									<img src="${pageContext.request.contextPath}/upload/${tmenu.tme_photo}" width="200" height="200" class="my-photo2">
 								</c:if>				
 							</li>
 							<li>
@@ -135,6 +135,7 @@ $('#filename').change(function(){
 								<textarea rows="5" cols="40" name="menu_content" id="menu_content">${tmenu.tme_content}</textarea>
 							</li>
 						</ul>
+						<br>
 						<div class="align-center">
 							<input type="submit" value="등록"> <input type="button" value="목록" onclick="location.href='tmenuList.do'">
 						</div>

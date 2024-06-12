@@ -38,9 +38,9 @@ $(function(){
 	});	
 	function displayLike(param){
 		if(param.status == 'noLikes'){
-			$('.like_img').css('color','#ddd');
+			$('.like_img').text('♡').css('color','#ddd');
 		}else if(param.status == 'yesLikes'){
-			$('.like_img').css('color','red');
+			$('.like_img').text('♥').css('color','red');
 		}		
 	}
 	function showCount(param){
@@ -98,21 +98,30 @@ $(function(){
              </div>
           </div>
           	<div class="row">
-				<div class="col-lg-12">    
-					<div class="chart-table">
+				<div class="col-lg-12 ctn1">    
+					<div class="chart-table3">
 					
 					<!-- content 시작 -->
-					<div>
-						<ul>
+					
+						<ul class="detailReview">
 							<li>
-								<h2>${review.rev_title}</h2>
-								<div class="align-right">
-										<label>조회수</label> ${review.rev_hit}<br>
-										<span class="like_img" data-num="${review.rev_num}">♥</span> <label>좋아요</label>
+								<h2>${review.rev_title}</h2>	
+							</li>
+							<li>							
+								<div class="align-container">		
+									<div class="left-element">
+										<span class="like_img" data-num="${review.rev_num}">♡</span> 
+										<label>좋아요</label>
 										<span class="rev_like">${review.rev_like}</span>
+									</div>	
+									<div class="right-element">
+										<label>조회수</label>
+										<span>${review.rev_hit}</span>																			
+									</div>																	
 								</div>
 							</li>
-							<li>
+							<hr size="1" noshade="noshade" width="100%">
+							<li class="divider1">
 								<c:if test="${user_num != member.mem_num && user_auth!=9}">
 									<c:set var="len" value="${fn:length(member.mem_id)}"/>
 									<c:set var="maskedId" value="${fn:substring(member.mem_id, 0, 4)}"/>
@@ -124,7 +133,9 @@ $(function(){
 								</c:if>
 							</li>
 							<li>
-								<label>진행 날짜</label> ${history.sch_date}시
+								<label>진행 날짜</label> ${history.sch_date}시								
+							</li>
+							<li>
 								<label>트레이너</label> ${trainer.mem_name}
 							</li>
 							<li>
@@ -138,29 +149,36 @@ $(function(){
 									</c:if>
 								</c:forEach>
 							</li>
-							<li>
+							<li class="exeImg">
+							<div id="beforeImg">
+								<c:if test="${!empty review.rev_filename1}">
+									<label>[before 사진]</label><br>
+									<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" id="before">
+								</c:if>
+							</div>
+							<div id="afterImg">
+								<c:if test="${!empty review.rev_filename2}">
+									<label>[after 사진]</label><br>
+									<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" id="after">
+								</c:if>
+							</div>
+							</li>
+							<li class="divider2">
 								${review.rev_content}
 							</li>
-							<li style="display:inline-block;padding-right:100px;">
-								<c:if test="${!empty review.rev_filename1}">
-									<label for="before">before 사진</label><br>
-									<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" id="before" width="200" height="200">
-								</c:if>
-							</li>
-							<li style="display:inline-block;">
-								<c:if test="${!empty review.rev_filename2}">
-									<label for="after">after 사진</label><br>
-									<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" id="after" width="200" height="200">
-								</c:if>
-							</li>	
-							<li class="align-right">
+							<hr size="1" noshade="noshade" width="100%">	
+							<li class="ctn2">
 								<label>작성일</label> ${review.rev_reg_date}
 								<c:if test="${!empty review.rev_modify_date}">
 									<label>수정일</label> ${review.rev_modify_date}
-								</c:if>	
-							</li>	
+								</c:if>
+							</li>
 						</ul>
-						<hr size="1" noshade="noshade" width="80%">
+					<!-- content 끝 -->
+					
+					</div>
+				</div>
+			</div>
 						<div class="align-center">
 							<c:if test="${member.mem_num == user_num}">
 								<input type="button" value="수정" onclick="location.href='updateReviewForm.do?rev_num=${review.rev_num}'">
@@ -205,13 +223,7 @@ $(function(){
 							</c:if>
 							</div>
 						</div>
-					</div>
-					<!-- content 끝 -->
-					
-					</div>
-				</div>
-			</div>
-	      </div>
+					</div>	    
 	  </section>
 	  
 	<jsp:include page="/WEB-INF/views/common/footer.jsp"/>

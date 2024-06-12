@@ -131,7 +131,7 @@
           		<div class="team-title">
                 		<div class="section-title">
                     		<span>Attend</span>
-                            <h2>출석체크</h2>
+                          <h2>출석체크<c:if test="${user_auth >=8}"> (관리자)</c:if></h2>
                     	</div>
                  </div>
              </div>

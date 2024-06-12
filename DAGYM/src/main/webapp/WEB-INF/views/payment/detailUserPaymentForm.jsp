@@ -84,7 +84,8 @@ $(function(){
 					
 					<!-- content 시작 -->
 					<input type="hidden" name="mem_num" value="${mem_num}">
-					<h3>[${mem_name}]님</h3>
+					<h4>[${mem_name}]님</h4>
+					<br>
 					<p>
 						보유한 회원권 : <span style="color:red;">${remain}</span>회
 						
@@ -94,6 +95,14 @@ $(function(){
 						</div>
 					</c:if>	
 					<c:if test="${count > 0}">
+					<div class="align-right">
+						<!-- 관리자가 아닌 경우에만 수정 버튼 -->
+						<c:if test="${member.mem_auth!=9}">
+							<input type="button" value="회원권등록" onclick="location.href='insertMembershipForm.do?mem_num=${mem_num}'">
+						</c:if>
+						<input type="button" value="목록" onclick="location.href='paymentMemberList.do'">
+					</div>
+					<br>
 					<table>
 						<thead>
 							<tr>
@@ -154,13 +163,6 @@ $(function(){
 						</div>
 					</c:if>
 					<br>
-					<div class="align-center">
-						<!-- 관리자가 아닌 경우에만 수정 버튼 -->
-						<c:if test="${member.mem_auth!=9}">
-							<input type="button" value="회원권등록" onclick="location.href='insertMembershipForm.do?mem_num=${mem_num}'">
-						</c:if>
-						<input type="button" value="목록" onclick="location.href='paymentMemberList.do'">
-					</div>
 					<!-- content 끝 -->
 					
 					</div>

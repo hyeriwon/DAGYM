@@ -42,8 +42,8 @@ $(function(){
   }
 	
 	//파일 미리보기
-	showImage('#oldFile1','#filename1','#output1','#newFile1','#fileExist1');
-	showImage('#oldFile2','#filename2','#output2','#newFile2','#fileExist2');
+	showImage('#before','#filename1','#output1','newFile1','#fileExist1');
+	showImage('#after','#filename2','#output2','newFile2','#fileExist2');
 	
 	function showImage(oldFileId,filenameId,outputId,newFileId,fileExistId){
 		let file_path1 = $(oldFileId).attr('src');
@@ -68,8 +68,6 @@ $(function(){
 			reader.readAsDataURL(file);
 			reader.onload = function(){
 				newPhoto.attr('src',reader.result);
-				newPhoto.attr('width','200');
-				newPhoto.attr('height','200');
 				newPhoto.attr('id',newFileId);
 				$(fileExistId).attr('value','1');
 			};
@@ -164,7 +162,7 @@ $(function(){
 								<input type="button" value="파일삭제" id="delFile1">
 								<div id="output1">
 									<c:if test="${!empty review.rev_filename1}">
-										<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" width="200" height="200" id="oldFile1">
+										<img src="${pageContext.request.contextPath}/upload/${review.rev_filename1}" id="before">
 									</c:if>
 								</div>		
 								<input type="hidden" name="rev_fileExist1" id="fileExist1" value="1">
@@ -175,7 +173,7 @@ $(function(){
 								<input type="button" value="파일삭제" id="delFile2">
 								<div id="output2">
 									<c:if test="${!empty review.rev_filename2}">
-										<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" width="200" height="200" class="my_photo">
+										<img src="${pageContext.request.contextPath}/upload/${review.rev_filename2}" id="after" class="my_photo">
 									</c:if>
 								</div>
 								<input type="hidden" name="rev_fileExist2" id="fileExist2" value="1">	

@@ -50,9 +50,6 @@ public class UpdateReviewAction implements Action{
 		review.setRev_content(request.getParameter("rev_content"));		
 		review.setRev_ip(request.getRemoteAddr()); 
 		
-		System.out.println("fileExist1: "+review.getRev_fileExist1());
-		System.out.println("fileExist2: "+review.getRev_fileExist2());
-		
 		//DB에 review 수정하기
 		dao.updateReview(review);
 		
