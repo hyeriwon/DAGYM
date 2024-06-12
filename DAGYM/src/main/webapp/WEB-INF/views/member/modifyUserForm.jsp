@@ -52,24 +52,24 @@ $(function(){
 		}
 	});
 	//프로필 사진 미리보기
-	let photo_path = $('.my-photo').attr('src');
+	let photo_path = $('.my-photo2').attr('src');
 	$('#photo').change(function(){
 		let photo = this.files[0];
 		//선택된 사진이 없을 때 마지막으로 수정된 이미지로 되돌리기
 		if(!photo){
-			$('.my-photo').attr('src',photo_path);
+			$('.my-photo2').attr('src',photo_path);
 		}
 		const reader = new FileReader();
 		reader.readAsDataURL(photo);
 		reader.onload = function(){
-			$('.my-photo').attr('src',reader.result);
+			$('.my-photo2').attr('src',reader.result);
 		};
 	});
 	
 	//새 비밀번호와 새 비밀번호 확인 일치 여부
 	$('#newCpw').keyup(function(){
 		if($('#newPw').val() == $('#newCpw').val()){
-			$('#check-msg').text('새 비밀번호와 새 비밀번호 확인이 일치합니다.').css('color','blue');
+			$('#check-msg').text('새 비밀번호와 새 비밀번호 확인이 일치합니다.').css('color','yellow');
 		}else{
 			$('#check-msg').text('');
 		}		
