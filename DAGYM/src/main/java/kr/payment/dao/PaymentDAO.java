@@ -269,29 +269,29 @@ public class PaymentDAO {
 		}
 		
 		//만료한 회원권 업데이트
-		public void updateExpMembership(int mem_num)throws Exception{
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-			String sql = null;
-			try {
-				//커넥션풀로부터 커넥션 할당
-				conn = DBUtil.getConnection();
-				//SQL문 작성
-				 sql = "UPDATE payment "
-			                + "SET pay_status = 2 "
-			                + "WHERE mem_num = ? AND CASE "
-			                + "WHEN pay_enroll = 10 THEN ADD_MONTHS(pay_reg_date, 5) "
-			                + "WHEN pay_enroll = 20 THEN ADD_MONTHS(pay_reg_date, 10) "
-			                + "WHEN pay_enroll = 30 THEN ADD_MONTHS(pay_reg_date, 18) "
-			                + "END < SYSDATE AND pay_status = 0";
-				 pstmt = conn.prepareStatement(sql);
-				 pstmt.setInt(1, mem_num);
-				 pstmt.executeUpdate();
-				
-			}catch(Exception e) {
-				throw new Exception(e);
-			}finally {
-				DBUtil.executeClose(null, pstmt, conn);
-			}
+		public void updateExpMembership() throws Exception {
+		    Connection conn = null;
+		    PreparedStatement pstmt = null;
+		    String sql = null;
+		    try {
+		        // 커넥션 풀로부터 커넥션 할당
+		        conn = DBUtil.getConnection();
+		        // SQL문 작성
+		        sql = "UPDATE payment "
+		                + "SET pay_status = 2 "
+		                + "WHERE pay_status = 0 "
+		                + "AND ( "
+		                + "      (pay_enroll = 10 AND ADD_MONTHS(pay_reg_date, 5) < SYSDATE) "
+		                + "   OR (pay_enroll = 20 AND ADD_MONTHS(pay_reg_date, 10) < SYSDATE) "
+		                + "   OR (pay_enroll = 30 AND ADD_MONTHS(pay_reg_date, 15) < SYSDATE) "
+		                + ")";
+		        pstmt = conn.prepareStatement(sql);
+		        pstmt.executeUpdate();
+
+		    } catch (Exception e) {
+		        throw new Exception(e);
+		    } finally {
+		        DBUtil.executeClose(null, pstmt, conn);
+		    }
 		}
 }

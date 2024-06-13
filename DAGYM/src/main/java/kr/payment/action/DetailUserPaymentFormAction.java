@@ -37,7 +37,7 @@ public class DetailUserPaymentFormAction implements Action{
 		String mem_name = dao.getMemberName(mem_num);
 		
 		//만료된 결제 내역 업데이트
-		dao.updateExpMembership(mem_num);
+		dao.updateExpMembership();
 		
 		//페이지 처리
 		PagingUtil page = new PagingUtil(Integer.parseInt(pageNum),count,10,10,"detailUserPaymentForm.do","mem_num="+mem_num);
