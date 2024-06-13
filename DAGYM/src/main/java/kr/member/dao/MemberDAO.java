@@ -399,7 +399,7 @@ public class MemberDAO {
 			}else if(mem_auth==2) {
 				if(db_member.getMem_sus_date()==null) sub_sql = "NULL";
 				else if(db_member.getMem_sus_date().toLocalDate().isBefore(LocalDate.now()) || 
-						db_member.getMem_sus_date().toLocalDate()==LocalDate.now()) sub_sql = "NULL";
+						db_member.getMem_sus_date().toLocalDate().isEqual(LocalDate.now())) sub_sql = "NULL";
 				else sub_sql = "mem_sus_date-5";
 				
 				sql = "UPDATE member SET mem_auth=?,mem_sus_date="+sub_sql+" WHERE mem_num=?";
